@@ -11,6 +11,7 @@
         android:text="Add a New Health Event" />
 
     <ExpandableListView
+        android:id="@+id/health_event_exapandableListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
