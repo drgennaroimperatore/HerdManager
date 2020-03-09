@@ -31,6 +31,10 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         if(position==0)
             return new AddHeardHealth();
+        if(position==1)
+            return new AddHerdProductivityFragment();
+        if(position==2)
+            return new AddHerdDynamicFragment();
 
         return PlaceholderFragment.newInstance(position + 1);
     }

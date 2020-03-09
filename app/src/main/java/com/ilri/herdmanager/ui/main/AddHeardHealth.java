@@ -52,6 +52,8 @@ public class AddHeardHealth extends Fragment {
 
         HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), healthEvents);
         mHealthEventExpandableListView.setAdapter(adapter);
+        mHealthEventExpandableListView.expandGroup(0);
+        mHealthEventExpandableListView.expandGroup(1);
 
     }
 }
