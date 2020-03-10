@@ -107,48 +107,17 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-            if(childPosition==0 && groupPosition==0)
-        {
-
-             inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.herd_health_event_disease_first_row, null);
 
 
 
-            Spinner diseaseSpinner = convertView.findViewById(R.id.health_event_disease_spinner);
 
-            String[] dummyDiseases = {"Disease 1", "Disease 2", "Disease 3"};
-            ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, dummyDiseases);
-            diseaseSpinner.setAdapter(signSpinnerAdapter);
-        }
-
-            if(childPosition==0 && groupPosition==1)
-            {
-
-                 inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.herd_health_event_sign_first_row, null);
-
-                Spinner signSpinner = convertView.findViewById(R.id.health_event_sign_spinner);
-
-                String[] dummySigns = {"Sign 1", "Sign 2", "Sign 3"};
-                ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, dummySigns);
-                signSpinner.setAdapter(signSpinnerAdapter);
-            }
-
-
-            if(childPosition>0 && groupPosition==0)
-            {
-
-                inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.herd_health_event_row, null);
-            }
 
-            if(childPosition>0 && groupPosition==1)
-            {
 
-                 inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.herd_health_event_row, null);
-            }
+
+
+
+
 
 
 

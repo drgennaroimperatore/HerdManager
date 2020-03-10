@@ -32,7 +32,8 @@
 
     <EditText
         android:id="@+id/editText4"
-        android:layout_width="51dp"
+        style="@style/NumberEditTextStyle"
+        android:layout_width="44dp"
         android:layout_height="29dp"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
@@ -41,12 +42,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.177"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toTopOf="@+id/textView9"
-        style="@style/NumberEditTextStyle"/>
+        app:layout_constraintTop_toTopOf="@+id/textView9" />
 
     <EditText
         android:id="@+id/editText5"
-        android:layout_width="51dp"
+        style="@style/NumberEditTextStyle"
+        android:layout_width="44dp"
         android:layout_height="29dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
@@ -56,8 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/editText4"
-        style="@style/NumberEditTextStyle"/>
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <TextView
         android:id="@+id/textView11"
@@ -74,23 +74,53 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="28dp"
         android:text="Animals Bought"
-        tools:layout_editor_absoluteX="11dp"
-        tools:layout_editor_absoluteY="193dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editText6"
-        android:layout_width="47dp"
+        style="@style/NumberEditTextStyle"
+        android:layout_width="44dp"
         android:layout_height="32dp"
         android:layout_marginStart="44dp"
         android:layout_marginLeft="44dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="15dp"
         android:ems="10"
         android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/editText7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/editText5"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Animals Sold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <EditText
+        android:id="@+id/editText7"
+        android:layout_width="44dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        tools:layout_editor_absoluteY="253dp"
+        style="@style/NumberEditTextStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
