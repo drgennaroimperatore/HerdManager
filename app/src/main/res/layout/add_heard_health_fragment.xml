@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/textView13"
+        style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -17,10 +18,10 @@
         android:text="Add a New Health Event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintVertical_bias="0.002" />
 
     <ExpandableListView
         android:id="@+id/health_event_exapandableListView"
@@ -45,7 +46,9 @@
         android:layout_marginRight="21dp"
         android:layout_marginBottom="74dp"
 
+        android:background="@color/colorPrimary"
         android:text="Add Sign"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/health_event_exapandableListView"
         app:layout_constraintEnd_toStartOf="@+id/health_event_show_disease_dialog"
         app:layout_constraintHorizontal_bias="1.0"
@@ -59,7 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="74dp"
+        android:background="@color/colorPrimary"
         android:text="Add Disease"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/health_event_exapandableListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

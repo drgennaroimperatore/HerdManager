@@ -39,11 +39,12 @@
 
     <TextView
         android:id="@+id/textView3"
+        style="@style/WhiteHeadingTextMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="Species"
+        android:text="Herd Information"
         app:layout_constraintBottom_toTopOf="@+id/species_radioGroup"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -51,6 +52,7 @@
 
     <TextView
         android:id="@+id/textView4"
+        style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -62,6 +64,7 @@
 
     <EditText
         android:id="@+id/editText"
+        style="@style/NumberEditTextStyle"
         android:layout_width="143dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
@@ -75,6 +78,7 @@
 
     <TextView
         android:id="@+id/textView5"
+        style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -86,7 +90,8 @@
 
     <EditText
         android:id="@+id/editText2"
-        android:layout_width="164dp"
+        style="@style/NumberEditTextStyle"
+        android:layout_width="143dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
@@ -98,45 +103,46 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:text="Add Farmer"
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="56dp"
         android:background="@color/colorPrimary"
+        android:text="Add Farmer"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButton3"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-         />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:text="Use Saved Farmer"
         android:id="@+id/imageButton3"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="76dp"
         android:layout_marginRight="76dp"
         android:background="@color/colorPrimary"
+        android:text="Use Saved Farmer"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageButton"
-        app:layout_constraintVertical_bias="0.0"
-         />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="118dp"
-        android:layout_height="wrap_content"
+        style="@style/WhiteHeadingTextMedium"
+        android:layout_width="245dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:text="Farmer Information"
         app:layout_constraintBottom_toTopOf="@+id/imageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.325" />
+        app:layout_constraintVertical_bias="0.638" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

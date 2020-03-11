@@ -39,10 +39,12 @@
         android:layout_marginLeft="12dp"
         android:ems="10"
         android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.177"
+        app:layout_constraintHorizontal_bias="0.176"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editText5"
@@ -54,10 +56,12 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/editText4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView11"
@@ -113,14 +117,15 @@
 
     <EditText
         android:id="@+id/editText7"
+        style="@style/NumberEditTextStyle"
         android:layout_width="44dp"
         android:layout_height="32dp"
         android:layout_marginStart="56dp"
         android:layout_marginLeft="56dp"
+        android:layout_marginBottom="444dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
-        tools:layout_editor_absoluteY="253dp"
-        style="@style/NumberEditTextStyle"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
