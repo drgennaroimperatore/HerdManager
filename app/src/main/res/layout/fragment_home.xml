@@ -22,15 +22,15 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/BlackHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add a Case"
+        android:text="Add a New Herd"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintHorizontal_bias="0.234"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_home"
-        style="@style/BlackHeadingTextSmall"/>
+        app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
     <TextView
         android:id="@+id/textView2"

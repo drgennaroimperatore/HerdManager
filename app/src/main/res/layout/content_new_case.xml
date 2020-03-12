@@ -103,26 +103,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/imageButton"
+        android:id="@+id/add_new_farmer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginRight="104dp"
         android:layout_marginBottom="56dp"
         android:background="@color/colorPrimary"
         android:text="Add Farmer"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/use_existing_farmer_button" />
 
     <Button
-        android:id="@+id/imageButton3"
+        android:id="@+id/use_existing_farmer_button"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
-        android:layout_marginRight="76dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginBottom="56dp"
         android:background="@color/colorPrimary"
         android:text="Use Saved Farmer"
         android:textColor="@color/black"
