@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">HerdManager</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Cases</string>
+    <string name="title_dashboard">Herds/Visits</string>
     <string name="title_notifications">Options</string>
     <string name="title_activity_new_case">Add A New Herd</string>
     <string name="tutorial_text">
