@@ -16,21 +16,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
-import com.ilri.herdmanager.HealthEventExpandableListAdapter;
-import com.ilri.herdmanager.NewDiseaseEventDialog;
-import com.ilri.herdmanager.NewSignEventDialog;
+import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
+import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.ui.dialogs.NewDiseaseEventDialog;
+import com.ilri.herdmanager.ui.dialogs.NewSignEventDialog;
 import com.ilri.herdmanager.R;
 
 import java.util.ArrayList;
 
-public class AddHeardHealth extends Fragment {
+public class AddHeardHealthEventFragment extends Fragment {
 
     private AddHeardHealthViewModel mViewModel;
     private ExpandableListView mHealthEventExpandableListView;
     private Button mShowAddSignButton, mShowAddDiseaseButton;
 
-    public static AddHeardHealth newInstance() {
-        return new AddHeardHealth();
+    public static AddHeardHealthEventFragment newInstance() {
+        return new AddHeardHealthEventFragment();
     }
 
     @Override

@@ -15,8 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.ilri.herdmanager.NewDynamicEventDialog;
-import com.ilri.herdmanager.NewSignEventDialog;
+import com.ilri.herdmanager.ui.dialogs.NewDynamicEventDialog;
 import com.ilri.herdmanager.R;
 
 public class AddHerdDynamicFragment extends Fragment {

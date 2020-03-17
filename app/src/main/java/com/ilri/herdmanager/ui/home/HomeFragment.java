@@ -14,8 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.ilri.herdmanager.MainActivity;
-import com.ilri.herdmanager.NewCaseActivity;
+import com.ilri.herdmanager.ui.MainActivity;
+import com.ilri.herdmanager.ui.NewCaseActivity;
 import com.ilri.herdmanager.R;
 
 public class HomeFragment extends Fragment {

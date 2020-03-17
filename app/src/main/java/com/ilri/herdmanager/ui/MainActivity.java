@@ -1,4 +1,4 @@
-package com.ilri.herdmanager;
+package com.ilri.herdmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.ilri.herdmanager.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

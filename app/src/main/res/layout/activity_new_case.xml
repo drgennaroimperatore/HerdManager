@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".NewCaseActivity">
+    tools:context=".ui.NewCaseActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"

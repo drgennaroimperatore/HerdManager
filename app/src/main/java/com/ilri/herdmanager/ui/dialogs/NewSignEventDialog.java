@@ -1,4 +1,4 @@
-package com.ilri.herdmanager;
+package com.ilri.herdmanager.ui.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+
+import com.ilri.herdmanager.R;
 
 
 public class NewSignEventDialog extends DialogFragment {

@@ -1,4 +1,4 @@
-package com.ilri.herdmanager.ui.main;
+package com.ilri.herdmanager.database.entities;
 
 public class HealthEvent {
 

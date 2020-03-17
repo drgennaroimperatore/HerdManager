@@ -1,15 +1,14 @@
-package com.ilri.herdmanager;
+package com.ilri.herdmanager.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.ilri.herdmanager.ui.main.HealthEvent;
+import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.HealthEvent;
 
 import java.util.ArrayList;
 

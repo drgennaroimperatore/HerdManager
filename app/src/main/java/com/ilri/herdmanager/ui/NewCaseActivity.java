@@ -1,16 +1,15 @@
-package com.ilri.herdmanager;
+package com.ilri.herdmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.ui.dialogs.NewFarmerDialog;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.View;
 import android.widget.Button;
