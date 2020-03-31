@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 
+import com.ilri.herdmanager.adapters.DynamicEventExpandableListAdapter;
 import com.ilri.herdmanager.ui.dialogs.NewDynamicEventDialog;
 import com.ilri.herdmanager.R;
 
@@ -22,6 +24,7 @@ public class AddHerdDynamicFragment extends Fragment {
 
     private AddHerdDynamicViewModel mViewModel;
     private Button mAddEventButton;
+    private ExpandableListView mExpandableListView;
 
     public static AddHerdDynamicFragment newInstance() {
         return new AddHerdDynamicFragment();
@@ -37,6 +40,7 @@ public class AddHerdDynamicFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAddEventButton = view.findViewById(R.id.button_add_herd_dynamic);
+
         mAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +56,11 @@ public class AddHerdDynamicFragment extends Fragment {
 
             }
         });
+        mExpandableListView = view.findViewById(R.id.dynamic_event_expandable_list_view);
+        DynamicEventExpandableListAdapter adapter = new DynamicEventExpandableListAdapter(getContext());
+        mExpandableListView.setAdapter(adapter);
+        mExpandableListView.expandGroup(0);
+        mExpandableListView.expandGroup(1);
     }
 
     @Override

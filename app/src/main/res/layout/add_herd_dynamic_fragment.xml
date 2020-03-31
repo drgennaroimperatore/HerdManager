@@ -41,4 +41,14 @@
         app:layout_constraintHorizontal_bias="0.798"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ExpandableListView
+        android:id="@+id/dynamic_event_expandable_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_add_herd_dynamic" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
