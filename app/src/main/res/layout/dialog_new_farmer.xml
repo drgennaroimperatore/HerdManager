@@ -103,7 +103,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spinnerFarmerDistrict"
         android:layout_width="157dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="396dp"
@@ -126,7 +126,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/spinnerFarmerWoreda"
         android:layout_width="157dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="332dp"
@@ -151,7 +151,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/spinnerFarmerRegoion"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="460dp"
