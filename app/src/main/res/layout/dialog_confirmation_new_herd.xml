@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView25"
+        style="@style/BlackHeadingTextLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm Action"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/textview_new_herd_confirmation_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="You are About to Insert a New Herd"
+        style="@style/BlackHeadingTextMedium"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Herd Species"
+        style="@style/BlackHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Species"
+        style="@style/GrayHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Herd Size"
+        style="@style/BlackHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0"
+        style="@style/GrayHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView40"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="In Date"
+        style="@style/BlackHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="00/00/0000"
+        style="@style/GrayHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Owned By"
+        style="@style/BlackHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First Name"
+        style="@style/GrayHeadingTextMedium"/>
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Second Name"
+        style="@style/GrayHeadingTextMedium"/>
+
+    <Button
+        android:id="@+id/button_confirm_new_herd"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Herd"
+        android:layout_marginTop="250dp"/>
+
+    <Button
+        android:id="@+id/button_cancel_new_herd"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@android:string/cancel"
+        android:layout_marginTop="5dp"/>
+</LinearLayout>

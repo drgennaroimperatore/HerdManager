@@ -9,6 +9,14 @@ import java.util.List;
 
 @Dao
 public interface HerdDao {
+
+    @Insert
+    void InsertHerd(Herd herd);
+
+    @Delete
+    void DeleteHerd(Herd herd);
+
+
     @Query("SELECT * FROM HerdVisit")
     List<HerdVisit> getAllHerdVisits();
 
@@ -17,4 +25,12 @@ public interface HerdDao {
 
     @Delete
     void DeleteHerdVisit(HerdVisit visit);
+
+    @Insert
+    void InsertFarmer(Farmer farmer);
+
+    @Delete
+    void DeleteFarmer(Farmer farmer);
+
+
 }

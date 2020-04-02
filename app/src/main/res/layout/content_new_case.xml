@@ -31,10 +31,18 @@
             android:text="Camel" />
 
         <RadioButton
-            android:id="@+id/radio1"
+            android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sheep" />
+
+        <RadioButton
+            android:id="@+id/radio4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goat" />
+
+
     </RadioGroup>
 
     <TextView
