@@ -1,69 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:layout_centerInParent="true">
 
     <TextView
         android:id="@+id/textView23"
-        style="@style/BlackHeadingText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Add a New Farmer"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
+        style="@style/BlackHeadingTextLarge"/>
 
     <TextView
         android:id="@+id/textView24"
-        style="@style/BlackHeadingText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Farmer Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129" />
+        android:text="Farmer Credentials"
+        style="@style/BlackHeadingTextMedium"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="380dp"
-        android:background="@color/black"
-        android:text="Add Farmer"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.807" />
+
+
 
     <EditText
         android:id="@+id/editText10"
         style="@style/NumberEditTextStyleDark"
         android:layout_width="151dp"
         android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="120dp"
+
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_marginBottom="5dp"
+        />
 
     <EditText
         android:id="@+id/editText11"
@@ -73,22 +47,40 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText10" />
+        android:layout_marginBottom="20dp" />
 
     <TextView
-        android:id="@+id/textView26"
-        style="@style/BlackHeadingText"
-        android:layout_width="wrap_content"
+        android:id="@+id/new_farmer_spinner_heading"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="252dp"
+        android:text="Farmer Location"
+        style="@style/BlackHeadingTextMedium"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/new_farmer_spinner_region_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Region"
+        style="@style/BlackHeadingText"/>
+
+
+    <Spinner
+        android:id="@+id/spinnerFarmerRegion"
+        android:layout_width="219dp"
+        android:layout_height="26dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+         />
+
+    <TextView
+        android:id="@+id/new_farmer_spinner_district_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="District"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        style="@style/BlackHeadingText"/>
+
+
 
     <Spinner
         android:id="@+id/spinnerFarmerDistrict"
@@ -96,54 +88,34 @@
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        />
 
     <TextView
-        android:id="@+id/textView27"
-        style="@style/BlackHeadingText"
-        android:layout_width="wrap_content"
+        android:id="@+id/new_farmer_spinner_kebele_heading"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="324dp"
-        android:text="Woreda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Kebele"
+        style="@style/BlackHeadingText"/>
+
+
 
     <Spinner
-        android:id="@+id/spinnerFarmerWoreda"
-        android:layout_width="219dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-    <TextView
-        android:id="@+id/textView28"
-        style="@style/BlackHeadingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="220dp"
-        android:layout_marginRight="220dp"
-        android:text="Region"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText11" />
-
-    <Spinner
-        android:id="@+id/spinnerFarmerRegoion"
+        android:id="@+id/spinnerFarmerKebele"
         android:layout_width="219dp"
         android:layout_height="23dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.172"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+         />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:background="@color/black"
+        android:text="Add Farmer"
+        android:textColor="@color/colorPrimary"
+         />
+
+
+</LinearLayout>

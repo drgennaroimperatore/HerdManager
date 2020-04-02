@@ -33,9 +33,9 @@ public class NewFarmerDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_new_farmer);
 
-        mChosenRegionSpinner = findViewById(R.id.spinnerFarmerRegoion);
+        mChosenRegionSpinner = findViewById(R.id.spinnerFarmerRegion);
         mChosenDistrictSpinner = findViewById(R.id.spinnerFarmerDistrict);
-        mChosenWoredaSpinner = findViewById(R.id.spinnerFarmerWoreda);
+        mChosenWoredaSpinner = findViewById(R.id.spinnerFarmerKebele);
 
         final LinkedList<String> regionsOfEthi = GeoData.getInstance().getRegions();
 
