@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp">
+
     <TextView
         android:id="@+id/textView25"
         style="@style/BlackHeadingTextLarge"
@@ -19,6 +26,7 @@
         android:layout_height="wrap_content"
         android:text="You are About to Insert a New Herd"
         style="@style/BlackHeadingTextMedium"
+        android:textAlignment="center"
         android:layout_marginBottom="15dp"/>
 
     <TextView
@@ -29,7 +37,7 @@
         style="@style/BlackHeadingTextMedium"/>
 
     <TextView
-        android:id="@+id/textView37"
+        android:id="@+id/textview_new_herd_confirmation_species"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Species"
@@ -43,7 +51,7 @@
         style="@style/BlackHeadingTextMedium"/>
 
     <TextView
-        android:id="@+id/textView39"
+        android:id="@+id/textview_new_herd_confirmation_herd_size"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="0"
@@ -57,7 +65,7 @@
         style="@style/BlackHeadingTextMedium"/>
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/textview_new_herd_confirmation_date_of_insertion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="00/00/0000"
@@ -71,14 +79,14 @@
         style="@style/BlackHeadingTextMedium"/>
 
     <TextView
-        android:id="@+id/textView43"
+        android:id="@+id/textview_new_herd_confirmation_farmer_firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="First Name"
         style="@style/GrayHeadingTextMedium"/>
 
     <TextView
-        android:id="@+id/textView44"
+        android:id="@+id/textview_new_herd_confirmation_farmer_secondname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Second Name"
@@ -90,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Herd"
-        android:layout_marginTop="250dp"/>
+        android:layout_marginTop="75dp"/>
 
     <Button
         android:id="@+id/button_cancel_new_herd"
@@ -98,5 +106,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@android:string/cancel"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>
+
 </LinearLayout>
