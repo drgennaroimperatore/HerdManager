@@ -39,7 +39,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
         public static ADDB getInstance(Context context) {
             if (mInstance == null) {
                 mInstance = Room.databaseBuilder(context, ADDB.class, "ADDB")
-                        .createFromAsset("ADDB").allowMainThreadQueries().build();
+                        .createFromAsset("ADDB.db").allowMainThreadQueries().build();
             }
 
             return mInstance;

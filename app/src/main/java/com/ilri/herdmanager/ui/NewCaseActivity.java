@@ -7,6 +7,9 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDao;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.ui.dialogs.NewCaseConfirmationDialog;
 import com.ilri.herdmanager.ui.dialogs.NewFarmerDialog;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
@@ -60,6 +63,8 @@ public class NewCaseActivity extends AppCompatActivity {
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final Context context = this;
+        final NewCaseActivity a = this;
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -73,13 +78,21 @@ public class NewCaseActivity extends AppCompatActivity {
                 String species = selectedButton.getText().toString();
                 int herdSize = Integer.parseInt(mHerdSizeTextView.getText().toString());
                 Date dateOfInsertion = new Date();
-                NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog(context,species,herdSize,dateOfInsertion,"fname","sname");
+                NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog(context,a, species,herdSize,dateOfInsertion,"fname","sname");
                 confirmationDialog.show();
 
 
-               /*Intent goToAddHerdVisitActivity = new Intent(getApplicationContext(), AddHerdVisitActivity.class);
-                startActivity(goToAddHerdVisitActivity);*/
+
             }
         });
+    }
+
+    public void goToEvents()
+    {
+        Intent goToAddHerdVisitActivity = new Intent(getApplicationContext(), AddHerdVisitActivity.class);
+        startActivity(goToAddHerdVisitActivity);
+
+
+
     }
 }

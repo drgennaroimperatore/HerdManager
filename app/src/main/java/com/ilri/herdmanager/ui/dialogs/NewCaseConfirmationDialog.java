@@ -10,6 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDao;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.ui.NewCaseActivity;
+import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
 import java.util.Date;
 
@@ -22,12 +28,13 @@ public class NewCaseConfirmationDialog extends Dialog {
 
     TextView mSpeciesTextView, mHerdSizeTextView, mDateTextView, mFnameTextView, mSnameTextView;
     Button mAddHerdButton, mCancelHerdButton;
+    NewCaseActivity mActivity;
 
     public NewCaseConfirmationDialog(@NonNull Context context) {
         super(context);
     }
 
-    public NewCaseConfirmationDialog(@NonNull Context context, String species, int herdSize, Date date, String fname, String sname)
+    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species, int herdSize, Date date, String fname, String sname)
     {
         super(context);
         mSpecies = species;
@@ -35,6 +42,7 @@ public class NewCaseConfirmationDialog extends Dialog {
         mDate = date;
         mSname = sname;
         mFname = fname;
+        mActivity = activity;
 
 
 
@@ -59,6 +67,16 @@ public class NewCaseConfirmationDialog extends Dialog {
         mAddHerdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                HerdDao dao = HerdDatabase.getInstance(mActivity).getHerdDao();
+
+                Herd herd = new Herd();
+
+               herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
+
+                dao.InsertHerd(herd);
+
+              mActivity.goToEvents();
 
             }
         });

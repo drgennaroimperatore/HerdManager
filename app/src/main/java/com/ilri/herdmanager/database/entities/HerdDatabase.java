@@ -23,7 +23,7 @@ public abstract class HerdDatabase extends RoomDatabase
         if(mInstance == null)
         {
             mInstance = Room.databaseBuilder(context,
-                    HerdDatabase.class, "database-name").build();
+                    HerdDatabase.class, "herddb").allowMainThreadQueries().build();
         }
         return mInstance;
     }
