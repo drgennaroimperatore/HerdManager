@@ -12,9 +12,9 @@
         android:layout_marginTop="64dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.309"
-        tools:layout_editor_absoluteX="3dp">
+        app:layout_constraintVertical_bias="0.309">
 
 
         <RadioButton
@@ -54,9 +54,11 @@
         android:layout_marginLeft="16dp"
         android:text="Herd Information"
         app:layout_constraintBottom_toTopOf="@+id/species_radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.83" />
+        app:layout_constraintVertical_bias="0.863" />
 
     <TextView
         android:id="@+id/textView4"
@@ -65,8 +67,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:text="Herd Size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/species_radioGroup" />
 
@@ -89,10 +93,10 @@
         style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="16dp"
         android:text="Date"
         app:layout_constraintEnd_toEndOf="@+id/editText2"
-        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_new_herd_size" />
 
@@ -101,17 +105,21 @@
         style="@style/NumberEditTextStyle"
         android:layout_width="143dp"
         android:layout_height="44dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="date"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_date_of_insertion" />
+        app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_new_herd_size"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/add_new_farmer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="54dp"
         android:layout_marginEnd="104dp"
         android:layout_marginRight="104dp"
         android:layout_marginBottom="56dp"
@@ -119,20 +127,26 @@
         android:text="Add Farmer"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/use_existing_farmer_button" />
+        app:layout_constraintEnd_toStartOf="@+id/use_existing_farmer_button"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/use_existing_farmer_button"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginRight="68dp"
         android:layout_marginBottom="56dp"
         android:background="@color/colorPrimary"
         android:text="Use Saved Farmer"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.987"
+        app:layout_constraintStart_toStartOf="@+id/textView26"
         app:layout_constraintTop_toTopOf="@+id/imageButton"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -141,14 +155,30 @@
         style="@style/WhiteHeadingTextMedium"
         android:layout_width="245dp"
         android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="8dp"
         android:text="Farmer Information"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText2"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintVertical_bias="0.13" />
+
+    <TextView
+        android:id="@+id/new_case_textview_farmer_assignment_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="162dp"
+        android:text="No Farmer Assigned"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_red_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/species_radioGroup"
+        app:layout_constraintVertical_bias="0.046" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

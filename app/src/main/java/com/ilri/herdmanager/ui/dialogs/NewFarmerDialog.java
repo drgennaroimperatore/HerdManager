@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -15,7 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.kmz.GeoData;
+import com.ilri.herdmanager.ui.NewCaseActivity;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,15 +27,24 @@ import java.util.LinkedList;
 public class NewFarmerDialog extends Dialog {
 
 
+    private EditText mEditTextFarmerFirstName, mEditTextFarmerSecondName;
     private Spinner mChosenRegionSpinner, mChosenDistrictSpinner, mChosenWoredaSpinner;
-    public NewFarmerDialog(@NonNull Context context) {
+    private Button mAddNewFarmerButton;
+    private NewCaseActivity mNewCaseActivity;
+
+    public NewFarmerDialog(@NonNull Context context, NewCaseActivity a) {
+
         super(context);
+        mNewCaseActivity = a;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_new_farmer);
+
+        mEditTextFarmerFirstName = findViewById(R.id.editText_new_farmer_firstName);
+        mEditTextFarmerSecondName = findViewById(R.id.editText_new_farmer_secondName);
 
         mChosenRegionSpinner = findViewById(R.id.spinnerFarmerRegion);
         mChosenDistrictSpinner = findViewById(R.id.spinnerFarmerDistrict);
@@ -86,6 +99,23 @@ public class NewFarmerDialog extends Dialog {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        mAddNewFarmerButton = findViewById(R.id.button_add_new_farmer);
+        mAddNewFarmerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Farmer farmer = new Farmer();
+                farmer.firstName= mEditTextFarmerFirstName.getText().toString();
+                farmer.secondName = mEditTextFarmerSecondName.getText().toString();
+                farmer.region = mChosenRegionSpinner.getSelectedItem().toString();
+                farmer.district= mChosenDistrictSpinner.getSelectedItem().toString();
+                farmer.kebele = mChosenWoredaSpinner.getSelectedItem().toString();
+
+                mNewCaseActivity.assignFarmer(farmer);
+                dismiss();
             }
         });
 

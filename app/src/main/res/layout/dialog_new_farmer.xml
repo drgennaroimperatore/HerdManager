@@ -35,7 +35,7 @@
 
 
     <EditText
-        android:id="@+id/editText10"
+        android:id="@+id/editText_new_farmer_firstName"
         style="@style/NumberEditTextStyleDark"
         android:layout_width="151dp"
         android:layout_height="37dp"
@@ -47,7 +47,7 @@
         />
 
     <EditText
-        android:id="@+id/editText11"
+        android:id="@+id/editText_new_farmer_secondName"
         style="@style/NumberEditTextStyleDark"
         android:layout_width="151dp"
         android:layout_height="37dp"
@@ -115,7 +115,7 @@
          />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_add_new_farmer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"

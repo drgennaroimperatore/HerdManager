@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
@@ -29,19 +30,19 @@ public class NewCaseConfirmationDialog extends Dialog {
     TextView mSpeciesTextView, mHerdSizeTextView, mDateTextView, mFnameTextView, mSnameTextView;
     Button mAddHerdButton, mCancelHerdButton;
     NewCaseActivity mActivity;
+    Farmer mFarmer;
 
     public NewCaseConfirmationDialog(@NonNull Context context) {
         super(context);
     }
 
-    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species, int herdSize, Date date, String fname, String sname)
+    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species, int herdSize, Date date, Farmer farmer)
     {
         super(context);
         mSpecies = species;
         mHerdSize = herdSize;
         mDate = date;
-        mSname = sname;
-        mFname = fname;
+        mFarmer = farmer;
         mActivity = activity;
 
 
@@ -60,6 +61,9 @@ public class NewCaseConfirmationDialog extends Dialog {
         mHerdSizeTextView.setText(String.valueOf(mHerdSize));
         mDateTextView = findViewById(R.id.textview_new_herd_confirmation_date_of_insertion);
         mFnameTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_firstname);
+        mFnameTextView.setText(mFarmer.firstName);
+        mSnameTextView.setText(mFarmer.secondName);
+
         mSpeciesTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_secondname);
 
         mAddHerdButton = findViewById(R.id.button_confirm_new_herd);
@@ -72,7 +76,9 @@ public class NewCaseConfirmationDialog extends Dialog {
 
                 Herd herd = new Herd();
 
-               herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
+                herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
+                herd.farmerID = (int)dao.InsertFarmer(mFarmer);
+
 
                 dao.InsertHerd(herd);
 

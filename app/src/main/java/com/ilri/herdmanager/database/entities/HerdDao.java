@@ -11,7 +11,7 @@ import java.util.List;
 public interface HerdDao {
 
     @Insert
-    void InsertHerd(Herd herd);
+    long InsertHerd(Herd herd);
 
     @Delete
     void DeleteHerd(Herd herd);
@@ -20,14 +20,20 @@ public interface HerdDao {
     @Query("SELECT * FROM HerdVisit")
     List<HerdVisit> getAllHerdVisits();
 
+    @Query("SELECT * FROM Herd")
+    List<Herd> getAllHerds();
+
+    @Query("SELECT * FROM Farmer")
+    List<Farmer> getAllFarmers();
+
     @Insert
-    void InsertHerdVisit(HerdVisit visit);
+    long InsertHerdVisit(HerdVisit visit);
 
     @Delete
     void DeleteHerdVisit(HerdVisit visit);
 
     @Insert
-    void InsertFarmer(Farmer farmer);
+    long InsertFarmer(Farmer farmer);
 
     @Delete
     void DeleteFarmer(Farmer farmer);
