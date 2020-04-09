@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FarmerRadioButton">
+        <attr name="farmer_rb_farmer_name" format="string"/>
+    </declare-styleable>
+
+</resources>
