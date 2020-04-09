@@ -25,12 +25,23 @@ public class FarmerRadioButton extends BaseRadioButton {
 
     @Override
     protected void initAttributes() {
+     int index = R.styleable.FarmerRadioButton_farmer_rb_farmer_name;
 
-
+     if(typedArrayHasValue(index)) {
+      String title = a.getString(index);
+      mTitleTextView.setText(title);
+     }
 
     }
 
-    @Override
+ private boolean typedArrayHasValue(int index) {
+  return a.hasValue(index);
+ }
+
+
+
+
+ @Override
     protected void populateViews() {
 
     }

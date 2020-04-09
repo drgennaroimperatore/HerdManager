@@ -11,6 +11,7 @@ import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
+import com.ilri.herdmanager.ui.dialogs.ExisitingFarmerDialog;
 import com.ilri.herdmanager.ui.dialogs.FarmerNotAssignedWarningDialog;
 import com.ilri.herdmanager.ui.dialogs.NewCaseConfirmationDialog;
 import com.ilri.herdmanager.ui.dialogs.NewFarmerDialog;
@@ -72,6 +73,14 @@ public class NewCaseActivity extends AppCompatActivity {
         });
 
         mUseExistingFarmer= findViewById(R.id.use_existing_farmer_button);
+
+        mUseExistingFarmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExisitingFarmerDialog dialog = new ExisitingFarmerDialog(NewCaseActivity.this);
+                dialog.show();
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 

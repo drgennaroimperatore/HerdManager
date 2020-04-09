@@ -1,5 +1,7 @@
 package com.ilri.herdmanager.ui.dialogs;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +13,20 @@ import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
 
-public class ExisitingFarmerDialog extends DialogFragment {
-    public ExisitingFarmerDialog() {
-        super();
-    }
+public class ExisitingFarmerDialog extends Dialog {
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_existing_farmer,null);
+    Context mContext;
+
+    public ExisitingFarmerDialog(Context context)
+    {
+        super(context);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        setContentView(R.layout.dialog_existing_farmer);
     }
+
+
 }
