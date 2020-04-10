@@ -9,7 +9,18 @@ import com.ilri.herdmanager.R;
 public class FarmerRadioButton extends BaseRadioButton {
    private TextView mTitleTextView;
 
-    public FarmerRadioButton(Context context, AttributeSet attrs, int layoutResId, int[] styleable) {
+   public FarmerRadioButton (Context context)
+   {
+       super(context, R.layout.custom_farmer_radio_button, R.styleable.FarmerRadioButton);
+   }
+
+   public FarmerRadioButton (Context context, AttributeSet attr)
+   {
+       super(context, R.layout.custom_farmer_radio_button, R.styleable.FarmerRadioButton);
+       initAttributes();
+   }
+
+   public FarmerRadioButton(Context context, AttributeSet attrs, int layoutResId, int[] styleable) {
         super(context, attrs, R.layout.custom_farmer_radio_button, R.styleable.FarmerRadioButton);
     }
 
@@ -27,6 +38,7 @@ public class FarmerRadioButton extends BaseRadioButton {
     protected void initAttributes() {
      int index = R.styleable.FarmerRadioButton_farmer_rb_farmer_name;
 
+     mTitleTextView.setText("Test");
      if(typedArrayHasValue(index)) {
       String title = a.getString(index);
       mTitleTextView.setText(title);

@@ -14,6 +14,15 @@ public abstract class BaseRadioButton extends ConstraintLayout {
     protected int[] styleable;
 
 
+    public BaseRadioButton(Context context, int layoutResId, int[] styleable) {
+        super(context);
+
+        initLayoutResId(layoutResId);
+        initStyleable(styleable);
+        initView();
+    }
+
+
     public BaseRadioButton(Context context, AttributeSet attrs, int layoutResId, int[]styleable ) {
         super(context, attrs);
 

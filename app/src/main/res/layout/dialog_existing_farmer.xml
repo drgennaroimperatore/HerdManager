@@ -19,24 +19,36 @@
 
     <com.ilri.herdmanager.ui.customui.CustomRadioGroup
         android:id="@+id/existing_farmer_RadioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="411dp"
+        android:layout_height="547dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView29"
+        app:layout_constraintVertical_bias="0.495">
 
         <com.ilri.herdmanager.ui.customui.FarmerRadioButton
             android:id="@+id/existingFarmerRadioButton"
             android:layout_width="136dp"
             android:layout_height="97dp"
-            android:layout_marginTop="44dp"
             android:background="@drawable/farmer_radio_button_unselected_state"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </com.ilri.herdmanager.ui.customui.FarmerRadioButton>
+
+        <com.ilri.herdmanager.ui.customui.FarmerRadioButton
+            android:id="@+id/existingFarmerRadioButton2"
+            android:layout_width="136dp"
+            android:layout_height="97dp"
+            android:background="@drawable/farmer_radio_button_unselected_state"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/existingFarmerRadioButton"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.ilri.herdmanager.ui.customui.FarmerRadioButton>
+
     </com.ilri.herdmanager.ui.customui.CustomRadioGroup>
 
 

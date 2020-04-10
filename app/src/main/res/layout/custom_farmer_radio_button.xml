@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,8 @@
     android:layout_gravity="center"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
-    android:paddingTop="16dp">
+    android:paddingTop="16dp"
+    android:background="@drawable/farmer_radio_button_unselected_state">
 
     <TextView
         android:id="@+id/radio_button_farmerName"
@@ -17,19 +18,13 @@
         android:ellipsize="end"
         android:gravity="center"
         android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.237"
         tools:text="Fake title" />
 
-    <TextView
-        android:id="@+id/radio_button_two_fields_description"
-        style="@style/BlackHeadingTextMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="1"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button_farmerName"
-        tools:text="Fake description" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
