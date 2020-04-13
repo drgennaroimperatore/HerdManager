@@ -42,6 +42,8 @@ public class FarmerRadioButton extends BaseRadioButton {
 
    }
 
+   public Farmer getAssociatedFarmer() {return mFarmerAssociatedWithButton;}
+
 
 
    public FarmerRadioButton(Context context, AttributeSet attrs, int layoutResId, int[] styleable) {

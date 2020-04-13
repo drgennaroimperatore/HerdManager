@@ -30,19 +30,19 @@ public class NewCaseConfirmationDialog extends Dialog {
     TextView mSpeciesTextView, mHerdSizeTextView, mDateTextView, mFnameTextView, mSnameTextView;
     Button mAddHerdButton, mCancelHerdButton;
     NewCaseActivity mActivity;
-    Farmer mFarmer;
+    int mFarmerID;
 
     public NewCaseConfirmationDialog(@NonNull Context context) {
         super(context);
     }
 
-    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species, int herdSize, Date date, Farmer farmer)
+    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species, int herdSize, Date date, int farmerID)
     {
         super(context);
         mSpecies = species;
         mHerdSize = herdSize;
         mDate = date;
-        mFarmer = farmer;
+        mFarmerID = farmerID;
         mActivity = activity;
 
 
@@ -61,8 +61,11 @@ public class NewCaseConfirmationDialog extends Dialog {
         mHerdSizeTextView.setText(String.valueOf(mHerdSize));
         mDateTextView = findViewById(R.id.textview_new_herd_confirmation_date_of_insertion);
         mFnameTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_firstname);
-        mFnameTextView.setText(mFarmer.firstName);
-        mSnameTextView.setText(mFarmer.secondName);
+
+       Farmer farmer = HerdDatabase.getInstance(mActivity).getHerdDao().getFarmerByID(mFarmerID).get(0);
+
+        mFnameTextView.setText(farmer.firstName);
+        mSnameTextView.setText(farmer.secondName);
 
         mSpeciesTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_secondname);
 
@@ -77,7 +80,7 @@ public class NewCaseConfirmationDialog extends Dialog {
                 Herd herd = new Herd();
 
                 herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
-                herd.farmerID = (int)dao.InsertFarmer(mFarmer);
+                herd.farmerID = mFarmerID;
 
 
                 dao.InsertHerd(herd);

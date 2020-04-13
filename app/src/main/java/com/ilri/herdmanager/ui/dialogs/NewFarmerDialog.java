@@ -18,6 +18,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.Farmer;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.kmz.GeoData;
 import com.ilri.herdmanager.ui.NewCaseActivity;
 
@@ -113,6 +114,8 @@ public class NewFarmerDialog extends Dialog {
                 farmer.region = mChosenRegionSpinner.getSelectedItem().toString();
                 farmer.district= mChosenDistrictSpinner.getSelectedItem().toString();
                 farmer.kebele = mChosenWoredaSpinner.getSelectedItem().toString();
+
+                HerdDatabase.getInstance(mNewCaseActivity).getHerdDao().InsertFarmer(farmer);
 
                 mNewCaseActivity.assignFarmer(farmer);
                 dismiss();

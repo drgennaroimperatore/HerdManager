@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(foreignKeys = {@ForeignKey(entity = Farmer.class, parentColumns = "ID", childColumns = "farmerID")})
 public class Herd {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int ID;
     public int speciesID;
     public int farmerID;

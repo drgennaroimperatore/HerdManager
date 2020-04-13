@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Farmer
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int ID;
     public String firstName, secondName, region, district, kebele;
 

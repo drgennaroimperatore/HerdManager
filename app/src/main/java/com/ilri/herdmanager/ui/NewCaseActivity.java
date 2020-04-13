@@ -101,7 +101,7 @@ public class NewCaseActivity extends AppCompatActivity {
 
                 if(mIsFarmerAssigned) {
                     NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
-                            (context, a, species, herdSize, dateOfInsertion, mAssignedFarmer);
+                            (context, a, species, herdSize, dateOfInsertion, mAssignedFarmer.ID);
                     confirmationDialog.show();
                 }
                 else

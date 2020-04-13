@@ -26,6 +26,9 @@ public interface HerdDao {
     @Query("SELECT * FROM Farmer")
     List<Farmer> getAllFarmers();
 
+    @Query("SELECT * FROM Farmer WHERE Farmer.ID= :ID")
+    List<Farmer> getFarmerByID(int ID);
+
     @Insert
     long InsertHerdVisit(HerdVisit visit);
 

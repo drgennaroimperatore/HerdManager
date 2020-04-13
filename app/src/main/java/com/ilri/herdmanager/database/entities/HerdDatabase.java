@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.ilri.herdmanager.database.converters.DateConverter;
 
-@Database(entities = {Herd.class, Farmer.class, HerdVisit.class, ProductivityEvent.class}, version= 1)
+@Database(entities = {Herd.class, Farmer.class, HerdVisit.class, ProductivityEvent.class}, version= 2)
 @TypeConverters({DateConverter.class})
 public abstract class HerdDatabase extends RoomDatabase
 {
@@ -23,7 +23,7 @@ public abstract class HerdDatabase extends RoomDatabase
         if(mInstance == null)
         {
             mInstance = Room.databaseBuilder(context,
-                    HerdDatabase.class, "herddb").allowMainThreadQueries().build();
+                    HerdDatabase.class, "herddb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
         }
         return mInstance;
     }
