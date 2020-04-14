@@ -77,7 +77,7 @@ public class NewCaseActivity extends AppCompatActivity {
         mUseExistingFarmer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ExisitingFarmerDialog dialog = new ExisitingFarmerDialog(NewCaseActivity.this);
+                ExisitingFarmerDialog dialog = new ExisitingFarmerDialog(NewCaseActivity.this, a);
                 dialog.show();
             }
         });

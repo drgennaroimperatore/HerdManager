@@ -4,14 +4,19 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.Farmer;
 
-public class CustomRadioGroup extends ConstraintLayout {
+public class CustomRadioGroup extends LinearLayout{
 
     private static OnCustomRadioButtonListener onClickListener;
+
+    FarmerRadioButton m_SelectedButton = null;
 
     public CustomRadioGroup(Context context) {
         super(context);
@@ -29,11 +34,19 @@ public class CustomRadioGroup extends ConstraintLayout {
         CustomRadioGroup.onClickListener = onClickListener;
     }
 
+    public void initialise()
+
+    {
+        setAllButtonsToUnselectedState();
+        setFirstButtonToSelectedState();
+    }
+
     @Override
     public void addView(View c, int index, ViewGroup.LayoutParams params) {
         final View child = c;
 
         if (child instanceof BaseRadioButton) {
+
             child.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -42,6 +55,7 @@ public class CustomRadioGroup extends ConstraintLayout {
                     setAllButtonsToUnselectedState();
                     setSelectedButtonToSelectedState(selectedButton);
                     initOnClickListener(selectedButton);
+                    m_SelectedButton = (FarmerRadioButton) selectedButton;
 
                 }
             } );
@@ -50,15 +64,26 @@ public class CustomRadioGroup extends ConstraintLayout {
         super.addView(child, index, params);
     }
 
+    private void setFirstButtonToSelectedState()
+    {
+        LinearLayout container = this;
+        View child = container.getChildAt(0);
+        if(child instanceof BaseRadioButton)
+        {
+            setSelectedButtonToSelectedState((BaseRadioButton) child);
+            m_SelectedButton = (FarmerRadioButton) child;
+        }
+    }
+
     private void setAllButtonsToUnselectedState() {
-        ConstraintLayout container = this;
+        LinearLayout container = this;
 
         for (int i = 0; i < container.getChildCount(); i++) {
             View child = container.getChildAt(i);
 
             if (child instanceof BaseRadioButton) {
                 BaseRadioButton containerView = (BaseRadioButton) child;
-                setButtonToUnselectedState(containerView);
+                setButtonToUnselectedState((BaseRadioButton) child);
             }
         }
     }
@@ -68,7 +93,7 @@ public class CustomRadioGroup extends ConstraintLayout {
 
         containerView.setAlpha(viewWithFilter);
         containerView.setBackground(getResources()
-                .getDrawable(R.drawable.farmer_radio_button_selected_state));
+                .getDrawable(R.drawable.farmer_radio_button_unselected_state));
     }
 
     private void setSelectedButtonToSelectedState(BaseRadioButton selectedButton) {
@@ -76,13 +101,18 @@ public class CustomRadioGroup extends ConstraintLayout {
 
         selectedButton.setAlpha(viewWithoutFilter);
         selectedButton.setBackground(getResources()
-                .getDrawable(R.drawable.farmer_radio_button_unselected_state));
+                .getDrawable(R.drawable.farmer_radio_button_selected_state));
     }
 
     private void initOnClickListener(View selectedButton) {
         if(onClickListener != null) {
             onClickListener.onClick(selectedButton);
         }
+    }
+
+    public Farmer getSelectedFarmer()
+    {
+        return m_SelectedButton.getAssociatedFarmer();
     }
 
 

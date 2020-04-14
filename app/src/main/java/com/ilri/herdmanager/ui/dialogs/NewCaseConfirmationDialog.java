@@ -61,6 +61,7 @@ public class NewCaseConfirmationDialog extends Dialog {
         mHerdSizeTextView.setText(String.valueOf(mHerdSize));
         mDateTextView = findViewById(R.id.textview_new_herd_confirmation_date_of_insertion);
         mFnameTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_firstname);
+        mSnameTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_secondname);
 
        Farmer farmer = HerdDatabase.getInstance(mActivity).getHerdDao().getFarmerByID(mFarmerID).get(0);
 

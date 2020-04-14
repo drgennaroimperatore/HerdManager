@@ -3,6 +3,6 @@
     android:id="@+id/bkg_alert_dialog">
 
     <corners android:radius="10dp" />
-    <solid android:color="@android:color/white" />
+    <solid android:color="@color/colorPrimary" />
 
 </shape>
