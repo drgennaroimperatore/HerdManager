@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.ilri.herdmanager.ui.dashboard.DashboardFragment"
+        android:name="com.ilri.herdmanager.ui.manageherds.ManageHerdsAndVisitsFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_manage_herds_and_visits" />
 
     <fragment
         android:id="@+id/navigation_notifications"

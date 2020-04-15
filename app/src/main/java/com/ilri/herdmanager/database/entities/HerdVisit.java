@@ -10,8 +10,8 @@ import java.util.Date;
 public class HerdVisit {
     @PrimaryKey
     public int ID;
-    Date HerdVisitDate;
+    public Date HerdVisitDate;
     public int herdSizeAtVisit;
-    int HerdID;
+    public int HerdID;
 
 }

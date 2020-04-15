@@ -17,8 +17,8 @@ public interface HerdDao {
     void DeleteHerd(Herd herd);
 
 
-    @Query("SELECT * FROM HerdVisit")
-    List<HerdVisit> getAllHerdVisits();
+    @Query("SELECT * FROM HerdVisit WHERE HerdID= :id")
+    List<HerdVisit> getAllHerdVisitsByHerdId(int id);
 
     @Query("SELECT * FROM Herd")
     List<Herd> getAllHerds();
@@ -28,6 +28,18 @@ public interface HerdDao {
 
     @Query("SELECT * FROM Farmer WHERE Farmer.ID= :ID")
     List<Farmer> getFarmerByID(int ID);
+
+    @Query("SELECT * FROM Herd WHERE Herd.farmerID =:farmerID")
+    List<Herd> getHerdsByFarmerID(int farmerID);
+
+    @Query("SELECT * FROM herdvisit WHERE Herdvisit.HerdID =:herdID")
+    List<HerdVisit> getAllHerdVisitsByHerdID(int herdID);
+
+    @Query("SELECT * FROM DiseasesForHealthEvent WHERE DiseasesForHealthEvent.healthEventID= :healthEventID")
+    List<DiseasesForHealthEvent> getDiseasesForHealthEvent(int healthEventID);
+
+    @Query("SELECT * FROM SignsForHealthEvent WHERE SignsForHealthEvent.healthEventID =:healthEventID")
+    List<SignsForHealthEvent> getSignsForHealthEvent(int healthEventID);
 
     @Insert
     long InsertHerdVisit(HerdVisit visit);
@@ -40,6 +52,24 @@ public interface HerdDao {
 
     @Delete
     void DeleteFarmer(Farmer farmer);
+
+    @Insert
+    long InsertHealthEvent(HealthEvent healthEvent);
+
+    @Delete
+    void DeleteHerdEvent(HealthEvent healthEvent);
+
+    @Insert
+    long InsertDiseaseForHealthEvent(DiseasesForHealthEvent diseasesForHealthEvent);
+
+    @Delete
+    void DeleteDiseaseForHealthEvent(DiseasesForHealthEvent diseasesForHealthEvent);
+
+    @Insert
+    long InsertSignForHealthEvent(SignsForHealthEvent signsForHealthEvent);
+
+    @Delete
+    void DeleteSignsForHealthEvent(SignsForHealthEvent signsForHealthEvent);
 
 
 }

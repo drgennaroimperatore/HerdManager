@@ -27,15 +27,14 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     {
         mContext = context;
 
-        mSignsList.add(0,new HealthEvent());
+       // mSignsList.add(0,new HealthEvent());
 
-        mDiseaseList.add(0,new HealthEvent());
+       // mDiseaseList.add(0,new HealthEvent());
 
 
         mGroupHeaders = new ArrayList<>();
         mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
-
 
     }
 
@@ -106,19 +105,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
-
-
-
-
                 convertView = inflater.inflate(R.layout.herd_health_event_row, null);
-
-
-
-
-
-
-
-
 
 
         }
