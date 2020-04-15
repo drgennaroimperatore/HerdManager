@@ -22,9 +22,9 @@ import java.util.List;
 public class NewSignEventDialog extends DialogFragment {
 
     Context mContext;
-    List<Signs> mSigns = null;
+    List<String> mSigns = null;
 
-    public NewSignEventDialog(Context context, List<Signs> signs)
+    public NewSignEventDialog(Context context, List<String> signs)
     {
         mContext=context;
         mSigns = signs;

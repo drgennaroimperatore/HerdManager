@@ -18,6 +18,7 @@ import android.widget.ExpandableListView;
 
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.Diseases;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
@@ -83,6 +84,9 @@ public class AddHeardHealthEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                List<Diseases> = ADDB.getInstance(getContext()).getADDBDAO().geal
+
                 DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext());
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -102,7 +106,12 @@ public class AddHeardHealthEventFragment extends Fragment {
 
                 Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                 List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
-                DialogFragment dialogFragment = new NewSignEventDialog(getContext(),  new ArrayList<Signs>());
+                List<String> sNames = new ArrayList<>();
+
+                for(Signs s: signs)
+                    sNames.add(s.Name);
+
+                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

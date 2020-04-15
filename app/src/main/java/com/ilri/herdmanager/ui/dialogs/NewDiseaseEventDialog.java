@@ -14,13 +14,17 @@ import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
 
+import java.util.List;
+
 public class NewDiseaseEventDialog extends DialogFragment {
 
     Context mContext;
+    List<String> mDiseases;
 
-    public NewDiseaseEventDialog(Context context)
+    public NewDiseaseEventDialog(Context context, List<String> diseases)
     {
         mContext = context;
+        mDiseases = diseases;
     }
 
     @Override
@@ -51,8 +55,8 @@ public class NewDiseaseEventDialog extends DialogFragment {
 
         Spinner diseaseSpinner = view.findViewById(R.id.health_event_disease_spinner);
 
-        String[] dummyDiseases = {"Disease 1", "Disease 2", "Disease 3"};
-        ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, dummyDiseases);
+      //  String[] dummyDiseases = {"Disease 1", "Disease 2", "Disease 3"};
+        ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mDiseases);
         diseaseSpinner.setAdapter(signSpinnerAdapter);
 
 
