@@ -1,10 +1,12 @@
 package com.ilri.herdmanager.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
@@ -13,6 +15,7 @@ import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdManager;
+import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
 import java.util.List;
 
@@ -98,7 +101,7 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         View view = convertView;
 
         int farmerID = mGroupHeaders.get(groupPosition).ID;
-       Herd herd = mHerdManager.getAllHerdsForFarmer(mContext,farmerID).get(childPosition);
+       final Herd herd = mHerdManager.getAllHerdsForFarmer(mContext,farmerID).get(childPosition);
 
         if(view== null)
         {
@@ -111,6 +114,31 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         String herdSpeciesInfo = ADDB.getInstance(mContext).getADDBDAO().getAnimalNameFromID(speciesID).get(0);
         TextView herdInfoHeaderTV = view.findViewById(R.id.manage_herd_visits_list_secondary_row_herd_info_textview);
         herdInfoHeaderTV.setText("Herd of "+ herdSpeciesInfo);
+
+        Button addVisitToHerdButton, consultHerdVisitInformationButton;
+
+        addVisitToHerdButton = view.findViewById(R.id.herd_vist_list_secondary_row_add_visit_button);
+
+        addVisitToHerdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToAddHerdVisitActivity = new Intent(mContext, AddHerdVisitActivity.class);
+                goToAddHerdVisitActivity.putExtra("herdID",herd.ID);
+                mContext.startActivity(goToAddHerdVisitActivity);
+
+            }
+        });
+        consultHerdVisitInformationButton = view.findViewById(R.id.herd_vist_list_secondary_row_consult_visits_button);
+
+        consultHerdVisitInformationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
+
 
 
 

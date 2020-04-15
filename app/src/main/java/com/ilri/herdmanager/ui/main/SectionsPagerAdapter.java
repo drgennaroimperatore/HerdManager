@@ -19,10 +19,17 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
     private final Context mContext;
+    private int mHerdID = -155;
 
     public SectionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         mContext = context;
+    }
+
+    public SectionsPagerAdapter(Context context, FragmentManager fm, int herdID) {
+        super(fm);
+        mContext = context;
+        mHerdID = herdID;
     }
 
     @Override
@@ -30,7 +37,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
         if(position==0)
-            return new AddHeardHealthEventFragment();
+            return new AddHeardHealthEventFragment(mHerdID);
         if(position==1)
             return new AddHerdProductivityFragment();
         if(position==2)

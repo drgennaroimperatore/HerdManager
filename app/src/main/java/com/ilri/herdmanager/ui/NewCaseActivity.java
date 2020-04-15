@@ -114,9 +114,9 @@ public class NewCaseActivity extends AppCompatActivity {
         });
     }
 
-    public void goToEvents()
+    public void goToEvents(Intent goToAddHerdVisitActivity)
     {
-         Intent goToAddHerdVisitActivity = new Intent(getApplicationContext(), AddHerdVisitActivity.class);
+
          startActivity(goToAddHerdVisitActivity);
 
     }

@@ -13,15 +13,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.Signs;
+
+import java.util.List;
 
 
 public class NewSignEventDialog extends DialogFragment {
 
     Context mContext;
+    List<Signs> mSigns = null;
 
-    public NewSignEventDialog(Context context)
+    public NewSignEventDialog(Context context, List<Signs> signs)
     {
         mContext=context;
+        mSigns = signs;
     }
 
     @Nullable
@@ -37,8 +43,10 @@ public class NewSignEventDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
         Spinner signSpinner = view.findViewById(R.id.health_event_sign_spinner);
 
-        String[] dummySigns = {"Sign 1", "Sign 2", "Sign 3"};
-        ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, dummySigns);
+
+
+        // String[] dummySigns = {"Sign 1", "Sign 2", "Sign 3"};
+        ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mSigns);
         signSpinner.setAdapter(signSpinnerAdapter);
     }
 }

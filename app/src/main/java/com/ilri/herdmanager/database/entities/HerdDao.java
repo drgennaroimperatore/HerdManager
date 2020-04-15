@@ -23,6 +23,9 @@ public interface HerdDao {
     @Query("SELECT * FROM Herd")
     List<Herd> getAllHerds();
 
+    @Query("SELECT * FROM Herd WHERE ID = :herdID")
+    List<Herd> getHerdByID(int herdID);
+
     @Query("SELECT * FROM Farmer")
     List<Farmer> getAllFarmers();
 

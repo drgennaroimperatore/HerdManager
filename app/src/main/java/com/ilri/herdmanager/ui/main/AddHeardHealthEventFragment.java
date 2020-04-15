@@ -17,22 +17,37 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
+import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.Signs;
+import com.ilri.herdmanager.managers.HerdManager;
 import com.ilri.herdmanager.ui.dialogs.NewDiseaseEventDialog;
 import com.ilri.herdmanager.ui.dialogs.NewSignEventDialog;
 import com.ilri.herdmanager.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddHeardHealthEventFragment extends Fragment {
 
     private AddHeardHealthViewModel mViewModel;
     private ExpandableListView mHealthEventExpandableListView;
     private Button mShowAddSignButton, mShowAddDiseaseButton;
+    private int mHerdID = -155;
 
     public static AddHeardHealthEventFragment newInstance() {
         return new AddHeardHealthEventFragment();
     }
+
+    public AddHeardHealthEventFragment() {}
+
+    public AddHeardHealthEventFragment(int herdID)
+    {
+        mHerdID= herdID;
+    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -85,7 +100,9 @@ public class AddHeardHealthEventFragment extends Fragment {
             public void onClick(View v) {
 
 
-                DialogFragment dialogFragment = new NewSignEventDialog(getContext());
+                Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                DialogFragment dialogFragment = new NewSignEventDialog(getContext(),  new ArrayList<Signs>());
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

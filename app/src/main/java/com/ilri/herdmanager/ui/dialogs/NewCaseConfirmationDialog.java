@@ -2,6 +2,7 @@ package com.ilri.herdmanager.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -84,9 +85,12 @@ public class NewCaseConfirmationDialog extends Dialog {
                 herd.farmerID = mFarmerID;
 
 
-                dao.InsertHerd(herd);
+               int herdId = (int) dao.InsertHerd(herd);
 
-              mActivity.goToEvents();
+                Intent goToAddHerdVisitActivity = new Intent(mActivity, AddHerdVisitActivity.class);
+                goToAddHerdVisitActivity.putExtra("herdID",herdId);
+
+              mActivity.goToEvents(goToAddHerdVisitActivity);
 
             }
         });
