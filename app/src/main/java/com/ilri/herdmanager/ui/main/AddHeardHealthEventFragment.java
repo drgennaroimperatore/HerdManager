@@ -85,9 +85,13 @@ public class AddHeardHealthEventFragment extends Fragment {
             public void onClick(View v) {
 
                 Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                List<Diseases> = ADDB.getInstance(getContext()).getADDBDAO().geal
+                List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
+                List<String> diseaseNames = new ArrayList<>();
 
-                DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext());
+                for(Diseases d: diseases)
+                    diseaseNames.add(d.Name);
+
+                DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(),diseaseNames);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

@@ -12,6 +12,9 @@ public interface ADDBDAO {
     @Query("SELECT Signs.Id, Signs.Probability, Signs.Name, Signs.Type_Of_Value FROM Signs, SignCores, Animals WHERE Animals.Id = :animalID AND SignCores.AnimalID = Animals.Id AND SignCores.SignID = Signs.Id")
     public List<Signs> getAllSignsForAnimal(int animalID);
 
+    @Query("SELECT Diseases.Id, Diseases.Name FROM animals,diseases,priorsdiseases WHERE Animals.Id =:animalID AND PriorsDiseases.AnimalID= :animalID AND PriorsDiseases.DiseaseID = Diseases.Id")
+    public List<Diseases> getAllDiseasesForAninal(int animalID);
+
     @Query("DELETE FROM Animals")
     public void deleteAllAnimals();
 
