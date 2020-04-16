@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity(foreignKeys = {@ForeignKey(entity = HerdVisit.class, parentColumns = "ID", childColumns = "herdVisitID")})
 public class HealthEvent {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int ID;
     public int herdVisitID;
 

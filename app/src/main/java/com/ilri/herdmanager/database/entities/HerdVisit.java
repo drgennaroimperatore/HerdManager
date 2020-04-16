@@ -8,7 +8,8 @@ import java.util.Date;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Herd.class, parentColumns = "ID", childColumns = "HerdID")})
 public class HerdVisit {
-    @PrimaryKey
+
+    @PrimaryKey(autoGenerate = true)
     public int ID;
     public Date HerdVisitDate;
     public int herdSizeAtVisit;

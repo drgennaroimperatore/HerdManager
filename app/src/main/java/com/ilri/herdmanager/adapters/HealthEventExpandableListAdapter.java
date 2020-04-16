@@ -8,15 +8,20 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.ADDBDAO;
+import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 
 import java.util.ArrayList;
 
 public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter {
    Context mContext;
-   ArrayList<HealthEvent> mSignsList = new ArrayList<>();
-   ArrayList<HealthEvent> mDiseaseList = new ArrayList<>();
+   ArrayList<SignsForHealthEvent> mSignsList = new ArrayList<>();
+   ArrayList<DiseasesForHealthEvent> mDiseaseList = new ArrayList<>();
    ArrayList<String> mGroupHeaders;
+   ADDBDAO addbdao = null;
 
     @Override
     public int getGroupCount() {
@@ -26,6 +31,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public HealthEventExpandableListAdapter(Context context, ArrayList<HealthEvent> healthEvents)
     {
         mContext = context;
+        addbdao = ADDB.getInstance(context).getADDBDAO();
 
        // mSignsList.add(0,new HealthEvent());
 
@@ -104,9 +110,49 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            if(groupPosition==0)
+                convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
+            if(groupPosition==1)
+                convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
 
-                convertView = inflater.inflate(R.layout.herd_health_event_row, null);
+        }
 
+        TextView name = null;
+        TextView numberOfAffectedBabies = null;
+        TextView numberOfAffecedYoung = null;
+        TextView numberOfAffectedOld = null;
+
+        if(groupPosition==0) // disease
+        {
+            DiseasesForHealthEvent dhe = mDiseaseList.get(childPosition);
+
+            name = convertView.findViewById(R.id.health_event_disease_row_diseaseName);
+            name.setText(addbdao.getDiseaseNameFromId(dhe.diseaseID).get(0));
+
+            numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
+            numberOfAffecedYoung = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_young_text_view);
+            numberOfAffectedOld = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_old_text_view);
+
+            numberOfAffectedBabies.setText(String.valueOf(dhe.numberOfAffectedBabies));
+            numberOfAffecedYoung.setText(String.valueOf(dhe.numberOfAffectedYoung));
+            numberOfAffectedOld.setText(String.valueOf(dhe.numberOfAffectedOld));
+
+        }
+
+        if(groupPosition==1) // signs
+        {
+            SignsForHealthEvent she = mSignsList.get(childPosition);
+
+            name = convertView.findViewById(R.id.health_event_sign_row_signName);
+            name.setText(addbdao.getSignNameFromID(she.signID).get(0));
+
+            numberOfAffectedBabies = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_babies_text_view);
+            numberOfAffecedYoung = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_young_text_view);
+            numberOfAffectedOld = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_old_text_view);
+
+            numberOfAffectedBabies.setText(String.valueOf(she.numberOfAffectedBabies));
+            numberOfAffecedYoung.setText(String.valueOf(she.numberOfAffectedYoung));
+            numberOfAffectedOld.setText(String.valueOf(she.numberOfAffectedOld));
 
         }
         return convertView;
@@ -115,5 +161,16 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public void addNewSign (SignsForHealthEvent she)
+    {
+        mSignsList.add(she);
+        notifyDataSetChanged();
+    }
+    public void addNewDisease(DiseasesForHealthEvent dhe)
+    {
+        mDiseaseList.add(dhe);
+        notifyDataSetChanged();
     }
 }

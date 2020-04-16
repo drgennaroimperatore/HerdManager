@@ -14,15 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.Diseases;
+import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.Signs;
+import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.managers.HerdManager;
 import com.ilri.herdmanager.ui.dialogs.NewDiseaseEventDialog;
 import com.ilri.herdmanager.ui.dialogs.NewSignEventDialog;
@@ -37,6 +40,7 @@ public class AddHeardHealthEventFragment extends Fragment {
     private ExpandableListView mHealthEventExpandableListView;
     private Button mShowAddSignButton, mShowAddDiseaseButton;
     private int mHerdID = -155;
+    private HealthEventExpandableListAdapter mAdapter;
 
     public static AddHeardHealthEventFragment newInstance() {
         return new AddHeardHealthEventFragment();
@@ -77,8 +81,11 @@ public class AddHeardHealthEventFragment extends Fragment {
 
         HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), healthEvents);
         mHealthEventExpandableListView.setAdapter(adapter);
+        mAdapter = adapter;
         mHealthEventExpandableListView.expandGroup(0);
         mHealthEventExpandableListView.expandGroup(1);
+
+      final  AddHeardHealthEventFragment f = this;
 
         mShowAddDiseaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +98,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                 for(Diseases d: diseases)
                     diseaseNames.add(d.Name);
 
-                DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(),diseaseNames);
+                DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(),diseaseNames,f );
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -131,6 +138,15 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
 
+    }
 
+    public void addDiseaseToList(DiseasesForHealthEvent dhe)
+    {
+       mAdapter.addNewDisease(dhe);
+    }
+
+    public void addSignToList(SignsForHealthEvent she)
+    {
+        mAdapter.addNewSign(she);
     }
 }

@@ -11,4 +11,5 @@ public class SignsForHealthEvent
     public int ID;
     public int signID;
     public int healthEventID;
+    public int numberOfAffectedBabies, numberOfAffectedYoung,numberOfAffectedOld;
 }

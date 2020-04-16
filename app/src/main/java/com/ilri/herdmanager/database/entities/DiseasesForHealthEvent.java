@@ -10,4 +10,5 @@ public class DiseasesForHealthEvent {
     public int ID;
     public int diseaseID;
     public int healthEventID;
+    public int numberOfAffectedBabies, numberOfAffectedYoung,numberOfAffectedOld;
 }
