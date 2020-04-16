@@ -115,7 +115,7 @@ public class NewFarmerDialog extends Dialog {
                 farmer.district= mChosenDistrictSpinner.getSelectedItem().toString();
                 farmer.kebele = mChosenWoredaSpinner.getSelectedItem().toString();
 
-                HerdDatabase.getInstance(mNewCaseActivity).getHerdDao().InsertFarmer(farmer);
+                farmer.ID = (int)  HerdDatabase.getInstance(mNewCaseActivity).getHerdDao().InsertFarmer(farmer);
 
                 mNewCaseActivity.assignFarmer(farmer);
                 dismiss();

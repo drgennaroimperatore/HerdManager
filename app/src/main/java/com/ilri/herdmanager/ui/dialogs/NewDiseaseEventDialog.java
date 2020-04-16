@@ -64,11 +64,11 @@ public class NewDiseaseEventDialog extends DialogFragment {
 
       final  Spinner diseaseSpinner = view.findViewById(R.id.health_event_disease_spinner);
         mEditTextAffectedBabies = view.findViewById(R.id.editText_disease_health_event_baby);
-        mEditTextAffectedBabies.setText("0");
+        mEditTextAffectedBabies.setHint("0");
         mEditTextAffectedYoung = view.findViewById(R.id.editText_disease_health_event_young);
-        mEditTextAffectedYoung.setText("0");
+        mEditTextAffectedYoung.setHint("0");
         mEditTextAffectedOld = view.findViewById(R.id.editText_disease_health_event_old);
-        mEditTextAffectedOld.setText("0");
+        mEditTextAffectedOld.setHint("0");
 
         mButtonAddDiseaseToHealthEvent = view.findViewById(R.id.button_disease_health_add_disease);
 

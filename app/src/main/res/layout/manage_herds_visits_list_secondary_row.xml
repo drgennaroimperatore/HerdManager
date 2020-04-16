@@ -32,6 +32,6 @@
         android:layout_height="50dp"
         android:layout_marginRight="15dp"
         android:background="@color/colorPrimary"
-        android:text="Consult Visit Info"
+        android:text="Past Visits"
         android:textColor="@color/black"></Button>
 </LinearLayout>

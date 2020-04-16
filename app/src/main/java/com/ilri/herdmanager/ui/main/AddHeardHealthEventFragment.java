@@ -18,6 +18,7 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
+import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.Diseases;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
@@ -122,7 +123,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                 for(Signs s: signs)
                     sNames.add(s.Name);
 
-                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames);
+                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,f);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -131,7 +132,6 @@ public class AddHeardHealthEventFragment extends Fragment {
                 ft.addToBackStack(null);
 
                 dialogFragment.show(ft, "dialog");
-
 
             }
         });
@@ -148,5 +148,13 @@ public class AddHeardHealthEventFragment extends Fragment {
     public void addSignToList(SignsForHealthEvent she)
     {
         mAdapter.addNewSign(she);
+    }
+
+    public HealthEventContainer getHealthEventContainer()
+    {
+       HealthEventContainer hce = new HealthEventContainer();
+       hce.mDhes= mAdapter.getDiseasesForHealthEvent();
+       hce.mShes = mAdapter.getSignsForHealthEvent();
+       return hce;
     }
 }

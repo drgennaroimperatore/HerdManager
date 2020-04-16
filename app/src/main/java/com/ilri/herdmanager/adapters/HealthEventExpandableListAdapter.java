@@ -173,4 +173,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mDiseaseList.add(dhe);
         notifyDataSetChanged();
     }
+
+    public ArrayList<DiseasesForHealthEvent> getDiseasesForHealthEvent() {return mDiseaseList;}
+    public ArrayList<SignsForHealthEvent> getSignsForHealthEvent() {return mSignsList;}
 }

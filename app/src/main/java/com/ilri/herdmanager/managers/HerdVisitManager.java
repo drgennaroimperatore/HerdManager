@@ -13,10 +13,10 @@ import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import java.util.Date;
 import java.util.List;
 
-class HerdVisitManager {
+public class HerdVisitManager {
     private static final HerdVisitManager ourInstance = new HerdVisitManager();
 
-    static HerdVisitManager getInstance() {
+   public static HerdVisitManager getInstance() {
         return ourInstance;
     }
 
@@ -87,6 +87,8 @@ class HerdVisitManager {
         //create a dynamic event for this visit
 
     }
+
+
 
     public List<HerdVisit> getVisitsForHerd(Context context, int herdID)
     {

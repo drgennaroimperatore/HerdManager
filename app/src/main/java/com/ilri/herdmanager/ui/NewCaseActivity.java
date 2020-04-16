@@ -52,7 +52,7 @@ public class NewCaseActivity extends AppCompatActivity {
         mUseNewFarmer = findViewById(R.id.add_new_farmer_button);
         mSpeciesRadioGroup = findViewById(R.id.species_radioGroup);
         mHerdSizeTextView = findViewById(R.id.new_herd_activity_textview_new_herd_size);
-        mHerdSizeTextView.setText("0");
+        mHerdSizeTextView.setHint("0");
         mHerdSizeDateTextView = findViewById(R.id.new_herd_activity_textview_date_of_insertion);
         mAssignedFarmerStatusTextView = findViewById(R.id.new_case_textview_farmer_assignment_status);
 
@@ -96,7 +96,14 @@ public class NewCaseActivity extends AppCompatActivity {
                int selectedID = mSpeciesRadioGroup.getCheckedRadioButtonId();
                 RadioButton selectedButton = findViewById(selectedID);
                 String species = selectedButton.getText().toString();
-                int herdSize = Integer.parseInt(mHerdSizeTextView.getText().toString());
+                int herdSize = 0;
+                try {
+                    herdSize = Integer.parseInt(mHerdSizeTextView.getText().toString());
+                }
+                catch (Exception e) {
+
+                    herdSize =0;
+                }
                 Date dateOfInsertion = new Date();
 
                 if(mIsFarmerAssigned) {
