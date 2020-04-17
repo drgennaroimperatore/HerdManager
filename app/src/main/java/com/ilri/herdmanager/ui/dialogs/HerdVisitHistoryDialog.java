@@ -5,16 +5,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.adapters.HerdVisitHistoryListAdapter;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.HerdVisit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HerdVisitHistoryDialog extends DialogFragment {
-    public HerdVisitHistoryDialog() {
+    ListView mHerdVisitsListView;
+    int mHerdID = -155;
+    public HerdVisitHistoryDialog(int herdID) {
         super();
+        mHerdID = herdID;
     }
 
     @Override
@@ -37,6 +47,12 @@ public class HerdVisitHistoryDialog extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+       List<HerdVisit> visits= HerdDatabase.getInstance(getContext()).getHerdDao().getAllHerdVisitsByHerdID(mHerdID);
+
+        mHerdVisitsListView = view.findViewById(R.id.listview_herdvisithistory_dialog);
+        HerdVisitHistoryListAdapter adapter = new HerdVisitHistoryListAdapter(getActivity(),0,visits );
+        mHerdVisitsListView.setAdapter(adapter);
 
     }
 }

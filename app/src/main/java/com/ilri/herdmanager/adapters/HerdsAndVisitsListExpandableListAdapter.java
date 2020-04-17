@@ -138,7 +138,7 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         consultHerdVisitInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HerdVisitHistoryDialog dialog = new HerdVisitHistoryDialog();
+                HerdVisitHistoryDialog dialog = new HerdVisitHistoryDialog(herd.ID);
                 dialog.show(mFragmentManager,"dialog");
 
             }
