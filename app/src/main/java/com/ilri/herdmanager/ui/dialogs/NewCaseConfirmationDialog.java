@@ -19,6 +19,7 @@ import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.ui.NewCaseActivity;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NewCaseConfirmationDialog extends Dialog {
@@ -60,7 +61,12 @@ public class NewCaseConfirmationDialog extends Dialog {
         mSpeciesTextView.setText(mSpecies);
         mHerdSizeTextView = findViewById(R.id.textview_new_herd_confirmation_herd_size);
         mHerdSizeTextView.setText(String.valueOf(mHerdSize));
+
         mDateTextView = findViewById(R.id.textview_new_herd_confirmation_date_of_insertion);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String selectedDate = sdf.format(mDate);
+        mDateTextView.setText(selectedDate);
+
         mFnameTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_firstname);
         mSnameTextView = findViewById(R.id.textview_new_herd_confirmation_farmer_secondname);
 
@@ -83,6 +89,7 @@ public class NewCaseConfirmationDialog extends Dialog {
 
                 herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
                 herd.farmerID = mFarmerID;
+
 
 
                int herdId = (int) dao.InsertHerd(herd);

@@ -10,22 +10,25 @@ import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
-import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.ui.dialogs.ExisitingFarmerDialog;
 import com.ilri.herdmanager.ui.dialogs.FarmerNotAssignedWarningDialog;
 import com.ilri.herdmanager.ui.dialogs.NewCaseConfirmationDialog;
 import com.ilri.herdmanager.ui.dialogs.NewFarmerDialog;
-import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
+import com.ilri.herdmanager.ui.dialogs.SelectDateForHerdInsertionDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class NewCaseActivity extends AppCompatActivity {
     Button mUseNewFarmer, mUseExistingFarmer;
     RadioGroup mSpeciesRadioGroup;
     TextView mHerdSizeTextView, mHerdSizeDateTextView, mAssignedFarmerStatusTextView;
+    EditText mHerdInsertionDateEditText;
     boolean mIsFarmerAssigned = false;
     Farmer mAssignedFarmer;
 
@@ -45,6 +49,8 @@ public class NewCaseActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final NewCaseActivity a = this;
+
         HerdDao hd = HerdDatabase.getInstance(this).getHerdDao();
        List<Herd> test = hd.getAllHerds();
        List<Farmer> testF = hd.getAllFarmers();
@@ -53,13 +59,36 @@ public class NewCaseActivity extends AppCompatActivity {
         mSpeciesRadioGroup = findViewById(R.id.species_radioGroup);
         mHerdSizeTextView = findViewById(R.id.new_herd_activity_textview_new_herd_size);
         mHerdSizeTextView.setHint("0");
-        mHerdSizeDateTextView = findViewById(R.id.new_herd_activity_textview_date_of_insertion);
+        mHerdInsertionDateEditText =findViewById(R.id.new_herd_activity_textview_date_of_insertion);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String selectedDate = sdf.format(new Date());
+        mHerdInsertionDateEditText.setText(selectedDate);
+
+
+        mHerdInsertionDateEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                SelectDateForHerdInsertionDialog d = new SelectDateForHerdInsertionDialog(a);
+                d.show();
+                return true;
+            }
+        });
+
+      /*  mHerdInsertionDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
+        mHerdSizeDateTextView = findViewById(R.id.new_herd_activity_textview_date_of_insertion_heading);
         mAssignedFarmerStatusTextView = findViewById(R.id.new_case_textview_farmer_assignment_status);
 
-        mHerdSizeDateTextView.setText(new Date().toString());
+
 
         final Context context = this;
-        final NewCaseActivity a = this;
+
 
 
         mUseNewFarmer.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +133,17 @@ public class NewCaseActivity extends AppCompatActivity {
 
                     herdSize =0;
                 }
+
+
                 Date dateOfInsertion = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                try {
+                    dateOfInsertion = sdf.parse(mHerdInsertionDateEditText.getText().toString());
+                } catch (ParseException e)
+                {
+                    dateOfInsertion = new Date();
+                }
 
                 if(mIsFarmerAssigned) {
                     NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
@@ -136,6 +175,11 @@ public class NewCaseActivity extends AppCompatActivity {
         mAssignedFarmerStatusTextView.setText("Farmer Assigned");
 
 
+    }
+
+    public void setHerdInsertionDateEditText(String date)
+    {
+        mHerdInsertionDateEditText.setText(date);
     }
 
 

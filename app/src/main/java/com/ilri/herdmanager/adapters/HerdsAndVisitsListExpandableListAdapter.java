@@ -9,12 +9,15 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdManager;
+import com.ilri.herdmanager.ui.dialogs.HerdVisitHistoryDialog;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
 import java.util.List;
@@ -23,6 +26,7 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
     private Context mContext;
     private List<Farmer> mGroupHeaders = null;
     private HerdManager mHerdManager = HerdManager.getInstance();
+    private FragmentManager mFragmentManager;
 
 
 
@@ -30,10 +34,11 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         super();
     }
 
-    public HerdsAndVisitsListExpandableListAdapter(Context context) {
+    public HerdsAndVisitsListExpandableListAdapter(Context context, FragmentManager fm) {
         super();
         mContext = context;
         mGroupHeaders = HerdManager.getInstance().getAllFarmers(context);
+        mFragmentManager = fm;
     }
 
 
@@ -133,8 +138,8 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         consultHerdVisitInformationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                HerdVisitHistoryDialog dialog = new HerdVisitHistoryDialog();
+                dialog.show(mFragmentManager,"dialog");
 
             }
         });

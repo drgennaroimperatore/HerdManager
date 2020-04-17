@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs_dialog_visit_history"
+
+    <TextView
+        android:id="@+id/textView14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary" />
+        android:text="View Herd Visit History"
+        style="@style/BlackHeadingTextMedium"/>
 
-
-<androidx.viewpager.widget.ViewPager
-android:id="@+id/view_pager_dialog_visit_history"
-android:layout_width="match_parent"
-android:layout_height="match_parent" />
-
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

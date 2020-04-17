@@ -43,7 +43,7 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mManageHerdsAndVisitsExpandableListView = view.findViewById(R.id.herds_and_visits_expandableListView);
-        HerdsAndVisitsListExpandableListAdapter adapter = new HerdsAndVisitsListExpandableListAdapter(getContext());
+        HerdsAndVisitsListExpandableListAdapter adapter = new HerdsAndVisitsListExpandableListAdapter(getContext(), getFragmentManager());
         mManageHerdsAndVisitsExpandableListView.setAdapter(adapter);
     }
 }

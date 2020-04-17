@@ -73,6 +73,14 @@ public class NewSignEventDialog extends DialogFragment {
 
                 String signName = signSpinner.getSelectedItem().toString();
                 int signID= addbdao.getSignIDFromName(signName).get(0);
+
+                if(mEditTextAffectedOld.getText().toString().isEmpty())
+                    mEditTextAffectedOld.setText("0");
+                if(mEditTextAffectedYoung.getText().toString().isEmpty())
+                    mEditTextAffectedYoung.setText("0");
+                if(mEditTextAffectedBabies.getText().toString().isEmpty())
+                    mEditTextAffectedBabies.setText("0");
+
                 int nAffectedBabies = Integer.valueOf( mEditTextAffectedBabies.getText().toString());
                 int nAffectedYoung =Integer.valueOf( mEditTextAffectedYoung.getText().toString());
                 int nAffectedOld = Integer.valueOf(Integer.valueOf( mEditTextAffectedOld.getText().toString()));

@@ -89,31 +89,32 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
-        android:id="@+id/new_herd_activity_textview_date_of_insertion"
+        android:id="@+id/new_herd_activity_textview_date_of_insertion_heading"
         style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Date"
-        app:layout_constraintEnd_toEndOf="@+id/editText2"
+        app:layout_constraintEnd_toEndOf="@+id/new_herd_activity_textview_date_of_insertion"
         app:layout_constraintHorizontal_bias="0.155"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_new_herd_size" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/new_herd_activity_textview_date_of_insertion"
         style="@style/NumberEditTextStyle"
         android:layout_width="143dp"
         android:layout_height="44dp"
         android:layout_marginTop="40dp"
         android:ems="10"
-        android:inputType="date"
+        android:inputType="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_new_herd_size"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        />
 
     <Button
         android:id="@+id/add_new_farmer_button"
@@ -161,7 +162,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2"
+        app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_date_of_insertion"
         app:layout_constraintVertical_bias="0.13" />
 
     <TextView
