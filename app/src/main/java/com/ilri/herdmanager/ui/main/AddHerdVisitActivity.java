@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
+import com.ilri.herdmanager.ui.dialogs.ConfrimHerdVisitInsertionDialog;
 import com.ilri.herdmanager.ui.dialogs.ErrorDialog;
 import com.ilri.herdmanager.ui.main.SectionsPagerAdapter;
 
@@ -44,21 +46,23 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Adding visit", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+              /*  Snackbar.make(view, "Adding visit", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
 
                 HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
 
 
+
                 try {
-                    HerdVisitManager.getInstance().addVisitToHerd(getApplicationContext(), herdID, new Date(), hce.mDhes, hce.mShes);
-                    Intent intent = new Intent(a, MainActivity.class);
-                    startActivity(intent);
+
+                    ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce);
+                    confrimHerdVisitInsertionDialog.show();
 
 
                 } catch (Exception e) {
-                    ErrorDialog dialog = new ErrorDialog(getApplicationContext(), e.getMessage());
-                    dialog.show();
+                 //   ErrorDialog dialog = new ErrorDialog(getApplicationContext(), e.getMessage());
+                  //  dialog.show();
+                    Log.e("ILRI",e.getMessage());
 
 
                 }

@@ -2,6 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingTextLarge"
+        android:text="Confirm"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:id="@+id/textViewConfirmationtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:text="Do you want to insert this herd visit?"
+        android:layout_marginBottom="25dp"/>
+
+    <TextView
+        android:id="@+id/textViewConfirmationtext2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:text="Select a date" />
+
+    <CalendarView
+        android:id="@+id/calendarView_dialog_insert_visit_confirmation_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:layout_marginBottom="10dp"/>
+
+    <Button
+        android:id="@+id/button_dialog_insert_visit_confirmation_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:textColor="@color/colorPrimary"
+        android:text="Insert Visit" />
+
 
 </LinearLayout>
