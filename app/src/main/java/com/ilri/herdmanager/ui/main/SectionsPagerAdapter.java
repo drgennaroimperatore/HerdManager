@@ -1,6 +1,7 @@
 package com.ilri.herdmanager.ui.main;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -30,13 +31,20 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         mContext = context;
     }
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm, int herdID) {
+    public SectionsPagerAdapter(Context context, FragmentManager fm, int herdID, Bundle readOnlyArguments) {
         super(fm);
         mContext = context;
         mHerdID = herdID;
         mHealthFragment = new AddHeardHealthEventFragment(mHerdID);
         mDynamicFragment = new AddHerdDynamicFragment();
         mProductivityFragment = new AddHerdProductivityFragment();
+
+        if(readOnlyArguments!=null)
+        {
+            mHealthFragment.setArguments(readOnlyArguments);
+            mDynamicFragment.setArguments(readOnlyArguments);
+            mProductivityFragment.setArguments(readOnlyArguments);
+        }
     }
 
     @Override

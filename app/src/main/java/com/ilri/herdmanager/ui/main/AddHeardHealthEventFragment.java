@@ -1,6 +1,7 @@
 package com.ilri.herdmanager.ui.main;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.classes.HealthEventContainer;
@@ -73,6 +75,18 @@ public class AddHeardHealthEventFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //FragmentManager fragmentManager = getFragmentManager();
+        Bundle args = getArguments();
+        boolean isReadOnly= false;
+        int herdVisitID = -145;
+        if(args!=null) {
+            herdVisitID = args.getInt("herdVisitID", -145);
+            boolean isRO = args.getBoolean("isReadOnly", false);
+            isReadOnly = ((isRO) && (herdVisitID!=-145));
+        }
+
+
 
         mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
         mShowAddSignButton = view.findViewById(R.id.health_event_show_sign_dialog);
@@ -135,6 +149,20 @@ public class AddHeardHealthEventFragment extends Fragment {
 
             }
         });
+
+        //Read only stuff
+
+        if(isReadOnly)
+        {
+            mShowAddDiseaseButton.setVisibility(View.GONE);
+            mShowAddSignButton.setVisibility(View.GONE);
+            TextView addHealthEventHeading = view.findViewById(R.id.textView_add_heard_health_event_heading);
+            addHealthEventHeading.setVisibility(View.INVISIBLE);
+            HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
+            List<SignsForHealthEvent> she = HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForHealthEvent(hv.ID);
+            List<DiseasesForHealthEvent> dhe = HerdDatabase.getInstance(getContext()).getHerdDao().getDiseasesForHealthEvent(hv.ID);
+            mAdapter.setReadOnlyData((ArrayList<DiseasesForHealthEvent>) dhe,(ArrayList<SignsForHealthEvent>) she);
+        }
 
 
 

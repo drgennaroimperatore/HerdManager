@@ -37,11 +37,16 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
        // mDiseaseList.add(0,new HealthEvent());
 
-
         mGroupHeaders = new ArrayList<>();
         mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
+    }
 
+    public void setReadOnlyData(ArrayList<DiseasesForHealthEvent> dhe, ArrayList<SignsForHealthEvent> she)
+    {
+        mDiseaseList = dhe;
+        mSignsList = she;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -106,8 +111,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
 
-        if(convertView == null)
-        {
+      //  if(convertView == null)
+      //  {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if(groupPosition==0)
@@ -115,7 +120,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             if(groupPosition==1)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
 
-        }
+        //}
 
         TextView name = null;
         TextView numberOfAffectedBabies = null;
@@ -172,6 +177,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     {
         mDiseaseList.add(dhe);
         notifyDataSetChanged();
+
     }
 
     public ArrayList<DiseasesForHealthEvent> getDiseasesForHealthEvent() {return mDiseaseList;}

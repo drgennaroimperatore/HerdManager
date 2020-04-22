@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView_add_heard_health_event_heading"
         style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:layout_height="395dp"
         android:layout_marginTop="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView_add_heard_health_event_heading"
         app:layout_constraintVertical_bias="0.773"
         tools:layout_editor_absoluteX="3dp">
 
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/health_event_exapandableListView"
         app:layout_constraintEnd_toStartOf="@+id/health_event_show_disease_dialog"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintStart_toEndOf="@+id/textView_add_heard_health_event_heading"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.296" />
 
