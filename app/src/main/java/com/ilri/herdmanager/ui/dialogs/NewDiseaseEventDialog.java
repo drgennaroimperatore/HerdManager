@@ -108,11 +108,16 @@ public class NewDiseaseEventDialog extends DialogFragment {
                     dhe.numberOfAffectedYoung = nAffectedYoung;
                     dhe.numberOfAffectedOld = nAffectedOld;
 
-                    mFragment.addDiseaseToList(dhe);
-                    mFragment.expandList(0);
-
-
-                    dismiss();
+                  if( mFragment.addDiseaseToList(dhe))
+                  {
+                      Snackbar mySnackbar = Snackbar.make(cl, "This disease was already inserted", Snackbar.LENGTH_LONG);
+                      mySnackbar.getView().setBackgroundColor(R.color.black);
+                      mySnackbar.show();
+                  }
+                  else {
+                      mFragment.expandList(0);
+                      dismiss();
+                  }
                 }
 
             }

@@ -90,6 +90,8 @@ public class NewSignEventDialog extends DialogFragment {
                 int nAffectedYoung =Integer.valueOf( mEditTextAffectedYoung.getText().toString());
                 int nAffectedOld = Integer.valueOf(Integer.valueOf( mEditTextAffectedOld.getText().toString()));
 
+
+
                 if(nAffectedBabies==0 && nAffectedYoung==0 && nAffectedOld==0)
                 {
                     Snackbar mySnackbar = Snackbar.make(cl, "No Animal Was Affected", Snackbar.LENGTH_LONG);
@@ -103,11 +105,15 @@ public class NewSignEventDialog extends DialogFragment {
                     she.numberOfAffectedYoung = nAffectedYoung;
                     she.numberOfAffectedOld = nAffectedOld;
 
-                    mFragment.addSignToList(she);
-                    mFragment.expandList(1);
-
-
-                    dismiss();
+                   if(mFragment.addSignToList(she))
+                   {
+                       Snackbar mySnackbar = Snackbar.make(cl, "This sign was already inserted", Snackbar.LENGTH_LONG);
+                       mySnackbar.getView().setBackgroundColor(R.color.black);
+                       mySnackbar.show();}
+                   else {
+                       mFragment.expandList(1);
+                       dismiss();
+                   }
                 }
 
             }

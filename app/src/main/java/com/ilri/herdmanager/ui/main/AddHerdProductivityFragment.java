@@ -33,6 +33,7 @@ public class AddHerdProductivityFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AddHerdProductivityViewModel.class);
         // TODO: Use the ViewModel
+        setRetainInstance(true);
     }
 
 }

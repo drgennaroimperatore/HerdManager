@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,9 +51,18 @@ public class HerdVisitHistoryDialog extends DialogFragment {
 
        List<HerdVisit> visits= HerdDatabase.getInstance(getContext()).getHerdDao().getAllHerdVisitsByHerdID(mHerdID);
 
-        mHerdVisitsListView = view.findViewById(R.id.listview_herdvisithistory_dialog);
-        HerdVisitHistoryListAdapter adapter = new HerdVisitHistoryListAdapter(getActivity(),0,visits );
-        mHerdVisitsListView.setAdapter(adapter);
+       if(visits.isEmpty())
+       {
+           TextView dialogTitleTV = view.findViewById(R.id.textView_herd_visit_history_title);
+           dialogTitleTV.setText("There are no visits for this herd");
+       }
+       else
+           {
+
+           mHerdVisitsListView = view.findViewById(R.id.listview_herdvisithistory_dialog);
+           HerdVisitHistoryListAdapter adapter = new HerdVisitHistoryListAdapter(getActivity(), 0, visits);
+           mHerdVisitsListView.setAdapter(adapter);
+       }
 
     }
 }

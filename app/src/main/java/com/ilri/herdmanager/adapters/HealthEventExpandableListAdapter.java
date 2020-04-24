@@ -168,15 +168,37 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         return false;
     }
 
-    public void addNewSign (SignsForHealthEvent she)
+    public boolean addNewSign (SignsForHealthEvent she)
     {
+
+        for(SignsForHealthEvent s: mSignsList)
+        {
+            if(she.equals(s))
+            {
+                return true;
+            }
+        }
+
         mSignsList.add(she);
         notifyDataSetChanged();
+
+
+        return false;
     }
-    public void addNewDisease(DiseasesForHealthEvent dhe)
+    public boolean addNewDisease(DiseasesForHealthEvent dhe)
     {
+
+
+        for(DiseasesForHealthEvent d:mDiseaseList)
+            if(dhe.equals(d))
+            {
+                return true;
+            }
+
         mDiseaseList.add(dhe);
         notifyDataSetChanged();
+
+        return false;
 
     }
 

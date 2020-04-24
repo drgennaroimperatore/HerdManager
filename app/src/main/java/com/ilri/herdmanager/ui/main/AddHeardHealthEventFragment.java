@@ -69,6 +69,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AddHeardHealthViewModel.class);
         // TODO: Use the ViewModel
+        setRetainInstance(true);
 
     }
 
@@ -170,14 +171,14 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     }
 
-    public void addDiseaseToList(DiseasesForHealthEvent dhe)
+    public boolean addDiseaseToList(DiseasesForHealthEvent dhe)
     {
-       mAdapter.addNewDisease(dhe);
+       return mAdapter.addNewDisease(dhe);
     }
 
-    public void addSignToList(SignsForHealthEvent she)
+    public boolean addSignToList(SignsForHealthEvent she)
     {
-        mAdapter.addNewSign(she);
+        return mAdapter.addNewSign(she);
     }
 
     public void expandList(int g)

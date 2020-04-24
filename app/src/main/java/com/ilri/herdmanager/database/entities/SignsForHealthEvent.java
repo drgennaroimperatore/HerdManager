@@ -1,5 +1,6 @@
 package com.ilri.herdmanager.database.entities;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -12,4 +13,10 @@ public class SignsForHealthEvent
     public int signID;
     public int healthEventID;
     public int numberOfAffectedBabies, numberOfAffectedYoung,numberOfAffectedOld;
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        SignsForHealthEvent she2 = (SignsForHealthEvent)obj;
+        return (signID== she2.signID);
+    }
 }

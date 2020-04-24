@@ -68,6 +68,7 @@ public class AddHerdDynamicFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AddHerdDynamicViewModel.class);
         // TODO: Use the ViewModel
+        setRetainInstance(true);
     }
 
 }
