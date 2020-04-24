@@ -15,6 +15,6 @@
 
     <ListView
         android:id="@+id/listview_herdvisithistory_dialog"
-        android:layout_width="500dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
