@@ -6,14 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
@@ -29,7 +32,7 @@ public class NewSignEventDialog extends DialogFragment {
     Context mContext;
     List<String> mSigns = null;
     EditText mEditTextAffectedBabies, mEditTextAffectedYoung, mEditTextAffectedOld;
-    ImageButton mButtonAddSignToHealthEvent;
+    Button mButtonAddSignToHealthEvent;
     AddHeardHealthEventFragment mFragment;
     ADDBDAO addbdao = null;
 
@@ -53,6 +56,8 @@ public class NewSignEventDialog extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        final CoordinatorLayout cl = view.findViewById(R.id.dialog_sign_parent);
 
         final Spinner signSpinner = view.findViewById(R.id.health_event_sign_spinner);
         mEditTextAffectedBabies = view.findViewById(R.id.editText_sign_health_event_baby);
@@ -85,15 +90,25 @@ public class NewSignEventDialog extends DialogFragment {
                 int nAffectedYoung =Integer.valueOf( mEditTextAffectedYoung.getText().toString());
                 int nAffectedOld = Integer.valueOf(Integer.valueOf( mEditTextAffectedOld.getText().toString()));
 
-                she.signID = signID;
-                she.numberOfAffectedBabies  = nAffectedBabies;
-                she.numberOfAffectedYoung = nAffectedYoung;
-                she.numberOfAffectedOld = nAffectedOld;
+                if(nAffectedBabies==0 && nAffectedYoung==0 && nAffectedOld==0)
+                {
+                    Snackbar mySnackbar = Snackbar.make(cl, "No Animal Was Affected", Snackbar.LENGTH_LONG);
+                    mySnackbar.getView().setBackgroundColor(R.color.black);
+                    mySnackbar.show();
+                }
+                else {
 
-                mFragment.addSignToList(she);
+                    she.signID = signID;
+                    she.numberOfAffectedBabies = nAffectedBabies;
+                    she.numberOfAffectedYoung = nAffectedYoung;
+                    she.numberOfAffectedOld = nAffectedOld;
+
+                    mFragment.addSignToList(she);
+                    mFragment.expandList(1);
 
 
-                dismiss();
+                    dismiss();
+                }
 
             }
         });

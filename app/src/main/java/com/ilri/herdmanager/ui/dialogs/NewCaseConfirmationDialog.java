@@ -29,7 +29,7 @@ public class NewCaseConfirmationDialog extends Dialog {
     Date mDate;
     String mFname, mSname;
 
-    TextView mSpeciesTextView, mHerdSizeTextView, mDateTextView, mFnameTextView, mSnameTextView;
+    TextView mSpeciesTextView, mDateTextView, mFnameTextView, mSnameTextView;
     Button mAddHerdButton, mCancelHerdButton;
     NewCaseActivity mActivity;
     int mFarmerID;
@@ -59,8 +59,7 @@ public class NewCaseConfirmationDialog extends Dialog {
 
         mSpeciesTextView = findViewById(R.id.textview_new_herd_confirmation_species);
         mSpeciesTextView.setText(mSpecies);
-        mHerdSizeTextView = findViewById(R.id.textview_new_herd_confirmation_herd_size);
-        mHerdSizeTextView.setText(String.valueOf(mHerdSize));
+
 
         mDateTextView = findViewById(R.id.textview_new_herd_confirmation_date_of_insertion);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -95,6 +94,7 @@ public class NewCaseConfirmationDialog extends Dialog {
                int herdId = (int) dao.InsertHerd(herd);
 
                 Intent goToAddHerdVisitActivity = new Intent(mActivity, AddHerdVisitActivity.class);
+                goToAddHerdVisitActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 goToAddHerdVisitActivity.putExtra("herdID",herdId);
 
               mActivity.goToEvents(goToAddHerdVisitActivity);

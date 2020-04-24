@@ -61,60 +61,31 @@
         app:layout_constraintVertical_bias="0.863" />
 
     <TextView
-        android:id="@+id/textView4"
-        style="@style/WhiteHeadingTextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:text="Herd Size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/species_radioGroup" />
-
-    <EditText
-        android:id="@+id/new_herd_activity_textview_new_herd_size"
-        style="@style/NumberEditTextStyle"
-        android:layout_width="143dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <TextView
         android:id="@+id/new_herd_activity_textview_date_of_insertion_heading"
         style="@style/WhiteHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginBottom="64dp"
         android:text="Date"
+        app:layout_constraintBottom_toBottomOf="@+id/new_herd_activity_textview_date_of_insertion"
         app:layout_constraintEnd_toEndOf="@+id/new_herd_activity_textview_date_of_insertion"
-        app:layout_constraintHorizontal_bias="0.155"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_new_herd_size" />
+        app:layout_constraintTop_toBottomOf="@+id/species_radioGroup" />
 
     <EditText
         android:id="@+id/new_herd_activity_textview_date_of_insertion"
         style="@style/NumberEditTextStyle"
         android:layout_width="143dp"
         android:layout_height="44dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:inputType="none"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_new_herd_size"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/species_radioGroup" />
 
     <Button
         android:id="@+id/add_new_farmer_button"
@@ -156,14 +127,14 @@
         style="@style/WhiteHeadingTextMedium"
         android:layout_width="245dp"
         android:layout_height="45dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="52dp"
         android:text="Farmer Information"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_herd_activity_textview_date_of_insertion"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.105" />
 
     <TextView
         android:id="@+id/new_case_textview_farmer_assignment_status"
@@ -171,15 +142,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="162dp"
         android:text="No Farmer Assigned"
+        android:textColor="@android:color/holo_red_dark"
         android:textSize="18dp"
         android:textStyle="bold"
-        android:textColor="@android:color/holo_red_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintHorizontal_bias="0.934"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/species_radioGroup"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,7 @@ public class NewCaseActivity extends AppCompatActivity {
 
     Button mUseNewFarmer, mUseExistingFarmer;
     RadioGroup mSpeciesRadioGroup;
-    TextView mHerdSizeTextView, mHerdSizeDateTextView, mAssignedFarmerStatusTextView;
+    TextView  mHerdSizeDateTextView, mAssignedFarmerStatusTextView;
     EditText mHerdInsertionDateEditText;
     boolean mIsFarmerAssigned = false;
     Farmer mAssignedFarmer;
@@ -57,8 +57,7 @@ public class NewCaseActivity extends AppCompatActivity {
 
         mUseNewFarmer = findViewById(R.id.add_new_farmer_button);
         mSpeciesRadioGroup = findViewById(R.id.species_radioGroup);
-        mHerdSizeTextView = findViewById(R.id.new_herd_activity_textview_new_herd_size);
-        mHerdSizeTextView.setHint("0");
+
         mHerdInsertionDateEditText =findViewById(R.id.new_herd_activity_textview_date_of_insertion);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -125,14 +124,7 @@ public class NewCaseActivity extends AppCompatActivity {
                int selectedID = mSpeciesRadioGroup.getCheckedRadioButtonId();
                 RadioButton selectedButton = findViewById(selectedID);
                 String species = selectedButton.getText().toString();
-                int herdSize = 0;
-                try {
-                    herdSize = Integer.parseInt(mHerdSizeTextView.getText().toString());
-                }
-                catch (Exception e) {
 
-                    herdSize =0;
-                }
 
 
                 Date dateOfInsertion = new Date();
@@ -147,7 +139,7 @@ public class NewCaseActivity extends AppCompatActivity {
 
                 if(mIsFarmerAssigned) {
                     NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
-                            (context, a, species, herdSize, dateOfInsertion, mAssignedFarmer.ID);
+                            (context, a, species, 0, dateOfInsertion, mAssignedFarmer.ID);
                     confirmationDialog.show();
                 }
                 else

@@ -70,6 +70,7 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
 
                     HerdVisitManager.getInstance().addVisitToHerd(mContext, mHerdID,mVisitDate, mHce.mDhes, mHce.mShes);
                     Intent intent = new Intent(mA, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mA.startActivity(intent);
                 }
             }

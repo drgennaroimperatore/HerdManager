@@ -13,8 +13,10 @@ import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
@@ -28,7 +30,7 @@ public class NewDiseaseEventDialog extends DialogFragment {
     Context mContext;
     List<String> mDiseases;
     EditText mEditTextAffectedBabies, mEditTextAffectedYoung, mEditTextAffectedOld;
-    ImageButton mButtonAddDiseaseToHealthEvent;
+    Button mButtonAddDiseaseToHealthEvent;
     AddHeardHealthEventFragment mFragment;
     ADDBDAO addbdao = null;
 
@@ -63,6 +65,7 @@ public class NewDiseaseEventDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
       final  Spinner diseaseSpinner = view.findViewById(R.id.health_event_disease_spinner);
+       final CoordinatorLayout cl = view.findViewById(R.id.dialog_disease_parent);
         mEditTextAffectedBabies = view.findViewById(R.id.editText_disease_health_event_baby);
         mEditTextAffectedBabies.setHint("0");
         mEditTextAffectedYoung = view.findViewById(R.id.editText_disease_health_event_young);
@@ -92,15 +95,25 @@ public class NewDiseaseEventDialog extends DialogFragment {
                 int nAffectedYoung =Integer.valueOf( mEditTextAffectedYoung.getText().toString());
                 int nAffectedOld = Integer.valueOf( mEditTextAffectedOld.getText().toString());
 
-                dhe.diseaseID = diseaseID;
-                dhe.numberOfAffectedBabies  = nAffectedBabies;
-                dhe.numberOfAffectedYoung = nAffectedYoung;
-                dhe.numberOfAffectedOld = nAffectedOld;
+                if(nAffectedBabies==0 && nAffectedYoung==0 && nAffectedOld==0)
+                {
+                    Snackbar mySnackbar = Snackbar.make(cl, "No Animal was Affected", Snackbar.LENGTH_LONG);
+                    mySnackbar.getView().setBackgroundColor(R.color.black);
+                    mySnackbar.show();
+                }
+                else {
 
-                mFragment.addDiseaseToList(dhe);
+                    dhe.diseaseID = diseaseID;
+                    dhe.numberOfAffectedBabies = nAffectedBabies;
+                    dhe.numberOfAffectedYoung = nAffectedYoung;
+                    dhe.numberOfAffectedOld = nAffectedOld;
+
+                    mFragment.addDiseaseToList(dhe);
+                    mFragment.expandList(0);
 
 
-                dismiss();
+                    dismiss();
+                }
 
             }
         });

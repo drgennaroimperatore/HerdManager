@@ -100,6 +100,8 @@ public class AddHeardHealthEventFragment extends Fragment {
         mHealthEventExpandableListView.expandGroup(0);
         mHealthEventExpandableListView.expandGroup(1);
 
+
+
       final  AddHeardHealthEventFragment f = this;
 
         mShowAddDiseaseButton.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +178,11 @@ public class AddHeardHealthEventFragment extends Fragment {
     public void addSignToList(SignsForHealthEvent she)
     {
         mAdapter.addNewSign(she);
+    }
+
+    public void expandList(int g)
+    {
+        mHealthEventExpandableListView.expandGroup(g);
     }
 
     public HealthEventContainer getHealthEventContainer()

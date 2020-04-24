@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_sign_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/style_event_first_row">
+
+
 
     <EditText
         android:id="@+id/editText_sign_health_event_baby"
@@ -72,7 +80,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/health_event_sign_spinner" />
 
-    <ImageButton
+    <Button
         android:id="@+id/button_sign_health_add_sign"
         android:layout_width="40dp"
         android:layout_height="39dp"
@@ -83,14 +91,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.503"
-        app:srcCompat="@drawable/ic_plus_one_black_24dp" />
+        android:text="Add Sign"
+        android:textColor="@color/colorPrimary"
+        />
 
     <TextView
         android:id="@+id/textViews7"
         style="@style/BlackHeadingTextSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insert New Disease"
+        android:text="Insert New Sign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -133,3 +143,4 @@
         app:layout_constraintStart_toEndOf="@+id/textViews16"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
