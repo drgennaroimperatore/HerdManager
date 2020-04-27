@@ -77,5 +77,23 @@ public interface HerdDao {
     @Delete
     void DeleteSignsForHealthEvent(SignsForHealthEvent signsForHealthEvent);
 
+    @Insert
+    long InsertDynamicEvent(DynamicEvent dynamicEvent);
+
+    @Delete
+    void DeleteDynamicEvemt(DynamicEvent dynamicEvent);
+
+    @Insert
+    long InsertAnimalMovementForDynamicEvent(AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent);
+
+    @Delete
+    void DeleteAnimalMovementForDynamicEvent(AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent);
+
+    @Insert
+    long InsertDeathForDynamicEvent (DeathsForDynamicEvent deathsForDynamicEvent);
+
+    @Delete
+    void DeleteDeathForDynamicEvent (DeathsForDynamicEvent deathsForDynamicEvent);
+
 
 }

@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:id="@+id/herd_visit_list_secondary_row_container">
     <TextView
         android:id="@+id/manage_herd_visits_list_secondary_row_herd_info_textview"
-        android:layout_width="wrap_content"
+        android:layout_width="180sp"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:layout_marginRight="15dp"
-        style="@style/WhiteHeadingTextMedium"/>
+        style="@style/WhiteHeadingTextMedium"
+        android:textSize="19sp"
+        android:layout_alignParentLeft="true"/>
 
         <Button
             android:id="@+id/herd_vist_list_secondary_row_add_visit_button"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="50dp"
             android:text="Add Visit"
             android:background="@color/colorPrimary"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/black">
+            android:textColor="@color/black"
+            android:layout_toLeftOf="@id/herd_vist_list_secondary_row_consult_visits_button">
         </Button>
-
-
 
 
     <Button
@@ -33,5 +39,16 @@
         android:layout_marginRight="15dp"
         android:background="@color/colorPrimary"
         android:text="Past Visits"
-        android:textColor="@color/black"></Button>
-</LinearLayout>
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true">
+
+    </Button>
+
+</RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="5dp"
+        android:layout_below="@id/herd_visit_list_secondary_row_container">
+    </LinearLayout>
+
+</RelativeLayout>

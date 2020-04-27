@@ -15,7 +15,6 @@ public class ProductivityEvent {
 
     @PrimaryKey
     public int ID;
-    public int MilkCollectedPerDay;
     public int HerdVisitID;
-    int NumberOfAnimalsLactating;
+
 }

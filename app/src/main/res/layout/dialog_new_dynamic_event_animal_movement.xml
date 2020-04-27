@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:paddingBottom="5dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/BlackHeadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Add New Dynamic Event"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animals Bought"
+            android:layout_marginRight="10dp"
+            style="@style/BlackHeadingTextMedium">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Babies">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_babies_animals_bought"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Young">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_young_animals_bought"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Old">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_old_animals_bought"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number"></EditText>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animals Sold     "
+            android:layout_marginRight="10dp"
+            style="@style/BlackHeadingTextMedium">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Babies">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_babies_animals_sold"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Young">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_young_animals_sold"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Old">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_old_animals_sold"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number"></EditText>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animals Lost     "
+            android:layout_marginRight="10dp"
+            style="@style/BlackHeadingTextMedium">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Babies">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_babies_animals_lost"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Young">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_young_animals_lost"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Old">
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_add_dynamic_event_old_animals_lost"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:hint="0"
+                android:inputType="number"></EditText>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+<Button
+    android:id="@+id/button_dialog_dynamic_event_animal_movement_edit_event"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Add event"
+    android:background="@color/black"
+    android:textColor="@color/colorPrimary"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="20dp">
+</Button>
+
+
+</LinearLayout>

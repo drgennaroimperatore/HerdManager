@@ -1,11 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/textView34"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="This row will contain details of Animal Movements" />
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Babies">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Young">
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Old">
+            </TextView>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Animals Bought">
+        </TextView>
+
+        <TextView
+            android:id="@+id/animal_movement_row_textView_animals_bought_babies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0">
+        </TextView>
+
+        <TextView
+            android:id="@+id/animal_movement_row_textView_animals_bought_young"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0">
+        </TextView>
+
+        <TextView
+            android:id="@+id/animal_movement_row_textView_animals_bought_old"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0">
+        </TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Animals Sold">
+            </TextView>
+
+            <TextView
+                android:id="@+id/animal_movement_row_textView_animals_sold_babies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+            </TextView>
+
+            <TextView
+                android:id="@+id/animal_movement_row_textView_animals_sold_young"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+            </TextView>
+
+            <TextView
+                android:id="@+id/animal_movement_row_textView_animals_sold_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Animals Lost">
+            </TextView>
+
+            <TextView
+                android:id="@+id/animal_movement_row_textView_animals_lost_babies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+            </TextView>
+
+            <TextView
+                android:id="@+id/animal_movement_row_textView_animals_lost_young"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+            </TextView>
+
+            <TextView
+                android:id="@+id/animal_movement_row_textView_animals_lost_old"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0">
+            </TextView>
+        </TableRow>
+
+
+    </TableLayout>
 </LinearLayout>

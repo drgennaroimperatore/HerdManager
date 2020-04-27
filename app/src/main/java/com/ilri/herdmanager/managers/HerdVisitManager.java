@@ -2,6 +2,8 @@ package com.ilri.herdmanager.managers;
 
 import android.content.Context;
 
+import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
+import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
@@ -64,6 +66,27 @@ public class HerdVisitManager {
 
        return healthEventID;
 
+    }
+
+    public long createDynamicEventForVisit(Context context, int herdVisitID, AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deathsForDynamicEvent)
+    {
+        DynamicEvent dynamicEvent = new DynamicEvent();
+        dynamicEvent.herdVisitID= herdVisitID;
+
+        long dynamicEventID = HerdDatabase.getInstance(context).getHerdDao().InsertDynamicEvent(dynamicEvent);
+
+        movements.dynamicEventID = (int) dynamicEventID;
+
+        HerdDatabase.getInstance(context).getHerdDao().InsertAnimalMovementForDynamicEvent(movements);
+
+        for (DeathsForDynamicEvent dde: deathsForDynamicEvent)
+        {
+            dde.dynamicEventID =(int)dynamicEventID;
+            HerdDatabase.getInstance(context).getHerdDao().InsertDeathForDynamicEvent(dde);
+
+        }
+
+        return dynamicEventID;
     }
 
     public void addVisitToHerd(Context context,

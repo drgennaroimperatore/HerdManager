@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.ilri.herdmanager.adapters.DynamicEventExpandableListAdapter;
-import com.ilri.herdmanager.ui.dialogs.NewDynamicEventDialog;
+import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalMovementDialog;
 import com.ilri.herdmanager.R;
 
 public class AddHerdDynamicFragment extends Fragment {
@@ -41,10 +41,17 @@ public class AddHerdDynamicFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mAddEventButton = view.findViewById(R.id.button_add_herd_dynamic);
 
+
+        mExpandableListView = view.findViewById(R.id.dynamic_event_expandable_list_view);
+       final DynamicEventExpandableListAdapter adapter = new DynamicEventExpandableListAdapter(getContext());
+        mExpandableListView.setAdapter(adapter);
+        mExpandableListView.expandGroup(0);
+        mExpandableListView.expandGroup(1);
+
         mAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new NewDynamicEventDialog(getContext());
+                DialogFragment dialogFragment = new NewDynamicEventAnimalMovementDialog(getContext(), adapter);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -56,11 +63,6 @@ public class AddHerdDynamicFragment extends Fragment {
 
             }
         });
-        mExpandableListView = view.findViewById(R.id.dynamic_event_expandable_list_view);
-        DynamicEventExpandableListAdapter adapter = new DynamicEventExpandableListAdapter(getContext());
-        mExpandableListView.setAdapter(adapter);
-        mExpandableListView.expandGroup(0);
-        mExpandableListView.expandGroup(1);
     }
 
     @Override
