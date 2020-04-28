@@ -17,13 +17,17 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.ilri.herdmanager.adapters.DynamicEventExpandableListAdapter;
+import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalDeathDialog;
 import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalMovementDialog;
 import com.ilri.herdmanager.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddHerdDynamicFragment extends Fragment {
 
     private AddHerdDynamicViewModel mViewModel;
-    private Button mAddEventButton;
+    private Button mAddEventButton, mAddDeathButton;
     private ExpandableListView mExpandableListView;
 
     public static AddHerdDynamicFragment newInstance() {
@@ -40,6 +44,7 @@ public class AddHerdDynamicFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mAddEventButton = view.findViewById(R.id.button_add_herd_dynamic);
+        mAddDeathButton = view.findViewById(R.id.button_add_herd_death);
 
 
         mExpandableListView = view.findViewById(R.id.dynamic_event_expandable_list_view);
@@ -52,6 +57,31 @@ public class AddHerdDynamicFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DialogFragment dialogFragment = new NewDynamicEventAnimalMovementDialog(getContext(), adapter);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                dialogFragment.show(ft, "dialog");
+
+            }
+        });
+
+        final AddHerdDynamicFragment fragment = this;
+
+        mAddDeathButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                List<String> causesOfDeath = new ArrayList<>();
+                causesOfDeath.add("Age");
+                causesOfDeath.add("Disease");
+                causesOfDeath.add("Accident");
+                causesOfDeath.add("Unknown");
+
+                DialogFragment dialogFragment = new NewDynamicEventAnimalDeathDialog(getContext(), causesOfDeath, fragment);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
