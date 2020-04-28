@@ -1,5 +1,6 @@
 package com.ilri.herdmanager.database.entities;
 
+import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -12,5 +13,9 @@ public class DeathsForDynamicEvent {
     public String causeOfDeath;
     public int deadBabies, deadYoung, deadOld;
 
-
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        DeathsForDynamicEvent dde2 = (DeathsForDynamicEvent)obj;
+        return causeOfDeath.equals(dde2.causeOfDeath);
+    }
 }

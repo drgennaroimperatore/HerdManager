@@ -47,6 +47,15 @@ public interface HerdDao {
     @Query("SELECT * FROM SignsForHealthEvent WHERE SignsForHealthEvent.healthEventID =:healthEventID")
     List<SignsForHealthEvent> getSignsForHealthEvent(int healthEventID);
 
+    @Query("SELECT * FROM DynamicEvent WHERE DynamicEvent.herdVisitID =:herdVisitID")
+    List<DynamicEvent> getDynamicEventForVisit(int herdVisitID);
+
+    @Query("SELECT * FROM AnimalMovementsForDynamicEvent WHERE AnimalMovementsForDynamicEvent.dynamicEventID =:dynamicEventID")
+    List<AnimalMovementsForDynamicEvent> getAnimalMovementsForDynamicEvent(int dynamicEventID);
+
+    @Query("SELECT * FROM DeathsForDynamicEvent WHERE DeathsForDynamicEvent.dynamicEventID =:dynamicEventID")
+    List<DeathsForDynamicEvent> getDeathsForDynamicEvent(int dynamicEventID);
+
     @Insert
     long InsertHerdVisit(HerdVisit visit);
 

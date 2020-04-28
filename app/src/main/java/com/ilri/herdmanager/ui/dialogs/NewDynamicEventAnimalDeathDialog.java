@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.ui.main.AddHerdDynamicFragment;
 
 import java.util.List;
@@ -44,8 +45,8 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        Spinner causesOfDeathSpinner = view.findViewById(R.id.dynamic_event_death_spinner);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mContext,R.layout.health_event_spinner_item,mCausesOfDeath);
+        final Spinner causesOfDeathSpinner = view.findViewById(R.id.dynamic_event_death_spinner);
+        final ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(mContext,R.layout.health_event_spinner_item,mCausesOfDeath);
         causesOfDeathSpinner.setAdapter(spinnerAdapter);
 
         final EditText deadBabiesET, deadYoungET, deadOldET;
@@ -88,6 +89,24 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                 }
                 else
                 {
+                    DeathsForDynamicEvent dde = new DeathsForDynamicEvent();
+
+                    dde.causeOfDeath = causesOfDeathSpinner.getSelectedItem().toString();
+                    dde.deadBabies = nAffectedBabies;
+                    dde.deadYoung = nAffectedYoung;
+                    dde.deadOld = nAffectedOld;
+
+                    if(mFragment.addDeath(dde))
+                    {
+                        Snackbar mySnackbar = Snackbar.make(cl, "Cause of death was already inserted", Snackbar.LENGTH_LONG);
+                        mySnackbar.getView().setBackgroundColor(R.color.black);
+                        mySnackbar.show();
+                    }
+                    else
+                    {
+                        dismiss();
+                    }
+
 
                 }
             }

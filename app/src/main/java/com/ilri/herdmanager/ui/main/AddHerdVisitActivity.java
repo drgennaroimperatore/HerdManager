@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdVisitManager;
@@ -82,12 +83,13 @@ public class AddHerdVisitActivity extends AppCompatActivity {
                         .setAction("Action", null).show();*/
 
                 HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
+                DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
 
 
 
                 try {
 
-                    ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce);
+                    ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce,dce);
                     confrimHerdVisitInsertionDialog.show();
 
 

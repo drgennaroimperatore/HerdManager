@@ -15,8 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.ilri.herdmanager.adapters.DynamicEventExpandableListAdapter;
+import com.ilri.herdmanager.classes.DynamicEventContainer;
+import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
+import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
+import com.ilri.herdmanager.database.entities.DynamicEvent;
+import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalDeathDialog;
 import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalMovementDialog;
 import com.ilri.herdmanager.R;
@@ -29,6 +36,7 @@ public class AddHerdDynamicFragment extends Fragment {
     private AddHerdDynamicViewModel mViewModel;
     private Button mAddEventButton, mAddDeathButton;
     private ExpandableListView mExpandableListView;
+     DynamicEventExpandableListAdapter mAdapter = null;
 
     public static AddHerdDynamicFragment newInstance() {
         return new AddHerdDynamicFragment();
@@ -43,20 +51,30 @@ public class AddHerdDynamicFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle args = getArguments();
+        boolean isReadOnly= false;
+        int herdVisitID = -145;
+        if(args!=null) {
+            herdVisitID = args.getInt("herdVisitID", -145);
+            boolean isRO = args.getBoolean("isReadOnly", false);
+            isReadOnly = ((isRO) && (herdVisitID!=-145));
+        }
+
         mAddEventButton = view.findViewById(R.id.button_add_herd_dynamic);
         mAddDeathButton = view.findViewById(R.id.button_add_herd_death);
 
 
         mExpandableListView = view.findViewById(R.id.dynamic_event_expandable_list_view);
-       final DynamicEventExpandableListAdapter adapter = new DynamicEventExpandableListAdapter(getContext());
-        mExpandableListView.setAdapter(adapter);
+        mAdapter = new DynamicEventExpandableListAdapter(getContext());
+        mExpandableListView.setAdapter(mAdapter);
         mExpandableListView.expandGroup(0);
         mExpandableListView.expandGroup(1);
 
         mAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new NewDynamicEventAnimalMovementDialog(getContext(), adapter);
+                DialogFragment dialogFragment = new NewDynamicEventAnimalMovementDialog(getContext(), mAdapter);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -93,6 +111,20 @@ public class AddHerdDynamicFragment extends Fragment {
 
             }
         });
+
+        if(isReadOnly)
+        {
+            TextView headerTV = view.findViewById(R.id.textView_add_dynamic_event_fragment_heading);
+            headerTV.setVisibility(View.INVISIBLE);
+            mAddDeathButton.setVisibility(View.INVISIBLE);
+            mAddEventButton.setVisibility(View.INVISIBLE);
+
+            HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
+            DynamicEvent de = HerdDatabase.getInstance(getContext()).getHerdDao().getDynamicEventForVisit(hv.ID).get(0);
+            AnimalMovementsForDynamicEvent movements = HerdDatabase.getInstance(getContext()).getHerdDao().getAnimalMovementsForDynamicEvent(de.ID).get(0);
+            List<DeathsForDynamicEvent> deaths = HerdDatabase.getInstance(getContext()).getHerdDao().getDeathsForDynamicEvent(de.ID);
+            mAdapter.setReadOnlyData(movements,deaths);
+        }
     }
 
     @Override
@@ -101,6 +133,21 @@ public class AddHerdDynamicFragment extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(AddHerdDynamicViewModel.class);
         // TODO: Use the ViewModel
         setRetainInstance(true);
+    }
+
+    public boolean addDeath(DeathsForDynamicEvent dde)
+    {
+        return mAdapter.addDeath(dde);
+
+    }
+
+    public DynamicEventContainer getDynamicEventForHealthVisit()
+    {
+        DynamicEventContainer dce = new DynamicEventContainer();
+        dce.mDeaths = mAdapter.getDeathsForDynamicEvent();
+        dce.mMovements = mAdapter.getAnimalMovements();
+
+        return dce;
     }
 
 }

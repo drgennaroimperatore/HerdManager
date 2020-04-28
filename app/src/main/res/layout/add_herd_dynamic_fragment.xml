@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/textView32"
+        android:id="@+id/textView_add_dynamic_event_fragment_heading"
         style="@style/WhiteHeadingTextSmall"
         android:layout_width="169dp"
         android:layout_height="35dp"

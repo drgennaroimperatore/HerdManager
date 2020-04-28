@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 
 /**
@@ -77,6 +78,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     {
         return mHealthFragment.getHealthEventContainer();
 
+    }
+
+    public DynamicEventContainer getDynamicEventForVisit()
+    {
+        return mDynamicFragment.getDynamicEventForHealthVisit();
     }
 
 

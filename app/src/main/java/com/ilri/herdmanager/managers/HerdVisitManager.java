@@ -93,7 +93,8 @@ public class HerdVisitManager {
                                int herdID,
                                Date whenitoccured,
                                List<DiseasesForHealthEvent> diseasesForHealthEvent,
-                               List<SignsForHealthEvent> signsForHealthEvents)
+                               List<SignsForHealthEvent> signsForHealthEvents,AnimalMovementsForDynamicEvent movements,
+                               List<DeathsForDynamicEvent> deathsForDynamicEvent)
     {
         HerdVisit herdVisit = new HerdVisit();
         herdVisit.HerdID = herdID;
@@ -108,6 +109,8 @@ public class HerdVisitManager {
         //create Productivity event for this visit
 
         //create a dynamic event for this visit
+        createDynamicEventForVisit(context, (int)herdVisitID,movements,deathsForDynamicEvent);
+
 
     }
 

@@ -8,6 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
@@ -29,6 +30,13 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
         mHeaders.add("Animal Movements");
        // mAnimalMovements.add(new DynamicEvent());
         mHeaders.add("Deaths");
+    }
+
+    public void setReadOnlyData(AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deaths)
+    {
+        mAnimalMovements = movements;
+        mDeathsForDynamicEvent = deaths;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -129,12 +137,24 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
 
 
-
-
-
             }
-            if(groupPosition==1)
-                view=inflater.inflate(R.layout.dynamic_event_deaths_list_row,null);
+            if(groupPosition==1) {
+                view = inflater.inflate(R.layout.dynamic_event_deaths_list_row, null);
+
+               DeathsForDynamicEvent dde = mDeathsForDynamicEvent.get(childPosition);
+
+               TextView causeOfDeathTV = view.findViewById(R.id.dynamic_event_causeofDeath_row_causeofdeathName);
+               causeOfDeathTV.setText(dde.causeOfDeath);
+
+               TextView deadBabiesTV = view.findViewById(R.id.dynamic_event_death_row_number_of_affected_babies_text_view);
+               deadBabiesTV.setText(String.valueOf(dde.deadBabies));
+
+               TextView deadYoungTV = view.findViewById(R.id.dynamic_event_death_row_number_of_affected_young_text_view);
+               deadYoungTV.setText(String.valueOf(dde.deadYoung));
+
+               TextView deadOldTV = view.findViewById(R.id.dynamic_event_death_row_number_of_affected_old_text_view);
+               deadOldTV.setText(String.valueOf(dde.deadOld));
+            }
 
 
 
@@ -151,4 +171,20 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
         mAnimalMovements = amde;
         notifyDataSetChanged();
     }
+
+    public boolean addDeath(DeathsForDynamicEvent dde)
+    {
+        for(DeathsForDynamicEvent d: mDeathsForDynamicEvent)
+        {
+            if(d.equals(dde))
+            return true;
+        }
+        mDeathsForDynamicEvent.add(dde);
+        notifyDataSetChanged();
+
+        return false;
+    }
+
+    public AnimalMovementsForDynamicEvent getAnimalMovements () {return mAnimalMovements;}
+    public ArrayList<DeathsForDynamicEvent> getDeathsForDynamicEvent() {return (ArrayList<DeathsForDynamicEvent>) mDeathsForDynamicEvent;}
 }

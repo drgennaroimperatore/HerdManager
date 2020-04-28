@@ -16,6 +16,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
@@ -27,13 +28,15 @@ import java.util.Date;
 public class ConfrimHerdVisitInsertionDialog extends Dialog {
     Context mContext;
     HealthEventContainer mHce;
+    DynamicEventContainer mDce;
     AddHerdVisitActivity mA;
     int mHerdID = -155;
     Date mVisitDate = new Date();
-    public ConfrimHerdVisitInsertionDialog(Context context, AddHerdVisitActivity a, int herdID, HealthEventContainer hce) {
+    public ConfrimHerdVisitInsertionDialog(Context context, AddHerdVisitActivity a, int herdID, HealthEventContainer hce, DynamicEventContainer dce) {
         super(context);
         mA = a;
         mHce = hce;
+        mDce = dce;
         mHerdID = herdID;
 
 
@@ -63,16 +66,20 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
             @Override
             public void onClick(View v) {
 
-                if(mHce.mDhes.isEmpty() && mHce.mShes.isEmpty())
+              /*  if(mHce.mDhes.isEmpty() && mHce.mShes.isEmpty())
                        Snackbar.make(v, "This visit is empty!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                else {
+                else {*/
 
-                    HerdVisitManager.getInstance().addVisitToHerd(mContext, mHerdID,mVisitDate, mHce.mDhes, mHce.mShes);
+                    HerdVisitManager.getInstance().addVisitToHerd(
+                            mContext,
+                            mHerdID,mVisitDate,
+                            mHce.mDhes, mHce.mShes,
+                            mDce.mMovements,mDce.mDeaths);
                     Intent intent = new Intent(mA, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mA.startActivity(intent);
-                }
+               // }
             }
         });
 
