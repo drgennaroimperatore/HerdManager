@@ -5,10 +5,10 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = @ForeignKey(entity = ProductivityEvent.class, parentColumns = "ID", childColumns = "productivityEventID"))
-public class MilkProductionForProductivityEvent {
-   @PrimaryKey(autoGenerate = true)
-   public int ID;
-   public int litresOfMilkPerDay;
-   public int numberOfLactatingAnimals;
-   public int productivityEventID;
+public class BirthsForProductivityEvent {
+    @PrimaryKey(autoGenerate = true)
+    public int ID;
+    public int nOfGestatingAnimals;
+    public int nOfBirths;
+    public int productivityEventID;
 }
