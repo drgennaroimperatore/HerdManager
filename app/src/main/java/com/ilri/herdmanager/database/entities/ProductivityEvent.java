@@ -13,7 +13,7 @@ import java.util.Date;
                 childColumns = "HerdVisitID"))
 public class ProductivityEvent {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     public int ID;
     public int HerdVisitID;
 

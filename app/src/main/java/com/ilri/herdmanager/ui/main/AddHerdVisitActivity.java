@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
+import com.ilri.herdmanager.classes.ProductivityEventContainer;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
@@ -54,8 +55,6 @@ public class AddHerdVisitActivity extends AppCompatActivity {
 
         }
 
-
-
         setContentView(R.layout.activity_add_herd_visit);
         final SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, fm, herdID, readOnlyArguments);
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -83,13 +82,12 @@ public class AddHerdVisitActivity extends AppCompatActivity {
                         .setAction("Action", null).show();*/
 
                 HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
+                ProductivityEventContainer pce = sectionsPagerAdapter.getProductivityEventForVisit();
                 DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
-
-
 
                 try {
 
-                    ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce,dce);
+                    ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce,pce,dce);
                     confrimHerdVisitInsertionDialog.show();
 
 
@@ -97,8 +95,6 @@ public class AddHerdVisitActivity extends AppCompatActivity {
                  //   ErrorDialog dialog = new ErrorDialog(getApplicationContext(), e.getMessage());
                   //  dialog.show();
                     Log.e("ILRI",e.getMessage());
-
-
                 }
             }
         });

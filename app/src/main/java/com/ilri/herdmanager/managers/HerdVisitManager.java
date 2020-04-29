@@ -3,12 +3,15 @@ package com.ilri.herdmanager.managers;
 import android.content.Context;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
+import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
+import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 
@@ -68,6 +71,21 @@ public class HerdVisitManager {
 
     }
 
+    private long createProductivityEventForVisit (Context context, int herdVisitID, MilkProductionForProductivityEvent milkProductionForProductivityEvent, BirthsForProductivityEvent birthsForProductivityEvent)
+    {
+        ProductivityEvent productivityEvent = new ProductivityEvent();
+        productivityEvent.HerdVisitID = herdVisitID;
+
+        long productivityEventID = HerdDatabase.getInstance(context).getHerdDao().InsertProductivityEvent(productivityEvent);
+
+        milkProductionForProductivityEvent.productivityEventID = (int)productivityEventID;
+        HerdDatabase.getInstance(context).getHerdDao().InsertMilkProductionForProductivityEvent(milkProductionForProductivityEvent);
+        birthsForProductivityEvent.productivityEventID = (int) productivityEventID;
+        HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(birthsForProductivityEvent);
+
+        return productivityEventID;
+    }
+
     public long createDynamicEventForVisit(Context context, int herdVisitID, AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deathsForDynamicEvent)
     {
         DynamicEvent dynamicEvent = new DynamicEvent();
@@ -94,7 +112,10 @@ public class HerdVisitManager {
                                Date whenitoccured,
                                int nBabies,int nYoung, int nOld,
                                List<DiseasesForHealthEvent> diseasesForHealthEvent,
-                               List<SignsForHealthEvent> signsForHealthEvents,AnimalMovementsForDynamicEvent movements,
+                               List<SignsForHealthEvent> signsForHealthEvents,
+                               MilkProductionForProductivityEvent milkProductionForProductivityEvent,
+                               BirthsForProductivityEvent birthsForProductivityEvent,
+                               AnimalMovementsForDynamicEvent movements,
                                List<DeathsForDynamicEvent> deathsForDynamicEvent)
     {
         HerdVisit herdVisit = new HerdVisit();
@@ -111,6 +132,7 @@ public class HerdVisitManager {
         createHealthEventForVisit(context, (int)herdVisitID, diseasesForHealthEvent,signsForHealthEvents);
 
         //create Productivity event for this visit
+        createProductivityEventForVisit(context, (int) herdVisitID, milkProductionForProductivityEvent,birthsForProductivityEvent);
 
         //create a dynamic event for this visit
         createDynamicEventForVisit(context, (int)herdVisitID,movements,deathsForDynamicEvent);

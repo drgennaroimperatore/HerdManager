@@ -119,8 +119,7 @@ public class AddHerdDynamicFragment extends Fragment {
             mAddDeathButton.setVisibility(View.INVISIBLE);
             mAddEventButton.setVisibility(View.INVISIBLE);
 
-            HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
-            DynamicEvent de = HerdDatabase.getInstance(getContext()).getHerdDao().getDynamicEventForVisit(hv.ID).get(0);
+            DynamicEvent de = HerdDatabase.getInstance(getContext()).getHerdDao().getDynamicEventForVisit(herdVisitID).get(0);
             AnimalMovementsForDynamicEvent movements = HerdDatabase.getInstance(getContext()).getHerdDao().getAnimalMovementsForDynamicEvent(de.ID).get(0);
             List<DeathsForDynamicEvent> deaths = HerdDatabase.getInstance(getContext()).getHerdDao().getDeathsForDynamicEvent(de.ID);
             mAdapter.setReadOnlyData(movements,deaths);

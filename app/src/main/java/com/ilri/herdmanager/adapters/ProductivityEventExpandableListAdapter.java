@@ -30,6 +30,14 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
         mGroupHeaders.add("Births");
         mContext = context;
     }
+
+    public void setReadOnly (MilkProductionForProductivityEvent mpe, BirthsForProductivityEvent bpe)
+    {
+        mBirths = bpe;
+        mMilkProduction = mpe;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getGroupCount() {
         return mGroupHeaders.size();
@@ -126,5 +134,14 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
     {
         mMilkProduction = mpe;
         notifyDataSetChanged();
+    }
+
+    public BirthsForProductivityEvent getBirths() {
+        return mBirths;
+    }
+
+    public MilkProductionForProductivityEvent getMilkProduction()
+    {
+        return mMilkProduction;
     }
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
+import com.ilri.herdmanager.classes.ProductivityEventContainer;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -86,4 +87,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
 
+    public ProductivityEventContainer getProductivityEventForVisit() {
+
+        return mProductivityFragment.getProductivityEventForHelthVisit();
+    }
 }

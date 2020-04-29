@@ -15,9 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.adapters.ProductivityEventExpandableListAdapter;
+import com.ilri.herdmanager.classes.ProductivityEventContainer;
+import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.HerdVisit;
+import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
+import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalMovementDialog;
 import com.ilri.herdmanager.ui.dialogs.NewProductivityEventBirthsDialog;
 import com.ilri.herdmanager.ui.dialogs.NewProductivityEventMilkProductionDialog;
@@ -41,6 +48,17 @@ public class AddHerdProductivityFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle args = getArguments();
+        boolean isReadOnly= false;
+        int herdVisitID = -145;
+        if(args!=null) {
+            herdVisitID = args.getInt("herdVisitID", -145);
+            boolean isRO = args.getBoolean("isReadOnly", false);
+            isReadOnly = ((isRO) && (herdVisitID!=-145));
+        }
+
+
         mExpandableListView = view.findViewById(R.id.productivity_event_expandable_list_view);
         mAdapter = new ProductivityEventExpandableListAdapter(getContext());
         mExpandableListView.setAdapter(mAdapter);
@@ -82,12 +100,23 @@ public class AddHerdProductivityFragment extends Fragment {
             }
         });
 
+        if(isReadOnly)
+        {
+            TextView headingTV = view.findViewById(R.id.textView_add_productivity_event_fragment_heading);
+            headingTV.setVisibility(View.INVISIBLE);
+
+            editBirthsButton.setVisibility(View.INVISIBLE);
+            editMilkProdutionButton.setVisibility(View.INVISIBLE);
+
+            ProductivityEvent pv = HerdDatabase.getInstance(getContext()).getHerdDao().getProductivityEventForVisit(herdVisitID).get(0);
+            BirthsForProductivityEvent bpe = HerdDatabase.getInstance(getContext()).getHerdDao().getBirthsForProductivityEvent(pv.ID).get(0);
+            MilkProductionForProductivityEvent mpe = HerdDatabase.getInstance(getContext()).getHerdDao().getMilkProductionForProductivityEvent(pv.ID).get(0);
+            mAdapter.setReadOnly(mpe,bpe);
 
 
 
 
-
-
+        }
     }
 
     @Override
@@ -100,4 +129,11 @@ public class AddHerdProductivityFragment extends Fragment {
         setRetainInstance(true);
     }
 
+    public ProductivityEventContainer getProductivityEventForHelthVisit()
+    {
+        ProductivityEventContainer pce = new ProductivityEventContainer();
+        pce.birthsForProductivityEvent = mAdapter.getBirths();
+        pce.milkProductionForProductivityEvent = mAdapter.getMilkProduction();
+        return pce;
+    }
 }

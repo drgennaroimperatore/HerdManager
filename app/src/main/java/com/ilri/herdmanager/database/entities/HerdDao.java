@@ -47,7 +47,14 @@ public interface HerdDao {
     @Query("SELECT * FROM SignsForHealthEvent WHERE SignsForHealthEvent.healthEventID =:healthEventID")
     List<SignsForHealthEvent> getSignsForHealthEvent(int healthEventID);
 
+    @Query("SELECT * FROM ProductivityEvent WHERE ProductivityEvent.HerdVisitID= :herdVisitID")
+    List<ProductivityEvent> getProductivityEventForVisit(int herdVisitID);
 
+    @Query("SELECT * FROM MilkProductionForProductivityEvent WHERE MilkProductionForProductivityEvent.productivityEventID =:productivityEventID")
+    List<MilkProductionForProductivityEvent> getMilkProductionForProductivityEvent(int productivityEventID);
+
+    @Query("SELECT * FROM BirthsForProductivityEvent WHERE BirthsForProductivityEvent.productivityEventID=:productivityEventID")
+    List<BirthsForProductivityEvent> getBirthsForProductivityEvent(int productivityEventID);
 
     @Query("SELECT * FROM DynamicEvent WHERE DynamicEvent.herdVisitID =:herdVisitID")
     List<DynamicEvent> getDynamicEventForVisit(int herdVisitID);
@@ -87,6 +94,24 @@ public interface HerdDao {
 
     @Delete
     void DeleteSignsForHealthEvent(SignsForHealthEvent signsForHealthEvent);
+
+    @Insert
+    long InsertProductivityEvent(ProductivityEvent productivityEvent);
+
+    @Delete
+    void DeleteProductivityEvent(ProductivityEvent productivityEvent);
+
+    @Insert
+    long InsertMilkProductionForProductivityEvent(MilkProductionForProductivityEvent milkProductionForProductivityEvent);
+
+    @Delete
+    void DeleteMilkProductionForProductivityEvent(MilkProductionForProductivityEvent milkProductionForProductivityEvent);
+
+    @Insert
+    long InsertBirthsForProductivityEvent (BirthsForProductivityEvent birthsForProductivityEvent);
+
+    @Delete
+    void DeleteBirthsForProductivityEvent(BirthsForProductivityEvent birthsForProductivityEvent);
 
     @Insert
     long InsertDynamicEvent(DynamicEvent dynamicEvent);
