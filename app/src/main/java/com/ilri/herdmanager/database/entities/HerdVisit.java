@@ -12,7 +12,9 @@ public class HerdVisit {
     @PrimaryKey(autoGenerate = true)
     public int ID;
     public Date HerdVisitDate;
-    public int herdSizeAtVisit;
+    public int babiesAtVisit;
+    public int youngAtVisit;
+    public int oldAtVisit;
     public int HerdID;
 
 }

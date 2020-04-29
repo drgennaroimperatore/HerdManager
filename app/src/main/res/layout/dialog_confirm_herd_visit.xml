@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@color/colorPrimary">
 
     <TextView
@@ -17,22 +17,22 @@
         android:id="@+id/textViewConfirmationtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textSize="25dp"
+        android:layout_marginBottom="25dp"
         android:text="Do you want to insert this herd visit?"
-        android:layout_marginBottom="25dp"/>
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/textViewConfirmationtext2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:text="Select a date"
         android:textAlignment="center"
-        android:textSize="25dp"
-        android:text="Select a date" />
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <CalendarView
         android:id="@+id/calendarView_dialog_insert_visit_confirmation_date"
@@ -40,6 +40,104 @@
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingText"
+        android:text="Please Insert Current Herd Size"
+        android:textSize="18sp">
+
+
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="2dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Babies">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_confirm_herd_visit_number_of_babies"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/BlackHeadingText"
+            android:text="Young">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/editText_confirm_herd_visit_number_of_young"
+            style="@style/NumberEditTextStyleDark"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:inputType="number">
+
+        </EditText>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="2dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingText"
+                android:text="Old">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_confirm_herd_visit_number_of_old"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+</LinearLayout>
 
     <Button
         android:id="@+id/button_dialog_insert_visit_confirmation_confirm"

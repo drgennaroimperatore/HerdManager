@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,15 +72,41 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                         .setAction("Action", null).show();
                 else {*/
 
+                EditText nBabiesET = findViewById(R.id.editText_confirm_herd_visit_number_of_babies);
+                EditText nYoungET = findViewById(R.id.editText_confirm_herd_visit_number_of_young);
+                EditText nOldET = findViewById(R.id.editText_confirm_herd_visit_number_of_old);
+
+                String nBabiesstr = nBabiesET.getText().toString();
+                String nYoungstr = nYoungET.getText().toString();
+                String nOldstr = nOldET.getText().toString();
+
+                int nBabies =0;
+                int nYoung =0;
+                int nOld =0;
+
+                if(nOldstr.isEmpty() || nYoungstr.isEmpty() || nBabiesstr.isEmpty())
+                {
+                    Snackbar.make(v, "Please Specify a herd size or 0 for all fields", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                }
+                else {
+
+                    nBabies= Integer.valueOf(nBabiesstr);
+                    nYoung = Integer.valueOf(nYoungstr);
+                    nOld = Integer.valueOf(nOldstr);
+
                     HerdVisitManager.getInstance().addVisitToHerd(
                             mContext,
-                            mHerdID,mVisitDate,
+                            mHerdID, mVisitDate,
+                            nBabies, nYoung, nOld,
                             mHce.mDhes, mHce.mShes,
-                            mDce.mMovements,mDce.mDeaths);
+                            mDce.mMovements, mDce.mDeaths);
                     Intent intent = new Intent(mA, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mA.startActivity(intent);
-               // }
+                    // }
+                }
             }
         });
 

@@ -18,7 +18,7 @@ import com.ilri.herdmanager.database.converters.DateConverter;
         SignsForHealthEvent.class,
         DiseasesForHealthEvent.class,
         AnimalMovementsForDynamicEvent.class,
-        DeathsForDynamicEvent.class}, version= 6)
+        DeathsForDynamicEvent.class}, version= 7)
 
 
 @TypeConverters({DateConverter.class})

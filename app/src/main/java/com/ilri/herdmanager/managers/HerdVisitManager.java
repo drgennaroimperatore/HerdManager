@@ -92,6 +92,7 @@ public class HerdVisitManager {
     public void addVisitToHerd(Context context,
                                int herdID,
                                Date whenitoccured,
+                               int nBabies,int nYoung, int nOld,
                                List<DiseasesForHealthEvent> diseasesForHealthEvent,
                                List<SignsForHealthEvent> signsForHealthEvents,AnimalMovementsForDynamicEvent movements,
                                List<DeathsForDynamicEvent> deathsForDynamicEvent)
@@ -99,7 +100,10 @@ public class HerdVisitManager {
         HerdVisit herdVisit = new HerdVisit();
         herdVisit.HerdID = herdID;
         herdVisit.HerdVisitDate = whenitoccured;
-        herdVisit.herdSizeAtVisit =0;
+
+        herdVisit.babiesAtVisit = nBabies;
+        herdVisit.youngAtVisit= nYoung;
+        herdVisit.oldAtVisit= nOld;
 
        long herdVisitID = HerdDatabase.getInstance(context).getHerdDao().InsertHerdVisit(herdVisit);
 
