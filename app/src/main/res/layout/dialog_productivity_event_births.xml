@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_prod_births_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/style_event_first_row"
+        app:layout_anchor="@+id/constraintLayout3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3la"
+            style="@style/BlackHeadingTextMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit Births"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:id="@+id/textViews16la"
+                style="@style/BlackHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gestating Animals"
+                />
+            <EditText
+                android:id="@+id/editText_births_productivity_event_gestating_animals"
+                style="@style/NumberEditTextStyleDark"
+                android:layout_width="60dp"
+                android:layout_height="37dp"
+                android:ems="10"
+                android:inputType="number"
+                />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp">
+
+        <TextView
+            android:id="@+id/textViews15la"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Births"
+            />
+
+        <EditText
+            android:id="@+id/editText_births_production_productivity_births"
+            style="@style/NumberEditTextStyleDark"
+            android:layout_width="60dp"
+            android:layout_height="37dp"
+            android:ems="10"
+            android:inputType="number"
+            />
+
+        </LinearLayout>
+
+
+
+
+        <Button
+            android:id="@+id/button_births_productivity_edit_births"
+            android:layout_width="100dp"
+            android:layout_height="39dp"
+            android:background="@android:color/black"
+            android:text="Edit Births"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            />
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

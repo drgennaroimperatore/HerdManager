@@ -19,6 +19,7 @@ import android.widget.ExpandableListView;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.adapters.ProductivityEventExpandableListAdapter;
 import com.ilri.herdmanager.ui.dialogs.NewDynamicEventAnimalMovementDialog;
+import com.ilri.herdmanager.ui.dialogs.NewProductivityEventBirthsDialog;
 import com.ilri.herdmanager.ui.dialogs.NewProductivityEventMilkProductionDialog;
 
 public class AddHerdProductivityFragment extends Fragment {
@@ -52,7 +53,23 @@ public class AddHerdProductivityFragment extends Fragment {
         editMilkProdutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new NewProductivityEventMilkProductionDialog();
+                DialogFragment dialogFragment = new NewProductivityEventMilkProductionDialog(getContext(), mAdapter);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                dialogFragment.show(ft, "dialog");
+            }
+        });
+
+        editBirthsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DialogFragment dialogFragment = new NewProductivityEventBirthsDialog(getContext(), mAdapter);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -62,17 +79,11 @@ public class AddHerdProductivityFragment extends Fragment {
 
                 dialogFragment.show(ft, "dialog");
 
-
             }
         });
 
 
-        editBirthsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
 
 

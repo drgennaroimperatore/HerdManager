@@ -89,10 +89,18 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
 
         if(groupPosition==0) {
             convertView = inflater.inflate(R.layout.productivity_event_milk_production_row, null);
+            TextView litresPerDayET = convertView.findViewById(R.id.textview_productivity_event_milk_row_litres_day);
+            litresPerDayET.setText(String.valueOf(mMilkProduction.litresOfMilkPerDay));
+            TextView lactatingAnimalsET = convertView.findViewById(R.id.textview_productivity_event_milk_row_lactating_animals);
+            lactatingAnimalsET.setText(String.valueOf(mMilkProduction.numberOfLactatingAnimals));
         }
 
         if(groupPosition==1) {
             convertView = inflater.inflate(R.layout.productivity_event_births_row, null);
+            TextView gestatingAnimalsET = convertView.findViewById(R.id.textview_productivity_event_births_row_gestating_animals);
+            gestatingAnimalsET.setText(String.valueOf(mBirths.nOfGestatingAnimals));
+            TextView birthsET = convertView.findViewById(R.id.textview_productivity_event_births_row_births_since_last_visit);
+            birthsET.setText(String.valueOf(mBirths.nOfBirths));
         }
 
 
@@ -106,5 +114,17 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    public void setBirths (BirthsForProductivityEvent bpe)
+    {
+        mBirths = bpe;
+        notifyDataSetChanged();
+    }
+
+    public void setMilkProduction(MilkProductionForProductivityEvent mpe)
+    {
+        mMilkProduction = mpe;
+        notifyDataSetChanged();
     }
 }
