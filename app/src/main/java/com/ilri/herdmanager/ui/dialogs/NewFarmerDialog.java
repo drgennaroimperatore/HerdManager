@@ -57,10 +57,10 @@ public class NewFarmerDialog extends Dialog {
 
         final LinkedList<String> regionsOfEthi = GeoData.getInstance().getRegions();
 
-        ArrayAdapter<String> regionSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_diagnosis_spinner_item,regionsOfEthi );
+        final ArrayAdapter<String> regionSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_diagnosis_spinner_item,regionsOfEthi );
         mChosenRegionSpinner.setAdapter(regionSpinnerAdapter);
 
-        ArrayList<String> districsFirstRegion = GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(0));
+       // final ArrayList<String> districsFirstRegion = GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(0));
 
         final ArrayAdapter<String> districtsSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_diagnosis_spinner_item);
         mChosenDistrictSpinner.setAdapter(districtsSpinnerAdapter);
@@ -72,15 +72,31 @@ public class NewFarmerDialog extends Dialog {
         mChosenRegionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
                 districtsSpinnerAdapter.clear();
-                districtsSpinnerAdapter.addAll(GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(position)));
-                districtsSpinnerAdapter.notifyDataSetChanged();
-                woredaSpinnerAdapter.clear();
-                woredaSpinnerAdapter.addAll(GeoData.getInstance().getWoredasForDistrics
-                        ((String) GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(position)).get(0)));
 
+                try {
+
+                    ArrayList<String> districtsForRegion = GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(position));
+
+
+                    districtsSpinnerAdapter.addAll(districtsForRegion);
+                    districtsSpinnerAdapter.notifyDataSetChanged();
+                    woredaSpinnerAdapter.clear();
+
+                    ArrayList<String> woredasForDistrict = GeoData.getInstance().getWoredasForDistrics
+                            ((String) GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(position)).get(0));
+
+
+                    woredaSpinnerAdapter.addAll(woredasForDistrict);
+                }
+                catch (Exception e)
+                {
+
+                    int i =regionSpinnerAdapter.getCount();
+                    e.getMessage();
+                   // regionSpinnerAdapter.addAll(regionsOfEthi.get(0));
+                    //regionSpinnerAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override

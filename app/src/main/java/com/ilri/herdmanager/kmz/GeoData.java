@@ -82,12 +82,28 @@ public class GeoData
     public LinkedList<String> getRegions () {return mRegions;}
     public ArrayList<String> getDistricsForRegion(String region)
     {
-        return mDistrictsinRegions.get(region);
+        ArrayList<String> districts =  mDistrictsinRegions.get(region);
+        if(districts==null) {
+            districts = new ArrayList<>();
+            districts.add(region);
+        }
+        else if(districts.isEmpty())
+            districts.add(region);
+
+
+
+        return districts ;
     }
 
     public  ArrayList<String> getWoredasForDistrics(String district)
     {
-        return mWoredasinDistricts.get(district);
+        ArrayList<String> woredas = mWoredasinDistricts.get(district);
+        if(woredas == null) {
+            woredas = new ArrayList<>();
+            woredas.add(district);
+        } else if(woredas.isEmpty())
+            woredas.add(district);
+        return woredas;
     }
 
 }
