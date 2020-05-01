@@ -24,11 +24,11 @@
         android:layout_marginBottom="5dp">
 
         <TextView
+            style="@style/BlackHeadingTextMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Animals Bought"
             android:layout_marginRight="10dp"
-            style="@style/BlackHeadingTextMedium">
+            android:text="Bought">
 
         </TextView>
 
@@ -113,11 +113,11 @@
         android:layout_marginBottom="5dp">
 
         <TextView
+            style="@style/BlackHeadingTextMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Animals Sold     "
             android:layout_marginRight="10dp"
-            style="@style/BlackHeadingTextMedium">
+            android:text="Sold     ">
 
         </TextView>
 
@@ -200,11 +200,11 @@
         android:layout_marginBottom="5dp">
 
         <TextView
+            style="@style/BlackHeadingTextMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Animals Lost     "
             android:layout_marginRight="10dp"
-            style="@style/BlackHeadingTextMedium">
+            android:text="Lost     ">
 
         </TextView>
 
