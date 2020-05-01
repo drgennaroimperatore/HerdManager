@@ -23,11 +23,15 @@ public class NewProductivityEventBirthsDialog extends DialogFragment {
 
     Context mContext;
     ProductivityEventExpandableListAdapter mAdapter;
+    int mnBirths =0;
+    int mnGestating =0;
 
-    public NewProductivityEventBirthsDialog(Context context, ProductivityEventExpandableListAdapter adapter) {
+    public NewProductivityEventBirthsDialog(Context context, ProductivityEventExpandableListAdapter adapter, int births, int gestating) {
         super();
         mContext= context;
         mAdapter= adapter;
+       mnBirths = births;
+       mnGestating = gestating;
     }
 
     @Nullable
@@ -45,6 +49,11 @@ public class NewProductivityEventBirthsDialog extends DialogFragment {
         final CoordinatorLayout cl = view.findViewById(R.id.dialog_prod_births_parent);
         final EditText gestatingAnimalsET = view.findViewById(R.id.editText_births_productivity_event_gestating_animals);
         final EditText birthsET = view.findViewById(R.id.editText_births_production_productivity_births);
+
+        if (mnGestating>0)
+            gestatingAnimalsET.setText(String.valueOf(mnGestating));
+        if(mnBirths>0)
+            birthsET.setText(String.valueOf(mnBirths));
 
 
 

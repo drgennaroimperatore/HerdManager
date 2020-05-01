@@ -7,64 +7,46 @@
     tools:context=".ui.main.AddHerdDynamicFragment">
 
 
-    <TextView
-        android:id="@+id/textView_add_dynamic_event_fragment_heading"
-        style="@style/WhiteHeadingTextSmall"
-        android:layout_width="169dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:text="Add Herd Dynamic"
-        app:layout_constraintEnd_toStartOf="@+id/button_add_herd_dynamic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView33"
-        style="@style/WhiteHeadingTextMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Herd Dynamic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/button_add_herd_dynamic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="74dp"
         android:background="@color/colorPrimary"
         android:text="Edit Animal Movements"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.798"
+        app:layout_constraintBottom_toTopOf="@+id/dynamic_event_expandable_list_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ExpandableListView
         android:id="@+id/dynamic_event_expandable_list_view"
         android:layout_width="match_parent"
-        android:layout_height="570dp"
-        android:layout_marginTop="64dp"
+        android:layout_height="408dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_herd_dynamic" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
     <Button
         android:id="@+id/button_add_herd_death"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="74dp"
         android:background="@color/colorPrimary"
         android:text="Add Animal Death"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/dynamic_event_expandable_list_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.675"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_add_herd_dynamic"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

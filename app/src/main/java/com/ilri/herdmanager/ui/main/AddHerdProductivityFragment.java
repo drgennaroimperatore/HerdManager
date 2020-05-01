@@ -71,6 +71,7 @@ public class AddHerdProductivityFragment extends Fragment {
         editMilkProdutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 DialogFragment dialogFragment = new NewProductivityEventMilkProductionDialog(getContext(), mAdapter);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -87,7 +88,10 @@ public class AddHerdProductivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DialogFragment dialogFragment = new NewProductivityEventBirthsDialog(getContext(), mAdapter);
+                BirthsForProductivityEvent bpe = mAdapter.getBirths();
+                int nBirths = bpe.nOfBirths;
+                int nGestating = bpe.nOfGestatingAnimals;
+                DialogFragment dialogFragment = new NewProductivityEventBirthsDialog(getContext(), mAdapter,nBirths,nGestating);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -102,8 +106,7 @@ public class AddHerdProductivityFragment extends Fragment {
 
         if(isReadOnly)
         {
-            TextView headingTV = view.findViewById(R.id.textView_add_productivity_event_fragment_heading);
-            headingTV.setVisibility(View.INVISIBLE);
+
 
             editBirthsButton.setVisibility(View.INVISIBLE);
             editMilkProdutionButton.setVisibility(View.INVISIBLE);

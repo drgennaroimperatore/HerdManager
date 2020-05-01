@@ -97,6 +97,7 @@ public class NewCaseConfirmationDialog extends Dialog {
                 goToAddHerdVisitActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 goToAddHerdVisitActivity.putExtra("herdID",herdId);
 
+                dismiss();
               mActivity.goToEvents(goToAddHerdVisitActivity);
 
             }

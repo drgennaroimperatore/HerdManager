@@ -3,12 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
         android:id="@+id/dynamic_event_causeofDeath_row_causeofdeathName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cause of death"
-        style="@style/WhiteHeadingTextMedium"/>
+        android:textColor="@color/white"/>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -17,56 +18,53 @@
 
         <TableRow>
 
+
+
             <TextView
                 android:id="@+id/placeholder_hecod_young"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Affected Babies"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="Babies" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_by_death_young_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Affected Young"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="Young" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_old_text_view_death"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Affected Old"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="Old" />
 
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:id="@+id/dynamic_event_death_row_number_of_affected_babies_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="00"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="00" />
 
             <TextView
                 android:id="@+id/dynamic_event_death_row_number_of_affected_young_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="00"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="00" />
 
             <TextView
                 android:id="@+id/dynamic_event_death_row_number_of_affected_old_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="00"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="00" />
 
         </TableRow>
 

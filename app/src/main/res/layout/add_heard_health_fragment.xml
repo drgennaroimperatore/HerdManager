@@ -7,68 +7,48 @@
     tools:context=".ui.main.AddHeardHealthEventFragment">
 
 
-    <TextView
-        android:id="@+id/textView_add_heard_health_event_heading"
-        style="@style/WhiteHeadingTextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="240dp"
-        android:layout_marginRight="240dp"
-        android:text="Add a New Health Event"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.002" />
-
     <ExpandableListView
         android:id="@+id/health_event_exapandableListView"
         android:layout_width="408dp"
         android:layout_height="395dp"
-        android:layout_marginTop="56dp"
+        android:scrollbars="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_add_heard_health_event_heading"
-        app:layout_constraintVertical_bias="0.773"
-        tools:layout_editor_absoluteX="3dp">
+        tools:layout_editor_absoluteX="1dp">
 
     </ExpandableListView>
-
-    <Button
-        android:id="@+id/health_event_show_sign_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginRight="21dp"
-        android:layout_marginBottom="74dp"
-
-        android:background="@color/colorPrimary"
-        android:text="Add Sign"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/health_event_exapandableListView"
-        app:layout_constraintEnd_toStartOf="@+id/health_event_show_disease_dialog"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView_add_heard_health_event_heading"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296" />
 
     <Button
         android:id="@+id/health_event_show_disease_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="216dp"
+
         android:layout_marginBottom="74dp"
         android:background="@color/colorPrimary"
         android:text="Add Disease"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/health_event_exapandableListView"
+        app:layout_constraintEnd_toStartOf="@+id/health_event_show_disease_dialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.297" />
+
+    <Button
+        android:id="@+id/health_event_show_sign_dialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="74dp"
+        android:background="@color/colorPrimary"
+        android:text="Add Sign"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/health_event_exapandableListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296" />
+        app:layout_constraintVertical_bias="0.297" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

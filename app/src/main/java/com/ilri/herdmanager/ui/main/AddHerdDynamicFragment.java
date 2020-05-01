@@ -114,8 +114,7 @@ public class AddHerdDynamicFragment extends Fragment {
 
         if(isReadOnly)
         {
-            TextView headerTV = view.findViewById(R.id.textView_add_dynamic_event_fragment_heading);
-            headerTV.setVisibility(View.INVISIBLE);
+
             mAddDeathButton.setVisibility(View.INVISIBLE);
             mAddEventButton.setVisibility(View.INVISIBLE);
 

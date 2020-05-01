@@ -108,6 +108,7 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                             mHce.mDhes, mHce.mShes,
                             mPce.milkProductionForProductivityEvent,mPce.birthsForProductivityEvent,
                             mDce.mMovements, mDce.mDeaths);
+                    dismiss();
                     Intent intent = new Intent(mA, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mA.startActivity(intent);

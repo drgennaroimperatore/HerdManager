@@ -159,8 +159,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         {
             mShowAddDiseaseButton.setVisibility(View.GONE);
             mShowAddSignButton.setVisibility(View.GONE);
-            TextView addHealthEventHeading = view.findViewById(R.id.textView_add_heard_health_event_heading);
-            addHealthEventHeading.setVisibility(View.INVISIBLE);
+
             HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
             List<SignsForHealthEvent> she = HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForHealthEvent(hv.ID);
             List<DiseasesForHealthEvent> dhe = HerdDatabase.getInstance(getContext()).getHerdDao().getDiseasesForHealthEvent(hv.ID);

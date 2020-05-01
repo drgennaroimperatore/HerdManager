@@ -23,10 +23,14 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
     Context mContext;
     ProductivityEventExpandableListAdapter mAdapter;
 
+
    public NewProductivityEventMilkProductionDialog(Context context, ProductivityEventExpandableListAdapter adapter)
     {
         mContext = context;
         mAdapter = adapter;
+
+
+
     }
 
 
@@ -41,11 +45,21 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MilkProductionForProductivityEvent mpe = mAdapter.getMilkProduction();
+        int lactating = mpe.numberOfLactatingAnimals;
+        int litres = mpe.litresOfMilkPerDay;
+
        final EditText lactatingAnimalsET = view.findViewById(R.id.editText_milk_production_productivity_lactating_animals);
        lactatingAnimalsET.setHint("0");
+       if(lactating>0)
+           lactatingAnimalsET.setText(String.valueOf(lactating));
+
        final EditText litresPerDayET = view.findViewById(R.id.editText_milk_production_productivity_litres_day);
        litresPerDayET.setHint("0");
-       final CoordinatorLayout cl = view.findViewById(R.id.dialog_prod_milk_parent);
+        if (litres>0)
+            litresPerDayET.setText(String.valueOf(litres));
+
+            final CoordinatorLayout cl = view.findViewById(R.id.dialog_prod_milk_parent);
 
         Button editMilkButton = view.findViewById(R.id.button_milk_productivity_edit_milk_production);
         editMilkButton.setOnClickListener(new View.OnClickListener() {

@@ -4,67 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/health_event_disease_row_diseaseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Disease Name"
+        android:textColor="@color/white"
+        />
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
 
-        <TextView
-            android:id="@+id/health_event_disease_row_diseaseName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Disease Name"
-            style="@style/WhiteHeadingTextMedium"/>
-
-
 
         <TableRow>
+
+
 
         <TextView
             android:id="@+id/placeholder_hedr_young"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="Affected Babies"
-            style="@style/WhiteHeadingTextSmall"/>
+            android:text="Babies" />
 
         <TextView
             android:id="@+id/heading_number_of_affected_by_disease_young_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Affected Young"
-            style="@style/WhiteHeadingTextSmall"/>
+            android:text="Young" />
 
 
         <TextView
             android:id="@+id/heading_number_of_affected_old_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="Affected Old"
-            style="@style/WhiteHeadingTextSmall"/>
-
+            android:text="Old"/>
 
 
         </TableRow>
 
         <TableRow>
+
             <TextView
                 android:id="@+id/health_event_disease_row_number_of_affected_babies_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="00"
-                style="@style/WhiteHeadingTextSmall"/>
+                />
 
             <TextView
                 android:id="@+id/health_event_disease_row_number_of_affected_young_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="00"
-                style="@style/WhiteHeadingTextSmall"/>
+                android:text="00" />
 
             <TextView
                 android:id="@+id/health_event_disease_row_number_of_affected_old_text_view"
@@ -72,7 +67,7 @@
                 android:layout_height="wrap_content"
 
                 android:text="00"
-                style="@style/WhiteHeadingTextSmall"/>
+               />
 
 
 
