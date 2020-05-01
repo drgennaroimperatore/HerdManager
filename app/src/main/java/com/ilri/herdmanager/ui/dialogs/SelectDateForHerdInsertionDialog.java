@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +37,19 @@ public class SelectDateForHerdInsertionDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_select_date_for_herd_creation);
-        CalendarView calendarView = findViewById(R.id.calendarView_dialog_select_herd_insertion_date);
+
+        Button closeButton = findViewById(R.id.button_dialog_select_date_close);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+
+        });
+
+        closeButton.setVisibility(View.GONE);
+
+        final CalendarView calendarView = findViewById(R.id.calendarView_dialog_select_herd_insertion_date);
         calendarView.setMaxDate(System.currentTimeMillis());
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -48,7 +62,17 @@ public class SelectDateForHerdInsertionDialog extends Dialog {
                 String selectedDate = sdf.format(new Date(c.getTimeInMillis()));
                 mActivity.setHerdInsertionDateEditText(selectedDate);
                 dismiss();
+
+
+
+
+
+
             }
         });
+
+
+
+
     }
 }

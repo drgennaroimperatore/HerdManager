@@ -42,51 +42,54 @@ public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
 
         mEditAnimalMovementButton = view.findViewById(R.id.button_dialog_dynamic_event_animal_movement_edit_event);
 
-        AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent = mAdapter.getAnimalMovements();
-       int soldBabies = animalMovementEvent.soldBabies;
-       int soldYoung = animalMovementEvent.soldYoung;
-       int soldOld = animalMovementEvent.soldOld;
-
-       int boughtBabies = animalMovementEvent.boughtBabies;
-       int boughtYoung = animalMovementEvent.boughtYoung;
-       int boughtOld = animalMovementEvent.boughtOld;
-
-       int lostBabies = animalMovementEvent.lostBabies;
-       int lostYoung = animalMovementEvent.lostYoung;
-       int lostOld = animalMovementEvent.lostOld;
-
-
         mAnmialsBoughtBabiesET =view.findViewById(R.id.editText_add_dynamic_event_babies_animals_bought);
-
-        if(boughtBabies>0)
-            mAnmialsBoughtBabiesET.setText(String.valueOf(boughtBabies));
-
         mAnimalsBoughtYoungET =view.findViewById(R.id.editText_add_dynamic_event_young_animals_bought);
-
-        if(boughtYoung>0)
-            mAnimalsBoughtYoungET.setText(String.valueOf(boughtYoung));
-
         mAnimalsBoughtOldET = view.findViewById(R.id.editText_add_dynamic_event_old_animals_bought);
-
-        if(boughtOld>0)
-            mAnimalsBoughtOldET.setText(String.valueOf(boughtOld));
-
         mAnimalsSoldBabiesET = view.findViewById(R.id.editText_add_dynamic_event_babies_animals_sold);
         mAnimalsSoldYoungET = view.findViewById(R.id.editText_add_dynamic_event_young_animals_sold);
         mAnimalsSoldOldET =  view.findViewById(R.id.editText_add_dynamic_event_old_animals_sold);
-
         mAnimalsLostBabiesET = view.findViewById(R.id.editText_add_dynamic_event_babies_animals_lost);
         mAnimalsLostYoungET = view.findViewById(R.id.editText_add_dynamic_event_young_animals_lost);
         mAnimalsLostOldET = view.findViewById(R.id.editText_add_dynamic_event_old_animals_lost);
 
+        AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent = mAdapter.getAnimalMovements();
+        int soldBabies = animalMovementsForDynamicEvent.soldBabies;
+        int soldYoung = animalMovementsForDynamicEvent.soldYoung;
+        int soldOld = animalMovementsForDynamicEvent.soldOld;
 
+        int boughtBabies = animalMovementsForDynamicEvent.boughtBabies;
+        int boughtYoung = animalMovementsForDynamicEvent.boughtYoung;
+        int boughtOld = animalMovementsForDynamicEvent.boughtOld;
 
+        int lostBabies = animalMovementsForDynamicEvent.lostBabies;
+        int lostYoung = animalMovementsForDynamicEvent.lostYoung;
+        int lostOld = animalMovementsForDynamicEvent.lostOld;
 
+        if(boughtBabies>0)
+            mAnmialsBoughtBabiesET.setText(String.valueOf(boughtBabies));
+        if(boughtYoung>0)
+            mAnimalsBoughtYoungET.setText(String.valueOf(boughtYoung));
+        if(boughtOld>0)
+            mAnimalsBoughtOldET.setText(String.valueOf(boughtOld));
+        if(soldBabies>0)
+            mAnimalsSoldBabiesET.setText(String.valueOf(soldBabies));
+        if(soldYoung>0)
+            mAnimalsSoldYoungET.setText(String.valueOf(soldYoung));
+        if(soldOld>0)
+            mAnimalsSoldOldET.setText(String.valueOf(soldOld));
+        if(lostBabies>0)
+            mAnimalsLostBabiesET.setText(String.valueOf(lostBabies));
+        if(lostYoung>0)
+            mAnimalsLostYoungET.setText(String.valueOf(lostYoung));
+        if(lostOld>0)
+            mAnimalsLostOldET.setText(String.valueOf(lostOld));
 
 
         mEditAnimalMovementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 if( mAnmialsBoughtBabiesET.getText().toString().isEmpty())
                     mAnmialsBoughtBabiesET.setText("0");

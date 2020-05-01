@@ -68,9 +68,13 @@ public class NewCaseActivity extends AppCompatActivity {
         mHerdInsertionDateEditText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP)
+                {
                 SelectDateForHerdInsertionDialog d = new SelectDateForHerdInsertionDialog(a);
                 d.show();
+                }
                 return true;
+
             }
         });
 

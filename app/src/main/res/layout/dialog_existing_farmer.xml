@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/black"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView29"
-        style="@style/BlackHeadingText"
+        style="@style/WhiteHeadingTextMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -17,7 +17,7 @@
         android:text="Use Existing Farmer"
         android:gravity="center_horizontal"
         android:textSize="25sp"
-        android:layout_alignParentTop="true"/>
+        android:layout_alignParentTop="true" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,8 +66,9 @@
             android:id="@+id/button_existing_farmer_select_farmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black"
+            android:background="@color/colorPrimary"
             android:layout_marginBottom="20dp"
+            android:textColor="@color/black"
             android:text="Select Farmer" />
 
 
