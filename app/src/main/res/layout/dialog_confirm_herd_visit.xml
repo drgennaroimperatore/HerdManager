@@ -66,11 +66,12 @@
             android:orientation="vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Babies">
+                android:text="PWnd">
 
             </TextView>
 
@@ -118,11 +119,12 @@
             android:orientation="vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="2dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Old">
+                android:text="Adult">
 
             </TextView>
 

@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.AddHerdDynamicFragment">
+    tools:context=".ui.main.AddHerdDynamicFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_add_herd_productivity_milk_production"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginBottom="74dp"
+            android:background="@color/colorPrimary"
+            android:text="Edit Milk Production"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/button_add_herd_productivity_births"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="74dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/colorPrimary"
+            android:text="Edit Births"
+            android:textColor="@color/black"
+             />
 
 
-    <Button
-        android:id="@+id/button_add_herd_productivity_milk_production"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="74dp"
-        android:background="@color/colorPrimary"
-        android:text="Edit Milk Production"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/productivity_event_expandable_list_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+
 
     <ExpandableListView
         android:id="@+id/productivity_event_expandable_list_view"
@@ -32,19 +52,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.962" />
 
-    <Button
-        android:id="@+id/button_add_herd_productivity_births"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="74dp"
-        android:background="@color/colorPrimary"
-        android:text="Edit Births"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/productivity_event_expandable_list_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -56,16 +56,33 @@ public class NewFarmerDialog extends Dialog {
         mChosenWoredaSpinner = findViewById(R.id.spinnerFarmerKebele);
 
         final LinkedList<String> regionsOfEthi = GeoData.getInstance().getRegions();
+        final LinkedList<String> abbrRegions= new LinkedList<>();
 
-        final ArrayAdapter<String> regionSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_diagnosis_spinner_item,regionsOfEthi );
+       abbrRegions.addAll(regionsOfEthi); // we want to make sure this is a copy and not a reference
+
+        for(String r: regionsOfEthi)
+        {
+            if (r.contains("Southern Nations"))
+            {
+                int index = abbrRegions.indexOf(r);
+                abbrRegions.remove(r);
+                abbrRegions.add(index, "SNNP");
+            }
+
+
+        }
+
+
+
+        final ArrayAdapter<String> regionSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item,abbrRegions );
         mChosenRegionSpinner.setAdapter(regionSpinnerAdapter);
 
        // final ArrayList<String> districsFirstRegion = GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(0));
 
-        final ArrayAdapter<String> districtsSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_diagnosis_spinner_item);
+        final ArrayAdapter<String> districtsSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item);
         mChosenDistrictSpinner.setAdapter(districtsSpinnerAdapter);
 
-        final ArrayAdapter<String> woredaSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_diagnosis_spinner_item);
+        final ArrayAdapter<String> woredaSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item);
         mChosenWoredaSpinner.setAdapter(woredaSpinnerAdapter);
 
 

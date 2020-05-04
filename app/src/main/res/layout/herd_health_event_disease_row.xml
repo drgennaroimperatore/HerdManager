@@ -21,12 +21,11 @@
         <TableRow>
 
 
-
-        <TextView
-            android:id="@+id/placeholder_hedr_young"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Babies" />
+            <TextView
+                android:id="@+id/placeholder_hedr_young"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pre-Weaned" />
 
         <TextView
             android:id="@+id/heading_number_of_affected_by_disease_young_text_view"
@@ -36,11 +35,11 @@
             android:text="Young" />
 
 
-        <TextView
-            android:id="@+id/heading_number_of_affected_old_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Old"/>
+            <TextView
+                android:id="@+id/heading_number_of_affected_old_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adult" />
 
 
         </TableRow>

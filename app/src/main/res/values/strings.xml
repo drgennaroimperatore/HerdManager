@@ -11,5 +11,5 @@
     <string name="title_activity_add_herd_visit">AddHerdVisitActivity</string>
     <string name="tab_text_1">Herd Health</string>
     <string name="tab_text_2">Herd Productivity</string>
-    <string name="tab_text_3">Herd Dynamic</string>
+    <string name="tab_text_3">Herd Dynamics</string>
 </resources>

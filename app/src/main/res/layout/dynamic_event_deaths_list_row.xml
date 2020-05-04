@@ -19,13 +19,12 @@
         <TableRow>
 
 
-
             <TextView
                 android:id="@+id/placeholder_hecod_young"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Babies" />
+                android:text="Pre-Weaned" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_by_death_young_text_view"
@@ -39,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="Old" />
+                android:text="Adult" />
 
         </TableRow>
 

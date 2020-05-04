@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
@@ -18,15 +20,16 @@
         android:gravity="center_horizontal"
         android:textSize="25sp"
         android:layout_alignParentTop="true" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView29">
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
 
     <com.ilri.herdmanager.ui.customui.CustomRadioGroup
         android:id="@+id/existing_farmer_RadioGroup"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:background="@color/black">
 
         <!-- <com.ilri.herdmanager.ui.customui.FarmerRadioButton
@@ -52,27 +55,35 @@
         </com.ilri.herdmanager.ui.customui.FarmerRadioButton>-->
 
     </com.ilri.herdmanager.ui.customui.CustomRadioGroup>
+</ScrollView>
 
-    </ScrollView>
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/existing_farmer_RadioGroup">
+
 
         <Button
             android:id="@+id/button_existing_farmer_select_farmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="40dp"
             android:background="@color/colorPrimary"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/black"
-            android:text="Select Farmer" />
+            android:text="Select Farmer"
+            android:textColor="@color/black" />
 
 
     </LinearLayout>
 
 
-</RelativeLayout>
+
+
+</LinearLayout>

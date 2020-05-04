@@ -37,11 +37,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="10dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Babies">
+                android:text="PWnd"
+                android:textSize="14sp">
 
             </TextView>
 
@@ -86,12 +88,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="10dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Old">
-            </TextView>
+                android:text="Adult"></TextView>
 
             <EditText
                 android:id="@+id/editText_add_dynamic_event_old_animals_bought"
@@ -126,11 +128,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="10dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Babies">
+                android:text="PWnd">
 
             </TextView>
 
@@ -175,12 +178,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="10dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Old">
-            </TextView>
+                android:text="Adult"></TextView>
 
             <EditText
                 android:id="@+id/editText_add_dynamic_event_old_animals_sold"
@@ -213,11 +216,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="10dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Babies">
+                android:text="PWnd">
 
             </TextView>
 
@@ -262,12 +266,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginRight="10dp">
+
             <TextView
+                style="@style/BlackHeadingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingText"
-                android:text="Old">
-            </TextView>
+                android:text="Adult"></TextView>
 
             <EditText
                 android:id="@+id/editText_add_dynamic_event_old_animals_lost"

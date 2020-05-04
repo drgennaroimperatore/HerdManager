@@ -7,117 +7,128 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/style_event_first_row">
-
-
-
-    <EditText
-        android:id="@+id/editText_sign_health_event_baby"
-        style="@style/NumberEditTextStyleDark"
-        android:layout_width="60dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="140dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.024"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editText_sign_health_event_old"
-        style="@style/NumberEditTextStyleDark"
-        android:layout_width="60dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_young"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/health_event_sign_spinner"
-        android:layout_width="264dp"
-        android:layout_height="25dp"
-        android:dropDownWidth="wrap_content"
-        android:layout_marginTop="18dp"
-        android:background="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViews7" />
-
-    <EditText
-        android:id="@+id/editText_sign_health_event_young"
-        style="@style/NumberEditTextStyleDark"
-        android:layout_width="60dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="140dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_baby"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViews8"
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="144dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="19dp"
-        android:text="Animals Affected"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/health_event_sign_spinner" />
-
-    <Button
-        android:id="@+id/button_sign_health_add_sign"
-        android:layout_width="40dp"
-        android:layout_height="39dp"
-        android:background="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503"
-        android:text="Add Sign"
-        android:textColor="@color/colorPrimary"
-        />
-
-    <TextView
-        android:id="@+id/textViews7"
-        style="@style/BlackHeadingTextSmall"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Insert New Sign"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/style_event_first_row">
 
-    <TextView
-        android:id="@+id/textViews15"
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="176dp"
-        android:text="Baby"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_sign_health_event_baby"
+            style="@style/NumberEditTextStyleDark"
+            android:layout_width="60dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="140dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.024"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editText_sign_health_event_old"
+            style="@style/NumberEditTextStyleDark"
+            android:layout_width="60dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="12dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_young"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/health_event_sign_spinner"
+            android:layout_width="264dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/black"
+            android:dropDownWidth="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViews7" />
+
+        <EditText
+            android:id="@+id/editText_sign_health_event_young"
+            style="@style/NumberEditTextStyleDark"
+            android:layout_width="60dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="140dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_baby"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViews8"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="144dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="19dp"
+            android:text="Animals Affected"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/health_event_sign_spinner" />
+
+        <Button
+            android:id="@+id/button_sign_health_add_sign"
+            android:layout_width="40dp"
+            android:layout_height="39dp"
+            android:background="@android:color/black"
+            android:text="Add Sign"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.915"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.503" />
+
+        <TextView
+            android:id="@+id/textViews7"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Insert New Sign"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViews15"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="176dp"
+            android:text="PWnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViews17"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="176dp"
+            android:text="Adult"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/editText_sign_health_event_old"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textViews16"
@@ -127,21 +138,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="176dp"
         android:text="Young"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViews15"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textViews17"
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="176dp"
-        android:text="Old"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
-        app:layout_constraintStart_toEndOf="@+id/textViews16"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_anchor="@+id/constraintLayout6"
+        app:layout_anchorGravity="bottom|center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

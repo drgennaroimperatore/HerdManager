@@ -25,7 +25,7 @@
                 android:id="@+id/placeholder_hesr_young"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Babies" />
+                android:text="Pre-Weaned" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_by_sign_young_text_view"
@@ -37,7 +37,7 @@
                 android:id="@+id/heading_number_of_affected_old_text_view_s"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Old" />
+                android:text="Adult" />
 
         </TableRow>
 
