@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
+import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -127,6 +129,20 @@ class SyncManager {
 
         return sendPost("InsertFarmer",farmerParams);
 
+    }
+
+    public String insertHerdVisit(HerdVisit hv, int newHerdVisitID)
+    {
+        Map<String, Object> herdVisitParams = new LinkedHashMap<>();
+        herdVisitParams.put("HerdID", newHerdVisitID);
+        herdVisitParams.put("babiesAtVisit",hv.babiesAtVisit);
+        herdVisitParams.put("youngAtVisit",hv.youngAtVisit);
+        herdVisitParams.put("oldAtVisit",hv.oldAtVisit);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String selectedDate = sdf.format(hv.HerdVisitDate);
+        herdVisitParams.put("HerdVisitDate",selectedDate);
+
+        return sendPost("InsertHerdVisit",herdVisitParams);
     }
 
     public String insertHealthEvent(HealthEventContainer hce)

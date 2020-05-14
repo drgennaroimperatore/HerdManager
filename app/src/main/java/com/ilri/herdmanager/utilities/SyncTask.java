@@ -8,6 +8,7 @@ import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.HerdVisit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,11 +27,12 @@ import java.util.Map;
 public class SyncTask extends AsyncTask {
     Context m_context;
     SyncManager manager = SyncManager.getInstance();
-    HerdDao herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
+    HerdDao herdDao;
 
     public SyncTask(Context context) {
         super();
         m_context = context;
+        herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
     }
 
     @Override
@@ -55,9 +57,16 @@ public class SyncTask extends AsyncTask {
         {
             int newFarmerID = syncFarmer(f);
             ArrayList<Herd> herdsOwnedByFarmer = (ArrayList) herdDao.getHerdsByFarmerID(f.ID);
+
             for(Herd h: herdsOwnedByFarmer)
             {
                int newHerdID = syncHerd(h,newFarmerID);
+               ArrayList<HerdVisit> visitsForHerd = (ArrayList) herdDao.getAllHerdVisitsByHerdID(h.ID);
+
+               for (HerdVisit hv: visitsForHerd )
+               {
+                   int newVisitID = syncHerdVisit(hv, newHerdID);
+               }
             }
 
         }
@@ -112,9 +121,27 @@ public class SyncTask extends AsyncTask {
         return herdNewID;
     }
 
-    private int syncHerdVisit(int oldHerdID, int newHerdID)
+    private int syncHerdVisit(HerdVisit visit, int newHerdID)
     {
-        return 0;
+        String visitInsertionResponse = manager.insertHerdVisit(visit,newHerdID);
+
+        JSONObject visitJson = null;
+        int vistNewID = -200;
+
+        try {
+            visitJson = new JSONObject(visitInsertionResponse);
+            vistNewID = visitJson.getInt("ID");
+            String outcome = visitJson.getString("outcome");
+            Log.i("Sync-NVisitID", String.valueOf(vistNewID));
+            Log.i("Sync-NHVOutcome", outcome);
+
+        }
+        catch (JSONException e)
+        {
+
+        }
+
+        return vistNewID;
     }
 
     private int syncHealthEvent(int oldHerVisitID, int newHerdVisitID)
