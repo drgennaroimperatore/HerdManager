@@ -1,7 +1,16 @@
 package com.ilri.herdmanager.utilities;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.ilri.herdmanager.database.entities.Farmer;
+import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDao;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -14,8 +23,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SyncTask extends AsyncTask {
-    public SyncTask() {
+    Context m_context;
+
+    public SyncTask(Context context) {
         super();
+        m_context = context;
     }
 
     @Override
@@ -34,87 +46,52 @@ public class SyncTask extends AsyncTask {
     @Override
     protected Object doInBackground(Object[] objects) {
 
-        URL url = null;
-        try {
-           url = new URL("http://10.0.2.2:61330/Home/InsertHerd");
-        } catch (Exception e)
-        {
+        SyncManager manager = SyncManager.getInstance();
+       HerdDao herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
 
-        }
-        Map<String,Object> params = new LinkedHashMap<>();
-        params.put("farmerID", "1");
-        params.put("speciesID", "2");
-       // params.put("reply_to_thread", 10394);
-        //params.put("message", "Shark attacks in Botany Bay have gotten out of control. We need more defensive dolphins to protect the schools here, but Mayor Porpoise is too busy stuffing his snout with lobsters. He's so shellfish.");
+        //manager.insertHerd(String.valueOf(test.speciesID));
+        Farmer f = herdDao.getAllFarmers().get(0);
+        String farmerInsertionResponse = manager.insertFarmer(f.firstName,f.secondName,f.region,f.district,f.kebele);
 
-        String response = new String();
-        HttpURLConnection conn = null;
-        InputStream result = null;
+        JSONObject farmerJson = null;
+        int farmerNewID = -200;
+
 
         try {
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+            farmerJson = new JSONObject(farmerInsertionResponse);
+            farmerNewID =farmerJson.getInt("ID");
+            String outcome = farmerJson.getString("outcome");
+            Log.i("Sync-NewFarmerID",String.valueOf(farmerNewID));
+            Log.i("Sync-outcomeFarmerIns",outcome);
 
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-            conn.setDoOutput(true);
-            conn.getOutputStream().write(postDataBytes);
-
-            result =conn.getInputStream();
-            Reader in = new BufferedReader(new InputStreamReader(result, "UTF-8"));
-
-            StringBuilder sb = new StringBuilder();
-            for (int c; (c = in.read()) >= 0;)
-                sb.append((char)c);
-            response = sb.toString();
-            Log.i("response",response);
-            in.close();
-            conn.disconnect();
-
-
-
-
-        } catch (Exception e)
+        } catch (JSONException e)
         {
-            Log.e("syncError",e.getMessage());
-            result = conn.getErrorStream();
-            conn.disconnect();
-
-
-
-
-
+            //the formation of the json string is handled by asp so should be well formed
         }
 
-        finally
+        Herd test =herdDao.getHerdsByFarmerID(f.ID).get(0);
+        String herdInsertionResponse = manager.insertHerd(String.valueOf(test.speciesID), String.valueOf(farmerNewID));
+
+        JSONObject herdJson = null;
+        int herdNewID = -200;
+        try{
+
+            herdJson = new JSONObject(herdInsertionResponse);
+            herdNewID = herdJson.getInt("ID");
+            String outcome = herdJson.getString("outcome");
+            Log.i("Sync-NHerdID", String.valueOf(herdNewID));
+            Log.i("Sync-NHOutcome", outcome);
+
+        }catch (JSONException e)
         {
-            if (result != null) {
-                BufferedReader rd = new BufferedReader(new InputStreamReader(
-                        result));
-                StringBuilder data = new StringBuilder();
-                String line;
-                try {
-                    while ((line = rd.readLine()) != null) {
-                        data.append(line);
-                        data.append('\n');
-                    }
-                    Log.i("syncErrorlog",data.toString());
-                    rd.close();
-                } catch (Exception e)
-                {
-                    Log.e("SyncError2", e.getMessage());
-                }
-        }
 
         }
+
+
+
+
+
+
 
 
         return null;

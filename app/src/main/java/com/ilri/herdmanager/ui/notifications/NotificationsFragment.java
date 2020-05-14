@@ -54,7 +54,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                SyncTask st = new SyncTask();
+                SyncTask st = new SyncTask(getContext());
                 String[] P= {};
                 st.execute(P);
 
