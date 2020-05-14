@@ -19,11 +19,14 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class SyncTask extends AsyncTask {
     Context m_context;
+    SyncManager manager = SyncManager.getInstance();
+    HerdDao herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
 
     public SyncTask(Context context) {
         super();
@@ -44,13 +47,26 @@ public class SyncTask extends AsyncTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected Object doInBackground(Object[] objects)
+    {
 
-        SyncManager manager = SyncManager.getInstance();
-       HerdDao herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
+        ArrayList<Farmer> farmers =(ArrayList<Farmer>) herdDao.getAllFarmers();
+        for(Farmer f: farmers)
+        {
+            int newFarmerID = syncFarmer(f);
+            ArrayList<Herd> herdsOwnedByFarmer = (ArrayList) herdDao.getHerdsByFarmerID(f.ID);
+            for(Herd h: herdsOwnedByFarmer)
+            {
+               int newHerdID = syncHerd(h,newFarmerID);
+            }
 
-        //manager.insertHerd(String.valueOf(test.speciesID));
-        Farmer f = herdDao.getAllFarmers().get(0);
+        }
+
+        return null;
+    }
+
+    private int syncFarmer(Farmer f)
+    {
         String farmerInsertionResponse = manager.insertFarmer(f.firstName,f.secondName,f.region,f.district,f.kebele);
 
         JSONObject farmerJson = null;
@@ -69,8 +85,14 @@ public class SyncTask extends AsyncTask {
             //the formation of the json string is handled by asp so should be well formed
         }
 
-        Herd test =herdDao.getHerdsByFarmerID(f.ID).get(0);
-        String herdInsertionResponse = manager.insertHerd(String.valueOf(test.speciesID), String.valueOf(farmerNewID));
+        return farmerNewID;
+
+    }
+
+    private int syncHerd(Herd herd, int newFarmerID )
+    {
+
+        String herdInsertionResponse = manager.insertHerd(String.valueOf(herd.speciesID), String.valueOf(newFarmerID));
 
         JSONObject herdJson = null;
         int herdNewID = -200;
@@ -87,13 +109,17 @@ public class SyncTask extends AsyncTask {
 
         }
 
-
-
-
-
-
-
-
-        return null;
+        return herdNewID;
     }
+
+    private int syncHerdVisit(int oldHerdID, int newHerdID)
+    {
+        return 0;
+    }
+
+    private int syncHealthEvent(int oldHerVisitID, int newHerdVisitID)
+    {
+        return 0;
+    }
+
 }
