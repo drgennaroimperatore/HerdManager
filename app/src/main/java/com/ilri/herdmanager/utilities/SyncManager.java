@@ -3,8 +3,12 @@ package com.ilri.herdmanager.utilities;
 import android.util.Log;
 
 import com.ilri.herdmanager.classes.HealthEventContainer;
+import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
+import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.HerdVisit;
+import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
+import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 
 import java.io.BufferedReader;
@@ -131,10 +135,10 @@ class SyncManager {
 
     }
 
-    public String insertHerdVisit(HerdVisit hv, int newHerdVisitID)
+    public String insertHerdVisit(HerdVisit hv, int newHerdID)
     {
         Map<String, Object> herdVisitParams = new LinkedHashMap<>();
-        herdVisitParams.put("HerdID", newHerdVisitID);
+        herdVisitParams.put("HerdID", newHerdID);
         herdVisitParams.put("babiesAtVisit",hv.babiesAtVisit);
         herdVisitParams.put("youngAtVisit",hv.youngAtVisit);
         herdVisitParams.put("oldAtVisit",hv.oldAtVisit);
@@ -145,11 +149,65 @@ class SyncManager {
         return sendPost("InsertHerdVisit",herdVisitParams);
     }
 
-    public String insertHealthEvent(HealthEventContainer hce)
+    public String insertHealthEvent(HealthEvent healthEvent, int newHerdVisitID)
     {
-        ArrayList<DiseasesForHealthEvent> dhe = (ArrayList<DiseasesForHealthEvent>) hce.mDhes;
-        ArrayList<SignsForHealthEvent> she = (ArrayList) hce.mShes;
+       Map<String, Object> healthEventParams = new LinkedHashMap<>();
+       healthEventParams.put("herdVisitID", newHerdVisitID);
 
-        return "";
+        return sendPost("InsertHealthEvent",healthEventParams);
+    }
+
+    public String insertDiseaseForHealthEvent(DiseasesForHealthEvent dhe, int newHealthEventID)
+    {
+        Map<String, Object> dheParams= new LinkedHashMap<>();
+        dheParams.put("diseaseID",dhe.diseaseID);
+        dheParams.put("healthEventID",newHealthEventID);
+        dheParams.put("numberOfAffectedBabies",dhe.numberOfAffectedBabies);
+        dheParams.put("numberOfAffectedYoung", dhe.numberOfAffectedYoung);
+        dheParams.put("numberOfAffectedOld", dhe.numberOfAffectedOld);
+
+        return sendPost("InsertDiseaseForHealthEvent", dheParams);
+    }
+
+    public String insertSignForHealthEvent(SignsForHealthEvent she, int newHealthEventID)
+    {
+        Map<String, Object> sheParams= new LinkedHashMap<>();
+        sheParams.put("signID",she.signID);
+        sheParams.put("healthEventID",newHealthEventID);
+        sheParams.put("numberOfAffectedBabies",she.numberOfAffectedBabies);
+        sheParams.put("numberOfAffectedYoung", she.numberOfAffectedYoung);
+        sheParams.put("numberOfAffectedOld", she.numberOfAffectedOld);
+
+        return sendPost("InsertSignForHealthEvent", sheParams);
+    }
+
+    public String insertProductivityEvent(ProductivityEvent productivityEvent, int newHerdVisitID)
+    {
+        Map<String ,Object> productivityParams = new LinkedHashMap<>();
+        productivityParams.put("herdVisitID",newHerdVisitID);
+
+        return sendPost("InsertProductivityEvent",productivityParams);
+
+    }
+
+    public String insertMilkForProducitivityEvent(MilkProductionForProductivityEvent mpe, int newProdEventID)
+    {
+        Map<String, Object> milkParams = new LinkedHashMap<>();
+        milkParams.put("litresOfMilkPerDay", mpe.litresOfMilkPerDay);
+        milkParams.put("numberOfLactatingAnimals", mpe.numberOfLactatingAnimals);
+        milkParams.put("productivityEventID", newProdEventID);
+
+        return sendPost("InsertMilkForProductivityEvent",milkParams);
+
+    }
+
+    public String insertBirthsForProductivityEvent (BirthsForProductivityEvent bpe, int newProdEventID)
+    {
+        Map<String, Object> birthsParams = new LinkedHashMap<>();
+        birthsParams.put("nOfBirths",bpe.nOfBirths);
+        birthsParams.put("nOfGestatingAnimals",bpe.nOfGestatingAnimals);
+        birthsParams.put("productivityEventID",bpe.productivityEventID);
+
+        return sendPost("InsertBirthsForProductivityEvent", birthsParams);
     }
 }
