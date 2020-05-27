@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Button;
 
+import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
+import com.ilri.herdmanager.database.entities.DynamicEvent;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
@@ -35,16 +39,24 @@ public class SyncTask extends AsyncTask {
     Context m_context;
     SyncManager manager = SyncManager.getInstance();
     HerdDao herdDao;
+    Button mButton;
+    String mOriginalButtonText ="";
 
-    public SyncTask(Context context) {
+    public SyncTask(Context context, Button button) {
         super();
         m_context = context;
         herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
+        mButton = button;
     }
+
+
 
     @Override
     protected void onPostExecute(Object o) {
+
         super.onPostExecute(o);
+        mButton.setEnabled(true);
+        mButton.setText(mOriginalButtonText);
     }
 
 
@@ -52,6 +64,9 @@ public class SyncTask extends AsyncTask {
     protected void onPreExecute() {
         super.onPreExecute();
 
+        mButton.setEnabled(false);
+        mOriginalButtonText = mButton.getText().toString();
+        mButton.setText("Sync in Progress...");
 
     }
 
@@ -99,6 +114,20 @@ public class SyncTask extends AsyncTask {
 
                    BirthsForProductivityEvent bpe = herdDao.getBirthsForProductivityEvent(productivityEventForVisit.ID).get(0);
                    syncBirthsForProductivityEvent(bpe, newProdEventID);
+
+                   DynamicEvent dynamicEventForVisit = herdDao.getDynamicEventForVisit(hv.ID).get(0);
+                   int newDynamicEventID =syncDynamicEvent(dynamicEventForVisit,newVisitID);
+
+                   AnimalMovementsForDynamicEvent amde = herdDao.getAnimalMovementsForDynamicEvent(dynamicEventForVisit.ID).get(0);
+                   syncAnimalMovementForDynamicEvent(amde, newDynamicEventID);
+
+                   ArrayList<DeathsForDynamicEvent> deathsForDynamicEvents = (ArrayList<DeathsForDynamicEvent>) herdDao.getDeathsForDynamicEvent(dynamicEventForVisit.ID);
+
+                   for(DeathsForDynamicEvent dde:deathsForDynamicEvents)
+                   {
+                       syncDeathForAnimalMovementEvent(dde,newDynamicEventID);
+                   }
+
 
                } // for herd visit
             } // for herd
@@ -317,6 +346,78 @@ public class SyncTask extends AsyncTask {
         }
 
         return milkNewID;
+    }
+
+    private int syncDynamicEvent(DynamicEvent dynamicEvent, int newHerdVisitID)
+    {
+        String dynamicEventInsertionResponse = manager.insertDynamicEvent(dynamicEvent, newHerdVisitID);
+
+        JSONObject dynamicEventJson = null;
+        int dynamicEventNewID = -200;
+
+        try
+        {
+            dynamicEventJson = new JSONObject(dynamicEventInsertionResponse);
+            dynamicEventNewID = dynamicEventJson.getInt("ID");
+            String outcome = dynamicEventJson.getString("outcome");
+            Log.i("Sync-DynamicID",String.valueOf(dynamicEventNewID));
+            Log.i("Sync-DynamicOutcome",outcome);
+
+        }
+        catch (JSONException e)
+        {
+
+        }
+
+        return dynamicEventNewID;
+    }
+
+    private int syncAnimalMovementForDynamicEvent(AnimalMovementsForDynamicEvent amde, int newDynamicEventID)
+    {
+        String animalMovementInsertionResponse = manager.insertAnimalMovementsForDynamicEvent(amde, newDynamicEventID);
+
+        JSONObject animalMovementJson = null;
+        int animalMovementNewID = -200;
+
+        try
+        {
+            animalMovementJson = new JSONObject(animalMovementInsertionResponse);
+            animalMovementNewID = animalMovementJson.getInt("ID");
+            String outcome = animalMovementJson.getString("outcome");
+            Log.i("Sync-AnimalMovID",String.valueOf(animalMovementNewID));
+            Log.i("Sync-AniMovOutcome",outcome);
+
+        }
+        catch (JSONException e)
+        {
+
+        }
+
+        return animalMovementNewID;
+    }
+
+    private int syncDeathForAnimalMovementEvent(DeathsForDynamicEvent dde, int newDynamicEventID)
+    {
+        String deathInsertionResponse = manager.insertDeathForDynamicEvent(dde, newDynamicEventID);
+
+        JSONObject deathJson = null;
+        int deathNewID = -200;
+
+        try
+        {
+            deathJson = new JSONObject(deathInsertionResponse);
+            deathNewID = deathJson.getInt("ID");
+            String outcome = deathJson.getString("outcome");
+            Log.i("Sync-DynamicID",String.valueOf(deathNewID));
+            Log.i("Sync-DynamicOutcome",outcome);
+
+        }
+        catch (JSONException e)
+        {
+
+        }
+
+        return deathNewID;
     }
 
 }

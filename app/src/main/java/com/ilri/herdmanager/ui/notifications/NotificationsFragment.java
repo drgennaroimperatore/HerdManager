@@ -48,13 +48,13 @@ public class NotificationsFragment extends Fragment {
 
 
 
-        Button syncButton = view.findViewById(R.id.button_sync_data);
+        final Button syncButton = view.findViewById(R.id.button_sync_data);
 
         syncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SyncTask st = new SyncTask(getContext());
+                SyncTask st = new SyncTask(getContext(),syncButton);
                 String[] P= {};
                 st.execute(P);
 

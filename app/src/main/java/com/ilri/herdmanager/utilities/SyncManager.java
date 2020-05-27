@@ -3,8 +3,11 @@ package com.ilri.herdmanager.utilities;
 import android.util.Log;
 
 import com.ilri.herdmanager.classes.HealthEventContainer;
+import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
+import com.ilri.herdmanager.database.entities.DynamicEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
@@ -78,6 +81,8 @@ class SyncManager {
             response = sb.toString();
             Log.i("response",response);
             in.close();
+            int responseCode = conn.getResponseCode();
+            Log.i("responsecode",String.valueOf(responseCode));
             conn.disconnect();
 
 
@@ -206,8 +211,48 @@ class SyncManager {
         Map<String, Object> birthsParams = new LinkedHashMap<>();
         birthsParams.put("nOfBirths",bpe.nOfBirths);
         birthsParams.put("nOfGestatingAnimals",bpe.nOfGestatingAnimals);
-        birthsParams.put("productivityEventID",bpe.productivityEventID);
+        birthsParams.put("productivityEventID",newProdEventID);
 
         return sendPost("InsertBirthsForProductivityEvent", birthsParams);
+    }
+
+    public String insertDynamicEvent(DynamicEvent dynamicEvent, int newHerdVisitID)
+    {
+        Map<String, Object> dynamicEventParams = new LinkedHashMap<>();
+        dynamicEventParams.put("herdVisitID",newHerdVisitID);
+
+        return sendPost("InsertDynamicEvent",dynamicEventParams);
+    }
+
+    public String insertAnimalMovementsForDynamicEvent(AnimalMovementsForDynamicEvent amde, int newDynamicEventID)
+    {
+        Map <String, Object> animalMovementParams = new LinkedHashMap<>();
+        animalMovementParams.put("boughtBabies",amde.boughtBabies);
+        animalMovementParams.put("boughtYoung",amde.boughtYoung);
+        animalMovementParams.put("boughtOld",amde.boughtOld);
+
+        animalMovementParams.put("lostBabies",amde.lostBabies);
+        animalMovementParams.put("lostYoung",amde.lostYoung);
+        animalMovementParams.put("lostOld",amde.lostOld);
+
+        animalMovementParams.put("soldBabies",amde.soldBabies);
+        animalMovementParams.put("soldYoung",amde.soldYoung);
+        animalMovementParams.put("soldOld",amde.soldOld);
+
+        animalMovementParams.put("dynamicEventID",newDynamicEventID);
+
+        return sendPost("InsertAnimalMovementForDynamicEvent", animalMovementParams);
+    }
+
+    public String insertDeathForDynamicEvent(DeathsForDynamicEvent dde, int newDynamicEventID)
+    {
+        Map<String, Object> deathParams = new LinkedHashMap<>();
+        deathParams.put("causeOfDeath",dde.causeOfDeath);
+        deathParams.put("deadBabies",dde.deadBabies);
+        deathParams.put("deadYoung",dde.deadYoung);
+        deathParams.put("deadOld",dde.deadOld);
+        deathParams.put("dynamicEventID",newDynamicEventID);
+
+        return sendPost("InsertDeathForDynamicEvent",deathParams);
     }
 }
