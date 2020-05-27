@@ -9,6 +9,12 @@ public class DynamicEvent {
     @PrimaryKey (autoGenerate = true)
     public int ID;
     public int herdVisitID;
+    public String syncStatus;
+
+    public DynamicEvent()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+    }
 
 
 }

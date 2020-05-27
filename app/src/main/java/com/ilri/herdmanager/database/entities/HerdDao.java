@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -130,6 +131,43 @@ public interface HerdDao {
 
     @Delete
     void DeleteDeathForDynamicEvent (DeathsForDynamicEvent deathsForDynamicEvent);
+
+    @Update
+    int UpdateFarmer(Farmer f);
+
+    @Update
+    int UpdateHerd(Herd herd);
+
+    @Update
+    int UpdateHerdVisit(HerdVisit herdVisit);
+
+    @Update
+    int UpdateHealthEvent (HealthEvent healthEvent);
+
+    @Update
+    int UpdateDiseaseForHealthEvent(DiseasesForHealthEvent dhe);
+
+    @Update
+    int UpdateSignForHealthEvent(SignsForHealthEvent she);
+
+
+    @Update
+    int UpdateProductivityEvent(ProductivityEvent productivityEvent);
+
+    @Update
+    int UpdateBirthsForProductivityEvent (BirthsForProductivityEvent bpe);
+
+    @Update
+    int UpdateMilkForProductivityEvent(MilkProductionForProductivityEvent mpe);
+
+    @Update
+    int UpdateDynamicEvent(DynamicEvent dynamicEvent);
+
+    @Update
+    int UpdateAnimalMovementsForDynamicEvent(AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent);
+
+    @Update
+    int UpdateDeathsForDynamicEvent (DeathsForDynamicEvent dde);
 
 
 }

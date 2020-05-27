@@ -16,5 +16,11 @@ public class HerdVisit {
     public int youngAtVisit;
     public int oldAtVisit;
     public int HerdID;
+    public String syncStatus;
+
+    public HerdVisit()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+    }
 
 }

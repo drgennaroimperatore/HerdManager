@@ -16,5 +16,11 @@ public class ProductivityEvent {
     @PrimaryKey(autoGenerate = true)
     public int ID;
     public int HerdVisitID;
+    public String syncStatus;
+
+    public ProductivityEvent()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+    }
 
 }

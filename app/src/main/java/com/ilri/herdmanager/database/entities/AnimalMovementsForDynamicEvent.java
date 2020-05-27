@@ -13,9 +13,11 @@ public class AnimalMovementsForDynamicEvent {
     public int lostBabies, lostYoung, lostOld;
     public int boughtBabies, boughtYoung, boughtOld;
     public int dynamicEventID;
+    public String syncStatus;
 
     public AnimalMovementsForDynamicEvent()
     {
         soldBabies = soldOld = soldYoung = lostBabies = lostYoung = lostOld = boughtYoung = boughtBabies = boughtOld =0;
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
     }
 }

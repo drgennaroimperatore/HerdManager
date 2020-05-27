@@ -11,4 +11,10 @@ public class Herd {
     public int ID;
     public int speciesID;
     public int farmerID;
+    public String syncStatus;
+
+    public Herd()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+    }
 }

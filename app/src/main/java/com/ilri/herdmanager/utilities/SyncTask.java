@@ -20,6 +20,7 @@ import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,10 +80,14 @@ public class SyncTask extends AsyncTask {
         {
             int newFarmerID = syncFarmer(f);
             ArrayList<Herd> herdsOwnedByFarmer = (ArrayList) herdDao.getHerdsByFarmerID(f.ID);
+            f.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
 
             for(Herd h: herdsOwnedByFarmer)
             {
                int newHerdID = syncHerd(h,newFarmerID);
+               h.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                herdDao.UpdateFarmer(f);
+
                ArrayList<HerdVisit> visitsForHerd = (ArrayList) herdDao.getAllHerdVisitsByHerdID(h.ID);
 
                for (HerdVisit hv: visitsForHerd )
@@ -91,6 +96,10 @@ public class SyncTask extends AsyncTask {
 
                    HealthEvent healthEventForVisit = herdDao.getHealthEventForVisit(hv.ID).get(0);
                    int newHealthEventID = syncHealthEvent(healthEventForVisit, newVisitID);
+                   hv.syncStatus= SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   herdDao.UpdateHerdVisit(hv);
+
+
 
                    ArrayList<DiseasesForHealthEvent> diseasesForHealthEvent = (ArrayList<DiseasesForHealthEvent>) herdDao.getDiseasesForHealthEvent(healthEventForVisit.ID);
                    ArrayList<SignsForHealthEvent> signsForHealthEvent = (ArrayList) herdDao.getSignsForHealthEvent(healthEventForVisit.ID);
@@ -129,10 +138,16 @@ public class SyncTask extends AsyncTask {
                    }
 
 
+                   hv.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                   herdDao.UpdateHerdVisit(hv);
                } // for herd visit
+                h.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+               herdDao.UpdateHerd(h);
             } // for herd
 
-        }
+            f.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+            herdDao.UpdateFarmer(f);
+        }// for farmer
 
         return null;
     }

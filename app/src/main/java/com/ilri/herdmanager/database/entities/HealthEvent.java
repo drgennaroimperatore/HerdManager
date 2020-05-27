@@ -10,9 +10,11 @@ public class HealthEvent {
     @PrimaryKey(autoGenerate = true)
     public int ID;
     public int herdVisitID;
+    public String syncStatus;
 
     public HealthEvent()
     {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
 
     }
 

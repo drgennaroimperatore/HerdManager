@@ -11,4 +11,10 @@ public class MilkProductionForProductivityEvent {
    public int litresOfMilkPerDay;
    public int numberOfLactatingAnimals;
    public int productivityEventID;
+   public String syncStatus;
+
+   public MilkProductionForProductivityEvent()
+   {
+      syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+   }
 }

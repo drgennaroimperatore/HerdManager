@@ -11,4 +11,10 @@ public class BirthsForProductivityEvent {
     public int nOfGestatingAnimals;
     public int nOfBirths;
     public int productivityEventID;
+    public String syncStatus;
+
+    public BirthsForProductivityEvent()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+    }
 }

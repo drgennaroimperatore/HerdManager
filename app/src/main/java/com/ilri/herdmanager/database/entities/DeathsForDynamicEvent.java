@@ -12,10 +12,16 @@ public class DeathsForDynamicEvent {
     public int dynamicEventID;
     public String causeOfDeath;
     public int deadBabies, deadYoung, deadOld;
+    public String syncStatus;
 
     @Override
     public boolean equals(@Nullable Object obj) {
         DeathsForDynamicEvent dde2 = (DeathsForDynamicEvent)obj;
         return causeOfDeath.equals(dde2.causeOfDeath);
+    }
+
+    public DeathsForDynamicEvent()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
     }
 }

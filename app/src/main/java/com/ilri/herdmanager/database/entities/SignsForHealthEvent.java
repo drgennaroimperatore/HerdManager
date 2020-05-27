@@ -13,10 +13,16 @@ public class SignsForHealthEvent
     public int signID;
     public int healthEventID;
     public int numberOfAffectedBabies, numberOfAffectedYoung,numberOfAffectedOld;
+    public String syncStatus;
 
     @Override
     public boolean equals(@Nullable Object obj) {
         SignsForHealthEvent she2 = (SignsForHealthEvent)obj;
         return (signID== she2.signID);
+    }
+
+    public SignsForHealthEvent()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
     }
 }
