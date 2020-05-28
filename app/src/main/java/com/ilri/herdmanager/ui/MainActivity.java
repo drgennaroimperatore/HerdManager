@@ -1,6 +1,8 @@
 package com.ilri.herdmanager.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ImageButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.kmz.KMZParser;
+import com.ilri.herdmanager.utilities.Info;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -17,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+
+        String UUIDstr = UUID.randomUUID().toString();
+        SharedPreferences sharedPreferences = getSharedPreferences("userPrefs",Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sharedPreferences.edit();
+        if(!sharedPreferences.contains(Info.SHARED_PREFERENCES_KEY_UUID)) {
+            spEditor.putString(Info.SHARED_PREFERENCES_KEY_UUID, UUIDstr);
+            spEditor.commit();
+        }
 
         try {
             new KMZParser().execute(getAssets().open("eth.kml"));

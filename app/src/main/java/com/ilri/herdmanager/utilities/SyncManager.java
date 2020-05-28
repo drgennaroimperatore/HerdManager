@@ -127,7 +127,7 @@ class SyncManager {
       return sendPost("InsertHerd",herdParams);
     }
 
-    public String insertFarmer(String firstName, String secondName, String region, String district, String kebele)
+    public String insertFarmer(String firstName, String secondName, String region, String district, String kebele, String UUID)
     {
         Map<String, Object> farmerParams = new LinkedHashMap<>();
         farmerParams.put("firstName",firstName);
@@ -135,9 +135,19 @@ class SyncManager {
         farmerParams.put("region",region);
         farmerParams.put("district",district);
         farmerParams.put("kebele",kebele);
+        farmerParams.put("UserID",UUID);
 
         return sendPost("InsertFarmer",farmerParams);
 
+    }
+
+    public String insertUser(String UUID)
+    {
+        Map<String, Object> userParams = new LinkedHashMap<>();
+        userParams.put("Name","Test Name");
+        userParams.put("UUID",UUID);
+
+        return sendPost("InsertUser",userParams);
     }
 
     public String insertHerdVisit(HerdVisit hv, int newHerdID)

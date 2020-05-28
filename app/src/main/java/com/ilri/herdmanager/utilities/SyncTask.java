@@ -1,6 +1,7 @@
 package com.ilri.herdmanager.utilities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
@@ -76,28 +77,54 @@ public class SyncTask extends AsyncTask {
     {
 
         ArrayList<Farmer> farmers =(ArrayList<Farmer>) herdDao.getAllFarmers();
+        farmerloop:
         for(Farmer f: farmers)
         {
+            if(f.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                continue ;
+
             int newFarmerID = syncFarmer(f);
             ArrayList<Herd> herdsOwnedByFarmer = (ArrayList) herdDao.getHerdsByFarmerID(f.ID);
             f.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
 
             for(Herd h: herdsOwnedByFarmer)
             {
+                if(h.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                    continue;
+
                int newHerdID = syncHerd(h,newFarmerID);
                h.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
                 herdDao.UpdateFarmer(f);
+
+                if(newHerdID==-200)
+                    break farmerloop;
 
                ArrayList<HerdVisit> visitsForHerd = (ArrayList) herdDao.getAllHerdVisitsByHerdID(h.ID);
 
                for (HerdVisit hv: visitsForHerd )
                {
+                   if(hv.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                       continue;
+
                    int newVisitID = syncHerdVisit(hv, newHerdID);
+                   if(newVisitID==-200)
+                   {
+                       break farmerloop;
+                   }
+
+
+                   hv.syncStatus= SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   herdDao.UpdateHerdVisit(hv);
 
                    HealthEvent healthEventForVisit = herdDao.getHealthEventForVisit(hv.ID).get(0);
                    int newHealthEventID = syncHealthEvent(healthEventForVisit, newVisitID);
-                   hv.syncStatus= SyncStatus.PARTIALLY_SYNCHRONISED.toString();
-                   herdDao.UpdateHerdVisit(hv);
+                   if(newHealthEventID==-200)
+                       break farmerloop;
+
+
+                   healthEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   herdDao.UpdateHealthEvent(healthEventForVisit);
+
 
 
 
@@ -106,36 +133,88 @@ public class SyncTask extends AsyncTask {
 
                    for(DiseasesForHealthEvent dhe:diseasesForHealthEvent)
                    {
-                       syncDiseaseForHealthEvent(dhe,newHealthEventID);
+                       if(dhe.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                           continue;
+
+                      int dheID = syncDiseaseForHealthEvent(dhe,newHealthEventID);
+                      if(dheID==-200)
+                          break farmerloop;
+                      dhe.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                      herdDao.UpdateDiseaseForHealthEvent(dhe);
 
                    }
                    for(SignsForHealthEvent she: signsForHealthEvent)
                    {
-                       syncSignForHealthEvent(she, newHealthEventID);
+                       if(she.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                           continue;
+
+                     int sheID= syncSignForHealthEvent(she, newHealthEventID);
+                     if(sheID==-200)
+                         break farmerloop;
+
+                     she.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                     herdDao.UpdateSignForHealthEvent(she);
 
                    }
+                   healthEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                   herdDao.UpdateHealthEvent(healthEventForVisit);
 
                    ProductivityEvent productivityEventForVisit= herdDao.getProductivityEventForVisit(hv.ID).get(0);
                    int newProdEventID = syncProductivityEvent(productivityEventForVisit,newVisitID);
 
+                   if(newProdEventID ==-200)
+                       break farmerloop;
+
+                   productivityEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   herdDao.UpdateProductivityEvent(productivityEventForVisit);
+
                    MilkProductionForProductivityEvent mpe = herdDao.getMilkProductionForProductivityEvent(productivityEventForVisit.ID).get(0);
-                   syncMilkProductionForProdEvent(mpe,newProdEventID);
+                   int mpeID= syncMilkProductionForProdEvent(mpe,newProdEventID);
+
+                   if(mpeID ==-200)
+                       break farmerloop;
 
                    BirthsForProductivityEvent bpe = herdDao.getBirthsForProductivityEvent(productivityEventForVisit.ID).get(0);
-                   syncBirthsForProductivityEvent(bpe, newProdEventID);
+                   int bpeID= syncBirthsForProductivityEvent(bpe, newProdEventID);
+
+                   if(bpeID ==-200)
+                       break farmerloop;
+
+                   productivityEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                   herdDao.UpdateProductivityEvent(productivityEventForVisit);
 
                    DynamicEvent dynamicEventForVisit = herdDao.getDynamicEventForVisit(hv.ID).get(0);
                    int newDynamicEventID =syncDynamicEvent(dynamicEventForVisit,newVisitID);
 
+                   if(newDynamicEventID==-200)
+                       break farmerloop;
+
+                   dynamicEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   herdDao.UpdateDynamicEvent(dynamicEventForVisit);
+
                    AnimalMovementsForDynamicEvent amde = herdDao.getAnimalMovementsForDynamicEvent(dynamicEventForVisit.ID).get(0);
-                   syncAnimalMovementForDynamicEvent(amde, newDynamicEventID);
+                   int mdeID =  syncAnimalMovementForDynamicEvent(amde, newDynamicEventID);
+
+                   if(mdeID==-200)
+                       break farmerloop;
+
+                   amde.syncStatus= SyncStatus.SYNCHRNOISED.toString();
+                   herdDao.UpdateAnimalMovementsForDynamicEvent(amde);
 
                    ArrayList<DeathsForDynamicEvent> deathsForDynamicEvents = (ArrayList<DeathsForDynamicEvent>) herdDao.getDeathsForDynamicEvent(dynamicEventForVisit.ID);
 
                    for(DeathsForDynamicEvent dde:deathsForDynamicEvents)
                    {
-                       syncDeathForAnimalMovementEvent(dde,newDynamicEventID);
+                      int ddeID= syncDeathForAnimalMovementEvent(dde,newDynamicEventID);
+                      if(ddeID==-200)
+                          break farmerloop;
+
+                      dde.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                      herdDao.UpdateDeathsForDynamicEvent(dde);
                    }
+
+                   dynamicEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                   herdDao.UpdateDynamicEvent(dynamicEventForVisit);
 
 
                    hv.syncStatus = SyncStatus.SYNCHRNOISED.toString();
@@ -154,7 +233,29 @@ public class SyncTask extends AsyncTask {
 
     private int syncFarmer(Farmer f)
     {
-        String farmerInsertionResponse = manager.insertFarmer(f.firstName,f.secondName,f.region,f.district,f.kebele);
+
+
+        String UUID = m_context.getSharedPreferences("userPrefs",Context.MODE_PRIVATE).getString(Info.SHARED_PREFERENCES_KEY_UUID,"");
+        String userInsertionResponse =manager.insertUser(UUID);
+
+        JSONObject userJson = null;
+        int userID = -200;
+
+
+        try {
+            userJson = new JSONObject(userInsertionResponse);
+            userID =userJson.getInt("ID");
+            String outcome = userJson.getString("outcome");
+            Log.i("Sync-UserID",String.valueOf(userID));
+            Log.i("Sync-outcomeUserIns",outcome);
+
+        } catch (JSONException e)
+        {
+            //the formation of the json string is handled by asp so should be well formed
+        }
+
+
+        String farmerInsertionResponse = manager.insertFarmer(f.firstName,f.secondName,f.region,f.district,f.kebele,UUID);
 
         JSONObject farmerJson = null;
         int farmerNewID = -200;

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +17,7 @@ import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdVisit;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 import com.ilri.herdmanager.managers.HerdManager;
 import com.ilri.herdmanager.ui.dialogs.HerdVisitHistoryDialog;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
@@ -96,6 +98,17 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
 
         TextView headingFarmerName = view.findViewById(R.id.herd_visits_list_header_farmer_name_textview);
         headingFarmerName.setText(f.firstName + " " + f.secondName );
+
+        ImageView syncStatusImageView = view.findViewById(R.id.manage_herd_visits_list_header_syncStatus_imageView);
+        String syncStatusString = f.syncStatus.toString();
+
+        if(syncStatusString == SyncStatus.NOT_SYNCHRONISED.toString())
+            syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+        if(syncStatusString == SyncStatus.PARTIALLY_SYNCHRONISED.toString())
+            syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+        if(syncStatusString == SyncStatus.SYNCHRNOISED.toString())
+            syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_synced);
+
 
         return view;
     }
