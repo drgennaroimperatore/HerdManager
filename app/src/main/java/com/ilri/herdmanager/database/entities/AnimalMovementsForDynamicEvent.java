@@ -14,10 +14,12 @@ public class AnimalMovementsForDynamicEvent {
     public int boughtBabies, boughtYoung, boughtOld;
     public int dynamicEventID;
     public String syncStatus;
+    public int serverID;
 
     public AnimalMovementsForDynamicEvent()
     {
         soldBabies = soldOld = soldYoung = lostBabies = lostYoung = lostOld = boughtYoung = boughtBabies = boughtOld =0;
         syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+        serverID =-1;
     }
 }

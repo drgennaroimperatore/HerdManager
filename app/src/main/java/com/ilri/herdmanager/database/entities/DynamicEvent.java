@@ -10,6 +10,7 @@ public class DynamicEvent {
     public int ID;
     public int herdVisitID;
     public String syncStatus;
+    public int serverID =-1;
 
     public DynamicEvent()
     {

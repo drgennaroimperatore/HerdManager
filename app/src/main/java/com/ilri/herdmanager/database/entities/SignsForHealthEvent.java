@@ -14,6 +14,7 @@ public class SignsForHealthEvent
     public int healthEventID;
     public int numberOfAffectedBabies, numberOfAffectedYoung,numberOfAffectedOld;
     public String syncStatus;
+    public int serverID=-1;
 
     @Override
     public boolean equals(@Nullable Object obj) {

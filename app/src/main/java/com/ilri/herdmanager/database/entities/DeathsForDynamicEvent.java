@@ -13,6 +13,7 @@ public class DeathsForDynamicEvent {
     public String causeOfDeath;
     public int deadBabies, deadYoung, deadOld;
     public String syncStatus;
+    public int serverID;
 
     @Override
     public boolean equals(@Nullable Object obj) {
@@ -22,6 +23,8 @@ public class DeathsForDynamicEvent {
 
     public DeathsForDynamicEvent()
     {
+
         syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+        serverID=-1;
     }
 }

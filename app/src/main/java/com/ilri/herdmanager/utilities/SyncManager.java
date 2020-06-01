@@ -8,11 +8,14 @@ import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
+import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -119,22 +122,27 @@ class SyncManager {
         return response;
     }
 
-    public String insertHerd(String speciesID, String newFarmerID)
+    public String insertHerd(Herd h, String newFarmerID)
     {
+
         Map<String, Object> herdParams = new LinkedHashMap<>();
-        herdParams.put("speciesID",speciesID);
+        if(h.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString())
+            herdParams.put("ID",h.serverID);
+        herdParams.put("speciesID",h.speciesID);
         herdParams.put("farmerID",newFarmerID);
       return sendPost("InsertHerd",herdParams);
     }
 
-    public String insertFarmer(String firstName, String secondName, String region, String district, String kebele, String UUID)
+    public String insertFarmer(Farmer f, int UUID)
     {
         Map<String, Object> farmerParams = new LinkedHashMap<>();
-        farmerParams.put("firstName",firstName);
-        farmerParams.put("secondName", secondName);
-        farmerParams.put("region",region);
-        farmerParams.put("district",district);
-        farmerParams.put("kebele",kebele);
+        if(f.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            farmerParams.put("ID",f.serverID);
+        farmerParams.put("firstName",f.firstName);
+        farmerParams.put("secondName", f.secondName);
+        farmerParams.put("region",f.region);
+        farmerParams.put("district",f.district);
+        farmerParams.put("kebele",f.kebele);
         farmerParams.put("UserID",UUID);
 
         return sendPost("InsertFarmer",farmerParams);
@@ -153,6 +161,8 @@ class SyncManager {
     public String insertHerdVisit(HerdVisit hv, int newHerdID)
     {
         Map<String, Object> herdVisitParams = new LinkedHashMap<>();
+        if(hv.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            herdVisitParams.put("ID",hv.serverID);
         herdVisitParams.put("HerdID", newHerdID);
         herdVisitParams.put("babiesAtVisit",hv.babiesAtVisit);
         herdVisitParams.put("youngAtVisit",hv.youngAtVisit);
@@ -167,6 +177,8 @@ class SyncManager {
     public String insertHealthEvent(HealthEvent healthEvent, int newHerdVisitID)
     {
        Map<String, Object> healthEventParams = new LinkedHashMap<>();
+       if(healthEvent.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+        healthEventParams.put("ID",healthEvent.serverID);
        healthEventParams.put("herdVisitID", newHerdVisitID);
 
         return sendPost("InsertHealthEvent",healthEventParams);
@@ -175,6 +187,8 @@ class SyncManager {
     public String insertDiseaseForHealthEvent(DiseasesForHealthEvent dhe, int newHealthEventID)
     {
         Map<String, Object> dheParams= new LinkedHashMap<>();
+        if(dhe.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            dheParams.put("ID",dhe.serverID);
         dheParams.put("diseaseID",dhe.diseaseID);
         dheParams.put("healthEventID",newHealthEventID);
         dheParams.put("numberOfAffectedBabies",dhe.numberOfAffectedBabies);
@@ -187,6 +201,8 @@ class SyncManager {
     public String insertSignForHealthEvent(SignsForHealthEvent she, int newHealthEventID)
     {
         Map<String, Object> sheParams= new LinkedHashMap<>();
+        if(she.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            sheParams.put("ID",she.serverID);
         sheParams.put("signID",she.signID);
         sheParams.put("healthEventID",newHealthEventID);
         sheParams.put("numberOfAffectedBabies",she.numberOfAffectedBabies);
@@ -199,6 +215,8 @@ class SyncManager {
     public String insertProductivityEvent(ProductivityEvent productivityEvent, int newHerdVisitID)
     {
         Map<String ,Object> productivityParams = new LinkedHashMap<>();
+        if(productivityEvent.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            productivityParams.put("ID",productivityEvent.serverID);
         productivityParams.put("herdVisitID",newHerdVisitID);
 
         return sendPost("InsertProductivityEvent",productivityParams);
@@ -208,6 +226,8 @@ class SyncManager {
     public String insertMilkForProducitivityEvent(MilkProductionForProductivityEvent mpe, int newProdEventID)
     {
         Map<String, Object> milkParams = new LinkedHashMap<>();
+        if(mpe.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            milkParams.put("ID",mpe.serverID);
         milkParams.put("litresOfMilkPerDay", mpe.litresOfMilkPerDay);
         milkParams.put("numberOfLactatingAnimals", mpe.numberOfLactatingAnimals);
         milkParams.put("productivityEventID", newProdEventID);
@@ -219,6 +239,8 @@ class SyncManager {
     public String insertBirthsForProductivityEvent (BirthsForProductivityEvent bpe, int newProdEventID)
     {
         Map<String, Object> birthsParams = new LinkedHashMap<>();
+        if(bpe.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            birthsParams.put("ID",bpe.serverID);
         birthsParams.put("nOfBirths",bpe.nOfBirths);
         birthsParams.put("nOfGestatingAnimals",bpe.nOfGestatingAnimals);
         birthsParams.put("productivityEventID",newProdEventID);
@@ -229,6 +251,8 @@ class SyncManager {
     public String insertDynamicEvent(DynamicEvent dynamicEvent, int newHerdVisitID)
     {
         Map<String, Object> dynamicEventParams = new LinkedHashMap<>();
+        if(dynamicEvent.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            dynamicEventParams.put("ID",dynamicEvent.serverID);
         dynamicEventParams.put("herdVisitID",newHerdVisitID);
 
         return sendPost("InsertDynamicEvent",dynamicEventParams);
@@ -237,6 +261,9 @@ class SyncManager {
     public String insertAnimalMovementsForDynamicEvent(AnimalMovementsForDynamicEvent amde, int newDynamicEventID)
     {
         Map <String, Object> animalMovementParams = new LinkedHashMap<>();
+        if(amde.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            animalMovementParams.put("ID",amde.serverID);
+
         animalMovementParams.put("boughtBabies",amde.boughtBabies);
         animalMovementParams.put("boughtYoung",amde.boughtYoung);
         animalMovementParams.put("boughtOld",amde.boughtOld);
@@ -257,6 +284,8 @@ class SyncManager {
     public String insertDeathForDynamicEvent(DeathsForDynamicEvent dde, int newDynamicEventID)
     {
         Map<String, Object> deathParams = new LinkedHashMap<>();
+        if(dde.syncStatus!= SyncStatus.NOT_SYNCHRONISED.toString())
+            deathParams.put("ID",dde.serverID);
         deathParams.put("causeOfDeath",dde.causeOfDeath);
         deathParams.put("deadBabies",dde.deadBabies);
         deathParams.put("deadYoung",dde.deadYoung);

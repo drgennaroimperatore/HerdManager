@@ -17,6 +17,7 @@ public class ProductivityEvent {
     public int ID;
     public int HerdVisitID;
     public String syncStatus;
+    public int serverID=-1;
 
     public ProductivityEvent()
     {

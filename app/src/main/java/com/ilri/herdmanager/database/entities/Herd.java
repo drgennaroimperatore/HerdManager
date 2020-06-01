@@ -12,6 +12,7 @@ public class Herd {
     public int speciesID;
     public int farmerID;
     public String syncStatus;
+    public int serverID=-1;
 
     public Herd()
     {

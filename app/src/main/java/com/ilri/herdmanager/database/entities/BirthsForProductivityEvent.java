@@ -12,9 +12,13 @@ public class BirthsForProductivityEvent {
     public int nOfBirths;
     public int productivityEventID;
     public String syncStatus;
+    public int serverID;
 
     public BirthsForProductivityEvent()
     {
+
         syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+        serverID = -1;
+
     }
 }

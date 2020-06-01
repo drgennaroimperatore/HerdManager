@@ -17,6 +17,7 @@ public class HerdVisit {
     public int oldAtVisit;
     public int HerdID;
     public String syncStatus;
+    public int serverID=-1;
 
     public HerdVisit()
     {

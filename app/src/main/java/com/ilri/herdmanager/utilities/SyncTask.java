@@ -80,30 +80,36 @@ public class SyncTask extends AsyncTask {
         farmerloop:
         for(Farmer f: farmers)
         {
-            if(f.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+            if(f.syncStatus.equals( SyncStatus.SYNCHRNOISED.toString()))
                 continue ;
 
             int newFarmerID = syncFarmer(f);
             ArrayList<Herd> herdsOwnedByFarmer = (ArrayList) herdDao.getHerdsByFarmerID(f.ID);
             f.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            f.serverID= newFarmerID;
+            herdDao.UpdateFarmer(f);
 
             for(Herd h: herdsOwnedByFarmer)
             {
-                if(h.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                if(h.syncStatus.equals( SyncStatus.SYNCHRNOISED.toString()))
                     continue;
 
                int newHerdID = syncHerd(h,newFarmerID);
                h.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
-                herdDao.UpdateFarmer(f);
+
+
 
                 if(newHerdID==-200)
                     break farmerloop;
+
+                h.serverID = 1;
+                herdDao.UpdateHerd(h);
 
                ArrayList<HerdVisit> visitsForHerd = (ArrayList) herdDao.getAllHerdVisitsByHerdID(h.ID);
 
                for (HerdVisit hv: visitsForHerd )
                {
-                   if(hv.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                   if(hv.syncStatus.equals( SyncStatus.SYNCHRNOISED.toString()))
                        continue;
 
                    int newVisitID = syncHerdVisit(hv, newHerdID);
@@ -114,15 +120,18 @@ public class SyncTask extends AsyncTask {
 
 
                    hv.syncStatus= SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   hv.serverID= newVisitID;
                    herdDao.UpdateHerdVisit(hv);
 
                    HealthEvent healthEventForVisit = herdDao.getHealthEventForVisit(hv.ID).get(0);
                    int newHealthEventID = syncHealthEvent(healthEventForVisit, newVisitID);
+
                    if(newHealthEventID==-200)
                        break farmerloop;
 
 
                    healthEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   healthEventForVisit.serverID = newHealthEventID;
                    herdDao.UpdateHealthEvent(healthEventForVisit);
 
 
@@ -133,13 +142,14 @@ public class SyncTask extends AsyncTask {
 
                    for(DiseasesForHealthEvent dhe:diseasesForHealthEvent)
                    {
-                       if(dhe.syncStatus == SyncStatus.SYNCHRNOISED.toString())
+                       if(dhe.syncStatus.equals( SyncStatus.SYNCHRNOISED.toString()))
                            continue;
 
                       int dheID = syncDiseaseForHealthEvent(dhe,newHealthEventID);
                       if(dheID==-200)
                           break farmerloop;
                       dhe.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                      dhe.serverID = dheID;
                       herdDao.UpdateDiseaseForHealthEvent(dhe);
 
                    }
@@ -153,6 +163,7 @@ public class SyncTask extends AsyncTask {
                          break farmerloop;
 
                      she.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                     she.serverID = sheID;
                      herdDao.UpdateSignForHealthEvent(she);
 
                    }
@@ -166,6 +177,7 @@ public class SyncTask extends AsyncTask {
                        break farmerloop;
 
                    productivityEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   productivityEventForVisit.serverID= newProdEventID;
                    herdDao.UpdateProductivityEvent(productivityEventForVisit);
 
                    MilkProductionForProductivityEvent mpe = herdDao.getMilkProductionForProductivityEvent(productivityEventForVisit.ID).get(0);
@@ -179,8 +191,12 @@ public class SyncTask extends AsyncTask {
 
                    if(bpeID ==-200)
                        break farmerloop;
+                   bpe.serverID=bpeID;
+                   bpe.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                   herdDao.UpdateBirthsForProductivityEvent(bpe);
 
                    productivityEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+
                    herdDao.UpdateProductivityEvent(productivityEventForVisit);
 
                    DynamicEvent dynamicEventForVisit = herdDao.getDynamicEventForVisit(hv.ID).get(0);
@@ -190,15 +206,17 @@ public class SyncTask extends AsyncTask {
                        break farmerloop;
 
                    dynamicEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                   dynamicEventForVisit.serverID = newDynamicEventID;
                    herdDao.UpdateDynamicEvent(dynamicEventForVisit);
 
                    AnimalMovementsForDynamicEvent amde = herdDao.getAnimalMovementsForDynamicEvent(dynamicEventForVisit.ID).get(0);
-                   int mdeID =  syncAnimalMovementForDynamicEvent(amde, newDynamicEventID);
+                   int mdeID = syncAnimalMovementForDynamicEvent(amde, newDynamicEventID);
 
                    if(mdeID==-200)
                        break farmerloop;
 
                    amde.syncStatus= SyncStatus.SYNCHRNOISED.toString();
+                   amde.serverID=mdeID;
                    herdDao.UpdateAnimalMovementsForDynamicEvent(amde);
 
                    ArrayList<DeathsForDynamicEvent> deathsForDynamicEvents = (ArrayList<DeathsForDynamicEvent>) herdDao.getDeathsForDynamicEvent(dynamicEventForVisit.ID);
@@ -210,6 +228,7 @@ public class SyncTask extends AsyncTask {
                           break farmerloop;
 
                       dde.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                      dde.serverID=ddeID;
                       herdDao.UpdateDeathsForDynamicEvent(dde);
                    }
 
@@ -255,7 +274,13 @@ public class SyncTask extends AsyncTask {
         }
 
 
-        String farmerInsertionResponse = manager.insertFarmer(f.firstName,f.secondName,f.region,f.district,f.kebele,UUID);
+
+
+        int fid = -1;
+        if(f.syncStatus != SyncStatus.SYNCHRNOISED.toString() && f.serverID>0)
+            fid = f.serverID;
+
+        String farmerInsertionResponse = manager.insertFarmer(f,userID);
 
         JSONObject farmerJson = null;
         int farmerNewID = -200;
@@ -280,7 +305,9 @@ public class SyncTask extends AsyncTask {
     private int syncHerd(Herd herd, int newFarmerID )
     {
 
-        String herdInsertionResponse = manager.insertHerd(String.valueOf(herd.speciesID), String.valueOf(newFarmerID));
+        String herdInsertionResponse =
+                manager.insertHerd(herd,
+                String.valueOf(newFarmerID));
 
         JSONObject herdJson = null;
         int herdNewID = -200;

@@ -12,6 +12,7 @@ public class MilkProductionForProductivityEvent {
    public int numberOfLactatingAnimals;
    public int productivityEventID;
    public String syncStatus;
+   public int serverID =-1;
 
    public MilkProductionForProductivityEvent()
    {

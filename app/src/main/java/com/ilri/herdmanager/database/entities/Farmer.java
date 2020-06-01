@@ -10,6 +10,7 @@ public class Farmer
     public int ID;
     public String firstName, secondName, region, district, kebele;
     public String syncStatus;
+    public int serverID=-1;
 
     public Farmer()
     {
