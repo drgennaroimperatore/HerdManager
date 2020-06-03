@@ -196,6 +196,7 @@ public class SyncTask extends AsyncTask {
                            break farmerloop;
                        mpe.serverID = mpeID;
                        mpe.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                       herdDao.UpdateMilkForProductivityEvent(mpe);
                    }
 
                    BirthsForProductivityEvent bpe = herdDao.getBirthsForProductivityEvent(productivityEventForVisit.ID).get(0);

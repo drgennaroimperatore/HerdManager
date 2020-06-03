@@ -26,6 +26,15 @@
 
             </TextView>
 
+            <ImageView
+                android:id="@+id/productivity_event_animal_births_row_sync_imgview"
+                android:layout_height="12dp"
+                android:layout_width="12dp"
+                android:src="@drawable/drawable_sync_status_not_synced"
+                android:visibility="invisible">
+
+            </ImageView>
+
         </TableRow>
 
         <TableRow
@@ -45,6 +54,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0">
+
+            </TextView>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="">
 
             </TextView>
 

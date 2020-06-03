@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
@@ -12,6 +13,7 @@ import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
     ArrayList<String> mHeaders = new ArrayList<>();
    AnimalMovementsForDynamicEvent mAnimalMovements = new AnimalMovementsForDynamicEvent();
    List<DeathsForDynamicEvent> mDeathsForDynamicEvent = new ArrayList<DeathsForDynamicEvent>();
+   boolean isReadOnly = false;
 
     public DynamicEventExpandableListAdapter(Context context)
     {
@@ -30,6 +33,7 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
         mHeaders.add("Animal Movements");
        // mAnimalMovements.add(new DynamicEvent());
         mHeaders.add("Deaths");
+        isReadOnly= false;
     }
 
     public void setReadOnlyData(AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deaths)
@@ -37,6 +41,7 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
         mAnimalMovements = movements;
         mDeathsForDynamicEvent = deaths;
         notifyDataSetChanged();
+        isReadOnly=true;
     }
 
     @Override
@@ -134,6 +139,18 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
                 animalsLostYoungTV.setText(String.valueOf(mAnimalMovements.lostYoung));
                 animalsLostOldTV.setText(String.valueOf(mAnimalMovements.lostOld));
 
+                if(isReadOnly)
+                {
+                    ImageView syncStatusImageView = view.findViewById(R.id.dynamic_event_animal_movement_syncstatus_imgview);
+                    syncStatusImageView.setVisibility(View.VISIBLE);
+
+                    if(mAnimalMovements.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+                        syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+                    if(mAnimalMovements.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
+                        syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+                    if(mAnimalMovements.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                        syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_synced);
+                }
 
 
 
@@ -154,6 +171,19 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
                TextView deadOldTV = view.findViewById(R.id.dynamic_event_death_row_number_of_affected_old_text_view);
                deadOldTV.setText(String.valueOf(dde.deadOld));
+
+               if(isReadOnly)
+               {
+                   ImageView syncStatusImageView = view.findViewById(R.id.dynamic_event_causeofDeath_row_syncstatus_imgview);
+                   syncStatusImageView.setVisibility(View.VISIBLE);
+
+                   if(dde.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+                       syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+                   if(dde.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
+                       syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+                   if(dde.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                       syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_synced);
+               }
             }
 
 
