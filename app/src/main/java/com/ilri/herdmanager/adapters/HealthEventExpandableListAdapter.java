@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
@@ -13,6 +14,7 @@ import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    ArrayList<DiseasesForHealthEvent> mDiseaseList = new ArrayList<>();
    ArrayList<String> mGroupHeaders;
    ADDBDAO addbdao = null;
+   boolean isReadOnly = false;
 
     @Override
     public int getGroupCount() {
@@ -40,6 +43,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mGroupHeaders = new ArrayList<>();
         mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
+        isReadOnly= false;
     }
 
     public void setReadOnlyData(ArrayList<DiseasesForHealthEvent> dhe, ArrayList<SignsForHealthEvent> she)
@@ -47,6 +51,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mDiseaseList = dhe;
         mSignsList = she;
         notifyDataSetChanged();
+        isReadOnly= true;
     }
 
     @Override
@@ -104,6 +109,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         TextView header = view.findViewById(R.id.health_event_header_textView);
         header.setText(mGroupHeaders.get(groupPosition));
 
+//
+
+
         return view;
     }
 
@@ -134,6 +142,19 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             name = convertView.findViewById(R.id.health_event_disease_row_diseaseName);
             name.setText(addbdao.getDiseaseNameFromId(dhe.diseaseID).get(0));
 
+            if (isReadOnly)
+            {
+                ImageView syncStatusImgView = convertView.findViewById(R.id.health_event_disease_row_syncStatus_imgView);
+                syncStatusImgView.setVisibility(View.VISIBLE);
+
+                if(dhe.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+                if(dhe.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+                if(dhe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
+            }
+
             numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
             numberOfAffecedYoung = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_young_text_view);
             numberOfAffectedOld = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_old_text_view);
@@ -150,6 +171,19 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
             name = convertView.findViewById(R.id.health_event_sign_row_signName);
             name.setText(addbdao.getSignNameFromID(she.signID).get(0));
+
+            if (isReadOnly)
+            {
+                ImageView syncStatusImgView = convertView.findViewById(R.id.health_event_sign_row_syncStatus_imgView);
+                syncStatusImgView.setVisibility(View.VISIBLE);
+
+                if(she.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+                if(she.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+                if(she.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
+            }
 
             numberOfAffectedBabies = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_babies_text_view);
             numberOfAffecedYoung = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_young_text_view);

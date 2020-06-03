@@ -5,11 +5,13 @@
     android:background="@color/colorPrimary"
     android:layout_marginTop="5dp">
 
-
     <TextView
         android:id="@+id/health_event_header_textView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        style="@style/BlackExpandableListHeading"/>
+        style="@style/BlackExpandableListHeading"
+        android:layout_weight="0.5"/>
+
+
 </LinearLayout>

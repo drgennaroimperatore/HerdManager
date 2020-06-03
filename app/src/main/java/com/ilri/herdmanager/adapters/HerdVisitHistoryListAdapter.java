@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.HerdVisit;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
 import java.text.SimpleDateFormat;
@@ -51,6 +53,17 @@ public class HerdVisitHistoryListAdapter extends ArrayAdapter<HerdVisit> {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String selectedDate = sdf.format(hv.HerdVisitDate);
         herdVisiInfoTV.setText("Herd visit of the "+ selectedDate);
+
+        ImageView syncStatusImgView = row.findViewById(R.id.herdvisit_history_list_row_view_visit_syncStatus_imgView);
+        String syncStatusString = hv.syncStatus;
+
+        if(syncStatusString.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+            syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+        if(syncStatusString.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
+            syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+        if(syncStatusString.equals(SyncStatus.SYNCHRNOISED.toString()))
+            syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
+
 
         Button detailsButton = row.findViewById(R.id.herdvisit_history_list_row_button_view_visit_details);
         detailsButton.setOnClickListener(new View.OnClickListener() {

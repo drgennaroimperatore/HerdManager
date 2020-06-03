@@ -19,6 +19,15 @@
         android:textSize="19sp"
         android:layout_alignParentLeft="true"/>
 
+        <ImageView
+            android:id="@+id/manage_herd_visits_list_secondary_row_herd_info_syncStatus_imgView"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:src="@drawable/drawable_sync_status_not_synced"
+            android:layout_toRightOf="@id/manage_herd_visits_list_secondary_row_herd_info_textview">
+
+        </ImageView>
+
         <Button
             android:id="@+id/herd_vist_list_secondary_row_add_visit_button"
             android:layout_width="50dp"

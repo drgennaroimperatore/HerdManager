@@ -102,11 +102,11 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         ImageView syncStatusImageView = view.findViewById(R.id.manage_herd_visits_list_header_syncStatus_imageView);
         String syncStatusString = f.syncStatus.toString();
 
-        if(syncStatusString == SyncStatus.NOT_SYNCHRONISED.toString())
+        if(syncStatusString.equals( SyncStatus.NOT_SYNCHRONISED.toString()))
             syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_not_synced);
-        if(syncStatusString == SyncStatus.PARTIALLY_SYNCHRONISED.toString())
+        if(syncStatusString.equals( SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
             syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
-        if(syncStatusString == SyncStatus.SYNCHRNOISED.toString())
+        if(syncStatusString.equals( SyncStatus.SYNCHRNOISED.toString()))
             syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_synced);
 
 
@@ -132,6 +132,17 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         String herdSpeciesInfo = ADDB.getInstance(mContext).getADDBDAO().getAnimalNameFromID(speciesID).get(0);
         TextView herdInfoHeaderTV = view.findViewById(R.id.manage_herd_visits_list_secondary_row_herd_info_textview);
         herdInfoHeaderTV.setText("Herd of "+ herdSpeciesInfo);
+
+        ImageView syncStatusImgView= view.findViewById(R.id.manage_herd_visits_list_secondary_row_herd_info_syncStatus_imgView);
+        String syncStatus = herd.syncStatus;
+
+        if(syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
+        if(syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
+            syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
+        if(syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+            syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_not_synced);
+
 
         Button addVisitToHerdButton, consultHerdVisitInformationButton;
 

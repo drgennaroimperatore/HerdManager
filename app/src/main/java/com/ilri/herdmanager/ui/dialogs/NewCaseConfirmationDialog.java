@@ -16,6 +16,7 @@ import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 import com.ilri.herdmanager.ui.NewCaseActivity;
 import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
@@ -47,8 +48,6 @@ public class NewCaseConfirmationDialog extends Dialog {
         mFarmerID = farmerID;
         mActivity = activity;
 
-
-
     }
 
     @Override
@@ -59,7 +58,6 @@ public class NewCaseConfirmationDialog extends Dialog {
 
         mSpeciesTextView = findViewById(R.id.textview_new_herd_confirmation_species);
         mSpeciesTextView.setText(mSpecies);
-
 
         mDateTextView = findViewById(R.id.textview_new_herd_confirmation_date_of_insertion);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -89,9 +87,15 @@ public class NewCaseConfirmationDialog extends Dialog {
                 herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
                 herd.farmerID = mFarmerID;
 
-
-
                int herdId = (int) dao.InsertHerd(herd);
+
+               //update affected farmer
+                Farmer affectedFarmer = dao.getFarmerByID(mFarmerID).get(0);
+                if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                {
+                    affectedFarmer.syncStatus=SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+                    dao.UpdateFarmer(affectedFarmer);
+                }
 
                 Intent goToAddHerdVisitActivity = new Intent(mActivity, AddHerdVisitActivity.class);
                 goToAddHerdVisitActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);

@@ -7,6 +7,7 @@ import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
+import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
@@ -14,6 +15,7 @@ import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -136,6 +138,18 @@ public class HerdVisitManager {
 
         //create a dynamic event for this visit
         createDynamicEventForVisit(context, (int)herdVisitID,movements,deathsForDynamicEvent);
+
+        Herd affectedHerd = HerdDatabase.getInstance(context).getHerdDao().getHerdByID(herdID).get(0);
+        if(affectedHerd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            affectedHerd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+        HerdDatabase.getInstance(context).getHerdDao().UpdateHerd(affectedHerd);
+
+        Farmer affectedFarmer =  HerdDatabase.getInstance(context).getHerdDao().getFarmerByID(affectedHerd.farmerID).get(0);
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+        HerdDatabase.getInstance(context).getHerdDao().UpdateFarmer(affectedFarmer);
+
+
 
 
     }

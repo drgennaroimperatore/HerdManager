@@ -26,8 +26,17 @@
         android:layout_weight="0.3">
 
 
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/herdvisit_history_list_row_view_visit_syncStatus_imgView"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@drawable/drawable_sync_status_not_synced"
+        android:layout_gravity="center_horizontal">
+
+    </ImageView>
+
     <Button
         android:id="@+id/herdvisit_history_list_row_button_view_visit_details"
         android:layout_width="wrap_content"
