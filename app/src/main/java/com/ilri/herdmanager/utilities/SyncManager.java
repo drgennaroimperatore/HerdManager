@@ -1,5 +1,6 @@
 package com.ilri.herdmanager.utilities;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.ilri.herdmanager.classes.HealthEventContainer;
@@ -16,6 +17,9 @@ import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
+import com.ilri.herdmanager.ui.dialogs.ErrorDialog;
+import com.ilri.herdmanager.ui.dialogs.ErrorDialogFragment;
+import com.ilri.herdmanager.ui.notifications.NotificationsFragment;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -31,8 +35,10 @@ import java.util.Map;
 
 class SyncManager {
     private static final SyncManager ourInstance = new SyncManager();
+    private static NotificationsFragment m_NotificationFragment;
 
-    static SyncManager getInstance() {
+    static SyncManager getInstance(NotificationsFragment nf) {
+        m_NotificationFragment =nf;
         return ourInstance;
     }
 
@@ -43,7 +49,7 @@ class SyncManager {
     {
         URL url = null;
         try {
-            url = new URL("http://10.0.2.2:61330/Home/"+functionName);
+            url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
         } catch (Exception e)
         {
 
@@ -92,9 +98,10 @@ class SyncManager {
         } catch (Exception e)
         {
             Log.e("syncError",e.getMessage());
+
+            m_NotificationFragment.showErrorMessage(e.getMessage());
             result = conn.getErrorStream();
             conn.disconnect();
-
 
         }
 

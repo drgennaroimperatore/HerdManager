@@ -3,9 +3,11 @@ package com.ilri.herdmanager.utilities;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
@@ -22,6 +24,7 @@ import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
+import com.ilri.herdmanager.ui.notifications.NotificationsFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,16 +42,20 @@ import java.util.Map;
 
 public class SyncTask extends AsyncTask {
     Context m_context;
-    SyncManager manager = SyncManager.getInstance();
+    SyncManager manager = null;
     HerdDao herdDao;
     Button mButton;
     String mOriginalButtonText ="";
+    NotificationsFragment m_NotificationsFragment;
 
-    public SyncTask(Context context, Button button) {
+    public SyncTask(NotificationsFragment nf, Context context, Button button) {
         super();
         m_context = context;
         herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
         mButton = button;
+        m_NotificationsFragment =nf;
+        manager = SyncManager.getInstance(m_NotificationsFragment);
+
     }
 
 
@@ -98,11 +105,9 @@ public class SyncTask extends AsyncTask {
                 if(h.syncStatus.equals( SyncStatus.SYNCHRNOISED.toString()))
                     continue;
 
-
                 int newHerdID = syncHerd(h,newFarmerID);
                 if(newHerdID==-200)
                     break farmerloop;
-
 
                 h.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
 
@@ -122,7 +127,6 @@ public class SyncTask extends AsyncTask {
                        break farmerloop;
                    }
 
-
                    hv.syncStatus= SyncStatus.PARTIALLY_SYNCHRONISED.toString();
                    hv.serverID= newVisitID;
                    herdDao.UpdateHerdVisit(hv);
@@ -133,12 +137,9 @@ public class SyncTask extends AsyncTask {
                    if(newHealthEventID==-200)
                        break farmerloop;
 
-
                    healthEventForVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
                    healthEventForVisit.serverID = newHealthEventID;
                    herdDao.UpdateHealthEvent(healthEventForVisit);
-
-
 
 
                    ArrayList<DiseasesForHealthEvent> diseasesForHealthEvent = (ArrayList<DiseasesForHealthEvent>) herdDao.getDiseasesForHealthEvent(healthEventForVisit.ID);
@@ -184,11 +185,8 @@ public class SyncTask extends AsyncTask {
                    productivityEventForVisit.serverID= newProdEventID;
                    herdDao.UpdateProductivityEvent(productivityEventForVisit);
 
-
-
                    MilkProductionForProductivityEvent mpe = herdDao.getMilkProductionForProductivityEvent(productivityEventForVisit.ID).get(0);
                    if(!mpe.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
-
 
                        int mpeID = syncMilkProductionForProdEvent(mpe, newProdEventID);
 
@@ -211,7 +209,6 @@ public class SyncTask extends AsyncTask {
                    }
 
                    productivityEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
-
                    herdDao.UpdateProductivityEvent(productivityEventForVisit);
 
                    DynamicEvent dynamicEventForVisit = herdDao.getDynamicEventForVisit(hv.ID).get(0);
@@ -254,7 +251,6 @@ public class SyncTask extends AsyncTask {
                    dynamicEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
                    herdDao.UpdateDynamicEvent(dynamicEventForVisit);
 
-
                    hv.syncStatus = SyncStatus.SYNCHRNOISED.toString();
                    herdDao.UpdateHerdVisit(hv);
                } // for herd visit
@@ -266,12 +262,14 @@ public class SyncTask extends AsyncTask {
             herdDao.UpdateFarmer(f);
         }// for farmer
 
+
+        /*Looper.prepare();
+        m_NotificationsFragment.showInfoToast("Sync Process Complete!");*/
         return null;
     }
 
     private int syncFarmer(Farmer f)
     {
-
 
         String UUID = m_context.getSharedPreferences("userPrefs",Context.MODE_PRIVATE).getString(Info.SHARED_PREFERENCES_KEY_UUID,"");
         String userInsertionResponse =manager.insertUser(UUID);

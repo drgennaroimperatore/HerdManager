@@ -38,7 +38,7 @@
 
 
     <Button
-        android:id="@+id/button_dismiss_farmer_warning"
+        android:id="@+id/button_dismiss_dialog_error_fragment_warning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="OK"
