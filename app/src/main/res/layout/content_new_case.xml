@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RadioGroup
         android:id="@+id/species_radioGroup"
@@ -12,9 +13,7 @@
         android:layout_height="86dp"
         android:layout_marginTop="164dp"
         android:orientation="horizontal"
-        android:layout_alignParentLeft="true"
-       >
-
+        android:layout_alignParentLeft="true">
 
         <RadioButton
             android:id="@+id/radio0"
@@ -44,30 +43,108 @@
 
     </RadioGroup>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="2dp">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PWnd">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_confirm_herd_visit_number_of_babies"
+                style="@style/NumberEditTextStyle"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/WhiteHeadingTextSmall"
+                android:text="Young">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_confirm_herd_visit_number_of_young"
+                style="@style/NumberEditTextStyle"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="2dp">
+
+            <TextView
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adult">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/editText_confirm_herd_visit_number_of_old"
+                style="@style/NumberEditTextStyle"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:inputType="number">
+
+            </EditText>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/new_herd_activity_textview_date_of_insertion_heading"
-        style="@style/WhiteHeadingTextSmall"
+        android:id="@+id/textView6"
+        style="@style/WhiteHeadingTextMedium"
+        android:layout_width="245dp"
+        android:layout_height="45dp"
+        android:text="Farmer Information" />
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-
-        android:text="Date"
-        android:layout_below="@id/species_radioGroup"
-         />
-
-    <EditText
-        android:id="@+id/new_herd_activity_textview_date_of_insertion"
-        style="@style/NumberEditTextStyle"
-        android:layout_width="143dp"
-        android:layout_height="44dp"
-        android:layout_below="@id/new_herd_activity_textview_date_of_insertion_heading"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:ems="30"
-        android:textSize="14dp"
-        android:inputType="none" />
+        android:orientation="horizontal">
 
     <Button
         android:id="@+id/add_new_farmer_button"
@@ -81,39 +158,31 @@
         android:layout_below="@id/textView6"
         />
 
-    <Button
-        android:id="@+id/use_existing_farmer_button"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/use_existing_farmer_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:background="@color/colorPrimary"
-        android:text="Use Saved Farmer"
-        android:textColor="@color/black"
-        android:layout_below="@id/textView6"
-        android:layout_toRightOf="@id/add_new_farmer_button"
-        android:layout_alignTop="@id/add_new_farmer_button"
-        />
+            android:layout_below="@id/textView6"
+            android:layout_alignTop="@id/add_new_farmer_button"
+            android:layout_toRightOf="@id/add_new_farmer_button"
+            android:background="@color/colorPrimary"
+            android:text="Use Saved Farmer"
+            android:textColor="@color/black" />
 
-    <TextView
-        android:id="@+id/textView6"
-        style="@style/WhiteHeadingTextMedium"
-        android:layout_width="245dp"
-        android:layout_height="45dp"
-        android:text="Farmer Information"
-        android:layout_below="@id/new_herd_activity_textview_date_of_insertion"
-         />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/new_case_textview_farmer_assignment_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="162dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60dp"
         android:text="No Farmer Assigned"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="18dp"
-        android:textStyle="bold"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/new_herd_activity_textview_date_of_insertion"/>
+        android:textStyle="bold" />
 
 
-</RelativeLayout>
+
+</LinearLayout>
