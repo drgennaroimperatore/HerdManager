@@ -18,9 +18,6 @@ public interface HerdDao {
     void DeleteHerd(Herd herd);
 
 
-    @Query("SELECT * FROM HerdVisit WHERE HerdID= :id")
-    List<HerdVisit> getAllHerdVisitsByHerdId(int id);
-
     @Query("SELECT * FROM Herd")
     List<Herd> getAllHerds();
 

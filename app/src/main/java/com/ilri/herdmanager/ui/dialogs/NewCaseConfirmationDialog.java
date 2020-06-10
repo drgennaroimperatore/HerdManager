@@ -26,9 +26,10 @@ import java.util.Date;
 public class NewCaseConfirmationDialog extends Dialog {
 
     String mSpecies;
-    int mHerdSize;
+
     Date mDate;
     String mFname, mSname;
+    int mNBabies, mNYoung, mNOld;
 
     TextView mSpeciesTextView, mDateTextView, mFnameTextView, mSnameTextView;
     Button mAddHerdButton, mCancelHerdButton;
@@ -39,11 +40,11 @@ public class NewCaseConfirmationDialog extends Dialog {
         super(context);
     }
 
-    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species, int herdSize, Date date, int farmerID)
+    public NewCaseConfirmationDialog(@NonNull Context context, NewCaseActivity activity, String species,int nBabies, int nYoung, int nOld , Date date, int farmerID)
     {
         super(context);
         mSpecies = species;
-        mHerdSize = herdSize;
+        mNBabies =nBabies; mNYoung =nYoung; mNOld = nOld;
         mDate = date;
         mFarmerID = farmerID;
         mActivity = activity;
@@ -83,6 +84,9 @@ public class NewCaseConfirmationDialog extends Dialog {
                 HerdDao dao = HerdDatabase.getInstance(mActivity).getHerdDao();
 
                 Herd herd = new Herd();
+                herd.nBabies = mNBabies;
+                herd.nYoung = mNYoung;
+                herd.nOld = mNOld;
 
                 herd.speciesID = ADDB.getInstance(mActivity).getADDBDAO().getAnimalIDFromName(" "+mSpecies.toUpperCase() ).get(0);
                 herd.farmerID = mFarmerID;

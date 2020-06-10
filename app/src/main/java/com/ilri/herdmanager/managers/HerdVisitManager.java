@@ -43,7 +43,7 @@ public class HerdVisitManager {
 
     public int getNumberOfVisitsAssociatedWithHerd(Context context,  int herdID)
     {
-        return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdId(herdID).size();
+        return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdID(herdID).size();
 
     }
 
@@ -158,6 +158,6 @@ public class HerdVisitManager {
 
     public List<HerdVisit> getVisitsForHerd(Context context, int herdID)
     {
-        return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdId(herdID);
+        return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdID(herdID);
     }
 }

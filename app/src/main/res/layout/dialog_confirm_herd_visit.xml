@@ -5,19 +5,13 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextLarge"
-        android:text="Confirm"
-        android:layout_marginBottom="25dp"/>
+
 
     <TextView
         android:id="@+id/textViewConfirmationtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:text="Do you want to insert this herd visit?"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -43,6 +37,126 @@
 
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingTextMedium"
+        android:text="Herd Size Before Visit"></TextView>
+
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="Pre-Weaned"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="Adult"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="Old"></TextView>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/dialog_herd_changes_current_babies_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="0"></TextView>
+
+            <TextView
+                android:id="@+id/dialog_herd_changes_current_young_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="0"></TextView>
+            <TextView
+                android:id="@+id/dialog_herd_changes_current_old_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="0"></TextView>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingTextMedium"
+        android:text="Herd Size After Visit"></TextView>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="Pre-Weaned"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="Adult"></TextView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="Old"></TextView>
+
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/dialog_herd_changes_new_babies_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="0"></TextView>
+
+            <TextView
+                android:id="@+id/dialog_herd_changes_new_young_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="0"></TextView>
+            <TextView
+                android:id="@+id/dialog_herd_changes_new_old_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/BlackHeadingTextMedium"
+                android:text="0"></TextView>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal">
 
     <Button
         android:id="@+id/button_dialog_insert_visit_confirmation_confirm"
@@ -50,7 +164,19 @@
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:textColor="@color/colorPrimary"
-        android:text="Insert Visit" />
+        android:text="Insert Visit"
+        android:layout_marginRight="10dp"/>
+
+    <Button
+        android:id="@+id/button_dialog_insert_visit_confirmation_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:textColor="@color/colorPrimary"
+        android:text="Cancel" />
+</LinearLayout>
+
+
 
 
 </LinearLayout>

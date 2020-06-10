@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.ui.dialogs.ErrorDialog;
 import com.ilri.herdmanager.ui.dialogs.ExisitingFarmerDialog;
 import com.ilri.herdmanager.ui.dialogs.FarmerNotAssignedWarningDialog;
 import com.ilri.herdmanager.ui.dialogs.NewCaseConfirmationDialog;
@@ -78,6 +80,8 @@ public class NewCaseActivity extends AppCompatActivity {
             }
         });
 
+
+
       /*  mHerdInsertionDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +89,7 @@ public class NewCaseActivity extends AppCompatActivity {
             }
         });*/
 
-        mHerdSizeDateTextView = findViewById(R.id.new_herd_activity_textview_date_of_insertion_heading);
+       // mHerdSizeDateTextView = findViewById(R.id.new_herd_activity_textview_date_of_insertion_heading);
         mAssignedFarmerStatusTextView = findViewById(R.id.new_case_textview_farmer_assignment_status);
 
 
@@ -110,7 +114,9 @@ public class NewCaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ExisitingFarmerDialog dialog = new ExisitingFarmerDialog(NewCaseActivity.this, a);
-                dialog.show();
+                List<Farmer> farmers =HerdDatabase.getInstance(context).getHerdDao().getAllFarmers();
+                if(farmers.size()>0)
+                    dialog.show();
             }
         });
 
@@ -124,6 +130,34 @@ public class NewCaseActivity extends AppCompatActivity {
             public void onClick(View view) {
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
+
+
+                EditText nBabiesET = findViewById(R.id.editText_confirm_herd_visit_number_of_babies);
+                EditText nYoungET = findViewById(R.id.editText_confirm_herd_visit_number_of_young);
+                EditText nOldET = findViewById(R.id.editText_confirm_herd_visit_number_of_old);
+
+                String nBabiesstr = nBabiesET.getText().toString();
+                String nYoungstr = nYoungET.getText().toString();
+                String nOldstr = nOldET.getText().toString();
+
+
+
+                int  nBabies=0; //Integer.valueOf(nBabiesstr);
+                int  nYoung =0; //Integer.valueOf(nYoungstr);
+                int  nOld =0; //Integer.valueOf(nOldstr);
+
+                if(nOldstr.isEmpty() || nYoungstr.isEmpty() || nBabiesstr.isEmpty())
+                {
+
+                }
+                else
+                {
+                    nBabies=Integer.valueOf(nBabiesstr);
+                    nYoung =Integer.valueOf(nYoungstr);
+                    nOld =Integer.valueOf(nOldstr);
+                }
+
+
 
                int selectedID = mSpeciesRadioGroup.getCheckedRadioButtonId();
                 RadioButton selectedButton = findViewById(selectedID);
@@ -142,15 +176,30 @@ public class NewCaseActivity extends AppCompatActivity {
                 }
 
                 if(mIsFarmerAssigned) {
-                    NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
-                            (context, a, species, 0, dateOfInsertion, mAssignedFarmer.ID);
-                    confirmationDialog.show();
+
                 }
                 else
                 {
                     FarmerNotAssignedWarningDialog warningDialog = new FarmerNotAssignedWarningDialog(context);
                     warningDialog.show();
                 }
+
+                if((nBabies+nYoung+nOld)==0)
+                {
+                    ErrorDialog errorDialog = new ErrorDialog(context, "There are no animals in the herd!");
+                    errorDialog.show();
+                }
+                else
+                {
+                    if(mIsFarmerAssigned)
+                    {
+                        NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
+                                (context, a, species, nBabies,nYoung,nOld, dateOfInsertion, mAssignedFarmer.ID);
+                        confirmationDialog.show();
+                    }
+                }
+
+
 
             }
         });

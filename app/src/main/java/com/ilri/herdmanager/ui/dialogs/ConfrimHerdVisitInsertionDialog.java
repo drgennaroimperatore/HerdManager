@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,14 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.classes.ProductivityEventContainer;
+import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
+import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
+import com.ilri.herdmanager.database.entities.DynamicEvent;
+import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDao;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
@@ -27,6 +36,7 @@ import com.ilri.herdmanager.ui.main.AddHerdVisitActivity;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class ConfrimHerdVisitInsertionDialog extends Dialog {
     Context mContext;
@@ -36,6 +46,9 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
     AddHerdVisitActivity mA;
     int mHerdID = -155;
     Date mVisitDate = new Date();
+    private TextView currentBabiesTV, currentYoungTV, currentOldTV;
+    private TextView newBabiesTV, newYoungTV, newOldTV;
+
     public ConfrimHerdVisitInsertionDialog(Context context, AddHerdVisitActivity a, int herdID,
                                            HealthEventContainer hce, ProductivityEventContainer pce, DynamicEventContainer dce ) {
         super(context);
@@ -66,6 +79,30 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                 mVisitDate =  new Date(c.getTimeInMillis());
             }
         });
+       final int[] changes = calculateHerdChanges();
+       final int[] currentSize = getCurrentHerdSize();
+
+        currentBabiesTV = findViewById(R.id.dialog_herd_changes_current_babies_textView);
+        currentYoungTV = findViewById(R.id.dialog_herd_changes_current_young_textView);
+        currentOldTV = findViewById(R.id.dialog_herd_changes_current_old_textView);
+        currentBabiesTV.setText(String.valueOf(currentSize[0]));
+        currentYoungTV.setText(String.valueOf(currentSize[1]));
+        currentOldTV.setText(String.valueOf(currentSize[2]));
+
+        newBabiesTV = findViewById(R.id.dialog_herd_changes_new_babies_textView);
+        newYoungTV =findViewById(R.id.dialog_herd_changes_new_young_textView);
+        newOldTV = findViewById(R.id.dialog_herd_changes_new_old_textView);
+        newOldTV.setText(String.valueOf(changes[2]));
+        newYoungTV.setText(String.valueOf(changes[1]));
+        newBabiesTV.setText(String.valueOf(changes[0]));
+
+        Button cancelButton = findViewById(R.id.button_dialog_insert_visit_confirmation_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         Button confirmButton = findViewById(R.id.button_dialog_insert_visit_confirmation_confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
@@ -77,29 +114,10 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                         .setAction("Action", null).show();
                 else {*/
 
-                EditText nBabiesET = findViewById(R.id.editText_confirm_herd_visit_number_of_babies);
-                EditText nYoungET = findViewById(R.id.editText_confirm_herd_visit_number_of_young);
-                EditText nOldET = findViewById(R.id.editText_confirm_herd_visit_number_of_old);
+              int nBabies = changes[0];
+              int nYoung = changes[1];
+              int nOld = changes[2];
 
-                String nBabiesstr = nBabiesET.getText().toString();
-                String nYoungstr = nYoungET.getText().toString();
-                String nOldstr = nOldET.getText().toString();
-
-                int nBabies =0;
-                int nYoung =0;
-                int nOld =0;
-
-                if(nOldstr.isEmpty() || nYoungstr.isEmpty() || nBabiesstr.isEmpty())
-                {
-                    Snackbar.make(v, "Please Specify a herd size or 0 for all fields", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                }
-                else {
-
-                    nBabies= Integer.valueOf(nBabiesstr);
-                    nYoung = Integer.valueOf(nYoungstr);
-                    nOld = Integer.valueOf(nOldstr);
 
                     HerdVisitManager.getInstance().addVisitToHerd(
                             mContext,
@@ -113,9 +131,93 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     mA.startActivity(intent);
                     // }
-                }
+
             }
         });
 
+    }
+
+    public int[] calculateHerdChanges()
+    {
+        int[] herdChanges= new int[3];
+
+        int nBabies=0; int nYoung=0; int nOld=0;
+
+        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
+      List<HerdVisit> visitList=  dao.getAllHerdVisitsByHerdID(mHerdID);
+        Herd herd = dao.getHerdByID(mHerdID).get(0);
+      if(visitList.size()>0) {
+
+          HerdVisit currentVisit = visitList.get(0);
+
+          nBabies = currentVisit.babiesAtVisit;
+          nYoung = currentVisit.youngAtVisit;
+          nOld = currentVisit.oldAtVisit;
+      }
+      else
+      {
+          nBabies = herd.nBabies;
+          nYoung = herd.nYoung;
+          nOld = herd.nOld;
+      }
+
+
+        for(DeathsForDynamicEvent d:mDce.mDeaths)
+        {
+            nBabies = nBabies-d.deadBabies;
+            nYoung = nYoung -d.deadYoung;
+            nOld = nOld -d.deadOld;
+        }
+
+      AnimalMovementsForDynamicEvent ame = mDce.mMovements;
+
+        nBabies = nBabies-ame.soldBabies;
+        nBabies = nBabies-ame.lostBabies;
+        nBabies = nBabies+ame.boughtBabies;
+
+        nYoung = nYoung-ame.soldYoung;
+        nYoung = nYoung-ame.lostYoung;
+        nYoung = nYoung+ame.boughtYoung;
+
+        nOld = nOld -ame.soldOld;
+        nOld = nOld - ame.lostOld;
+        nOld = nOld + ame.boughtOld;
+
+        BirthsForProductivityEvent bpe = mPce.birthsForProductivityEvent;
+        nBabies+= bpe.nOfBirths;
+
+        herdChanges[0] =nBabies;
+        herdChanges[1] =nYoung;
+        herdChanges[2] =nOld;
+
+        return herdChanges;
+
+    }
+
+    public int[] getCurrentHerdSize()
+    {
+        int[] herdSize= new int[3];
+
+
+
+        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
+        Herd herd = dao.getHerdByID(mHerdID).get(0);
+        List<HerdVisit> herdVisits = dao.getAllHerdVisitsByHerdID(mHerdID);
+
+        if(herdVisits.size()>0)
+        {
+            HerdVisit hv = herdVisits.get(0);
+            herdSize[0] = hv.babiesAtVisit;
+            herdSize[1] = hv.youngAtVisit;
+            herdSize[2] = hv.oldAtVisit;
+        }
+        else
+        {
+            herdSize[0] = herd.nBabies;
+            herdSize[1] = herd.nYoung;
+            herdSize[2] = herd.nOld;
+        }
+
+        return herdSize;
     }
 }

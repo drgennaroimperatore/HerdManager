@@ -138,6 +138,9 @@ class SyncManager {
             herdParams.put("ID",h.serverID);
         herdParams.put("speciesID",h.speciesID);
         herdParams.put("farmerID",newFarmerID);
+        herdParams.put("nBabies",h.nBabies);
+        herdParams.put("nYoung", h.nYoung);
+        herdParams.put("nOld",h.nOld);
       return sendPost("InsertHerd",herdParams);
     }
 

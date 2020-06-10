@@ -42,6 +42,23 @@
 
 
     </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/WhiteHeadingTextSmall"
+        android:layout_marginLeft="21dp"
+        android:text="Date"></TextView>
+
+    <EditText
+        android:id="@+id/new_herd_activity_textview_date_of_insertion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/NumberEditTextStyle"
+        android:layout_marginLeft="21dp"
+        android:layout_marginBottom="10dp"
+        android:width="80dp">
+
+    </EditText>
 
     <LinearLayout
         android:layout_width="match_parent"
