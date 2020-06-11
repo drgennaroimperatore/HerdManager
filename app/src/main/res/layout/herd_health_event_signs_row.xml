@@ -7,6 +7,12 @@
     android:orientation="vertical">
 
 
+    <TextView
+        android:id="@+id/health_event_sign_row_signName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Name"
+        android:textColor="@color/white"/>
 
 
     <TableLayout
@@ -14,12 +20,12 @@
         android:layout_height="wrap_content"
         android:stretchColumns="*">
 
-        <TableRow>
+       <!-- <TableRow>
+
             <TextView
-                android:id="@+id/health_event_sign_row_signName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sign Name"
+                android:text=""
                 android:textColor="@color/white"/>
 
             <ImageView
@@ -30,7 +36,7 @@
                 android:layout_weight="0.5"
                 android:visibility="invisible"/>
 
-        </TableRow>
+        </TableRow>-->
 
         <TableRow>
 

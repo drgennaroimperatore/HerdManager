@@ -4,33 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/health_event_disease_row_diseaseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Disease Name"
+        android:textColor="@color/white" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="*">
 
-        <TableRow>
+       <!-- <TableRow>
 
             <TextView
-                android:id="@+id/health_event_disease_row_diseaseName"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Disease Name"
+                android:text=""
                 android:textColor="@color/white" />
-
             <ImageView
                 android:id="@+id/health_event_disease_row_syncStatus_imgView"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:src="@drawable/drawable_sync_status_not_synced"
                 android:layout_weight="0.5"
-                android:visibility="invisible">
+                android:visibility="gone">
 
             </ImageView>
 
-
-        </TableRow>
+        </TableRow>-->
 
 
         <TableRow>

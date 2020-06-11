@@ -31,7 +31,7 @@
                 android:layout_height="12dp"
                 android:layout_width="12dp"
                 android:src="@drawable/drawable_sync_status_not_synced"
-                android:visibility="invisible">
+                android:visibility="gone">
 
             </ImageView>
 

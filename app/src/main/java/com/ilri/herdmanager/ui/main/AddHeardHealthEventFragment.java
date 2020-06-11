@@ -163,6 +163,24 @@ public class AddHeardHealthEventFragment extends Fragment {
                     }
                     if(groupPosition==1)//signs
                     {
+                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                        List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                        List<String> sNames = new ArrayList<>();
+                        SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
+
+                        for(Signs s: signs)
+                            sNames.add(s.Name);
+
+                        DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
+                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+
+                        dialogFragment.show(ft, "dialog");
 
                     }
 
@@ -236,6 +254,11 @@ public class AddHeardHealthEventFragment extends Fragment {
     {
        return ADDB.getInstance(getContext()).getADDBDAO().getDiseaseNameFromId(mAdapter.getDiseaseForHealthEvent(pos).diseaseID).get(0);
 
+    }
+
+    public String getSignName(int pos)
+    {
+        return ADDB.getInstance(getContext()).getADDBDAO().getSignNameFromID(mAdapter.getSignsForHealthEvent(pos).signID).get(0);
     }
 
     public void deleteDisease(int pos)

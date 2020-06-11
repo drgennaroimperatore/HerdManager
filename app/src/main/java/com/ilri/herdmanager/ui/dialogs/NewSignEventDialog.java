@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -81,6 +82,12 @@ public class NewSignEventDialog extends DialogFragment {
         final CoordinatorLayout cl = view.findViewById(R.id.dialog_sign_parent);
 
         final Spinner signSpinner = view.findViewById(R.id.health_event_sign_spinner);
+        if(isEditing)
+        {
+            signSpinner.setVisibility(View.GONE);
+            TextView header = view.findViewById(R.id.dialog_new_health_event_sign_dialog_title_textview);
+            header.setText("Edit "+ mFragment.getSignName(mPositionToEdit).substring(0,10));
+        }
         mEditTextAffectedBabies = view.findViewById(R.id.editText_sign_health_event_baby);
         mEditTextAffectedBabies.setHint("0");
         mEditTextAffectedYoung = view.findViewById(R.id.editText_sign_health_event_young);
@@ -88,8 +95,32 @@ public class NewSignEventDialog extends DialogFragment {
         mEditTextAffectedOld = view.findViewById(R.id.editText_sign_health_event_old);
         mEditTextAffectedOld.setHint("0");
 
+        if(nAffectedBabies!=null && nAffectedYoung!=null && nAffectedOld!=null)
+        {
+            mEditTextAffectedBabies.setText(String.valueOf(nAffectedBabies));
+            mEditTextAffectedYoung.setText(String.valueOf(nAffectedYoung));
+            mEditTextAffectedOld.setText(String.valueOf(nAffectedOld));
+        }
+
+
 
         mButtonAddSignToHealthEvent = view.findViewById(R.id.button_sign_health_add_sign);
+
+        if(isEditing)
+        {
+            mButtonAddSignToHealthEvent.setText("Edit Sign");
+            Button deleteSignButton = view.findViewById(R.id.button_sign_health_delete_sign);
+            deleteSignButton.setVisibility(View.VISIBLE);
+
+            deleteSignButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFragment.deleteSign(mPositionToEdit);
+                    dismiss();
+                }
+            });
+        }
+
 
         mButtonAddSignToHealthEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +137,8 @@ public class NewSignEventDialog extends DialogFragment {
                     mEditTextAffectedYoung.setText("0");
                 if(mEditTextAffectedBabies.getText().toString().isEmpty())
                     mEditTextAffectedBabies.setText("0");
+
+
 
                 int nAffectedBabies = Integer.valueOf( mEditTextAffectedBabies.getText().toString());
                 int nAffectedYoung =Integer.valueOf( mEditTextAffectedYoung.getText().toString());
@@ -126,15 +159,21 @@ public class NewSignEventDialog extends DialogFragment {
                     she.numberOfAffectedYoung = nAffectedYoung;
                     she.numberOfAffectedOld = nAffectedOld;
 
-                   if(mFragment.addSignToList(she))
-                   {
-                       Snackbar mySnackbar = Snackbar.make(cl, "This sign was already inserted", Snackbar.LENGTH_LONG);
-                       mySnackbar.getView().setBackgroundColor(R.color.black);
-                       mySnackbar.show();}
-                   else {
-                       mFragment.expandList(1);
-                       dismiss();
-                   }
+                    if(isEditing) {
+                    mFragment.editSign(mPositionToEdit, nAffectedBabies,nAffectedYoung,nAffectedOld);
+                    dismiss();
+                    }
+                    else {
+
+                        if (mFragment.addSignToList(she)) {
+                            Snackbar mySnackbar = Snackbar.make(cl, "This sign was already inserted", Snackbar.LENGTH_LONG);
+                            mySnackbar.getView().setBackgroundColor(R.color.black);
+                            mySnackbar.show();
+                        } else {
+                            mFragment.expandList(1);
+                            dismiss();
+                        }
+                    }
                 }
 
             }

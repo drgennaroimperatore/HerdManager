@@ -142,7 +142,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             name = convertView.findViewById(R.id.health_event_disease_row_diseaseName);
             name.setText(addbdao.getDiseaseNameFromId(dhe.diseaseID).get(0));
 
-            if (isReadOnly)
+          /*  if (isReadOnly)
             {
                 ImageView syncStatusImgView = convertView.findViewById(R.id.health_event_disease_row_syncStatus_imgView);
                 syncStatusImgView.setVisibility(View.VISIBLE);
@@ -153,7 +153,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
                 if(dhe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
-            }
+            }*/
 
             numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
             numberOfAffecedYoung = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_young_text_view);
@@ -172,7 +172,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             name = convertView.findViewById(R.id.health_event_sign_row_signName);
             name.setText(addbdao.getSignNameFromID(she.signID).get(0));
 
-            if (isReadOnly)
+           /* if (isReadOnly)
             {
                 ImageView syncStatusImgView = convertView.findViewById(R.id.health_event_sign_row_syncStatus_imgView);
                 syncStatusImgView.setVisibility(View.VISIBLE);
@@ -183,7 +183,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
                 if(she.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
-            }
+            }*/
 
             numberOfAffectedBabies = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_babies_text_view);
             numberOfAffecedYoung = convertView.findViewById(R.id.health_event_sign_row_number_of_affected_young_text_view);

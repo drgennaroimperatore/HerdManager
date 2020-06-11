@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -37,6 +38,8 @@ public class AddHerdDynamicFragment extends Fragment {
     private Button mAddEventButton, mAddDeathButton;
     private ExpandableListView mExpandableListView;
      DynamicEventExpandableListAdapter mAdapter = null;
+
+
 
     public static AddHerdDynamicFragment newInstance() {
         return new AddHerdDynamicFragment();
@@ -123,6 +126,45 @@ public class AddHerdDynamicFragment extends Fragment {
             List<DeathsForDynamicEvent> deaths = HerdDatabase.getInstance(getContext()).getHerdDao().getDeathsForDynamicEvent(de.ID);
             mAdapter.setReadOnlyData(movements,deaths);
         }
+        else
+
+        {
+            mExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                        int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                        if (groupPosition == 1) // deaths
+                        {
+                            DeathsForDynamicEvent dde = mAdapter.getDeathForDynamicEvent(childPosition);
+                            List<String> causesOfDeath = new ArrayList<>();
+                            causesOfDeath.add("Age");
+                            causesOfDeath.add("Disease");
+                            causesOfDeath.add("Accident");
+                            causesOfDeath.add("Unknown");
+
+                            DialogFragment dialogFragment = new NewDynamicEventAnimalDeathDialog(getContext(), causesOfDeath, childPosition,
+                                    dde.deadBabies,dde.deadYoung,dde.deadOld, fragment);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
+
+                            dialogFragment.show(ft, "dialog");
+                        }
+
+
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -139,13 +181,34 @@ public class AddHerdDynamicFragment extends Fragment {
 
     }
 
+    public void editDeath(int pos, int b, int y, int o)
+    {
+        mAdapter.editDeath(pos, b,y,o);
+    }
+
+    public void deleteDeath(int pos)
+    {
+        mAdapter.deleteDeath(pos);
+    }
+
+    public DeathsForDynamicEvent getDeath(int pos)
+    {
+       return mAdapter.getDeathForDynamicEvent(pos);
+    }
+
+    public String getDeathCauseName(int pos)
+    {
+       return mAdapter.getDeathForDynamicEvent(pos).causeOfDeath;
+    }
+
     public DynamicEventContainer getDynamicEventForHealthVisit()
     {
         DynamicEventContainer dce = new DynamicEventContainer();
         dce.mDeaths = mAdapter.getDeathsForDynamicEvent();
         dce.mMovements = mAdapter.getAnimalMovements();
-
         return dce;
     }
+
+
 
 }

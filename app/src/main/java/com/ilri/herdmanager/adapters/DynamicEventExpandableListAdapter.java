@@ -73,12 +73,12 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
     @Override
     public long getGroupId(int groupPosition) {
-        return 0;
+        return groupPosition;
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return 0;
+        return childPosition;
     }
 
     @Override
@@ -193,7 +193,7 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     public void editAnimalMovements(AnimalMovementsForDynamicEvent amde)
@@ -215,6 +215,25 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
         return false;
     }
 
+    public void editDeath(int pos, int b, int y, int o)
+    {
+        DeathsForDynamicEvent dde = mDeathsForDynamicEvent.get(pos);
+        dde.deadYoung = y;
+        dde.deadBabies = b;
+        dde.deadOld= o;
+        notifyDataSetChanged();
+
+    }
+
+    public void deleteDeath(int pos)
+    {
+        mDeathsForDynamicEvent.remove(pos);
+        notifyDataSetChanged();
+    }
+
+    public DeathsForDynamicEvent getDeathForDynamicEvent(int pos) {return mDeathsForDynamicEvent.get(pos);}
+
     public AnimalMovementsForDynamicEvent getAnimalMovements () {return mAnimalMovements;}
     public ArrayList<DeathsForDynamicEvent> getDeathsForDynamicEvent() {return (ArrayList<DeathsForDynamicEvent>) mDeathsForDynamicEvent;}
+
 }

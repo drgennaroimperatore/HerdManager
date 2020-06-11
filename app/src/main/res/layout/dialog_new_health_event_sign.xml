@@ -49,11 +49,14 @@
             android:layout_width="264dp"
             android:layout_height="25dp"
             android:layout_marginTop="18dp"
+            android:layout_marginBottom="140dp"
             android:background="@color/black"
             android:dropDownWidth="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViews7" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_new_health_event_disease_dialog_title_textview" />
 
         <EditText
             android:id="@+id/editText_sign_health_event_young"
@@ -69,16 +72,6 @@
             app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_baby"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViews8"
-            style="@style/BlackHeadingTextSmall"
-            android:layout_width="144dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="19dp"
-            android:text="Animals Affected"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/health_event_sign_spinner" />
-
         <Button
             android:id="@+id/button_sign_health_add_sign"
             android:layout_width="40dp"
@@ -92,16 +85,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.503" />
-
-        <TextView
-            android:id="@+id/textViews7"
-            style="@style/BlackHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Insert New Sign"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViews15"
@@ -128,16 +111,47 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/editText_sign_health_event_old"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_sign_health_delete_sign"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="88dp"
+            android:background="@color/red"
+            android:text="del"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.67"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone">
+
+        </Button>
+
+        <TextView
+            android:id="@+id/dialog_new_health_event_sign_dialog_title_textview"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Insert New Sign"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  />
+
+        <TextView
+            android:id="@+id/textViews16"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Young"
+            app:layout_anchor="@+id/constraintLayout6"
+            app:layout_anchorGravity="bottom|center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/editText_sign_health_event_young"
+            app:layout_constraintStart_toStartOf="@+id/editText_sign_health_event_young" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textViews16"
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="176dp"
-        android:text="Young"
-        app:layout_anchor="@+id/constraintLayout6"
-        app:layout_anchorGravity="bottom|center" />
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,13 +28,33 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
    private List<String> mCausesOfDeath;
    private AddHerdDynamicFragment mFragment;
    private Context mContext;
+   private Integer nDeadBabies, nDeadYoung, nDeadOld;
+   private Integer mPositionToEdit;
+   private boolean isEditing = false;
 
     public NewDynamicEventAnimalDeathDialog(Context context, List<String> causesOfDeath,  AddHerdDynamicFragment f)
     {
         mContext = context;
         mCausesOfDeath = causesOfDeath;
         mFragment = f;
+        nDeadBabies= null;
+        nDeadYoung= null;
+        nDeadOld = null;
     }
+
+    public NewDynamicEventAnimalDeathDialog(Context context,List<String> causesOfDeath, int pos, int deadBabies, int deadYoung, int deadOld, AddHerdDynamicFragment f )
+    {
+        mContext = context;
+        mCausesOfDeath = causesOfDeath;
+        mFragment = f;
+        nDeadBabies = deadBabies;
+        nDeadYoung = deadYoung;
+        nDeadOld = deadOld;
+        mPositionToEdit= pos;
+        isEditing=true;
+    }
+
+
 
     @Nullable
     @Override
@@ -59,13 +80,38 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
         deadYoungET.setHint("0");
         deadOldET.setHint("0");
 
+        if(nDeadBabies!=null && nDeadYoung!=null && nDeadOld!=null)
+        {
+            deadBabiesET.setText(String.valueOf(nDeadBabies));
+            deadYoungET.setText(String.valueOf(nDeadYoung));
+            deadOldET.setText(String.valueOf(nDeadOld));
+        }
+
         Button addDeathButton = view.findViewById(R.id.button_death_dynamic_add_death);
+
+        if(isEditing) {
+            causesOfDeathSpinner.setVisibility(View.GONE);
+            addDeathButton.setText("Edit Death");
+
+            TextView heading = view.findViewById(R.id.dialog_new_dynamic_event_animal_death_title_textView);
+            heading.setText("Edit "+ mFragment.getDeathCauseName(mPositionToEdit));
+
+            Button deleteDeathButton = view.findViewById(R.id.button_death_dynamic_delete_death);
+            deleteDeathButton.setVisibility(View.VISIBLE);
+            deleteDeathButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFragment.deleteDeath(mPositionToEdit);
+                    dismiss();
+                }
+            });
+        }
+
         final CoordinatorLayout cl = view.findViewById(R.id.dialog_death_parent);
 
         addDeathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 /* */
 
                 if(deadBabiesET.getText().toString().isEmpty())
@@ -96,15 +142,20 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                     dde.deadYoung = nAffectedYoung;
                     dde.deadOld = nAffectedOld;
 
-                    if(mFragment.addDeath(dde))
-                    {
-                        Snackbar mySnackbar = Snackbar.make(cl, "Cause of death was already inserted", Snackbar.LENGTH_LONG);
-                        mySnackbar.getView().setBackgroundColor(R.color.black);
-                        mySnackbar.show();
-                    }
-                    else
-                    {
+                    if(isEditing) {
+
+                        mFragment.editDeath(mPositionToEdit,nAffectedBabies,nAffectedYoung,nAffectedOld);
                         dismiss();
+                    }
+                    else {
+
+                        if (mFragment.addDeath(dde)) {
+                            Snackbar mySnackbar = Snackbar.make(cl, "Cause of death was already inserted", Snackbar.LENGTH_LONG);
+                            mySnackbar.getView().setBackgroundColor(R.color.black);
+                            mySnackbar.show();
+                        } else {
+                            dismiss();
+                        }
                     }
 
 
