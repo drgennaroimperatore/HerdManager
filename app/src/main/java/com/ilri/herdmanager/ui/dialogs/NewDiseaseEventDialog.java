@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +34,10 @@ public class NewDiseaseEventDialog extends DialogFragment {
     Button mButtonAddDiseaseToHealthEvent;
     AddHeardHealthEventFragment mFragment;
     ADDBDAO addbdao = null;
+    Integer nAffectedBabies, nAffectedYoung, nAffectedOld;
+    Integer mPositionToEdit;
+    boolean isEditing = false;
+
 
     public NewDiseaseEventDialog(Context context, List<String> diseases, AddHeardHealthEventFragment fragment)
     {
@@ -40,7 +45,32 @@ public class NewDiseaseEventDialog extends DialogFragment {
         mDiseases = diseases;
         mFragment = fragment;
         addbdao = ADDB.getInstance(context).getADDBDAO();
+        nAffectedBabies = null;
+        nAffectedYoung= null;
+        nAffectedOld = null;
+        mPositionToEdit = null;
+
     }
+
+    public NewDiseaseEventDialog(Context context, List<String> diseases,
+                                 int pos,
+                                 int affectedBabies,
+                                 int affectedYoung,
+                                 int affectedOld,
+                                 AddHeardHealthEventFragment fragment)
+    {
+        mContext = context;
+        mDiseases = diseases;
+        mFragment = fragment;
+        addbdao = ADDB.getInstance(context).getADDBDAO();
+        nAffectedBabies = affectedBabies;
+        nAffectedYoung= affectedYoung;
+        nAffectedOld = affectedOld;
+        isEditing = true;
+        mPositionToEdit = pos;
+    }
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,6 +95,13 @@ public class NewDiseaseEventDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
       final  Spinner diseaseSpinner = view.findViewById(R.id.health_event_disease_spinner);
+
+      if(isEditing) {
+          diseaseSpinner.setVisibility(View.GONE);
+          TextView header = view.findViewById(R.id.dialog_new_health_event_disease_dialog_title_textview);
+          header.setText("Edit " + mFragment.getDiseaseName(mPositionToEdit));
+      }
+
        final CoordinatorLayout cl = view.findViewById(R.id.dialog_disease_parent);
         mEditTextAffectedBabies = view.findViewById(R.id.editText_disease_health_event_baby);
         mEditTextAffectedBabies.setHint("0");
@@ -73,7 +110,31 @@ public class NewDiseaseEventDialog extends DialogFragment {
         mEditTextAffectedOld = view.findViewById(R.id.editText_disease_health_event_old);
         mEditTextAffectedOld.setHint("0");
 
+        if(nAffectedOld!=null && nAffectedYoung!=null && nAffectedOld!=null) // if we get here
+        {
+            mEditTextAffectedOld.setText(String.valueOf(nAffectedOld));
+            mEditTextAffectedYoung.setText(String.valueOf(nAffectedYoung));
+            mEditTextAffectedBabies.setText(String.valueOf(nAffectedBabies));
+        }
+
         mButtonAddDiseaseToHealthEvent = view.findViewById(R.id.button_disease_health_add_disease);
+
+        if(isEditing)
+        {
+            mButtonAddDiseaseToHealthEvent.setText("Edit Dis");
+
+            Button deleteDiseaseButton = view.findViewById(R.id.button_disease_health_delete_disease);
+            deleteDiseaseButton.setVisibility(View.VISIBLE);
+
+            deleteDiseaseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mFragment.deleteDisease(mPositionToEdit);
+                    dismiss();
+                }
+            });
+
+        }
 
         mButtonAddDiseaseToHealthEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,16 +169,22 @@ public class NewDiseaseEventDialog extends DialogFragment {
                     dhe.numberOfAffectedYoung = nAffectedYoung;
                     dhe.numberOfAffectedOld = nAffectedOld;
 
-                  if( mFragment.addDiseaseToList(dhe))
-                  {
-                      Snackbar mySnackbar = Snackbar.make(cl, "This disease was already inserted", Snackbar.LENGTH_LONG);
-                      mySnackbar.getView().setBackgroundColor(R.color.black);
-                      mySnackbar.show();
-                  }
-                  else {
-                      mFragment.expandList(0);
-                      dismiss();
-                  }
+                    if (isEditing) {
+
+                        mFragment.editDisease(mPositionToEdit, nAffectedBabies,nAffectedYoung,nAffectedOld);
+                        dismiss();
+
+                    } else {
+
+                        if (mFragment.addDiseaseToList(dhe)) {
+                            Snackbar mySnackbar = Snackbar.make(cl, "This disease was already inserted", Snackbar.LENGTH_LONG);
+                            mySnackbar.getView().setBackgroundColor(R.color.black);
+                            mySnackbar.show();
+                        } else {
+                            mFragment.expandList(0);
+                            dismiss();
+                        }
+                    }
                 }
 
             }

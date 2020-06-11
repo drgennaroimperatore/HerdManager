@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -128,6 +129,51 @@ public class AddHeardHealthEventFragment extends Fragment {
             }
         });
 
+        if(!isReadOnly)
+        mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                    if(groupPosition==0)//disease
+                    {
+                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                        List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
+                        List<String> diseaseNames = new ArrayList<>();
+                        DiseasesForHealthEvent dhe = mAdapter.getDiseaseForHealthEvent(childPosition);
+
+                        for(Diseases d: diseases)
+                            diseaseNames.add(d.Name);
+
+                        DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(), diseaseNames, childPosition,
+                                dhe.numberOfAffectedBabies,dhe.numberOfAffectedYoung,dhe.numberOfAffectedOld,f );
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+                        dialogFragment.show(ft, "dialog");
+
+
+                    }
+                    if(groupPosition==1)//signs
+                    {
+
+                    }
+
+                    return true;
+                }
+
+
+                return false;
+            }
+        });
+
         mShowAddSignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,10 +226,41 @@ public class AddHeardHealthEventFragment extends Fragment {
         return mAdapter.addNewSign(she);
     }
 
+    public void editDisease(int pos, int b, int y, int o)
+    {
+        mAdapter.editDisease(pos,b,y,o);
+    }
+
+
+    public String getDiseaseName(int pos)
+    {
+       return ADDB.getInstance(getContext()).getADDBDAO().getDiseaseNameFromId(mAdapter.getDiseaseForHealthEvent(pos).diseaseID).get(0);
+
+    }
+
+    public void deleteDisease(int pos)
+    {
+        mAdapter.deleteDisease(pos);
+    }
+
+    public void deleteSign(int pos)
+    {
+        mAdapter.deleteSign(pos);
+    }
+
+    public void editSign(int pos, int b, int y, int o)
+    {
+        mAdapter.editSign(pos, b,y,o);
+
+
+    }
+
     public void expandList(int g)
     {
         mHealthEventExpandableListView.expandGroup(g);
     }
+
+
 
     public HealthEventContainer getHealthEventContainer()
     {

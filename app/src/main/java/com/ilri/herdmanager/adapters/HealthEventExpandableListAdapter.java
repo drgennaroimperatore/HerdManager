@@ -94,6 +94,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         return true;
     }
 
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
@@ -110,7 +111,6 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         header.setText(mGroupHeaders.get(groupPosition));
 
 //
-
 
         return view;
     }
@@ -199,7 +199,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
+        return true;
     }
 
     public boolean addNewSign (SignsForHealthEvent she)
@@ -236,6 +236,41 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     }
 
+    public void editDisease( int pos, int b, int y, int o)
+    {
+       DiseasesForHealthEvent dhe = mDiseaseList.get(pos);
+       dhe.numberOfAffectedOld = o;
+       dhe.numberOfAffectedYoung = y;
+       dhe.numberOfAffectedBabies = b;
+       notifyDataSetChanged();
+    }
+
+    public void editSign(int pos, int b, int y, int o)
+    {
+        SignsForHealthEvent she = mSignsList.get(pos);
+        she.numberOfAffectedBabies =b;
+        she.numberOfAffectedYoung=y;
+        she.numberOfAffectedOld=o;
+        notifyDataSetChanged();
+    }
+
+    public void deleteDisease (int pos)
+    {
+        mDiseaseList.remove(pos);
+        notifyDataSetChanged();
+    }
+
+    public void deleteSign(int pos)
+    {
+        mSignsList.remove(pos);
+        notifyDataSetChanged();
+    }
+
+
+
     public ArrayList<DiseasesForHealthEvent> getDiseasesForHealthEvent() {return mDiseaseList;}
     public ArrayList<SignsForHealthEvent> getSignsForHealthEvent() {return mSignsList;}
+
+    public DiseasesForHealthEvent getDiseaseForHealthEvent(int pos) {return mDiseaseList.get(pos);}
+    public SignsForHealthEvent getSignsForHealthEvent(int pos) {return mSignsList.get(pos);}
 }

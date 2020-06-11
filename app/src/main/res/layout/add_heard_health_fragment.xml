@@ -44,7 +44,8 @@
         android:layout_height="395dp"
         android:scrollbars="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp">
+        tools:layout_editor_absoluteX="1dp"
+        android:longClickable="true">
 
     </ExpandableListView>
 

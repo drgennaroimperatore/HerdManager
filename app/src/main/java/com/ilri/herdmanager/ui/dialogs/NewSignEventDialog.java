@@ -35,6 +35,9 @@ public class NewSignEventDialog extends DialogFragment {
     Button mButtonAddSignToHealthEvent;
     AddHeardHealthEventFragment mFragment;
     ADDBDAO addbdao = null;
+   Integer nAffectedBabies, nAffectedYoung, nAffectedOld;
+    Integer mPositionToEdit;
+    boolean isEditing = false;
 
 
     public NewSignEventDialog(Context context, List<String> signs, AddHeardHealthEventFragment f)
@@ -43,6 +46,24 @@ public class NewSignEventDialog extends DialogFragment {
         mSigns = signs;
         addbdao = ADDB.getInstance(context).getADDBDAO();
         mFragment = f;
+    }
+
+    public NewSignEventDialog(Context context, List<String> signs,
+                              int pos,
+                              int affectedBabies,
+                              int affectedYoung,
+                              int affectedOld,
+                              AddHeardHealthEventFragment fragment)
+    {
+        mContext=context;
+        mSigns = signs;
+        addbdao = ADDB.getInstance(context).getADDBDAO();
+        mFragment = fragment;
+        nAffectedBabies = affectedBabies;
+        nAffectedYoung= affectedYoung;
+        nAffectedOld = affectedOld;
+        isEditing = true;
+        mPositionToEdit = pos;
     }
 
     @Nullable
