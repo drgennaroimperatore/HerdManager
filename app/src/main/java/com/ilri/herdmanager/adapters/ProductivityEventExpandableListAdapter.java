@@ -109,7 +109,7 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
 
             if(isReadOnly)
             {
-                ImageView syncImgView = convertView.findViewById(R.id.productivity_event_milk_production_row_sync_imgview);
+              /*  ImageView syncImgView = convertView.findViewById(R.id.productivity_event_milk_production_row_sync_imgview);
                 syncImgView.setVisibility(View.VISIBLE);
 
                 if(mMilkProduction.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
@@ -117,7 +117,7 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
                 if(mMilkProduction.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
                     syncImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
                 if(mMilkProduction.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
-                    syncImgView.setImageResource(R.drawable.drawable_sync_status_synced);
+                    syncImgView.setImageResource(R.drawable.drawable_sync_status_synced);*/
             }
         }
 
@@ -130,7 +130,7 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
 
             if(isReadOnly)
             {
-                ImageView syncImgView = convertView.findViewById(R.id.productivity_event_animal_births_row_sync_imgview);
+               /* ImageView syncImgView = convertView.findViewById(R.id.productivity_event_animal_births_row_sync_imgview);
                 syncImgView.setVisibility(View.VISIBLE);
 
                 if(mBirths.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
@@ -138,8 +138,7 @@ public class ProductivityEventExpandableListAdapter extends BaseExpandableListAd
                 if(mBirths.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
                     syncImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
                 if(mBirths.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
-                    syncImgView.setImageResource(R.drawable.drawable_sync_status_synced);
-
+                    syncImgView.setImageResource(R.drawable.drawable_sync_status_synced);*/
             }
         }
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -193,23 +195,31 @@ public class NewCaseActivity extends AppCompatActivity {
                 {
                     if(mIsFarmerAssigned)
                     {
-                        NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
-                                (context, a, species, nBabies,nYoung,nOld, dateOfInsertion, mAssignedFarmer.ID);
-                        confirmationDialog.show();
+                        HerdDao dao = HerdDatabase.getInstance(getApplicationContext()).getHerdDao();
+                        List<Herd> herdOfFarmer= dao.getHerdsByFarmerID(mAssignedFarmer.ID);
+                        List<String> animalsBelongingToFarmer= new ArrayList<>();
+                        for(Herd h:herdOfFarmer)
+                            animalsBelongingToFarmer.add(ADDB.getInstance(getApplicationContext()).getADDBDAO().getAnimalNameFromID(h.speciesID).get(0));
+                        if(animalsBelongingToFarmer.contains(" "+species.toUpperCase()))
+                        {
+                            ErrorDialog errorDialog = new ErrorDialog(context, "Farmer already has a herd of " + species+"!");
+                            errorDialog.show();
+                        }
+                        else {
+
+                            NewCaseConfirmationDialog confirmationDialog = new NewCaseConfirmationDialog
+                                    (context, a, species, nBabies, nYoung, nOld, dateOfInsertion, mAssignedFarmer.ID);
+                            confirmationDialog.show();
+                        }
                     }
                 }
-
-
-
             }
         });
     }
 
     public void goToEvents(Intent goToAddHerdVisitActivity)
     {
-
          startActivity(goToAddHerdVisitActivity);
-
     }
 
     public void assignFarmer(Farmer farmer)

@@ -90,7 +90,7 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
         Button addDeathButton = view.findViewById(R.id.button_death_dynamic_add_death);
 
         if(isEditing) {
-            causesOfDeathSpinner.setVisibility(View.GONE);
+            causesOfDeathSpinner.setVisibility(View.INVISIBLE);
             addDeathButton.setText("Edit Death");
 
             TextView heading = view.findViewById(R.id.dialog_new_dynamic_event_animal_death_title_textView);

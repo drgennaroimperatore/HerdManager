@@ -161,7 +161,6 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
           nOld = herd.nOld;
       }
 
-
         for(DeathsForDynamicEvent d:mDce.mDeaths)
         {
             nBabies = nBabies-d.deadBabies;
@@ -185,6 +184,13 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
 
         BirthsForProductivityEvent bpe = mPce.birthsForProductivityEvent;
         nBabies+= bpe.nOfBirths;
+
+        if(nBabies<0)
+            nBabies=0;
+        if(nYoung<0)
+            nYoung=0;
+        if(nOld<0)
+            nOld=0;
 
         herdChanges[0] =nBabies;
         herdChanges[1] =nYoung;

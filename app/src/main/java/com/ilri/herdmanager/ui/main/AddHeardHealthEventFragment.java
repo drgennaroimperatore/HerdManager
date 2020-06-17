@@ -159,7 +159,6 @@ public class AddHeardHealthEventFragment extends Fragment {
                         ft.addToBackStack(null);
                         dialogFragment.show(ft, "dialog");
 
-
                     }
                     if(groupPosition==1)//signs
                     {

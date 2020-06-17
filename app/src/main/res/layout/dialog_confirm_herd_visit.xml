@@ -5,8 +5,6 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary">
 
-
-
     <TextView
         android:id="@+id/textViewConfirmationtext"
         android:layout_width="match_parent"
@@ -40,7 +38,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextMedium"
+        style="@style/BlackHeadingTextSmall"
         android:text="Herd Size Before Visit"></TextView>
 
 
@@ -53,19 +51,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="Pre-Weaned"></TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
-                android:text="Adult"></TextView>
+                style="@style/BlackHeadingTextSmall"
+                android:text="Young"></TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
-                android:text="Old"></TextView>
+                style="@style/BlackHeadingTextSmall"
+                android:text="Adult"></TextView>
 
         </TableRow>
 
@@ -74,20 +72,20 @@
                 android:id="@+id/dialog_herd_changes_current_babies_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="0"></TextView>
 
             <TextView
                 android:id="@+id/dialog_herd_changes_current_young_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="0"></TextView>
             <TextView
                 android:id="@+id/dialog_herd_changes_current_old_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="0"></TextView>
 
         </TableRow>
@@ -98,7 +96,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextMedium"
+        style="@style/BlackHeadingTextSmall"
         android:text="Herd Size After Visit"></TextView>
 
     <TableLayout
@@ -109,19 +107,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="Pre-Weaned"></TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
-                android:text="Adult"></TextView>
+                style="@style/BlackHeadingTextSmall"
+                android:text="Young"></TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
-                android:text="Old"></TextView>
+                style="@style/BlackHeadingTextSmall"
+                android:text="Adult"></TextView>
 
         </TableRow>
 
@@ -130,24 +128,23 @@
                 android:id="@+id/dialog_herd_changes_new_babies_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="0"></TextView>
 
             <TextView
                 android:id="@+id/dialog_herd_changes_new_young_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="0"></TextView>
             <TextView
                 android:id="@+id/dialog_herd_changes_new_old_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/BlackHeadingTextSmall"
                 android:text="0"></TextView>
 
         </TableRow>
-
     </TableLayout>
 
 

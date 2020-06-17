@@ -141,7 +141,7 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
                 if(isReadOnly)
                 {
-                    ImageView syncStatusImageView = view.findViewById(R.id.dynamic_event_animal_movement_syncstatus_imgview);
+                  /*  ImageView syncStatusImageView = view.findViewById(R.id.dynamic_event_animal_movement_syncstatus_imgview);
                     syncStatusImageView.setVisibility(View.VISIBLE);
 
                     if(mAnimalMovements.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
@@ -149,7 +149,7 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
                     if(mAnimalMovements.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
                         syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
                     if(mAnimalMovements.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
-                        syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_synced);
+                        syncStatusImageView.setImageResource(R.drawable.drawable_sync_status_synced);*/
                 }
 
 
