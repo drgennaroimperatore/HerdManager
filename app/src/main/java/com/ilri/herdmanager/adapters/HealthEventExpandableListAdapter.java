@@ -41,7 +41,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
        // mDiseaseList.add(0,new HealthEvent());
 
         mGroupHeaders = new ArrayList<>();
-        mGroupHeaders.add("Diseases");
+        //mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
         isReadOnly= false;
     }
@@ -59,9 +59,10 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
         int childSize =0;
 
-        if(groupPosition==0)
-            childSize = mDiseaseList.size();
+
         if(groupPosition==1)
+            childSize = mDiseaseList.size();
+        if(groupPosition==0)
             childSize = mSignsList.size();
 
 
@@ -70,7 +71,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     }
 
     @Override
-    public Object getGroup(int groupPosition) {
+    public Object getGroup(int groupPosition)  {
+        groupPosition=1;
         return mGroupHeaders.get(groupPosition);
     }
 
@@ -81,7 +83,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public long getGroupId(int groupPosition) {
-        return groupPosition;
+         return groupPosition;
     }
 
     @Override
@@ -99,6 +101,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         View view = convertView;
+
 
         if(view== null)
         {
@@ -123,9 +126,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
       //  {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            if(groupPosition==0)
-                convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
             if(groupPosition==1)
+                convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
+            if(groupPosition==0)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
 
         //}
@@ -135,7 +138,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         TextView numberOfAffecedYoung = null;
         TextView numberOfAffectedOld = null;
 
-        if(groupPosition==0) // disease
+        if(groupPosition==1) // disease
         {
             DiseasesForHealthEvent dhe = mDiseaseList.get(childPosition);
 
@@ -165,7 +168,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
         }
 
-        if(groupPosition==1) // signs
+        if(groupPosition==0) // signs
         {
             SignsForHealthEvent she = mSignsList.get(childPosition);
 

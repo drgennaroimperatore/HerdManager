@@ -91,6 +91,10 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
         mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
+
+        //REMOVE THIS LINE IF WE WANT DISEASES BACK
+        mShowAddDiseaseButton.setVisibility(View.INVISIBLE);
+
         mShowAddSignButton = view.findViewById(R.id.health_event_show_sign_dialog);
         mHealthEventExpandableListView = view.findViewById(R.id.health_event_exapandableListView);
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
@@ -100,7 +104,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         mHealthEventExpandableListView.setAdapter(adapter);
         mAdapter = adapter;
         mHealthEventExpandableListView.expandGroup(0);
-        mHealthEventExpandableListView.expandGroup(1);
+      //  mHealthEventExpandableListView.expandGroup(1);
 
 
 
@@ -139,7 +143,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                     int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                    if(groupPosition==0)//disease
+                    if(groupPosition==1)//disease
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                         List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
@@ -160,7 +164,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                         dialogFragment.show(ft, "dialog");
 
                     }
-                    if(groupPosition==1)//signs
+                    if(groupPosition==0)//signs
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                         List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
