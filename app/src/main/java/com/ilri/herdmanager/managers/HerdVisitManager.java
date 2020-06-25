@@ -118,7 +118,8 @@ public class HerdVisitManager {
                                MilkProductionForProductivityEvent milkProductionForProductivityEvent,
                                BirthsForProductivityEvent birthsForProductivityEvent,
                                AnimalMovementsForDynamicEvent movements,
-                               List<DeathsForDynamicEvent> deathsForDynamicEvent)
+                               List<DeathsForDynamicEvent> deathsForDynamicEvent,
+                               String comments)
     {
         HerdVisit herdVisit = new HerdVisit();
         herdVisit.HerdID = herdID;
@@ -127,6 +128,7 @@ public class HerdVisitManager {
         herdVisit.babiesAtVisit = nBabies;
         herdVisit.youngAtVisit= nYoung;
         herdVisit.oldAtVisit= nOld;
+        herdVisit.comments = comments;
 
        long herdVisitID = HerdDatabase.getInstance(context).getHerdDao().InsertHerdVisit(herdVisit);
 

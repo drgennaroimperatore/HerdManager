@@ -48,15 +48,17 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
     Date mVisitDate = new Date();
     private TextView currentBabiesTV, currentYoungTV, currentOldTV;
     private TextView newBabiesTV, newYoungTV, newOldTV;
+    private String mComments;
 
     public ConfrimHerdVisitInsertionDialog(Context context, AddHerdVisitActivity a, int herdID,
-                                           HealthEventContainer hce, ProductivityEventContainer pce, DynamicEventContainer dce ) {
+                                           HealthEventContainer hce, ProductivityEventContainer pce, DynamicEventContainer dce, String comments ) {
         super(context);
         mA = a;
         mHce = hce;
         mPce= pce;
         mDce = dce;
         mHerdID = herdID;
+        mComments = comments;
 
 
 
@@ -118,18 +120,25 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
               int nYoung = changes[1];
               int nOld = changes[2];
 
+              if(isVisitDateValid()) {
 
-                    HerdVisitManager.getInstance().addVisitToHerd(
-                            mContext,
-                            mHerdID, mVisitDate,
-                            nBabies, nYoung, nOld,
-                            mHce.mDhes, mHce.mShes,
-                            mPce.milkProductionForProductivityEvent,mPce.birthsForProductivityEvent,
-                            mDce.mMovements, mDce.mDeaths);
-                    dismiss();
-                    Intent intent = new Intent(mA, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    mA.startActivity(intent);
+                  HerdVisitManager.getInstance().addVisitToHerd(
+                          mContext,
+                          mHerdID, mVisitDate,
+                          nBabies, nYoung, nOld,
+                          mHce.mDhes, mHce.mShes,
+                          mPce.milkProductionForProductivityEvent, mPce.birthsForProductivityEvent,
+                          mDce.mMovements, mDce.mDeaths, mComments);
+                  dismiss();
+                  Intent intent = new Intent(mA, MainActivity.class);
+                  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                  mA.startActivity(intent);
+              }
+              else
+              {
+                  ErrorDialog errorDialog = new ErrorDialog(getContext(),"Date of visit can't be before or the same as date of last visit");
+                  errorDialog.show();
+              }
                     // }
 
             }
@@ -225,5 +234,21 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
         }
 
         return herdSize;
+    }
+
+    public boolean isVisitDateValid()
+    {
+        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
+       List<HerdVisit> visits = dao.getAllHerdVisitsByHerdID(mHerdID);
+
+       if(visits.size()==0)
+           return true;
+       HerdVisit lastVisitInserted= visits.get(0);
+
+      Date lastVisitDate = lastVisitInserted.HerdVisitDate;
+      if(!lastVisitDate.before(mVisitDate) && !lastVisitDate.after(mVisitDate))
+        return false;
+
+       return (lastVisitDate.before(mVisitDate));
     }
 }

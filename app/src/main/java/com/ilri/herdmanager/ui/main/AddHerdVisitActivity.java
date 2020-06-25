@@ -1,6 +1,7 @@
 package com.ilri.herdmanager.ui.main;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -27,6 +28,7 @@ import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
 import com.ilri.herdmanager.ui.dialogs.ConfrimHerdVisitInsertionDialog;
 import com.ilri.herdmanager.ui.dialogs.ErrorDialog;
+import com.ilri.herdmanager.ui.dialogs.HerdVisitCommentsDialog;
 import com.ilri.herdmanager.ui.main.SectionsPagerAdapter;
 
 import java.text.SimpleDateFormat;
@@ -81,14 +83,27 @@ public class AddHerdVisitActivity extends AppCompatActivity {
               /*  Snackbar.make(view, "Adding visit", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
 
-                HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
-                ProductivityEventContainer pce = sectionsPagerAdapter.getProductivityEventForVisit();
-                DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
+               final HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
+               final ProductivityEventContainer pce = sectionsPagerAdapter.getProductivityEventForVisit();
+               final DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
 
                 try {
 
-                    ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce,pce,dce);
-                    confrimHerdVisitInsertionDialog.show();
+                    String comments ="";
+
+                    final HerdVisitCommentsDialog commentsDialog = new HerdVisitCommentsDialog(a);
+                    commentsDialog.show();
+                    commentsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce,pce,dce,commentsDialog.getComments());
+                            confrimHerdVisitInsertionDialog.show();
+
+                        }
+                    });
+
+
+
 
 
                 } catch (Exception e) {
