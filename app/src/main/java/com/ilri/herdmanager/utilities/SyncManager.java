@@ -161,10 +161,10 @@ class SyncManager {
 
     }
 
-    public String insertUser(String UUID)
+    public String insertUser(String userName, String UUID)
     {
         Map<String, Object> userParams = new LinkedHashMap<>();
-        userParams.put("Name","Test Name");
+        userParams.put("Name",userName);
         userParams.put("UUID",UUID);
 
         return sendPost("InsertUser",userParams);

@@ -245,9 +245,25 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
            return true;
        HerdVisit lastVisitInserted= visits.get(0);
 
-      Date lastVisitDate = lastVisitInserted.HerdVisitDate;
-      if(!lastVisitDate.before(mVisitDate) && !lastVisitDate.after(mVisitDate))
-        return false;
+        Date lastVisitDate = lastVisitInserted.HerdVisitDate;
+
+        Calendar lastVisitcalendar = Calendar.getInstance();
+        lastVisitcalendar.setTime( lastVisitDate );
+        lastVisitcalendar.set(Calendar.HOUR_OF_DAY, 0);
+        lastVisitcalendar.set(Calendar.MINUTE, 0);
+        lastVisitcalendar.set(Calendar.SECOND, 0);
+        lastVisitcalendar.set(Calendar.MILLISECOND, 0);
+
+       lastVisitDate= lastVisitcalendar.getTime();
+       lastVisitcalendar.setTime(mVisitDate);
+       lastVisitcalendar.set(Calendar.HOUR_OF_DAY, 0);
+       lastVisitcalendar.set(Calendar.MINUTE, 0);
+       lastVisitcalendar.set(Calendar.SECOND, 0);
+       lastVisitcalendar.set(Calendar.MILLISECOND, 0);
+       mVisitDate = lastVisitcalendar.getTime();
+
+       if(mVisitDate.equals(lastVisitDate))
+           return false;
 
        return (lastVisitDate.before(mVisitDate));
     }

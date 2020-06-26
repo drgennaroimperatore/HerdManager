@@ -272,7 +272,8 @@ public class SyncTask extends AsyncTask {
     {
 
         String UUID = m_context.getSharedPreferences("userPrefs",Context.MODE_PRIVATE).getString(Info.SHARED_PREFERENCES_KEY_UUID,"");
-        String userInsertionResponse =manager.insertUser(UUID);
+        String userName =m_context.getSharedPreferences("userPrefs",Context.MODE_PRIVATE).getString(Info.SHARED_PREFERENCES_KEY_USERNAME,"");
+        String userInsertionResponse =manager.insertUser(userName,UUID);
 
         JSONObject userJson = null;
         int userID = -200;

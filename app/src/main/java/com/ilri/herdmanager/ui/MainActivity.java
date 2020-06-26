@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.kmz.KMZParser;
+import com.ilri.herdmanager.ui.dialogs.UsernameSelectionDialog;
 import com.ilri.herdmanager.utilities.Info;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         if(!sharedPreferences.contains(Info.SHARED_PREFERENCES_KEY_UUID)) {
             spEditor.putString(Info.SHARED_PREFERENCES_KEY_UUID, UUIDstr);
             spEditor.commit();
+        }
+
+        if(!sharedPreferences.contains(Info.SHARED_PREFERENCES_KEY_ISFIRSTACCESS)
+                && !sharedPreferences.contains(Info.SHARED_PREFERENCES_KEY_USERNAME))
+        {
+            new UsernameSelectionDialog(this,sharedPreferences).show();
         }
 
         try {

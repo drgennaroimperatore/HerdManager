@@ -3,4 +3,5 @@ package com.ilri.herdmanager.utilities;
 public class Info {
     public final static String SHARED_PREFERENCES_KEY_UUID = "USERUUID";
     public final static String SHARED_PREFERENCES_KEY_USERNAME="USERNAME";
+    public final static String SHARED_PREFERENCES_KEY_ISFIRSTACCESS="ISFIRSTACCESS";
 }

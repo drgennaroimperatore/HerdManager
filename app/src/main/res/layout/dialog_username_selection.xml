@@ -6,7 +6,12 @@
     android:background="@color/colorPrimary">
 
     <TextView
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to the app!"
+        android:layout_gravity="center_horizontal"
+        style="@style/BlackHeadingTextLarge"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Please Provide Some Information"
@@ -19,7 +24,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Name"
+        />
 
     <EditText
         android:id="@+id/dialog_info_SecondName_editText"
@@ -27,7 +33,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Second Name" />
+        android:hint="Second Name" />
 
     <EditText
         android:id="@+id/dialog_info_Additional_editText"
@@ -35,5 +41,13 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Profession" />
+        android:hint="Profession" />
+
+    <Button
+        android:id="@+id/dialog_info_submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:textColor="@color/colorPrimary"
+        android:text="Submit" />
 </LinearLayout>
