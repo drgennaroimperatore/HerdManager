@@ -16,6 +16,7 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.SyncStatus;
 import com.ilri.herdmanager.managers.HerdManager;
@@ -179,4 +180,20 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
     }
+
+public void filterFarmer(String searchQuery)
+{
+
+    mGroupHeaders = HerdDatabase.getInstance(mContext).getHerdDao().getFarmerbyName(searchQuery);
+    notifyDataSetChanged();
 }
+
+public void resetFarmerList()
+{
+    mGroupHeaders = HerdDatabase.getInstance(mContext).getHerdDao().getAllFarmers();
+    notifyDataSetChanged();
+}
+}
+
+
+

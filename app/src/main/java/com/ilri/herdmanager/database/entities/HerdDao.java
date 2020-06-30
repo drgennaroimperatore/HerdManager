@@ -63,6 +63,9 @@ public interface HerdDao {
     @Query("SELECT * FROM DeathsForDynamicEvent WHERE DeathsForDynamicEvent.dynamicEventID =:dynamicEventID")
     List<DeathsForDynamicEvent> getDeathsForDynamicEvent(int dynamicEventID);
 
+    @Query("SELECT * FROM Farmer WHERE Farmer.firstName Like '%' || :name || '%' OR Farmer.secondName Like '%' || :name || '%' ")
+    List<Farmer> getFarmerbyName(String name);
+
     @Insert
     long InsertHerdVisit(HerdVisit visit);
 

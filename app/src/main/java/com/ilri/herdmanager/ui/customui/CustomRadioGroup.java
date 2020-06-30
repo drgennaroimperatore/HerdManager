@@ -35,7 +35,6 @@ public class CustomRadioGroup extends LinearLayout{
     }
 
     public void initialise()
-
     {
         setAllButtonsToUnselectedState();
         setFirstButtonToSelectedState();
