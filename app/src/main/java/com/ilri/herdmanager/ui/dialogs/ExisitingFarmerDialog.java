@@ -64,8 +64,6 @@ public class ExisitingFarmerDialog extends Dialog {
                     farmers=HerdDatabase.getInstance(mContext).getHerdDao().getAllFarmers();
                 populateRadioGroup(farmers);
 
-
-
             }
         });
 

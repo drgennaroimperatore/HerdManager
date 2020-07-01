@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-
         String UUIDstr = UUID.randomUUID().toString();
         SharedPreferences sharedPreferences = getSharedPreferences("userPrefs",Context.MODE_PRIVATE);
         SharedPreferences.Editor spEditor = sharedPreferences.edit();

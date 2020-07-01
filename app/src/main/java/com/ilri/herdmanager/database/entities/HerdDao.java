@@ -33,6 +33,9 @@ public interface HerdDao {
     @Query("SELECT * FROM Herd WHERE Herd.farmerID =:farmerID")
     List<Herd> getHerdsByFarmerID(int farmerID);
 
+    @Query("SELECT * FROM HerdVisit WHERE HerdVisit.ID =:herdVisitID")
+    List<HerdVisit> getHerdVisitByID(int herdVisitID);
+
     @Query("SELECT * FROM herdvisit WHERE Herdvisit.HerdID =:herdID ORDER BY HerdVisit.HerdVisitDate DESC")
     List<HerdVisit> getAllHerdVisitsByHerdID(int herdID);
 

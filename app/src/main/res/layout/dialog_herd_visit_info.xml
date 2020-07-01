@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Information on visit"
+        style="@style/BlackHeadingTextMedium"
+        android:layout_marginBottom="20dp"/>
+    <TextView
+        android:id="@+id/dialog_herd_visit_info_visitDate_TV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visit of the 00/00/0000"
+        style="@style/BlackHeadingTextMedium"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Herd Size info"
+        style="@style/BlackHeadingTextMedium"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PWnd"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_weight="0.33"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adult"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_weight="0.33"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Old"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_weight="0.33"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/dialog_herd_visit_info_baby_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_weight="0.3"/>
+            <TextView
+                android:id="@+id/dialog_herd_visit_info_young_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_weight="0.3"/>
+            <TextView
+                android:id="@+id/dialog_herd_visit_info_old_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_weight="0.25"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingTextMedium"
+        android:text="Comments"
+        android:layout_marginBottom="20dp">
+    </TextView>
+    <TextView
+        android:id="@+id/dialog_herd_visit_info_comments_TV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingTextMedium"
+        android:text="Comments"
+        android:layout_marginBottom="20dp">
+    </TextView>
+    <Button
+        android:id="@+id/dialog_herd_visit_info_close_button"
+        android:text="Close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/black"
+        android:textColor="@color/colorPrimary"></Button>
+
+</LinearLayout>
