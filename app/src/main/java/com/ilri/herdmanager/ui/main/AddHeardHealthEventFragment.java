@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.AdditionalSigns;
 import com.ilri.herdmanager.database.entities.Diseases;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
@@ -167,11 +168,12 @@ public class AddHeardHealthEventFragment extends Fragment {
                     if(groupPosition==0)//signs
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                        List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                        List<AdditionalSigns> signs =ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
+                       // List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
                         List<String> sNames = new ArrayList<>();
                         SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
 
-                        for(Signs s: signs)
+                        for(AdditionalSigns s: signs)
                             sNames.add(s.Name);
 
                         DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
@@ -201,10 +203,11 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
                 Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                List<AdditionalSigns> signs = ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
+                //List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
                 List<String> sNames = new ArrayList<>();
 
-                for(Signs s: signs)
+                for(AdditionalSigns s: signs)
                     sNames.add(s.Name);
 
                 DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,f);

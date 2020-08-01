@@ -1,6 +1,8 @@
 package com.ilri.herdmanager.database.entities;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.RawQuery;
 import androidx.sqlite.db.SupportSQLiteQuery;
@@ -51,10 +53,19 @@ public interface ADDBDAO {
     @Query("SELECT Diseases.Id FROM Diseases WHERE Diseases.Name=:name")
     List<Integer> getDiseaseIDFromName(String name);
 
-    @Query("SELECT Signs.Id FROM Signs WHERE Signs.Name=:name")
+    @Query("SELECT * FROM ADDITIONALSIGNS")
+    List<AdditionalSigns> getAdditionalSigns();
+
+    @Insert
+    void insertAllAdditionalSigns(List<AdditionalSigns> additionalSignsList);
+
+    @Query("DELETE FROM additionalsigns")
+    void deleteAllAdditionalSigns();
+
+    @Query("SELECT AdditionalSigns.Id FROM AdditionalSigns WHERE AdditionalSigns.Name=:name")
     List<Integer> getSignIDFromName (String name);
 
-    @Query("SELECT Signs.Name FROM Signs WHERE Signs.Id=:id")
+    @Query("SELECT AdditionalSigns.Name FROM AdditionalSigns WHERE AdditionalSigns.Id=:id")
     List<String> getSignNameFromID (int id);
 
     @Query("SELECT Animals.Id FROM Animals")
