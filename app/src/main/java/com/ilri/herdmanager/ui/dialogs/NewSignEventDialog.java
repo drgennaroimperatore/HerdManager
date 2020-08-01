@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,6 +24,7 @@ import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.Signs;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.ui.customui.SignAutoCompleteTextView;
 import com.ilri.herdmanager.ui.main.AddHeardHealthEventFragment;
 
 import java.util.List;
@@ -81,12 +83,19 @@ public class NewSignEventDialog extends DialogFragment {
 
         final CoordinatorLayout cl = view.findViewById(R.id.dialog_sign_parent);
 
-        final Spinner signSpinner = view.findViewById(R.id.health_event_sign_spinner);
+       final SignAutoCompleteTextView signAutoComplete = view.findViewById(R.id.dialog_health_signs_autcomptv);
+
+
+       // final Spinner signSpinner = view.findViewById(R.id.health_event_sign_spinner);
         if(isEditing)
         {
-            signSpinner.setVisibility(View.GONE);
+            //signSpinner.setVisibility(View.GONE);
+            signAutoComplete.setVisibility(View.GONE);
             TextView header = view.findViewById(R.id.dialog_new_health_event_sign_dialog_title_textview);
-            header.setText("Edit "+ mFragment.getSignName(mPositionToEdit).substring(0,10));
+            String signName = mFragment.getSignName(mPositionToEdit);
+            if(signName.length()>=11)
+                signName = signName.substring(0,10);
+            header.setText("Edit "+ signName);
         }
         mEditTextAffectedBabies = view.findViewById(R.id.editText_sign_health_event_baby);
         mEditTextAffectedBabies.setHint("0");
@@ -128,61 +137,70 @@ public class NewSignEventDialog extends DialogFragment {
 
                 SignsForHealthEvent she = new SignsForHealthEvent();
 
-                String signName = signSpinner.getSelectedItem().toString();
-                int signID= addbdao.getSignIDFromName(signName).get(0);
-
-                if(mEditTextAffectedOld.getText().toString().isEmpty())
-                    mEditTextAffectedOld.setText("0");
-                if(mEditTextAffectedYoung.getText().toString().isEmpty())
-                    mEditTextAffectedYoung.setText("0");
-                if(mEditTextAffectedBabies.getText().toString().isEmpty())
-                    mEditTextAffectedBabies.setText("0");
-
-
-
-                int nAffectedBabies = Integer.valueOf( mEditTextAffectedBabies.getText().toString());
-                int nAffectedYoung =Integer.valueOf( mEditTextAffectedYoung.getText().toString());
-                int nAffectedOld = Integer.valueOf(Integer.valueOf( mEditTextAffectedOld.getText().toString()));
-
-
-
-                if(nAffectedBabies==0 && nAffectedYoung==0 && nAffectedOld==0)
+                String signName = signAutoComplete.getText().toString();
+                if(isEditing)
                 {
-                    Snackbar mySnackbar = Snackbar.make(cl, "No Animal Was Affected", Snackbar.LENGTH_LONG);
+                    signName = mFragment.getSignName(mPositionToEdit);
+                }
+                if (addbdao.getSignIDFromName(signName).size() == 0)
+                {
+                    Snackbar mySnackbar = Snackbar.make(cl, "Invalid Sign!", Snackbar.LENGTH_LONG);
                     mySnackbar.getView().setBackgroundColor(R.color.black);
                     mySnackbar.show();
-                }
-                else {
 
-                    she.signID = signID;
-                    she.numberOfAffectedBabies = nAffectedBabies;
-                    she.numberOfAffectedYoung = nAffectedYoung;
-                    she.numberOfAffectedOld = nAffectedOld;
+                } else {
+                    int signID = addbdao.getSignIDFromName(signName).get(0);
 
-                    if(isEditing) {
-                    mFragment.editSign(mPositionToEdit, nAffectedBabies,nAffectedYoung,nAffectedOld);
-                    dismiss();
-                    }
-                    else {
+                    if (mEditTextAffectedOld.getText().toString().isEmpty())
+                        mEditTextAffectedOld.setText("0");
+                    if (mEditTextAffectedYoung.getText().toString().isEmpty())
+                        mEditTextAffectedYoung.setText("0");
+                    if (mEditTextAffectedBabies.getText().toString().isEmpty())
+                        mEditTextAffectedBabies.setText("0");
 
-                        if (mFragment.addSignToList(she)) {
-                            Snackbar mySnackbar = Snackbar.make(cl, "This sign was already inserted", Snackbar.LENGTH_LONG);
-                            mySnackbar.getView().setBackgroundColor(R.color.black);
-                            mySnackbar.show();
-                        } else {
-                            mFragment.expandList(1);
+
+                    int nAffectedBabies = Integer.valueOf(mEditTextAffectedBabies.getText().toString());
+                    int nAffectedYoung = Integer.valueOf(mEditTextAffectedYoung.getText().toString());
+                    int nAffectedOld = Integer.valueOf(Integer.valueOf(mEditTextAffectedOld.getText().toString()));
+
+
+                    if (nAffectedBabies == 0 && nAffectedYoung == 0 && nAffectedOld == 0) {
+                        Snackbar mySnackbar = Snackbar.make(cl, "No Animal Was Affected", Snackbar.LENGTH_LONG);
+                        mySnackbar.getView().setBackgroundColor(R.color.black);
+                        mySnackbar.show();
+                    } else {
+
+                        she.signID = signID;
+                        she.numberOfAffectedBabies = nAffectedBabies;
+                        she.numberOfAffectedYoung = nAffectedYoung;
+                        she.numberOfAffectedOld = nAffectedOld;
+
+                        if (isEditing) {
+                            mFragment.editSign(mPositionToEdit, nAffectedBabies, nAffectedYoung, nAffectedOld);
                             dismiss();
+                        } else {
+
+                            if (mFragment.addSignToList(she)) {
+                                Snackbar mySnackbar = Snackbar.make(cl, "This sign was already inserted", Snackbar.LENGTH_LONG);
+                                mySnackbar.getView().setBackgroundColor(R.color.black);
+                                mySnackbar.show();
+                            } else {
+                                mFragment.expandList(1);
+                                dismiss();
+                            }
                         }
                     }
                 }
-
             }
         });
 
-
-
         // String[] dummySigns = {"Sign 1", "Sign 2", "Sign 3"};
         ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mSigns);
-        signSpinner.setAdapter(signSpinnerAdapter);
+
+        //signSpinner.setAdapter(signSpinnerAdapter);
+
+        signAutoComplete.setThreshold(0);
+        //signAutoComplete.showDropDown();
+        signAutoComplete.setAdapter(signSpinnerAdapter);
     }
 }

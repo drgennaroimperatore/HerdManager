@@ -44,7 +44,7 @@
             app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_young"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Spinner
+      <!--  <Spinner
             android:id="@+id/health_event_sign_spinner"
             android:layout_width="264dp"
             android:layout_height="25dp"
@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_new_health_event_disease_dialog_title_textview" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_new_health_event_disease_dialog_title_textview" />-->
 
         <EditText
             android:id="@+id/editText_sign_health_event_young"
@@ -149,6 +149,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/editText_sign_health_event_young"
             app:layout_constraintStart_toStartOf="@+id/editText_sign_health_event_young" />
+
+        <com.ilri.herdmanager.ui.customui.SignAutoCompleteTextView
+            android:id="@+id/dialog_health_signs_autcomptv"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="132dp"
+            android:background="@color/black"
+            android:hint="Select Sign"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

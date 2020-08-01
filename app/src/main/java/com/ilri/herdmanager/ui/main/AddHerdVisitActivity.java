@@ -23,12 +23,14 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.classes.ProductivityEventContainer;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
 import com.ilri.herdmanager.ui.dialogs.ConfrimHerdVisitInsertionDialog;
 import com.ilri.herdmanager.ui.dialogs.ErrorDialog;
 import com.ilri.herdmanager.ui.dialogs.HerdVisitCommentsDialog;
+import com.ilri.herdmanager.ui.dialogs.HerdVisitInfoDialog;
 import com.ilri.herdmanager.ui.main.SectionsPagerAdapter;
 
 import java.text.SimpleDateFormat;
@@ -47,7 +49,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Bundle readOnlyArguments = null;
 
-        boolean isReadonly = ((isRO) &&  (herdVisitDate!=null) && (herdVisitID!=-155));
+        final boolean isReadonly = ((isRO) &&  (herdVisitDate!=null) && (herdVisitID!=-155));
 
         if(isReadonly)
         {
@@ -71,7 +73,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String selectedDate = sdf.format(herdVisitDate);
             titleTV.setText("Herd Visit of the "+ selectedDate);
-            fab.setVisibility(View.GONE); // hide the button if we are in read only mode
+            //fab.setVisibility(View.GONE); // hide the button if we are in read only mode
         }
 
         final AddHerdVisitActivity a = this;
@@ -83,33 +85,37 @@ public class AddHerdVisitActivity extends AppCompatActivity {
               /*  Snackbar.make(view, "Adding visit", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
 
-               final HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
-               final ProductivityEventContainer pce = sectionsPagerAdapter.getProductivityEventForVisit();
-               final DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
+                if (isReadonly)
+                {
+                    HerdVisit visit = HerdDatabase.getInstance(a).getHerdDao().getHerdVisitByID(herdVisitID).get(0);
+                    HerdVisitInfoDialog infoDialog = new HerdVisitInfoDialog(a,visit );
+                    infoDialog.show();
+                }
+                else {
+                    final HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
+                    final ProductivityEventContainer pce = sectionsPagerAdapter.getProductivityEventForVisit();
+                    final DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
 
-                try {
+                    try {
 
-                    String comments ="";
+                        String comments = "";
 
-                    final HerdVisitCommentsDialog commentsDialog = new HerdVisitCommentsDialog(a);
-                    commentsDialog.show();
-                    commentsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialog) {
-                            ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a,a,herdID,hce,pce,dce,commentsDialog.getComments());
-                            confrimHerdVisitInsertionDialog.show();
+                        final HerdVisitCommentsDialog commentsDialog = new HerdVisitCommentsDialog(a);
+                        commentsDialog.show();
+                        commentsDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                ConfrimHerdVisitInsertionDialog confrimHerdVisitInsertionDialog = new ConfrimHerdVisitInsertionDialog(a, a, herdID, hce, pce, dce, commentsDialog.getComments());
+                                confrimHerdVisitInsertionDialog.show();
 
-                        }
-                    });
+                            }
+                        });
 
-
-
-
-
-                } catch (Exception e) {
-                 //   ErrorDialog dialog = new ErrorDialog(getApplicationContext(), e.getMessage());
-                  //  dialog.show();
-                    Log.e("ILRI",e.getMessage());
+                    } catch (Exception e) {
+                        //   ErrorDialog dialog = new ErrorDialog(getApplicationContext(), e.getMessage());
+                        //  dialog.show();
+                        Log.e("ILRI", e.getMessage());
+                    }
                 }
             }
         });
