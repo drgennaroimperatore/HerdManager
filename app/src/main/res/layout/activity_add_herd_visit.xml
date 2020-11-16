@@ -19,13 +19,15 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="New Herd Event"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:textColor="@color/black"
+            android:textSize="15dp"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary" />
+            android:background="?attr/colorPrimary"
+            app:tabTextAppearance="@style/AppTabTextAppearance"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -40,5 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_case_foreground" />
+        android:scaleType="fitCenter"
+        app:maxImageSize="75dp"
+        android:src="@drawable/ic_add_case_foreground" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
