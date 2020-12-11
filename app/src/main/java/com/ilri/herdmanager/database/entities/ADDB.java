@@ -257,7 +257,6 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
             additionalSigns.add(new AdditionalSigns(initialId++, "Yellow creamy discharge from nodules"));
             additionalSigns.add(new AdditionalSigns(initialId++, "Yellowing of membranes"));
             additionalSigns.add(new AdditionalSigns(initialId++, "Yellowish, flakey discharge"));
-
             return  additionalSigns;
         }
 

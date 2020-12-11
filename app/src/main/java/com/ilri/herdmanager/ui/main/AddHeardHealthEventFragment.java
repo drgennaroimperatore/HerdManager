@@ -237,7 +237,6 @@ public class AddHeardHealthEventFragment extends Fragment {
         }
 
 
-
     }
 
     public boolean addDiseaseToList(DiseasesForHealthEvent dhe)

@@ -73,6 +73,18 @@ public class HerdVisitManager {
 
     }
 
+    private void editHealthEventForVisit(Context context, int healthEventID)
+    {
+
+    }
+
+    private void editSignForHealthEvent(Context context, int signForHealthEventID)
+    {
+
+    }
+
+
+
     private long createProductivityEventForVisit (Context context, int herdVisitID, MilkProductionForProductivityEvent milkProductionForProductivityEvent, BirthsForProductivityEvent birthsForProductivityEvent)
     {
         ProductivityEvent productivityEvent = new ProductivityEvent();
@@ -86,6 +98,11 @@ public class HerdVisitManager {
         HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(birthsForProductivityEvent);
 
         return productivityEventID;
+    }
+
+    private void editProductivityEventForVisit()
+    {
+
     }
 
     public long createDynamicEventForVisit(Context context, int herdVisitID, AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deathsForDynamicEvent)
@@ -107,6 +124,11 @@ public class HerdVisitManager {
         }
 
         return dynamicEventID;
+    }
+
+    private void editDynamicEventForVisit()
+    {
+
     }
 
     public void addVisitToHerd(Context context,
@@ -150,9 +172,6 @@ public class HerdVisitManager {
         if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
             affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
         HerdDatabase.getInstance(context).getHerdDao().UpdateFarmer(affectedFarmer);
-
-
-
 
     }
 
