@@ -90,7 +90,6 @@ public class AddHeardHealthEventFragment extends Fragment {
         }
 
 
-
         mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
 
         //REMOVE THIS LINE IF WE WANT DISEASES BACK
@@ -101,12 +100,11 @@ public class AddHeardHealthEventFragment extends Fragment {
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
         //healthEvents.add( new HealthEvent());
 
-        HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), healthEvents);
+        HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), healthEvents, mHerdID);
         mHealthEventExpandableListView.setAdapter(adapter);
         mAdapter = adapter;
         mHealthEventExpandableListView.expandGroup(0);
       //  mHealthEventExpandableListView.expandGroup(1);
-
 
 
       final  AddHeardHealthEventFragment f = this;
@@ -280,6 +278,12 @@ public class AddHeardHealthEventFragment extends Fragment {
     {
         mAdapter.editSign(pos, b,y,o);
 
+    }
+
+
+
+    public void editBodyConditionList()
+    {
 
     }
 

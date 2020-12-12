@@ -64,15 +64,8 @@ public class SelectDateForHerdInsertionDialog extends Dialog {
                 dismiss();
 
 
-
-
-
-
             }
         });
-
-
-
 
     }
 }

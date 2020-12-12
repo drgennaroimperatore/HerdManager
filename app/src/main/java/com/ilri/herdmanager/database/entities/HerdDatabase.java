@@ -1,5 +1,6 @@
 package com.ilri.herdmanager.database.entities;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -9,10 +10,13 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.ilri.herdmanager.database.converters.BodyConditionSectionConverter;
 import com.ilri.herdmanager.database.converters.DateConverter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
 
 @Database(entities = {Herd.class,
         Farmer.class,
@@ -25,10 +29,11 @@ import java.util.List;
         AnimalMovementsForDynamicEvent.class,
         DeathsForDynamicEvent.class,
 MilkProductionForProductivityEvent.class,
-BirthsForProductivityEvent.class}, version= 17)
+BirthsForProductivityEvent.class,
+BodyCondition.class, BodyConditionForHealthEvent.class}, version= 18)
 
 
-@TypeConverters({DateConverter.class})
+@TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})
 public abstract class HerdDatabase extends RoomDatabase
 {
 
@@ -41,6 +46,21 @@ public abstract class HerdDatabase extends RoomDatabase
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
 
+            List<BodyCondition> bodyConditionList = populateBodyConditionTable();
+
+            for(BodyCondition bc:bodyConditionList ) {
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("ID", bc.ID);
+                contentValues.put("description",bc.description);
+                contentValues.put("label",bc.label);
+                contentValues.put("species",bc.species);
+                contentValues.put("stage",bc.stage);
+                contentValues.put("section",bc.section.toString());
+
+                db.insert("BodyCondition", CONFLICT_IGNORE, contentValues);
+            }
+
 
         }
     };
@@ -50,7 +70,7 @@ public abstract class HerdDatabase extends RoomDatabase
         if(mInstance == null)
         {
             mInstance = Room.databaseBuilder(context,
-                    HerdDatabase.class, "herddb").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                    HerdDatabase.class, "herddb").allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(mDBCallBack).build();
         }
         return mInstance;
     }
@@ -87,7 +107,7 @@ public abstract class HerdDatabase extends RoomDatabase
         bodyConditionList.add(new BodyCondition(initialID++, "Moderate","CAMEL",3,"Not Very Visible",BodyConditionSection.RIBS));
         bodyConditionList.add(new BodyCondition(initialID++, "Fat","CAMEL",4,"Not Visible",BodyConditionSection.RIBS));
 
-        bodyConditionList.add(new BodyCondition(initialID++, "Very Thin","CAMEL",1,"Very Prominent",BodyConditionSection.TUBEROSITIES_SHOULDERS_SCAPULA_SPINES_TRAVERSE_PROC_VERTEBRAE));
+       /* bodyConditionList.add(new BodyCondition(initialID++, "Very Thin","CAMEL",1,"Very Prominent",BodyConditionSection.TUBEROSITIES_SHOULDERS_SCAPULA_SPINES_TRAVERSE_PROC_VERTEBRAE));
         bodyConditionList.add(new BodyCondition(initialID++, "Thin","CAMEL",2,"Prominent",BodyConditionSection.TUBEROSITIES_SHOULDERS_SCAPULA_SPINES_TRAVERSE_PROC_VERTEBRAE));
         bodyConditionList.add(new BodyCondition(initialID++, "Moderate","CAMEL",3,"Slightly Prominent",BodyConditionSection.TUBEROSITIES_SHOULDERS_SCAPULA_SPINES_TRAVERSE_PROC_VERTEBRAE));
         bodyConditionList.add(new BodyCondition(initialID++, "Fat","CAMEL",4,"Not Visible",BodyConditionSection.TUBEROSITIES_SHOULDERS_SCAPULA_SPINES_TRAVERSE_PROC_VERTEBRAE));
@@ -102,7 +122,7 @@ public abstract class HerdDatabase extends RoomDatabase
         bodyConditionList.add(new BodyCondition(initialID++, "Moderate","CAMEL",3,"Slightly Deep",BodyConditionSection.RECTO_GENITAL_REGION));
         bodyConditionList.add(new BodyCondition(initialID++, "Fat","CAMEL",4,"Full of Fat",BodyConditionSection.RECTO_GENITAL_REGION));
 
-        return bodyConditionList;
+       */ return bodyConditionList;
     }
 
     public abstract HerdDao getHerdDao();

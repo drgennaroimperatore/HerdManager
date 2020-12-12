@@ -11,8 +11,11 @@ import android.widget.TextView;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
+import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.HerdDao;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
 
@@ -22,19 +25,25 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    Context mContext;
    ArrayList<SignsForHealthEvent> mSignsList = new ArrayList<>();
    ArrayList<DiseasesForHealthEvent> mDiseaseList = new ArrayList<>();
+   BodyConditionForHealthEvent mBodyCondtion = new BodyConditionForHealthEvent();
    ArrayList<String> mGroupHeaders;
    ADDBDAO addbdao = null;
+   HerdDao herdDao = null;
    boolean isReadOnly = false;
+   String mSpecies ="";
 
     @Override
     public int getGroupCount() {
         return mGroupHeaders.size();
     }
 
-    public HealthEventExpandableListAdapter(Context context, ArrayList<HealthEvent> healthEvents)
+    public HealthEventExpandableListAdapter(Context context, ArrayList<HealthEvent> healthEvents, int herdID)
     {
         mContext = context;
         addbdao = ADDB.getInstance(context).getADDBDAO();
+        herdDao= HerdDatabase.getInstance(context).getHerdDao();
+
+        //Identify the herd name and pass to the initialiser
 
        // mSignsList.add(0,new HealthEvent());
 
@@ -43,6 +52,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mGroupHeaders = new ArrayList<>();
         //mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
+        mGroupHeaders.add("Body Condition");
         isReadOnly= false;
     }
 
@@ -60,10 +70,12 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         int childSize =0;
 
 
-        if(groupPosition==1)
-            childSize = mDiseaseList.size();
+       /* if(groupPosition==1)
+            childSize = mDiseaseList.size();*/
         if(groupPosition==0)
             childSize = mSignsList.size();
+        if(groupPosition==1)
+            childSize=1; // body condition
 
 
 
@@ -127,7 +139,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if(groupPosition==1)
-                convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
+               // convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
+                convertView = inflater.inflate(R.layout.health_event_body_condition_row,null);
             if(groupPosition==0)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
 
@@ -138,7 +151,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         TextView numberOfAffecedYoung = null;
         TextView numberOfAffectedOld = null;
 
-        if(groupPosition==1) // disease
+       /* if(groupPosition==1) // disease
         {
             DiseasesForHealthEvent dhe = mDiseaseList.get(childPosition);
 
@@ -157,16 +170,14 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                 if(dhe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
             }*/
-
-            numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
+        /*    numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
             numberOfAffecedYoung = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_young_text_view);
             numberOfAffectedOld = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_old_text_view);
 
             numberOfAffectedBabies.setText(String.valueOf(dhe.numberOfAffectedBabies));
             numberOfAffecedYoung.setText(String.valueOf(dhe.numberOfAffectedYoung));
             numberOfAffectedOld.setText(String.valueOf(dhe.numberOfAffectedOld));
-
-        }
+        }*/
 
         if(groupPosition==0) // signs
         {
@@ -195,6 +206,11 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             numberOfAffectedBabies.setText(String.valueOf(she.numberOfAffectedBabies));
             numberOfAffecedYoung.setText(String.valueOf(she.numberOfAffectedYoung));
             numberOfAffectedOld.setText(String.valueOf(she.numberOfAffectedOld));
+
+        }
+
+        if(groupPosition==1)//body condition
+        {
 
         }
         return convertView;
@@ -267,6 +283,13 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     {
         mSignsList.remove(pos);
         notifyDataSetChanged();
+    }
+
+    private void initialiseBodyConditionList()
+    {
+
+
+
     }
 
 

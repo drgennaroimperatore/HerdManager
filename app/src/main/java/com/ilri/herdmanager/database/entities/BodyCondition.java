@@ -13,6 +13,11 @@ public class BodyCondition {
     public String description;
     public BodyConditionSection section;
 
+    public BodyCondition()
+    {
+
+    }
+
     public BodyCondition(int id, String label, String species, int stage, String description)
     {
         ID = id;

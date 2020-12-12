@@ -48,7 +48,11 @@ public interface HerdDao {
     @Query("SELECT * FROM SignsForHealthEvent WHERE SignsForHealthEvent.healthEventID =:healthEventID")
     List<SignsForHealthEvent> getSignsForHealthEvent(int healthEventID);
 
+    @Query("SELECT * FROM BodyCondition WHERE BodyCondition.species=:species")
+    List<BodyCondition> getBodyConditionBySpecies(String species);
 
+    @Query("SELECT * FROM BodyConditionForHealthEvent WHERE healthEventID=:healthEventID LIMIT 1")
+    BodyConditionForHealthEvent getBodyConditionByHealthEventID(int healthEventID);
 
     @Query("SELECT * FROM ProductivityEvent WHERE ProductivityEvent.HerdVisitID= :herdVisitID")
     List<ProductivityEvent> getProductivityEventForVisit(int herdVisitID);
