@@ -6,20 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
+import com.ilri.herdmanager.database.entities.BodyCondition;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
+import com.ilri.herdmanager.ui.customui.BodyConditionRowContainer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter {
    Context mContext;
@@ -31,6 +37,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    HerdDao herdDao = null;
    boolean isReadOnly = false;
    String mSpecies ="";
+    TableLayout mBodyConditionTableLayout= null;
 
     @Override
     public int getGroupCount() {
@@ -43,7 +50,23 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         addbdao = ADDB.getInstance(context).getADDBDAO();
         herdDao= HerdDatabase.getInstance(context).getHerdDao();
 
+        List<BodyCondition> bodyConditionList = herdDao.testBodyConditionTable();
+
         //Identify the herd name and pass to the initialiser
+         Herd herd = herdDao.getHerdByID(herdID).get(0);
+        switch(addbdao.getAnimalNameFromID(herd.speciesID).get(0))
+        {
+            case " CATTLE":
+                mSpecies= "CATTLE";
+                break;
+            case " CAMEL":
+                mSpecies="CAMEL";
+                break;
+            case " SHEEP":
+            case " GOAT":
+                mSpecies="SHEEP_GOAT";
+                break;
+        }
 
        // mSignsList.add(0,new HealthEvent());
 
@@ -212,6 +235,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         if(groupPosition==1)//body condition
         {
 
+            mBodyConditionTableLayout = convertView.findViewById(R.id.health_event_show_body_condition_row_tablelayou);
+            initialiseBodyConditionList();
         }
         return convertView;
     }
@@ -287,8 +312,16 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     private void initialiseBodyConditionList()
     {
+      List<BodyCondition> bodyConditionList= herdDao.getBodyConditionBySpecies(mSpecies);
 
-
+      for (int i= 0; i<bodyConditionList.size(); i++)
+      {
+          BodyCondition bodyCondition = bodyConditionList.get(i);
+          BodyConditionRowContainer container = new BodyConditionRowContainer(mContext);
+          int level = bodyCondition.stage;
+          TableRow row = container.generateTableRow(level,0,0,0);
+          mBodyConditionTableLayout.addView(row);
+      }
 
     }
 

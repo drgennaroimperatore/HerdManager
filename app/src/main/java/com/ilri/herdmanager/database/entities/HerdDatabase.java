@@ -43,8 +43,10 @@ public abstract class HerdDatabase extends RoomDatabase
 
     public static RoomDatabase.Callback mDBCallBack= new Callback() {
         @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+
+            db.execSQL("DELETE FROM BodyCondition");
 
             List<BodyCondition> bodyConditionList = populateBodyConditionTable();
 
