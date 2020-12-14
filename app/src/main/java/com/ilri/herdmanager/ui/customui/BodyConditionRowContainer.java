@@ -25,7 +25,6 @@ public class BodyConditionRowContainer
         m_nAffOldTV = new TextView(ctx);
         m_nAffOldTV.setLayoutParams(params);
     }
-
     public TableRow generateTableRow(int level, int nBabies, int nYoung, int nOld)
     {
         TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);

@@ -32,6 +32,7 @@ import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.Signs;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.managers.HerdManager;
+import com.ilri.herdmanager.ui.dialogs.BodyConditionDialog;
 import com.ilri.herdmanager.ui.dialogs.NewDiseaseEventDialog;
 import com.ilri.herdmanager.ui.dialogs.NewSignEventDialog;
 import com.ilri.herdmanager.R;
@@ -43,7 +44,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     private AddHeardHealthViewModel mViewModel;
     private ExpandableListView mHealthEventExpandableListView;
-    private Button mShowAddSignButton, mShowAddDiseaseButton;
+    private Button mShowAddSignButton, mShowAddDiseaseButton, mShowEditBodyConditionButton;
     private int mHerdID = -155;
     private HealthEventExpandableListAdapter mAdapter;
 
@@ -91,11 +92,14 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
         mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
-
         //REMOVE THIS LINE IF WE WANT DISEASES BACK
+
         mShowAddDiseaseButton.setVisibility(View.INVISIBLE);
 
         mShowAddSignButton = view.findViewById(R.id.health_event_show_sign_dialog);
+
+        mShowEditBodyConditionButton = view.findViewById(R.id.health_event_show_body_condition_dialog);
+
         mHealthEventExpandableListView = view.findViewById(R.id.health_event_exapandableListView);
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
         //healthEvents.add( new HealthEvent());
@@ -209,6 +213,23 @@ public class AddHeardHealthEventFragment extends Fragment {
                     sNames.add(s.Name);
 
                 DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,f);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+
+                dialogFragment.show(ft, "dialog");
+
+            }
+        });
+
+        mShowEditBodyConditionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
