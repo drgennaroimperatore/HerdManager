@@ -126,7 +126,7 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                           mContext,
                           mHerdID, mVisitDate,
                           nBabies, nYoung, nOld,
-                          mHce.mDhes, mHce.mShes,
+                          mHce.mDhes, mHce.mShes, mHce.mBChes,
                           mPce.milkProductionForProductivityEvent, mPce.birthsForProductivityEvent,
                           mDce.mMovements, mDce.mDeaths, mComments);
                   dismiss();

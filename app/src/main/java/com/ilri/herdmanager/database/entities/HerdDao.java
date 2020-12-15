@@ -60,9 +60,16 @@ public interface HerdDao {
     @Query("SELECT ID FROM BodyCondition WHERE stage=:level AND species=:species LIMIT 1")
     int getBodyConditionIDFromStageAndSpecies(int level, String species);
 
+    @Query("SELECT * FROM BodyConditionForHealthEvent WHERE healthEventID=:healthEventID")
+    List<BodyConditionForHealthEvent> getBodyConditionByHealthEventID(int healthEventID);
 
-    @Query("SELECT * FROM BodyConditionForHealthEvent WHERE healthEventID=:healthEventID LIMIT 1")
-    BodyConditionForHealthEvent getBodyConditionByHealthEventID(int healthEventID);
+    @Query("SELECT * FROM BodyConditionForHealthEvent" )
+    List<BodyConditionForHealthEvent> testBodyConditionForHealthEvent();
+
+    @Insert
+    long InsertBodyConditionForHealthEvent(BodyConditionForHealthEvent bhce);
+
+
 
     @Query("SELECT * FROM ProductivityEvent WHERE ProductivityEvent.HerdVisitID= :herdVisitID")
     List<ProductivityEvent> getProductivityEventForVisit(int herdVisitID);

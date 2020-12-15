@@ -86,6 +86,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         boolean isReadOnly= false;
         int herdVisitID = -145;
         if(args!=null) {
+            mHerdID = args.getInt("herdID");
             herdVisitID = args.getInt("herdVisitID", -145);
             boolean isRO = args.getBoolean("isReadOnly", false);
             isReadOnly = ((isRO) && (herdVisitID!=-145));
@@ -109,7 +110,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         mHealthEventExpandableListView.setAdapter(adapter);
         mAdapter = adapter;
         mHealthEventExpandableListView.expandGroup(0);
-      //  mHealthEventExpandableListView.expandGroup(1);
+        mHealthEventExpandableListView.expandGroup(1);
 
 
       final  AddHeardHealthEventFragment f = this;
@@ -147,7 +148,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                     int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                    if(groupPosition==1)//disease
+                /*    if(groupPosition==1)//disease
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                         List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
@@ -167,7 +168,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                         ft.addToBackStack(null);
                         dialogFragment.show(ft, "dialog");
 
-                    }
+                    }*/
                     if(groupPosition==0)//signs
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
@@ -249,11 +250,14 @@ public class AddHeardHealthEventFragment extends Fragment {
         {
             mShowAddDiseaseButton.setVisibility(View.GONE);
             mShowAddSignButton.setVisibility(View.GONE);
+            mShowEditBodyConditionButton.setVisibility(View.GONE);
 
             HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
             List<SignsForHealthEvent> she = HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForHealthEvent(hv.ID);
             List<DiseasesForHealthEvent> dhe = HerdDatabase.getInstance(getContext()).getHerdDao().getDiseasesForHealthEvent(hv.ID);
-            mAdapter.setReadOnlyData((ArrayList<DiseasesForHealthEvent>) dhe,(ArrayList<SignsForHealthEvent>) she);
+            List<BodyConditionForHealthEvent> bche= HerdDatabase.getInstance(getContext()).getHerdDao().getBodyConditionByHealthEventID(hv.ID);
+            List<BodyConditionForHealthEvent> test =HerdDatabase.getInstance(getContext()).getHerdDao().testBodyConditionForHealthEvent();
+            mAdapter.setReadOnlyData(mHerdID,(ArrayList<DiseasesForHealthEvent>) dhe,(ArrayList<SignsForHealthEvent>) she, (ArrayList<BodyConditionForHealthEvent>) bche);
         }
 
 
@@ -318,6 +322,7 @@ public class AddHeardHealthEventFragment extends Fragment {
        HealthEventContainer hce = new HealthEventContainer();
        hce.mDhes= mAdapter.getDiseasesForHealthEvent();
        hce.mShes = mAdapter.getSignsForHealthEvent();
+       hce.mBChes = mAdapter.getBodyConditionForHealthEvent();
        return hce;
     }
 

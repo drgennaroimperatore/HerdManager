@@ -60,7 +60,7 @@ public class HerdVisitHistoryDialog extends DialogFragment {
            {
 
            mHerdVisitsListView = view.findViewById(R.id.listview_herdvisithistory_dialog);
-           HerdVisitHistoryListAdapter adapter = new HerdVisitHistoryListAdapter(getActivity(), 0, visits);
+           HerdVisitHistoryListAdapter adapter = new HerdVisitHistoryListAdapter(getActivity(), 0, visits, mHerdID);
            mHerdVisitsListView.setAdapter(adapter);
        }
 

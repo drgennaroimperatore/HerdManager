@@ -40,6 +40,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    boolean isReadOnly = false;
    String mSpecies ="";
     TableLayout mBodyConditionTableLayout= null;
+    int mHerdID=-155;
 
     @Override
     public int getGroupCount() {
@@ -55,20 +56,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         List<BodyCondition> bodyConditionList = herdDao.testBodyConditionTable();
 
         //Identify the herd name and pass to the initialiser
-         Herd herd = herdDao.getHerdByID(herdID).get(0);
-        switch(addbdao.getAnimalNameFromID(herd.speciesID).get(0))
-        {
-            case " CATTLE":
-                mSpecies= "CATTLE";
-                break;
-            case " CAMEL":
-                mSpecies="CAMEL";
-                break;
-            case " SHEEP":
-            case " GOAT":
-                mSpecies="SHEEP_GOAT";
-                break;
-        }
+        isReadOnly= false;
+        mHerdID=herdID;
+
 
        // mSignsList.add(0,new HealthEvent());
 
@@ -78,15 +68,22 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         //mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
         mGroupHeaders.add("Body Condition");
-        isReadOnly= false;
+
     }
 
-    public void setReadOnlyData(ArrayList<DiseasesForHealthEvent> dhe, ArrayList<SignsForHealthEvent> she)
-    {
+    public void setReadOnlyData(int herdID,
+                                ArrayList<DiseasesForHealthEvent> dhe,
+                                ArrayList<SignsForHealthEvent> she,
+                                ArrayList<BodyConditionForHealthEvent> bche) {
         mDiseaseList = dhe;
         mSignsList = she;
+        mBodyCondtion = bche;
         notifyDataSetChanged();
-        isReadOnly= true;
+        isReadOnly = true;
+        mHerdID=herdID;
+
+
+
     }
 
     @Override
@@ -316,46 +313,62 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     private void initialiseBodyConditionList()
     {
-      List<BodyCondition> bodyConditionList= herdDao.getBodyConditionBySpecies(mSpecies);
+        int val=0;
+            Herd herd = herdDao.getHerdByID(mHerdID).get(0);
+            switch (addbdao.getAnimalNameFromID(herd.speciesID).get(0)) {
+                case " CATTLE":
+                    mSpecies = "CATTLE";
+                    break;
+                case " CAMEL":
+                    mSpecies = "CAMEL";
+                    break;
+                case " SHEEP":
+                case " GOAT":
+                    mSpecies = "SHEEP_GOAT";
+                    break;
+            }
 
-      for (int i= 0; i<bodyConditionList.size(); i++)
-      {
-          BodyCondition bodyCondition = bodyConditionList.get(i);
-          BodyConditionRowContainer container = new BodyConditionRowContainer(mContext);
-          int level = bodyCondition.stage;
-          TableRow row = container.generateTableRow(level,0,0,0);
-          mBodyConditionTableLayout.addView(row);
+
+        List<BodyCondition> bodyConditionList= herdDao.getBodyConditionBySpecies(mSpecies);
+
+      if(mBodyCondtion.size()==0) {
+          for (int i = 0; i < bodyConditionList.size(); i++) {
+              BodyCondition bodyCondition = bodyConditionList.get(i);
+              BodyConditionRowContainer container = new BodyConditionRowContainer(mContext);
+              int level = bodyCondition.stage;
+              TableRow row = container.generateTableRow(level, 0, 0, 0);
+              mBodyConditionTableLayout.addView(row);
+          }
+      }
+          else
+          {
+              int c=mBodyConditionTableLayout.getChildCount();
+              for (int i=0; i<mBodyCondtion.size(); i++)
+              {
+
+                  BodyConditionForHealthEvent bche= mBodyCondtion.get(i);
+                  BodyConditionRowContainer container = new BodyConditionRowContainer(mContext);
+                  int level = bodyConditionList.get(i).stage;
+                  TableRow row = container.generateTableRow(level, bche.nAffectedBabies, bche.nAffectedYoung, bche.nAffectedAdult);
+                  mBodyConditionTableLayout.addView(row);
+              }
+          }
       }
 
-    }
 
     public void editBodyConditionList(ArrayList<BodyConditionForHealthEvent> conditionForHealthEvents)
     {
-        for (int i=0; i<conditionForHealthEvents.size(); i++)
-        {
-            int rowIndex=1;
-            BodyConditionForHealthEvent bche= conditionForHealthEvents.get(i);
-
-           TableRow row= (TableRow) mBodyConditionTableLayout.getChildAt(rowIndex); //offset by one because first row is title
-            rowIndex++;
-            TextView affBabiesTV = (TextView) row.getChildAt(1);
-            affBabiesTV.setText(Integer.valueOf(bche.nAffectedBabies));
-
-            TextView affYoungTV= (TextView) row.getChildAt(2);
-            affYoungTV.setText(Integer.valueOf(bche.nAffectedYoung));
-
-            TextView affOldTV = (TextView) row.getChildAt(3);
-            affOldTV.setText(Integer.valueOf(bche.nAffectedAdult));
-        }
-
-        notifyDataSetChanged();
+      mBodyCondtion= conditionForHealthEvents;
+      notifyDataSetChanged();
     }
 
 
 
     public ArrayList<DiseasesForHealthEvent> getDiseasesForHealthEvent() {return mDiseaseList;}
     public ArrayList<SignsForHealthEvent> getSignsForHealthEvent() {return mSignsList;}
+    public ArrayList<BodyConditionForHealthEvent>getBodyConditionForHealthEvent() {return mBodyCondtion;}
 
     public DiseasesForHealthEvent getDiseaseForHealthEvent(int pos) {return mDiseaseList.get(pos);}
     public SignsForHealthEvent getSignsForHealthEvent(int pos) {return mSignsList.get(pos);}
+    public BodyConditionForHealthEvent getBodyConditionForHealthEvent (int pos) {return mBodyCondtion.get(pos);}
 }

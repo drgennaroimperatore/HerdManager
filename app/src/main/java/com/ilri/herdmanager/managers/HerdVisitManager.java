@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
@@ -48,7 +49,9 @@ public class HerdVisitManager {
     }
 
     private long createHealthEventForVisit(Context context, int herdVisitID,
-                                           List<DiseasesForHealthEvent> diseasesForHealthEvent, List<SignsForHealthEvent> signsForHealthEvents)
+                                           List<DiseasesForHealthEvent> diseasesForHealthEvent,
+                                           List<SignsForHealthEvent> signsForHealthEvents,
+                                           List<BodyConditionForHealthEvent> bodyConditionForHealthEvents)
     {
 
         HealthEvent healthEvent = new HealthEvent();
@@ -65,6 +68,12 @@ public class HerdVisitManager {
        {
            she.healthEventID = (int)healthEventID;
            HerdDatabase.getInstance(context).getHerdDao().InsertSignForHealthEvent(she);
+       }
+
+       for(BodyConditionForHealthEvent bche: bodyConditionForHealthEvents)
+       {
+           bche.healthEventID = (int)healthEventID;
+           HerdDatabase.getInstance(context).getHerdDao().InsertBodyConditionForHealthEvent(bche);
 
        }
 
@@ -137,6 +146,7 @@ public class HerdVisitManager {
                                int nBabies,int nYoung, int nOld,
                                List<DiseasesForHealthEvent> diseasesForHealthEvent,
                                List<SignsForHealthEvent> signsForHealthEvents,
+                               List<BodyConditionForHealthEvent> bodyConditionForHealthEvents,
                                MilkProductionForProductivityEvent milkProductionForProductivityEvent,
                                BirthsForProductivityEvent birthsForProductivityEvent,
                                AnimalMovementsForDynamicEvent movements,
@@ -155,7 +165,7 @@ public class HerdVisitManager {
        long herdVisitID = HerdDatabase.getInstance(context).getHerdDao().InsertHerdVisit(herdVisit);
 
         //create a HealthEvent for this visit
-        createHealthEventForVisit(context, (int)herdVisitID, diseasesForHealthEvent,signsForHealthEvents);
+        createHealthEventForVisit(context, (int)herdVisitID, diseasesForHealthEvent,signsForHealthEvents, bodyConditionForHealthEvents);
 
         //create Productivity event for this visit
         createProductivityEventForVisit(context, (int) herdVisitID, milkProductionForProductivityEvent,birthsForProductivityEvent);

@@ -27,14 +27,14 @@ import java.util.List;
 public class HerdVisitHistoryListAdapter extends ArrayAdapter<HerdVisit> {
     private Context mContext;
     private  List<HerdVisit> mData;
-    //private int mHerdID =-155;
+    private int mHerdID =-155;
 
 
-    public HerdVisitHistoryListAdapter(@NonNull Context context, int resource, List<HerdVisit> data) {
+    public HerdVisitHistoryListAdapter(@NonNull Context context, int resource, List<HerdVisit> data, int herdID) {
         super(context, resource, data);
         mContext = context;
         mData =data;
-       // mHerdID = herdID;
+       mHerdID = herdID;
 
     }
 
@@ -72,6 +72,7 @@ public class HerdVisitHistoryListAdapter extends ArrayAdapter<HerdVisit> {
                 Intent goToAddHerdVisitActivity = new Intent(mContext, AddHerdVisitActivity.class);
 
                 goToAddHerdVisitActivity.putExtra("isReadOnly",true);
+                goToAddHerdVisitActivity.putExtra("herdID",mHerdID);
                 goToAddHerdVisitActivity.putExtra("herdVisitID",hv.ID );
                 goToAddHerdVisitActivity.putExtra("herdVisitDate",hv.HerdVisitDate);
 

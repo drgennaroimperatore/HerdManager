@@ -54,6 +54,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         if(isReadonly)
         {
             readOnlyArguments = new Bundle();
+            readOnlyArguments.putInt("herdID",herdID);
             readOnlyArguments.putBoolean("isReadOnly",true);
             readOnlyArguments.putInt("herdVisitID",herdVisitID);
 
