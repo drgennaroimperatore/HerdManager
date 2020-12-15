@@ -2,6 +2,7 @@ package com.ilri.herdmanager.database.entities;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -46,21 +47,25 @@ public abstract class HerdDatabase extends RoomDatabase
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
 
-            db.execSQL("DELETE FROM BodyCondition");
+            //db.execSQL("DELETE FROM BodyCondition");
 
-            List<BodyCondition> bodyConditionList = populateBodyConditionTable();
+            Cursor cursor = db.query("SELECT * FROM BodyCondition" );
+            int  count =cursor.getCount();
+            if(count==0) {
+                List<BodyCondition> bodyConditionList = populateBodyConditionTable();
 
-            for(BodyCondition bc:bodyConditionList ) {
+                for (BodyCondition bc : bodyConditionList) {
 
-                ContentValues contentValues = new ContentValues();
-                contentValues.put("ID", bc.ID);
-                contentValues.put("description",bc.description);
-                contentValues.put("label",bc.label);
-                contentValues.put("species",bc.species);
-                contentValues.put("stage",bc.stage);
-                contentValues.put("section",bc.section.toString());
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("ID", bc.ID);
+                    contentValues.put("description", bc.description);
+                    contentValues.put("label", bc.label);
+                    contentValues.put("species", bc.species);
+                    contentValues.put("stage", bc.stage);
+                    contentValues.put("section", bc.section.toString());
 
-                db.insert("BodyCondition", CONFLICT_IGNORE, contentValues);
+                    db.insert("BodyCondition", CONFLICT_IGNORE, contentValues);
+                }
             }
 
 
