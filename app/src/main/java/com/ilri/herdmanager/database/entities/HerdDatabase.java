@@ -31,7 +31,7 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         DeathsForDynamicEvent.class,
 MilkProductionForProductivityEvent.class,
 BirthsForProductivityEvent.class,
-BodyCondition.class, BodyConditionForHealthEvent.class}, version= 20)
+BodyCondition.class, BodyConditionForHealthEvent.class}, version= 21)
 
 
 @TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})

@@ -3,6 +3,7 @@ package com.ilri.herdmanager.ui.customui;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Color;
+import android.text.InputType;
 import android.view.ContextThemeWrapper;
 import android.widget.EditText;
 import android.widget.TableRow;
@@ -68,11 +69,13 @@ public class BodyConditionDialogRowContainer {
         m_nAffectedBabiesET.setWidth(30);
         m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
         m_nAffectedBabiesET.setText("0");
+        m_nAffectedBabiesET.setInputType(InputType.TYPE_CLASS_NUMBER);
         row.addView(m_nAffectedBabiesET);
 
         m_nAffectedYoungET = new EditText(m_context);
         m_nAffectedYoungET.setLayoutParams(etParams);
         m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
+        m_nAffectedYoungET.setInputType(InputType.TYPE_CLASS_NUMBER);
         m_nAffectedYoungET.setText("0");
         row.addView(m_nAffectedYoungET);
 
@@ -80,6 +83,7 @@ public class BodyConditionDialogRowContainer {
         m_nAffectedOldET.setLayoutParams(etParams);
         m_nAffectedOldET.setBackgroundColor(Color.BLACK);
         m_nAffectedOldET.setText("0");
+        m_nAffectedOldET.setInputType(InputType.TYPE_CLASS_NUMBER);
         row.addView(m_nAffectedOldET);
 
         return row;
