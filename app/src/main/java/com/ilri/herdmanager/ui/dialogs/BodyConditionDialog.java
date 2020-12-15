@@ -19,11 +19,13 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.BodyCondition;
+import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.ui.customui.BodyConditionDialogRowContainer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BodyConditionDialog extends DialogFragment {
@@ -33,6 +35,7 @@ public class BodyConditionDialog extends DialogFragment {
     private ADDBDAO addbdao;
     private HerdDao herdDao;
     private int herdID;
+    private List<String []> mRowValues = new ArrayList<>();
 
     private TableLayout mTableLayout;
 
@@ -103,9 +106,23 @@ public class BodyConditionDialog extends DialogFragment {
             BodyConditionDialogRowContainer container = new BodyConditionDialogRowContainer(mContext);
             TableRow row =  container.generateDialogRow(bodyCondition.stage);
             mTableLayout.addView(row);
+            String [] rowVals = new String[3];
+            mRowValues.add(rowVals);
 
         }
 
+    }
+
+    public List<BodyConditionForHealthEvent> getValuesFromDialog()
+    {
+        List<BodyConditionForHealthEvent> vals = new ArrayList<>();
+        for(int i=1; i<mTableLayout.getChildCount(); i++) {
+            BodyConditionForHealthEvent bche = new BodyConditionForHealthEvent();
+            TableRow row = (TableRow) mTableLayout.getChildAt(i);
+            vals.add(BodyConditionDialogRowContainer.generateBodyConditionFromHealthEventFromRow(row));
+
+        }
+       return vals;
     }
 
 
