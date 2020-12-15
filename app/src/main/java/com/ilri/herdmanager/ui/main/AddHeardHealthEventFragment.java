@@ -24,6 +24,7 @@ import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.AdditionalSigns;
+import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Diseases;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
@@ -229,7 +230,7 @@ public class AddHeardHealthEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID);
+                DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -303,10 +304,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
 
-    public void editBodyConditionList()
-    {
 
-    }
 
     public void expandList(int g)
     {
@@ -321,5 +319,10 @@ public class AddHeardHealthEventFragment extends Fragment {
        hce.mDhes= mAdapter.getDiseasesForHealthEvent();
        hce.mShes = mAdapter.getSignsForHealthEvent();
        return hce;
+    }
+
+    public void editBodyConditionList(ArrayList<BodyConditionForHealthEvent> valuesFromDialog)
+    {
+        mAdapter.editBodyConditionList(valuesFromDialog);
     }
 }

@@ -24,6 +24,8 @@ import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
 import com.ilri.herdmanager.ui.customui.BodyConditionRowContainer;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    Context mContext;
    ArrayList<SignsForHealthEvent> mSignsList = new ArrayList<>();
    ArrayList<DiseasesForHealthEvent> mDiseaseList = new ArrayList<>();
-   BodyConditionForHealthEvent mBodyCondtion = new BodyConditionForHealthEvent();
+   ArrayList<BodyConditionForHealthEvent> mBodyCondtion = new ArrayList<>();
    ArrayList<String> mGroupHeaders;
    ADDBDAO addbdao = null;
    HerdDao herdDao = null;
@@ -304,6 +306,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         notifyDataSetChanged();
     }
 
+
+
     public void deleteSign(int pos)
     {
         mSignsList.remove(pos);
@@ -323,6 +327,28 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
           mBodyConditionTableLayout.addView(row);
       }
 
+    }
+
+    public void editBodyConditionList(ArrayList<BodyConditionForHealthEvent> conditionForHealthEvents)
+    {
+        for (int i=0; i<conditionForHealthEvents.size(); i++)
+        {
+            int rowIndex=1;
+            BodyConditionForHealthEvent bche= conditionForHealthEvents.get(i);
+
+           TableRow row= (TableRow) mBodyConditionTableLayout.getChildAt(rowIndex); //offset by one because first row is title
+            rowIndex++;
+            TextView affBabiesTV = (TextView) row.getChildAt(1);
+            affBabiesTV.setText(Integer.valueOf(bche.nAffectedBabies));
+
+            TextView affYoungTV= (TextView) row.getChildAt(2);
+            affYoungTV.setText(Integer.valueOf(bche.nAffectedYoung));
+
+            TextView affOldTV = (TextView) row.getChildAt(3);
+            affOldTV.setText(Integer.valueOf(bche.nAffectedAdult));
+        }
+
+        notifyDataSetChanged();
     }
 
 

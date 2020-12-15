@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.google.android.material.tabs.TabLayout;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
+import com.ilri.herdmanager.database.entities.HerdDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,19 +65,21 @@ public class BodyConditionDialogRowContainer {
 
         m_nAffectedBabiesET = new EditText(m_context);
         m_nAffectedBabiesET.setLayoutParams(etParams);
-
         m_nAffectedBabiesET.setWidth(30);
         m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
+        m_nAffectedBabiesET.setText("0");
         row.addView(m_nAffectedBabiesET);
 
         m_nAffectedYoungET = new EditText(m_context);
         m_nAffectedYoungET.setLayoutParams(etParams);
         m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
+        m_nAffectedYoungET.setText("0");
         row.addView(m_nAffectedYoungET);
 
         m_nAffectedOldET = new EditText(m_context);
         m_nAffectedOldET.setLayoutParams(etParams);
         m_nAffectedOldET.setBackgroundColor(Color.BLACK);
+        m_nAffectedOldET.setText("0");
         row.addView(m_nAffectedOldET);
 
         return row;
@@ -105,9 +108,16 @@ public class BodyConditionDialogRowContainer {
         return  container;
     }
 
-    public static BodyConditionForHealthEvent generateBodyConditionFromHealthEventFromRow(TableRow row)
+    public static BodyConditionForHealthEvent generateBodyConditionFromHealthEventFromRow(TableRow row, HerdDao dao, String species)
     {
         BodyConditionForHealthEvent bche = new BodyConditionForHealthEvent();
+
+
+       TextView levelTV = (TextView) row.getChildAt(0);
+       String levelStr = levelTV.getText().toString();
+      int level= Integer.valueOf(levelStr.split(" ")[1]);
+
+        bche.bodyConditionID= dao.getBodyConditionIDFromStageAndSpecies(level,species);
         // get affected babies box
         EditText affBabiesET = (EditText) row.getChildAt(1);
         String str =affBabiesET.getText().toString();

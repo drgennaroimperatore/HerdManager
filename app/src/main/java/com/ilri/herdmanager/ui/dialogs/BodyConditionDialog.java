@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.BodyCondition;
@@ -24,6 +26,7 @@ import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.ui.customui.BodyConditionDialogRowContainer;
+import com.ilri.herdmanager.ui.main.AddHeardHealthEventFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +39,17 @@ public class BodyConditionDialog extends DialogFragment {
     private HerdDao herdDao;
     private int herdID;
     private List<String []> mRowValues = new ArrayList<>();
+    AddHeardHealthEventFragment fragment;
 
     private TableLayout mTableLayout;
 
 
-    public BodyConditionDialog(@NonNull Context context, int herdID) {
+    public BodyConditionDialog(@NonNull Context context, int herdID, AddHeardHealthEventFragment adapter)
+    {
 
         mContext = context;
         this.herdID = herdID;
+       fragment = adapter;
     }
 
     @Override
@@ -94,6 +100,16 @@ public class BodyConditionDialog extends DialogFragment {
         }
 
         initialiseDialog();
+
+        Button confirmButton = view.findViewById(R.id.dialog_body_condition_confirm_button);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            fragment.editBodyConditionList((ArrayList<BodyConditionForHealthEvent>) getValuesFromDialog());
+                dismiss();
+            }
+        });
     }
 
     private void initialiseDialog()
@@ -116,11 +132,11 @@ public class BodyConditionDialog extends DialogFragment {
     public List<BodyConditionForHealthEvent> getValuesFromDialog()
     {
         List<BodyConditionForHealthEvent> vals = new ArrayList<>();
-        for(int i=1; i<mTableLayout.getChildCount(); i++) {
-            BodyConditionForHealthEvent bche = new BodyConditionForHealthEvent();
+        for(int i=1; i<mTableLayout.getChildCount(); i++)
+        {
             TableRow row = (TableRow) mTableLayout.getChildAt(i);
-            vals.add(BodyConditionDialogRowContainer.generateBodyConditionFromHealthEventFromRow(row));
-
+            BodyConditionForHealthEvent bche= BodyConditionDialogRowContainer.generateBodyConditionFromHealthEventFromRow(row, herdDao,mSpecies);
+            vals.add(bche);
         }
        return vals;
     }
