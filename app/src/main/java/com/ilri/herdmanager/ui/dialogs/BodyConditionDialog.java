@@ -124,7 +124,7 @@ public class BodyConditionDialog extends DialogFragment {
         for(int i=0; i<bodyConditionList.size(); i++)
         {
             BodyCondition bodyCondition = bodyConditionList.get(i);
-            BodyConditionDialogRowContainer container = new BodyConditionDialogRowContainer(mContext);
+            BodyConditionDialogRowContainer container = new BodyConditionDialogRowContainer(mContext,getFragmentManager(),mSpecies);
 
             TableRow row=null;
             if(fragment.getHealthEventContainer()!=null) {

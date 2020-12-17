@@ -13,12 +13,17 @@
         style="@style/BlackHeadingTextMedium">
 
     </TextView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <TableLayout
         android:id="@+id/dialog_body_condition_information_tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
+        android:stretchColumns="0,1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
         <TableRow
             android:layout_height="wrap_content"
@@ -39,6 +44,8 @@
         </TableRow>
 
     </TableLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>

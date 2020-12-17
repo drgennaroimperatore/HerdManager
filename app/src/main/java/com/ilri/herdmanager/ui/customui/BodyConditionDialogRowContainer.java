@@ -5,15 +5,23 @@ import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.text.InputType;
 import android.view.ContextThemeWrapper;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.tabs.TabLayout;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.HerdDao;
+import com.ilri.herdmanager.ui.dialogs.BodyConditionDialog;
+import com.ilri.herdmanager.ui.dialogs.BodyConditionInformationDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +30,16 @@ public class BodyConditionDialogRowContainer {
 
     private Context m_context;
     private EditText m_nAffectedBabiesET, m_nAffectedYoungET, m_nAffectedOldET;
+    private FragmentManager mFragmentManager;
+    private String mSpecies;
 
 
 
-    public BodyConditionDialogRowContainer(Context ctx)
+    public BodyConditionDialogRowContainer(Context ctx, FragmentManager fragmentManager, String species)
     {
         m_context = ctx;
+        mFragmentManager = fragmentManager;
+        mSpecies = species;
 
     }
 
@@ -62,6 +74,25 @@ public class BodyConditionDialogRowContainer {
         levelTV.setLayoutParams(TVparams);
         levelTV.setText("Level "+ level);
         levelTV.setTextColor(Color.BLACK);
+
+        levelTV.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                DialogFragment dialogFragment = new BodyConditionInformationDialog(m_context,mSpecies);
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                Fragment prev = mFragmentManager.findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+               // ft.addToBackStack(null);
+
+                dialogFragment.show(ft, "dialog");
+
+                return false;
+            }
+        });
+
         row.addView(levelTV);
 
         m_nAffectedBabiesET = new EditText(m_context);
@@ -103,6 +134,26 @@ public class BodyConditionDialogRowContainer {
         levelTV.setLayoutParams(TVparams);
         levelTV.setText("Level "+ level);
         levelTV.setTextColor(Color.BLACK);
+
+        levelTV.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                DialogFragment dialogFragment = new BodyConditionInformationDialog(m_context,mSpecies);
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                Fragment prev = mFragmentManager.findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+               // ft.addToBackStack(null);
+
+                dialogFragment.show(ft, "dialog");
+
+                return false;
+            }
+        });
+
+
         row.addView(levelTV);
 
         m_nAffectedBabiesET = new EditText(m_context);
