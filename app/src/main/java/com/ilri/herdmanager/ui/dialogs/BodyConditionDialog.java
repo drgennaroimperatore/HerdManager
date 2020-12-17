@@ -41,6 +41,8 @@ public class BodyConditionDialog extends DialogFragment {
     private List<String []> mRowValues = new ArrayList<>();
     AddHeardHealthEventFragment fragment;
 
+
+
     private TableLayout mTableLayout;
 
 
@@ -50,7 +52,9 @@ public class BodyConditionDialog extends DialogFragment {
         mContext = context;
         this.herdID = herdID;
        fragment = adapter;
+
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +103,7 @@ public class BodyConditionDialog extends DialogFragment {
                 break;
         }
 
+
         initialiseDialog();
 
         Button confirmButton = view.findViewById(R.id.dialog_body_condition_confirm_button);
@@ -120,14 +125,37 @@ public class BodyConditionDialog extends DialogFragment {
         {
             BodyCondition bodyCondition = bodyConditionList.get(i);
             BodyConditionDialogRowContainer container = new BodyConditionDialogRowContainer(mContext);
-            TableRow row =  container.generateDialogRow(bodyCondition.stage);
-            mTableLayout.addView(row);
-            String [] rowVals = new String[3];
-            mRowValues.add(rowVals);
+
+            TableRow row=null;
+            if(fragment.getHealthEventContainer()!=null) {
+                List<BodyConditionForHealthEvent> bche = fragment.getHealthEventContainer().mBChes;
+                if (bche != null)
+                    if (bche.size() >0) {
+                        BodyConditionForHealthEvent bodyConditionForHealthEvent = bche.get(i);
+                        row = container.generateDialogRow(bodyCondition.stage,
+                                bodyConditionForHealthEvent.nAffectedBabies,
+                                bodyConditionForHealthEvent.nAffectedYoung,
+                                bodyConditionForHealthEvent.nAffectedAdult);
+                    }
+                else
+                    {
+                        row  = container.generateDialogRow(bodyCondition.stage);
+                    }
+            }
+            else
+            {
+                row  = container.generateDialogRow(bodyCondition.stage);
+            }
+                mTableLayout.addView(row);
+                String[] rowVals = new String[3];
+                mRowValues.add(rowVals);
+
 
         }
 
     }
+
+
 
     public List<BodyConditionForHealthEvent> getValuesFromDialog()
     {

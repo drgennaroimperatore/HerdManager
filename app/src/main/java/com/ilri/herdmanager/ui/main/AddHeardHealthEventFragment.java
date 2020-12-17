@@ -232,6 +232,9 @@ public class AddHeardHealthEventFragment extends Fragment {
             public void onClick(View v) {
 
                 DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f);
+                if(mAdapter.getBodyConditionForHealthEvent().size()>0)
+                    dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f);
+
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

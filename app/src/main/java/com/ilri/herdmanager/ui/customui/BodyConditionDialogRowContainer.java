@@ -89,6 +89,47 @@ public class BodyConditionDialogRowContainer {
         return row;
     }
 
+    public TableRow generateDialogRow(int level, int nAffBabies, int nAffYoung, int nAffOld)
+    {
+        TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams TVparams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams etParams = new TableRow.LayoutParams(convertdpstoPixels(30), TableRow.LayoutParams.WRAP_CONTENT);
+        etParams.setMargins(0,0,15,15);
+
+        TableRow row = new TableRow(m_context);
+        row.setLayoutParams(params);
+
+        TextView levelTV = new TextView(m_context);
+        levelTV.setLayoutParams(TVparams);
+        levelTV.setText("Level "+ level);
+        levelTV.setTextColor(Color.BLACK);
+        row.addView(levelTV);
+
+        m_nAffectedBabiesET = new EditText(m_context);
+        m_nAffectedBabiesET.setLayoutParams(etParams);
+        m_nAffectedBabiesET.setWidth(30);
+        m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
+        m_nAffectedBabiesET.setText(String.valueOf(nAffBabies));
+        m_nAffectedBabiesET.setInputType(InputType.TYPE_CLASS_NUMBER);
+        row.addView(m_nAffectedBabiesET);
+
+        m_nAffectedYoungET = new EditText(m_context);
+        m_nAffectedYoungET.setLayoutParams(etParams);
+        m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
+        m_nAffectedYoungET.setInputType(InputType.TYPE_CLASS_NUMBER);
+        m_nAffectedYoungET.setText(String.valueOf(nAffYoung));
+        row.addView(m_nAffectedYoungET);
+
+        m_nAffectedOldET = new EditText(m_context);
+        m_nAffectedOldET.setLayoutParams(etParams);
+        m_nAffectedOldET.setBackgroundColor(Color.BLACK);
+        m_nAffectedOldET.setText(String.valueOf(nAffOld));
+        m_nAffectedOldET.setInputType(InputType.TYPE_CLASS_NUMBER);
+        row.addView(m_nAffectedOldET);
+
+        return row;
+    }
+
     private int convertdpstoPixels(int dps)
     {
         final float scale = m_context.getResources().getDisplayMetrics().density;
