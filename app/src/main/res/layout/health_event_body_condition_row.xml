@@ -19,18 +19,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "Aff. Babies">
+                android:text= "Babies">
             </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "Aff. Young">
+                android:text= "Young">
             </TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "Aff. Adult">
+                android:text= "Adult">
             </TextView>
         </TableRow>
 

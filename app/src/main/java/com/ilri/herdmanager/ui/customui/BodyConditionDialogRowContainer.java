@@ -7,6 +7,7 @@ import android.text.InputType;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -63,9 +64,10 @@ public class BodyConditionDialogRowContainer {
     public TableRow generateDialogRow(int level)
     {
         TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+
         TableRow.LayoutParams TVparams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
-        TableRow.LayoutParams etParams = new TableRow.LayoutParams(convertdpstoPixels(30), TableRow.LayoutParams.WRAP_CONTENT);
-        etParams.setMargins(0,0,15,15);
+        TableRow.LayoutParams etParams = new TableRow.LayoutParams(convertdpstoPixels(40), TableRow.LayoutParams.WRAP_CONTENT);
+        etParams.setMargins(0,0,70,15);
 
         TableRow row = new TableRow(m_context);
         row.setLayoutParams(params);
@@ -97,7 +99,7 @@ public class BodyConditionDialogRowContainer {
 
         m_nAffectedBabiesET = new EditText(m_context);
         m_nAffectedBabiesET.setLayoutParams(etParams);
-        m_nAffectedBabiesET.setWidth(30);
+        //m_nAffectedBabiesET.setWidth(5);
         m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
         m_nAffectedBabiesET.setText("0");
         m_nAffectedBabiesET.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -125,7 +127,7 @@ public class BodyConditionDialogRowContainer {
         TableRow.LayoutParams params = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams TVparams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams etParams = new TableRow.LayoutParams(convertdpstoPixels(30), TableRow.LayoutParams.WRAP_CONTENT);
-        etParams.setMargins(0,0,15,15);
+        etParams.setMargins(0,0,70,15);
 
         TableRow row = new TableRow(m_context);
         row.setLayoutParams(params);
@@ -217,16 +219,22 @@ public class BodyConditionDialogRowContainer {
         // get affected babies box
         EditText affBabiesET = (EditText) row.getChildAt(1);
         String str =affBabiesET.getText().toString();
+        if(str.isEmpty())
+            str="0";
         bche.nAffectedBabies = Integer.valueOf(str);
 
         //do the same
         EditText affYoungET = (EditText) row.getChildAt(2);
         str = affYoungET.getText().toString();
+        if(str.isEmpty())
+            str="0";
         bche.nAffectedYoung= Integer.valueOf(str);
 
         //and container is populated and can be returned
         EditText affOldET = (EditText) row.getChildAt(3);
         str = affOldET.getText().toString();
+        if(str.isEmpty())
+            str="0";
         bche.nAffectedAdult= Integer.valueOf(str);
         return  bche;
     }

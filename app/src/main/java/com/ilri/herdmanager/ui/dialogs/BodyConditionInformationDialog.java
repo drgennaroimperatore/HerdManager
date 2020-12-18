@@ -3,6 +3,7 @@ package com.ilri.herdmanager.ui.dialogs;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class BodyConditionInformationDialog extends DialogFragment {
         for (int i =0; i<bodyConditions.size(); i++)
         {
             BodyCondition bodyCondition = bodyConditions.get(i);
-            layout.addView (generateDescriptionRow("L. "+bodyCondition.stage, bodyCondition.description));
+            layout.addView (generateDescriptionRow("L."+bodyCondition.stage, bodyCondition.description));
         }
     }
 
@@ -64,7 +65,7 @@ public class BodyConditionInformationDialog extends DialogFragment {
     {
         TableRow.LayoutParams params= new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams paramsTV = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(15,0,15,0);
+        params.setMargins(15,0,25,0);
 
         TableRow row = new TableRow(mContext);
         row.setLayoutParams(params);
@@ -80,6 +81,8 @@ public class BodyConditionInformationDialog extends DialogFragment {
         desc.setLayoutParams(paramsTV);
         desc.setTextColor(Color.BLACK);
         desc.setText(description);
+        desc.setGravity(Gravity.CENTER);
+        desc.setPadding(25,0,55,0);
         row.addView(desc);
 
 
