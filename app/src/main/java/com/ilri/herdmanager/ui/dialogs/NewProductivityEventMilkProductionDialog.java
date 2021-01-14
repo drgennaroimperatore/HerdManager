@@ -47,7 +47,7 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
 
         MilkProductionForProductivityEvent mpe = mAdapter.getMilkProduction();
         int lactating = mpe.numberOfLactatingAnimals;
-        int litres = mpe.litresOfMilkPerDay;
+        float litres = mpe.litresOfMilkPerDay;
 
        final EditText lactatingAnimalsET = view.findViewById(R.id.editText_milk_production_productivity_lactating_animals);
        lactatingAnimalsET.setHint("0");
@@ -78,7 +78,7 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
                else
                {
                    int lactatingAnimals = Integer.valueOf(lactatingAnimalsStr);
-                   int litresPerDay = Integer.valueOf(litresPerDayStr);
+                   float litresPerDay = Float.parseFloat(litresPerDayStr);
 
                    MilkProductionForProductivityEvent mpe = new MilkProductionForProductivityEvent();
                    mpe.litresOfMilkPerDay= litresPerDay;

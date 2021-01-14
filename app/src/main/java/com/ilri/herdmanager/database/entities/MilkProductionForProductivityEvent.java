@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class MilkProductionForProductivityEvent {
    @PrimaryKey(autoGenerate = true)
    public int ID;
-   public int litresOfMilkPerDay;
+   public float litresOfMilkPerDay;
    public int numberOfLactatingAnimals;
    public int productivityEventID;
    public String syncStatus;
