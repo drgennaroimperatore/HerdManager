@@ -6,6 +6,7 @@ import android.util.Log;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
@@ -49,8 +50,8 @@ class SyncManager {
     {
         URL url = null;
         try {
-           // url = new URL("http://10.0.2.2:61330/Home/"+functionName);
-            url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
+            url = new URL("http://10.0.2.2:61330/Home/"+functionName);
+          //  url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
         } catch (Exception e)
         {
 
@@ -223,6 +224,21 @@ class SyncManager {
         sheParams.put("numberOfAffectedOld", she.numberOfAffectedOld);
 
         return sendPost("InsertSignForHealthEvent", sheParams);
+    }
+
+    public String insertBodyConditionForHealthEvent(BodyConditionForHealthEvent bche, int healthEventID)
+    {
+        Map<String, Object> bcheParams = new LinkedHashMap<>();
+        if(!bche.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+            bcheParams.put("ID",bche.serverID);
+        bcheParams.put("bodyConditionID",bche.bodyConditionID);
+        bcheParams.put("healthEventID",healthEventID);
+        bcheParams.put("nAffectedAdult",bche.nAffectedAdult);
+        bcheParams.put("nAffectedYoung",bche.nAffectedYoung);
+        bcheParams.put("nAffectedBabies",bche.nAffectedBabies);
+
+        return sendPost("InsertBodyConditionForHealthEvent", bcheParams);
+
     }
 
     public String insertProductivityEvent(ProductivityEvent productivityEvent, int newHerdVisitID)

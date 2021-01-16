@@ -12,4 +12,8 @@ public class BodyConditionForHealthEvent {
     public int healthEventID;
     public int bodyConditionID;
     public int nAffectedBabies, nAffectedYoung,nAffectedAdult;
+    public String syncStatus;
+    public int serverID = -1;
+
+    public BodyConditionForHealthEvent() {syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();}
 }

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
@@ -436,6 +437,30 @@ public class SyncTask extends AsyncTask {
         }
 
         return sheNewID;
+
+    }
+
+    private int syncBodyConditionForHealthEvent(BodyConditionForHealthEvent bche, int newHealthEventID)
+    {
+        String sheInsertionResponse = manager.insertBodyConditionForHealthEvent(bche, newHealthEventID);
+
+        JSONObject bhceJson = null;
+        int bhceNewID = -200;
+
+        try
+        {
+            bhceJson = new JSONObject(sheInsertionResponse);
+            bhceNewID = bhceJson.getInt("ID");
+            String outcome =bhceJson.getString("outcome");
+            Log.i("Sync-NSheID",String.valueOf(bhceNewID));
+            Log.i("Sync-SheOutcome",outcome);
+        }
+        catch (JSONException e)
+        {
+
+        }
+
+        return bhceNewID;
 
     }
 
