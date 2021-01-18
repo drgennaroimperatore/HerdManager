@@ -61,13 +61,16 @@ public interface HerdDao {
     int getBodyConditionIDFromStageAndSpecies(int level, String species);
 
     @Query("SELECT * FROM BodyConditionForHealthEvent WHERE healthEventID=:healthEventID")
-    List<BodyConditionForHealthEvent> getBodyConditionByHealthEventID(int healthEventID);
+    List<BodyConditionForHealthEvent> getBodyConditionForHealthEvent(int healthEventID);
 
     @Query("SELECT * FROM BodyConditionForHealthEvent" )
     List<BodyConditionForHealthEvent> testBodyConditionForHealthEvent();
 
     @Insert
     long InsertBodyConditionForHealthEvent(BodyConditionForHealthEvent bhce);
+
+    @Update
+    void UpdateBodyConditionForHealthEvent(BodyConditionForHealthEvent bhce);
 
 
 

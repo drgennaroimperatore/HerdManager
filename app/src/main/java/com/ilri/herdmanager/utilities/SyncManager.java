@@ -233,9 +233,9 @@ class SyncManager {
             bcheParams.put("ID",bche.serverID);
         bcheParams.put("bodyConditionID",bche.bodyConditionID);
         bcheParams.put("healthEventID",healthEventID);
-        bcheParams.put("nAffectedAdult",bche.nAffectedAdult);
-        bcheParams.put("nAffectedYoung",bche.nAffectedYoung);
-        bcheParams.put("nAffectedBabies",bche.nAffectedBabies);
+        bcheParams.put("numberOfAffectedBabies",bche.nAffectedAdult);
+        bcheParams.put("numberOfAffectedYoung",bche.nAffectedYoung);
+        bcheParams.put("numberOfAffectedBabies",bche.nAffectedBabies);
 
         return sendPost("InsertBodyConditionForHealthEvent", bcheParams);
 

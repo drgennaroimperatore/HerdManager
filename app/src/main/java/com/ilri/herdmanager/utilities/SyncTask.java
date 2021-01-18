@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
+import com.ilri.herdmanager.database.entities.BodyCondition;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
@@ -171,6 +172,20 @@ public class SyncTask extends AsyncTask {
                      she.syncStatus = SyncStatus.SYNCHRNOISED.toString();
                      she.serverID = sheID;
                      herdDao.UpdateSignForHealthEvent(she);
+
+                   }
+
+                   ArrayList<BodyConditionForHealthEvent> bodyConditionsForHealthEvent = (ArrayList<BodyConditionForHealthEvent>) herdDao.getBodyConditionForHealthEvent(healthEventForVisit.ID);
+                   for(BodyConditionForHealthEvent bche: bodyConditionsForHealthEvent)
+                   {
+                       if(bche.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                           continue;
+                       int newBhceID = syncBodyConditionForHealthEvent(bche,newHealthEventID);
+                       if (newBhceID==-200)
+                           break farmerloop;
+                       bche.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                       bche.serverID = newBhceID;
+                       herdDao.UpdateBodyConditionForHealthEvent(bche);
 
                    }
                    healthEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
