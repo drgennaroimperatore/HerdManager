@@ -18,6 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="40dp"
             android:layout_marginTop="16dp"
+            android:visibility="gone"
 
             android:layout_marginBottom="74dp"
             android:background="@color/colorPrimary"
@@ -44,6 +45,15 @@
             android:background="@color/colorPrimary"
             android:text="Edit\nBody\nCondition"
             android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/health_event_show_health_intervention_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:text="Add Health Intervention"
+            android:textColor="@color/black"/>
 
 
     </LinearLayout>

@@ -68,6 +68,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         //mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
         mGroupHeaders.add("Body Condition");
+        mGroupHeaders.add("Health Interventions");
 
     }
 
@@ -345,7 +346,6 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
               int c=mBodyConditionTableLayout.getChildCount();
               for (int i=0; i<mBodyCondtion.size(); i++)
               {
-
                   BodyConditionForHealthEvent bche= mBodyCondtion.get(i);
                   BodyConditionRowContainer container = new BodyConditionRowContainer(mContext);
                   int level = bodyConditionList.get(i).stage;
