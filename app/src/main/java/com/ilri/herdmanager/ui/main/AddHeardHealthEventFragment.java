@@ -144,7 +144,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new HealthInterventionDialog(getContext());
+                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(), HerdDatabase.getInstance(getContext()).getHerdDao());
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

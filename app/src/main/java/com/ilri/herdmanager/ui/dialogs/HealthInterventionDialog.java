@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +18,7 @@ import com.ilri.herdmanager.database.entities.HealthIntervention;
 import com.ilri.herdmanager.database.entities.HerdDao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HealthInterventionDialog extends DialogFragment
 {
@@ -45,6 +48,12 @@ public class HealthInterventionDialog extends DialogFragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+       List<String> mHealthInterventionNames = mDao.getHealthInterventionNames();
+        Spinner healthInterventionSpinner = view.findViewById(R.id.health_intervention_dialog_intervention_spinner);
+
+        ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
+        healthInterventionSpinner.setAdapter(healthInterventionSpinnerAdapter);
 
 
     }

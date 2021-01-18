@@ -9,6 +9,11 @@ public class HealthIntervention {
     @PrimaryKey
     public int ID;
     public String name;
+    
+    public HealthIntervention()
+    {
+
+    }
 
     public HealthIntervention (int id, String n)
     {
