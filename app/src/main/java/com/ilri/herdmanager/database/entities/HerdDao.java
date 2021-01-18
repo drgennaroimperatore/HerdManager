@@ -73,6 +73,13 @@ public interface HerdDao {
     void UpdateBodyConditionForHealthEvent(BodyConditionForHealthEvent bhce);
 
 
+    @Query("SELECT name FROM HealthIntervention")
+    List<String> getHealthInterventionNames();
+
+    @Query("SELECT * FROM HealthIntervention")
+    List<HealthIntervention> getAllHealthInterventions();
+
+
 
     @Query("SELECT * FROM ProductivityEvent WHERE ProductivityEvent.HerdVisitID= :herdVisitID")
     List<ProductivityEvent> getProductivityEventForVisit(int herdVisitID);

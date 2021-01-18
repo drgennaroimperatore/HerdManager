@@ -34,6 +34,7 @@ import com.ilri.herdmanager.database.entities.Signs;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.managers.HerdManager;
 import com.ilri.herdmanager.ui.dialogs.BodyConditionDialog;
+import com.ilri.herdmanager.ui.dialogs.HealthInterventionDialog;
 import com.ilri.herdmanager.ui.dialogs.NewDiseaseEventDialog;
 import com.ilri.herdmanager.ui.dialogs.NewSignEventDialog;
 import com.ilri.herdmanager.R;
@@ -45,7 +46,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     private AddHeardHealthViewModel mViewModel;
     private ExpandableListView mHealthEventExpandableListView;
-    private Button mShowAddSignButton, mShowAddDiseaseButton, mShowEditBodyConditionButton;
+    private Button mShowAddSignButton, mShowAddDiseaseButton, mShowEditBodyConditionButton, mShowAddInterventionButton;
     private int mHerdID = -155;
     private HealthEventExpandableListAdapter mAdapter;
 
@@ -102,6 +103,8 @@ public class AddHeardHealthEventFragment extends Fragment {
 
         mShowEditBodyConditionButton = view.findViewById(R.id.health_event_show_body_condition_dialog);
 
+        mShowAddInterventionButton = view.findViewById(R.id.health_event_show_health_intervention_dialog);
+
         mHealthEventExpandableListView = view.findViewById(R.id.health_event_exapandableListView);
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
         //healthEvents.add( new HealthEvent());
@@ -127,6 +130,21 @@ public class AddHeardHealthEventFragment extends Fragment {
                     diseaseNames.add(d.Name);
 
                 DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(),diseaseNames,f );
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) {
+                    ft.remove(prev);
+                }
+                ft.addToBackStack(null);
+                dialogFragment.show(ft, "dialog");
+
+            }
+        });
+
+        mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialogFragment = new HealthInterventionDialog(getContext());
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {

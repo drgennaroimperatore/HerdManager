@@ -38,7 +38,6 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
 @TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})
 public abstract class HerdDatabase extends RoomDatabase
 {
-
     HerdDao mHerdDao;
 
     public static HerdDatabase mInstance = null;
@@ -68,6 +67,24 @@ public abstract class HerdDatabase extends RoomDatabase
                     db.insert("BodyCondition", CONFLICT_IGNORE, contentValues);
                 }
             }
+
+            cursor = db.query("SELECT * FROM HealthIntervention");
+            int hiCount = cursor.getCount();
+
+            if(hiCount==0)
+            {
+                List<HealthIntervention> healthInterventions = populateHealthInterventions();
+
+                for(HealthIntervention hi: healthInterventions)
+                {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("ID",hi.ID);
+                    contentValues.put("name", hi.name);
+
+                    db.insert("HealthIntervention", CONFLICT_IGNORE, contentValues);
+                }
+            }
+
 
 
         }
@@ -131,6 +148,24 @@ public abstract class HerdDatabase extends RoomDatabase
         bodyConditionList.add(new BodyCondition(initialID++, "Fat","CAMEL",4,"Full of Fat",BodyConditionSection.RECTO_GENITAL_REGION));
 
        */ return bodyConditionList;
+    }
+
+    private static List<HealthIntervention> populateHealthInterventions()
+    {
+        List<HealthIntervention> healthInterventions = new ArrayList<>();
+
+        int initialID =1;
+        healthInterventions.add(new HealthIntervention(initialID++, "Vaccination - Specify"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Deworming Treatment"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Spraying / Dipping for Ext Parasites"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Medication"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Traditional Treatment"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Supplementary Feed"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Health Advice"));
+        healthInterventions.add(new HealthIntervention(initialID++, "Other - Specify"));
+
+
+        return healthInterventions;
     }
 
     public abstract HerdDao getHerdDao();
