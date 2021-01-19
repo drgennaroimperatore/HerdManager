@@ -28,6 +28,8 @@ import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Diseases;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.HealthIntervention;
+import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.Signs;
@@ -144,7 +146,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(),mHerdID);
+                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(),mHerdID, f);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -340,6 +342,7 @@ public class AddHeardHealthEventFragment extends Fragment {
        hce.mDhes= mAdapter.getDiseasesForHealthEvent();
        hce.mShes = mAdapter.getSignsForHealthEvent();
        hce.mBChes = mAdapter.getBodyConditionForHealthEvent();
+       hce.mHIhes = mAdapter.getHealthInterventionsForHealthEvent();
        return hce;
     }
 
@@ -347,4 +350,7 @@ public class AddHeardHealthEventFragment extends Fragment {
     {
         mAdapter.editBodyConditionList(valuesFromDialog);
     }
+
+    public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention) { return mAdapter.addHealthIntervention (healthIntervention);}
+    public void deleteHealthIntervention (HealthInterventionForHealthEvent healthIntervention) {mAdapter.deleteHealthIntervention(healthIntervention);}
 }

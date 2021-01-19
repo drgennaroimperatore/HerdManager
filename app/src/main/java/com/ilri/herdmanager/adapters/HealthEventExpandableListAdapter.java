@@ -17,6 +17,8 @@ import com.ilri.herdmanager.database.entities.BodyCondition;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.HealthIntervention;
+import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
@@ -34,6 +36,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    ArrayList<SignsForHealthEvent> mSignsList = new ArrayList<>();
    ArrayList<DiseasesForHealthEvent> mDiseaseList = new ArrayList<>();
    ArrayList<BodyConditionForHealthEvent> mBodyCondtion = new ArrayList<>();
+   ArrayList<HealthInterventionForHealthEvent> mHealthIntervention = new ArrayList<>();
    ArrayList<String> mGroupHeaders;
    ADDBDAO addbdao = null;
    HerdDao herdDao = null;
@@ -99,8 +102,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             childSize = mSignsList.size();
         if(groupPosition==1)
             childSize=1; // body condition
-
-
+        if(groupPosition==2)
+            childSize= mHealthIntervention.size();
 
         return childSize;
     }
@@ -166,6 +169,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                 convertView = inflater.inflate(R.layout.health_event_body_condition_row,null);
             if(groupPosition==0)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
+            if(groupPosition==2)
+                convertView = inflater.inflate(R.layout.health_event_health_intervention_row, null);
 
         //}
 
@@ -237,6 +242,20 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
             mBodyConditionTableLayout = convertView.findViewById(R.id.health_event_show_body_condition_row_tablelayou);
             initialiseBodyConditionList();
+        }
+
+        if(groupPosition==2) // health intervention
+        {
+            HealthInterventionForHealthEvent healthInterventionForHealthEvent = mHealthIntervention.get(childPosition);
+            TextView intervertionNameTV = convertView.findViewById(R.id.health_intervention_row_name_textView);
+            String healthInterventionName =  herdDao.getHealthInterventionNameFromID(healthInterventionForHealthEvent.healthInterventionID);
+            intervertionNameTV.setText(healthInterventionName);
+
+            TextView vaccinationNameTV =convertView.findViewById(R.id.health_intervention_row_vaccination_textView);
+            vaccinationNameTV.setText(healthInterventionForHealthEvent.vaccinationName);
+
+            TextView commentsTV = convertView.findViewById(R.id.health_intervention_row_comment_textView);
+            commentsTV.setText(healthInterventionForHealthEvent.comments);
         }
         return convertView;
     }
@@ -371,4 +390,23 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public DiseasesForHealthEvent getDiseaseForHealthEvent(int pos) {return mDiseaseList.get(pos);}
     public SignsForHealthEvent getSignsForHealthEvent(int pos) {return mSignsList.get(pos);}
     public BodyConditionForHealthEvent getBodyConditionForHealthEvent (int pos) {return mBodyCondtion.get(pos);}
+    public HealthInterventionForHealthEvent getHealthInterventionForHealthEvent(int pos) {return mHealthIntervention.get(pos);}
+
+    public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention)
+    {
+        mHealthIntervention.add(healthIntervention);
+        notifyDataSetChanged();
+        return true; // this boolean value is needed for checks
+    }
+
+    public void deleteHealthIntervention(HealthInterventionForHealthEvent healthIntervention)
+    {
+        mHealthIntervention.remove(healthIntervention);
+        notifyDataSetChanged();
+    }
+
+    public List<HealthInterventionForHealthEvent> getHealthInterventionsForHealthEvent()
+    {
+        return mHealthIntervention;
+    }
 }

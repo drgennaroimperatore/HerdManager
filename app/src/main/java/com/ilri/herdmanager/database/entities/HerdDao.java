@@ -80,6 +80,12 @@ public interface HerdDao {
     @Query("SELECT name FROM HealthIntervention")
     List<String> getHealthInterventionNames();
 
+    @Query("SELECT name FROM HealthIntervention WHERE HealthIntervention.ID=:id LIMIT 1 ")
+    String getHealthInterventionNameFromID(int id);
+
+    @Query("SELECT ID FROM HealthIntervention WHERE HealthIntervention.name =:name LIMIT 1")
+    int getHealthInterventionIDFromName(String name);
+
     @Query("SELECT * FROM HealthIntervention")
     List<HealthIntervention> getAllHealthInterventions();
 

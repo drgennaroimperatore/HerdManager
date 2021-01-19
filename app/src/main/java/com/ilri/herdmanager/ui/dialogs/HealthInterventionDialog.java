@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -18,10 +19,12 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.HealthIntervention;
+import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.VaccinesForSpecies;
+import com.ilri.herdmanager.ui.main.AddHeardHealthEventFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +35,13 @@ public class HealthInterventionDialog extends DialogFragment
     String mSpecies;
     ADDBDAO mADDBDAO;
     HerdDao mHerdDAO;
+    AddHeardHealthEventFragment mFragment;
 
 
-    public HealthInterventionDialog(Context context, int herdID)
+    public HealthInterventionDialog(Context context, int herdID, AddHeardHealthEventFragment fragment)
     {
       mContext = context;
+      mFragment = fragment;
 
       HerdDao herdDao = HerdDatabase.getInstance(context).getHerdDao();
         ADDBDAO addbdao = ADDB.getInstance(context).getADDBDAO();
@@ -77,7 +82,7 @@ public class HealthInterventionDialog extends DialogFragment
         super.onViewCreated(view, savedInstanceState);
 
        List<String> mHealthInterventionNames = mHerdDAO.getHealthInterventionNames();
-        Spinner healthInterventionSpinner = view.findViewById(R.id.health_intervention_dialog_intervention_spinner);
+       final Spinner healthInterventionSpinner = view.findViewById(R.id.health_intervention_dialog_intervention_spinner);
 
         ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
         healthInterventionSpinner.setAdapter(healthInterventionSpinnerAdapter);
@@ -107,6 +112,21 @@ public class HealthInterventionDialog extends DialogFragment
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        Button submitButton = view.findViewById(R.id.dialog_health_intervention_submit_button);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HealthInterventionForHealthEvent healthInterventionForHealthEvent = new HealthInterventionForHealthEvent();
+                String interventionName = healthInterventionSpinner.getSelectedItem().toString();
+                healthInterventionForHealthEvent.healthInterventionID = mHerdDAO.getHealthInterventionIDFromName(interventionName);
+                if(vaccinationSpinners.getVisibility()== View.VISIBLE)
+                    healthInterventionForHealthEvent.vaccinationName = vaccinationSpinners.getSelectedItem().toString();
+                mFragment.addHealthIntervention(healthInterventionForHealthEvent);
+                dismiss();
             }
         });
 
