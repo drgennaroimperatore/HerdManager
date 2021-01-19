@@ -144,7 +144,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(), HerdDatabase.getInstance(getContext()).getHerdDao());
+                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(),mHerdID);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -208,12 +208,10 @@ public class AddHeardHealthEventFragment extends Fragment {
                         ft.addToBackStack(null);
 
                         dialogFragment.show(ft, "dialog");
-
                     }
 
                     return true;
                 }
-
 
                 return false;
             }
@@ -326,8 +324,6 @@ public class AddHeardHealthEventFragment extends Fragment {
         mAdapter.editSign(pos, b,y,o);
 
     }
-
-
 
 
 

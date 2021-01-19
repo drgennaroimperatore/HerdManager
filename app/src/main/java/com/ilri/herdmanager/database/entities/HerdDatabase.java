@@ -38,7 +38,7 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         HealthIntervention.class,
         HealthInterventionForHealthEvent.class,
         Vaccines.class,
-        VaccinesForSpecies.class}, version= 25)
+        VaccinesForSpecies.class}, version= 28)
 
 
 @TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})
@@ -99,12 +99,29 @@ public abstract class HerdDatabase extends RoomDatabase
 
             if(vaxCount==0 && vaxForSpeciesCount==0)
             {
+                HashMap<Vaccines, List<VaccinesForSpecies>> vaccinesListMap = (HashMap<Vaccines, List<VaccinesForSpecies>>) populateVaccinesTable();
+                for (Map.Entry me : vaccinesListMap.entrySet()) {
 
-            }
+                    Vaccines vax = (Vaccines) me.getKey();
+                    List<VaccinesForSpecies> vaxForSpecies = (List<VaccinesForSpecies>) me.getValue();
 
+                    ContentValues vaxContentValues = new ContentValues();
+                    vaxContentValues.put("ID", vax.ID);
+                    vaxContentValues.put("Name", vax.Name);
 
+                    db.insert("Vaccines",CONFLICT_IGNORE,vaxContentValues);
 
-        }
+                    for(VaccinesForSpecies vfs: vaxForSpecies) {
+                        ContentValues vaxForSpeciesContentValues = new ContentValues();
+                        vaxForSpeciesContentValues.put("ID", vfs.ID);
+                        vaxForSpeciesContentValues.put("species", vfs.species);
+                        vaxForSpeciesContentValues.put("vaccineID", vfs.vaccineID);
+
+                        db.insert("VaccinesForSpecies", CONFLICT_IGNORE, vaxForSpeciesContentValues);
+                    } // inner loop
+                } // for loop
+            } // if count
+        } // onopen
     };
 
     public static HerdDatabase getInstance(Context context)
@@ -115,10 +132,6 @@ public abstract class HerdDatabase extends RoomDatabase
                     HerdDatabase.class, "herddb").allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(mDBCallBack).build();
         }
 
-        if(mVaccinesForSpecies.size()==0)
-        {
-            ADDB.getInstance(context).getADDBDAO();
-        }
         return mInstance;
     }
 
@@ -194,82 +207,80 @@ public abstract class HerdDatabase extends RoomDatabase
     }
 
 
-    private Map<Vaccines, List<VaccinesForSpecies>> populateVaccinesTable(ADDBDAO addbdao)
+    private static Map<Vaccines, List<VaccinesForSpecies>> populateVaccinesTable()
     {
         Map<Vaccines, List<VaccinesForSpecies>> vaccinesListMap = new HashMap<>();
 
         int initialID =1;
+        int vfsID=1;
         List<VaccinesForSpecies> vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CAMEL",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Antrax"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Blackleg"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CAMEL",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Brucellosis"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CAMEL",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Brucellosis"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"CBPP"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"CCPP"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Foot and Mouth Disease"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-       vaccinesListMap.put(new Vaccines(initialID++,"Lumpy Skin Disease"),vaccinesForSpecies);
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Lumpy Skin Disease"),vaccinesForSpecies);
 
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CAMEL",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Pasturellosis"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Rabies"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
-        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"GOAT",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"PPR"),vaccinesForSpecies);
 
         vaccinesForSpecies = new ArrayList<>();
-        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies(vfsID++,"CAMEL",initialID));
         vaccinesListMap.put(new Vaccines(initialID++,"Pox"),vaccinesForSpecies);
-
-
-
 
 
 

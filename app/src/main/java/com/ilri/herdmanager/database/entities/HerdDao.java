@@ -17,6 +17,11 @@ public interface HerdDao {
     @Delete
     void DeleteHerd(Herd herd);
 
+     class VaccineForSpeciesQuery
+    {
+        public String Name;
+    }
+
 
     @Query("SELECT * FROM Herd")
     List<Herd> getAllHerds();
@@ -72,14 +77,17 @@ public interface HerdDao {
     @Update
     void UpdateBodyConditionForHealthEvent(BodyConditionForHealthEvent bhce);
 
-
     @Query("SELECT name FROM HealthIntervention")
     List<String> getHealthInterventionNames();
 
     @Query("SELECT * FROM HealthIntervention")
     List<HealthIntervention> getAllHealthInterventions();
 
+    @Query("SELECT * FROM VaccinesForSpecies")
+    List<VaccinesForSpecies> getAllVaccinesForSpecies();
 
+    @Query("SELECT Vaccines.Name FROM vaccinesforspecies,vaccines WHERE vaccines.ID = VaccinesForSpecies.vaccineID AND VaccinesForSpecies.species =:species" )
+    List<String> getVaccineNameForSpecies(String species);
 
     @Query("SELECT * FROM ProductivityEvent WHERE ProductivityEvent.HerdVisitID= :herdVisitID")
     List<ProductivityEvent> getProductivityEventForVisit(int herdVisitID);
