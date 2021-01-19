@@ -15,7 +15,9 @@ import com.ilri.herdmanager.database.converters.BodyConditionSectionConverter;
 import com.ilri.herdmanager.database.converters.DateConverter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
 
@@ -34,7 +36,9 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         BodyCondition.class,
         BodyConditionForHealthEvent.class,
         HealthIntervention.class,
-        HealthInterventionForHealthEvent.class}, version= 24)
+        HealthInterventionForHealthEvent.class,
+        Vaccines.class,
+        VaccinesForSpecies.class}, version= 25)
 
 
 @TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})
@@ -43,6 +47,7 @@ public abstract class HerdDatabase extends RoomDatabase
     HerdDao mHerdDao;
 
     public static HerdDatabase mInstance = null;
+    public static List<VaccinesForSpecies> mVaccinesForSpecies = new ArrayList<VaccinesForSpecies>();
 
     public static RoomDatabase.Callback mDBCallBack= new Callback() {
         @Override
@@ -87,6 +92,16 @@ public abstract class HerdDatabase extends RoomDatabase
                 }
             }
 
+            cursor = db.query("SELECT * FROM Vaccines");
+            int vaxCount = cursor.getCount();
+            cursor= db.query("SELECT * FROM VaccinesForSpecies");
+            int vaxForSpeciesCount =cursor.getCount();
+
+            if(vaxCount==0 && vaxForSpeciesCount==0)
+            {
+
+            }
+
 
 
         }
@@ -99,8 +114,17 @@ public abstract class HerdDatabase extends RoomDatabase
             mInstance = Room.databaseBuilder(context,
                     HerdDatabase.class, "herddb").allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(mDBCallBack).build();
         }
+
+        if(mVaccinesForSpecies.size()==0)
+        {
+            ADDB.getInstance(context).getADDBDAO();
+        }
         return mInstance;
     }
+
+
+
+
 
 
     private static List<BodyCondition> populateBodyConditionTable()
@@ -166,8 +190,92 @@ public abstract class HerdDatabase extends RoomDatabase
         healthInterventions.add(new HealthIntervention(initialID++, "Health Advice"));
         healthInterventions.add(new HealthIntervention(initialID++, "Other - Specify"));
 
-
         return healthInterventions;
+    }
+
+
+    private Map<Vaccines, List<VaccinesForSpecies>> populateVaccinesTable(ADDBDAO addbdao)
+    {
+        Map<Vaccines, List<VaccinesForSpecies>> vaccinesListMap = new HashMap<>();
+
+        int initialID =1;
+        List<VaccinesForSpecies> vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Antrax"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Blackleg"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Brucellosis"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Brucellosis"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"CBPP"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"CCPP"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Foot and Mouth Disease"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+       vaccinesListMap.put(new Vaccines(initialID++,"Lumpy Skin Disease"),vaccinesForSpecies);
+
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Pasturellosis"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CATTLE",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Rabies"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("SHEEP",initialID));
+        vaccinesForSpecies.add(new VaccinesForSpecies("GOAT",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"PPR"),vaccinesForSpecies);
+
+        vaccinesForSpecies = new ArrayList<>();
+        vaccinesForSpecies.add(new VaccinesForSpecies("CAMEL",initialID));
+        vaccinesListMap.put(new Vaccines(initialID++,"Pox"),vaccinesForSpecies);
+
+
+
+
+
+
+
+
+        return vaccinesListMap;
     }
 
     public abstract HerdDao getHerdDao();

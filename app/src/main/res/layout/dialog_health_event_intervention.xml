@@ -16,11 +16,19 @@
 
     <Spinner
         android:id="@+id/health_intervention_dialog_intervention_spinner"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
     </Spinner>
+
+    <Spinner
+        android:id="@+id/dialog_health_intervention_vaccination_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+    </Spinner>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
