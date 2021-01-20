@@ -18,7 +18,8 @@
         android:id="@+id/health_intervention_dialog_intervention_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/black">
 
     </Spinner>
 
@@ -26,7 +27,8 @@
         android:id="@+id/dialog_health_intervention_vaccination_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:background="@color/black">
     </Spinner>
     <LinearLayout
         android:id="@+id/dialog_health_intervention_comments_section"
@@ -69,6 +71,7 @@
                 android:id="@+id/dialog_health_intervention_nbabiesAffected_editText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:inputType="number"
                 style="@style/NumberEditTextStyleDark">
             </EditText>
             <TextView
@@ -91,6 +94,7 @@
                 android:id="@+id/dialog_health_intervention_nYoungffected_editText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:inputType="number"
                 style="@style/NumberEditTextStyleDark">
             </EditText>
             <TextView
@@ -113,6 +117,7 @@
                 android:id="@+id/dialog_health_intervention_nOldAffected_editText"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:inputType="number"
                 style="@style/NumberEditTextStyleDark">
             </EditText>
             <TextView
