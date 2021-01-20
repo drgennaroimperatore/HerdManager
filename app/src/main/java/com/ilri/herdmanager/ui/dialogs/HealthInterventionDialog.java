@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,7 +82,7 @@ public class HealthInterventionDialog extends DialogFragment
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
        List<String> mHealthInterventionNames = mHerdDAO.getHealthInterventionNames();
@@ -88,6 +90,7 @@ public class HealthInterventionDialog extends DialogFragment
 
         ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
         healthInterventionSpinner.setAdapter(healthInterventionSpinnerAdapter);
+        final int healthInterventionCount = healthInterventionSpinnerAdapter.getCount();
 
         final Spinner vaccinationSpinners = view.findViewById(R.id.dialog_health_intervention_vaccination_spinner);
 
@@ -97,15 +100,20 @@ public class HealthInterventionDialog extends DialogFragment
         ArrayAdapter<String> vaccinationSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, vaccinationForSpecies);
         vaccinationSpinners.setAdapter(vaccinationSpinnerAdapter);
 
+       final LinearLayout comentsSection = view.findViewById(R.id.dialog_health_intervention_comments_section);
+
         healthInterventionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                comentsSection.setVisibility(View.GONE);
                 if(position==0)
                 {
                     vaccinationSpinners.setVisibility(View.VISIBLE);
                 }
                 else
                 {
+                    if(position == healthInterventionCount-1)
+                        comentsSection.setVisibility(View.VISIBLE);
                     vaccinationSpinners.setVisibility(View.GONE);
                 }
 
@@ -156,6 +164,17 @@ public class HealthInterventionDialog extends DialogFragment
                 healthInterventionForHealthEvent.healthInterventionID = mHerdDAO.getHealthInterventionIDFromName(interventionName);
                 if(vaccinationSpinners.getVisibility()== View.VISIBLE)
                     healthInterventionForHealthEvent.vaccinationName = vaccinationSpinners.getSelectedItem().toString();
+                if(comentsSection.getVisibility() == View.VISIBLE)
+                {
+                    EditText commentsET = view.findViewById(R.id.dialog_health_intervention_comments_editText);
+                    if(commentsET.getText().toString().isEmpty())
+                    {
+                        Toast.makeText(mContext,"Please Add a comment", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    healthInterventionForHealthEvent.comments = commentsET.getText().toString();
+                }
+
                 mFragment.addHealthIntervention(healthInterventionForHealthEvent);
                 dismiss();
             }
