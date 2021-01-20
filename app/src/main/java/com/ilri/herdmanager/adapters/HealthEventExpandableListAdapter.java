@@ -78,10 +78,12 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public void setReadOnlyData(int herdID,
                                 ArrayList<DiseasesForHealthEvent> dhe,
                                 ArrayList<SignsForHealthEvent> she,
-                                ArrayList<BodyConditionForHealthEvent> bche) {
+                                ArrayList<BodyConditionForHealthEvent> bche,
+                                ArrayList<HealthInterventionForHealthEvent> hihe) {
         mDiseaseList = dhe;
         mSignsList = she;
         mBodyCondtion = bche;
+        mHealthIntervention = hihe;
         notifyDataSetChanged();
         isReadOnly = true;
         mHerdID=herdID;
@@ -150,9 +152,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
         TextView header = view.findViewById(R.id.health_event_header_textView);
         header.setText(mGroupHeaders.get(groupPosition));
-
 //
-
         return view;
     }
 
@@ -250,6 +250,15 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             TextView intervertionNameTV = convertView.findViewById(R.id.health_intervention_row_name_textView);
             String healthInterventionName =  herdDao.getHealthInterventionNameFromID(healthInterventionForHealthEvent.healthInterventionID);
             intervertionNameTV.setText(healthInterventionName);
+
+            TextView nAffectedBabiesTV = convertView.findViewById(R.id.health_intervention_row_nAffectedBabies_textView);
+            nAffectedBabiesTV.setText(String.valueOf(healthInterventionForHealthEvent.nBabies));
+
+            TextView nAffectedYoungTV = convertView.findViewById(R.id.health_intervention_row_nAffectedYoung_textView);
+            nAffectedYoungTV.setText(String.valueOf(healthInterventionForHealthEvent.nYoung));
+
+            TextView nAffectedOldTV = convertView.findViewById(R.id.health_intervention_row_nAffectedOld_textView);
+            nAffectedOldTV.setText(String.valueOf(healthInterventionForHealthEvent.nOld));
 
             TextView vaccinationNameTV =convertView.findViewById(R.id.health_intervention_row_vaccination_textView);
             vaccinationNameTV.setText(healthInterventionForHealthEvent.vaccinationName);

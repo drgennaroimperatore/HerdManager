@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,13 +116,42 @@ public class HealthInterventionDialog extends DialogFragment
 
             }
         });
+        final TextView nAffectedBabiesTV = view.findViewById(R.id.dialog_health_intervention_nbabiesAffected_editText);
+       final TextView nAffectedYoungTV = view.findViewById(R.id.dialog_health_intervention_nYoungffected_editText);
+      final  TextView nAffectedOldTV = view.findViewById(R.id.dialog_health_intervention_nOldAffected_editText);
+
+
 
         Button submitButton = view.findViewById(R.id.dialog_health_intervention_submit_button);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                String affectedBabiesStr =  nAffectedBabiesTV.getText().toString();
+                if(affectedBabiesStr.isEmpty())
+                    affectedBabiesStr="0";
+                String affectedYoungStr =  nAffectedYoungTV.getText().toString();
+                if(affectedYoungStr.isEmpty())
+                    affectedYoungStr="0";
+                String affectedOldStr =  nAffectedOldTV.getText().toString();
+                if(affectedOldStr.isEmpty())
+                    affectedOldStr="0";
+
+                int nAffectedBabies = Integer.valueOf(affectedBabiesStr);
+                int nAffectedYoung = Integer.valueOf(affectedYoungStr);
+                int nAffectedOld = Integer.valueOf(affectedOldStr);
+
+                if(nAffectedBabies ==0 && nAffectedYoung ==0 && nAffectedOld ==0)
+                {
+                    Toast.makeText(mContext,"Please Fill a Field", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+
                 HealthInterventionForHealthEvent healthInterventionForHealthEvent = new HealthInterventionForHealthEvent();
+                healthInterventionForHealthEvent.nBabies = nAffectedBabies;
+                healthInterventionForHealthEvent.nYoung = nAffectedYoung;
+                healthInterventionForHealthEvent.nOld = nAffectedOld;
                 String interventionName = healthInterventionSpinner.getSelectedItem().toString();
                 healthInterventionForHealthEvent.healthInterventionID = mHerdDAO.getHealthInterventionIDFromName(interventionName);
                 if(vaccinationSpinners.getVisibility()== View.VISIBLE)

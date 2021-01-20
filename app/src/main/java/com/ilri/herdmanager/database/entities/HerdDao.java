@@ -95,6 +95,9 @@ public interface HerdDao {
     @Query("SELECT Vaccines.Name FROM vaccinesforspecies,vaccines WHERE vaccines.ID = VaccinesForSpecies.vaccineID AND VaccinesForSpecies.species =:species" )
     List<String> getVaccineNameForSpecies(String species);
 
+    @Query("SELECT * FROM HealthInterventionForHealthEvent WHERE HealthInterventionForHealthEvent.healthEventID =:healthEventID")
+    List<HealthInterventionForHealthEvent> getHealthInterventionsForHealthEvent(int healthEventID);
+
     @Query("SELECT * FROM ProductivityEvent WHERE ProductivityEvent.HerdVisitID= :herdVisitID")
     List<ProductivityEvent> getProductivityEventForVisit(int herdVisitID);
 
@@ -143,7 +146,10 @@ public interface HerdDao {
     @Insert
     long InsertSignForHealthEvent(SignsForHealthEvent signsForHealthEvent);
 
-    @Delete
+   @Insert
+   long InsertHealthInterventionForHealthEvent(HealthInterventionForHealthEvent healthInterventionForHealthEvent);
+
+   @Delete
     void DeleteSignsForHealthEvent(SignsForHealthEvent signsForHealthEvent);
 
     @Insert

@@ -272,13 +272,15 @@ public class AddHeardHealthEventFragment extends Fragment {
             mShowAddDiseaseButton.setVisibility(View.GONE);
             mShowAddSignButton.setVisibility(View.GONE);
             mShowEditBodyConditionButton.setVisibility(View.GONE);
+            mShowAddInterventionButton.setVisibility(View.GONE);
 
             HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
             List<SignsForHealthEvent> she = HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForHealthEvent(hv.ID);
             List<DiseasesForHealthEvent> dhe = HerdDatabase.getInstance(getContext()).getHerdDao().getDiseasesForHealthEvent(hv.ID);
             List<BodyConditionForHealthEvent> bche= HerdDatabase.getInstance(getContext()).getHerdDao().getBodyConditionForHealthEvent(hv.ID);
-            List<BodyConditionForHealthEvent> test =HerdDatabase.getInstance(getContext()).getHerdDao().testBodyConditionForHealthEvent();
-            mAdapter.setReadOnlyData(mHerdID,(ArrayList<DiseasesForHealthEvent>) dhe,(ArrayList<SignsForHealthEvent>) she, (ArrayList<BodyConditionForHealthEvent>) bche);
+            List<HealthInterventionForHealthEvent> hihe = HerdDatabase.getInstance(getContext()).getHerdDao().getHealthInterventionsForHealthEvent(hv.ID);
+          //  List<BodyConditionForHealthEvent> test =HerdDatabase.getInstance(getContext()).getHerdDao().testBodyConditionForHealthEvent();
+            mAdapter.setReadOnlyData(mHerdID,(ArrayList<DiseasesForHealthEvent>) dhe,(ArrayList<SignsForHealthEvent>) she, (ArrayList<BodyConditionForHealthEvent>) bche, (ArrayList<HealthInterventionForHealthEvent>)hihe);
         }
 
 

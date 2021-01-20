@@ -13,7 +13,7 @@ public class HealthInterventionForHealthEvent
     public int healthInterventionID;
     public int healthEventID;
     public String vaccinationName;
-    public int nBabies; int nYoung; int nOld;
+    public int nBabies; public int nYoung; public int nOld;
     public String comments;
 
 }
