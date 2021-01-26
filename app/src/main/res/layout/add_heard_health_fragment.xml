@@ -8,18 +8,24 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
-        <Button
+       <!-- <Button
             android:id="@+id/health_event_show_disease_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="74dp"
 
             android:background="@color/colorPrimary"
             android:text="Add Disease"
-            android:textColor="@color/black" />
+            android:textColor="@color/black" />-->
 
         <Button
             android:id="@+id/health_event_show_sign_dialog"
@@ -34,9 +40,12 @@
             android:id="@+id/health_event_show_body_condition_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="@dimen/appbar_padding"
+            android:layout_marginBottom="24dp"
             android:background="@color/colorPrimary"
-            android:text="Edit\nBody\nCondition"
+            android:text="Edit Body Condition"
             android:textColor="@color/black" />
 
 
@@ -44,7 +53,8 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
         <Button
             android:id="@+id/health_event_show_health_intervention_dialog"
             android:layout_width="wrap_content"
@@ -59,10 +69,11 @@
 
     <ExpandableListView
         android:id="@+id/health_event_exapandableListView"
-        android:layout_width="408dp"
-        android:layout_height="395dp"
+        android:layout_width="match_parent"
+        android:layout_height="408dp"
         android:scrollbars="horizontal"
-        android:longClickable="true">
+        android:longClickable="true"
+        android:layout_marginTop="10dp" >
 
     </ExpandableListView>
 

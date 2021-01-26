@@ -96,10 +96,10 @@ public class AddHeardHealthEventFragment extends Fragment {
         }
 
 
-        mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
+//        mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
         //REMOVE THIS LINE IF WE WANT DISEASES BACK
 
-        mShowAddDiseaseButton.setVisibility(View.INVISIBLE);
+//        mShowAddDiseaseButton.setVisibility(View.INVISIBLE);
 
         mShowAddSignButton = view.findViewById(R.id.health_event_show_sign_dialog);
 
@@ -120,7 +120,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
       final  AddHeardHealthEventFragment f = this;
 
-        mShowAddDiseaseButton.setOnClickListener(new View.OnClickListener() {
+      /*  mShowAddDiseaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -141,7 +141,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                 dialogFragment.show(ft, "dialog");
 
             }
-        });
+        });*/
 
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,7 +269,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
         if(isReadOnly)
         {
-            mShowAddDiseaseButton.setVisibility(View.GONE);
+//            mShowAddDiseaseButton.setVisibility(View.GONE);
             mShowAddSignButton.setVisibility(View.GONE);
             mShowEditBodyConditionButton.setVisibility(View.GONE);
             mShowAddInterventionButton.setVisibility(View.GONE);
