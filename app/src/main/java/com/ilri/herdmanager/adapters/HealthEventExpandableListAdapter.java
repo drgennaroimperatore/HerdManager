@@ -70,8 +70,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mGroupHeaders = new ArrayList<>();
         //mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs");
-        mGroupHeaders.add("Body Condition");
         mGroupHeaders.add("Health Interventions");
+        mGroupHeaders.add("Body Condition");
 
     }
 
@@ -102,9 +102,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             childSize = mDiseaseList.size();*/
         if(groupPosition==0)
             childSize = mSignsList.size();
-        if(groupPosition==1)
-            childSize=1; // body condition
         if(groupPosition==2)
+            childSize=1; // body condition
+        if(groupPosition==1)
             childSize= mHealthIntervention.size();
 
         return childSize;
@@ -164,12 +164,12 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
       //  {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            if(groupPosition==1)
+            if(groupPosition==2)
                // convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
                 convertView = inflater.inflate(R.layout.health_event_body_condition_row,null);
             if(groupPosition==0)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
-            if(groupPosition==2)
+            if(groupPosition==1)
                 convertView = inflater.inflate(R.layout.health_event_health_intervention_row, null);
 
         //}
@@ -237,18 +237,28 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
         }
 
-        if(groupPosition==1)//body condition
+        if(groupPosition==2)//body condition
         {
 
             mBodyConditionTableLayout = convertView.findViewById(R.id.health_event_show_body_condition_row_tablelayou);
             initialiseBodyConditionList();
         }
 
-        if(groupPosition==2) // health intervention
+        if(groupPosition==1) // health intervention
         {
             HealthInterventionForHealthEvent healthInterventionForHealthEvent = mHealthIntervention.get(childPosition);
             TextView intervertionNameTV = convertView.findViewById(R.id.health_intervention_row_name_textView);
             String healthInterventionName =  herdDao.getHealthInterventionNameFromID(healthInterventionForHealthEvent.healthInterventionID);
+            if(healthInterventionName.contains("-"))
+            {
+               healthInterventionName= healthInterventionName.split("-")[0].trim();
+
+               if(healthInterventionName.equals("Other"))
+                   healthInterventionName =healthInterventionForHealthEvent.comments;
+               if(healthInterventionName.equals("Vaccination"))
+                   healthInterventionName+=": "+ healthInterventionForHealthEvent.vaccinationName;
+            }
+
             intervertionNameTV.setText(healthInterventionName);
 
             TextView nAffectedBabiesTV = convertView.findViewById(R.id.health_intervention_row_nAffectedBabies_textView);
@@ -260,11 +270,11 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             TextView nAffectedOldTV = convertView.findViewById(R.id.health_intervention_row_nAffectedOld_textView);
             nAffectedOldTV.setText(String.valueOf(healthInterventionForHealthEvent.nOld));
 
-            TextView vaccinationNameTV =convertView.findViewById(R.id.health_intervention_row_vaccination_textView);
-            vaccinationNameTV.setText(healthInterventionForHealthEvent.vaccinationName);
+           /* TextView vaccinationNameTV =convertView.findViewById(R.id.health_intervention_row_vaccination_textView);
+            vaccinationNameTV.setText(healthInterventionForHealthEvent.vaccinationName);*/
 
             TextView commentsTV = convertView.findViewById(R.id.health_intervention_row_comment_textView);
-            commentsTV.setText(healthInterventionForHealthEvent.comments);
+            commentsTV.setVisibility(View.GONE);
         }
         return convertView;
     }
