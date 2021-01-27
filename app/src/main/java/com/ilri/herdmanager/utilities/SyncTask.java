@@ -18,6 +18,7 @@ import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
@@ -188,6 +189,20 @@ public class SyncTask extends AsyncTask {
                        herdDao.UpdateBodyConditionForHealthEvent(bche);
 
                    }
+
+                   ArrayList<HealthInterventionForHealthEvent> healthInterventionForHealthEvents = (ArrayList<HealthInterventionForHealthEvent>) herdDao.getHealthInterventionsForHealthEvent(healthEventForVisit.ID);
+                   for(HealthInterventionForHealthEvent hihe:healthInterventionForHealthEvents )
+                   {
+                       if(hihe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+                           continue;
+                       int newHiheID = syncHealthInterventionForHealthEvent(hihe,newHealthEventID);
+                       if(newHiheID ==-200)
+                           break farmerloop;
+                       hihe.syncStatus = SyncStatus.SYNCHRNOISED.toString();
+                       hihe.serverID = newHiheID;
+                       herdDao.UpdateHealthInterventionForHealthEvent(hihe);
+                   }
+
                    healthEventForVisit.syncStatus = SyncStatus.SYNCHRNOISED.toString();
                    herdDao.UpdateHealthEvent(healthEventForVisit);
 
@@ -501,6 +516,29 @@ public class SyncTask extends AsyncTask {
 
 
         return prodNewID;
+    }
+
+    private int syncHealthInterventionForHealthEvent (HealthInterventionForHealthEvent hihe, int newHealthEvent)
+    {
+        String response = manager.insertHealthInterventionForHealthEvent(hihe,newHealthEvent);
+        JSONObject prodJson = null;
+        int healthInterventionNewID = -200;
+
+        try
+        {
+            prodJson = new JSONObject(response);
+            healthInterventionNewID = prodJson.getInt("ID");
+            String outcome =prodJson.getString("outcome");
+            Log.i("Sync-healthIntID",String.valueOf(healthInterventionNewID));
+            Log.i("Sync-healthIntcome",outcome);
+        }
+        catch (JSONException e)
+        {
+
+        }
+
+
+        return healthInterventionNewID;
     }
 
     private int syncBirthsForProductivityEvent(BirthsForProductivityEvent bpe, int newProdEventID)

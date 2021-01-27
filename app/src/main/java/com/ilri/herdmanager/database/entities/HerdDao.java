@@ -206,6 +206,8 @@ public interface HerdDao {
     @Update
     int UpdateSignForHealthEvent(SignsForHealthEvent she);
 
+    @Update
+    int UpdateHealthInterventionForHealthEvent(HealthInterventionForHealthEvent hihe);
 
     @Update
     int UpdateProductivityEvent(ProductivityEvent productivityEvent);

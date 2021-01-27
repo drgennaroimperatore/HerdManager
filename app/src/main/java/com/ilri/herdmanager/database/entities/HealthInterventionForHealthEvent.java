@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey;
                         @ForeignKey(entity = HealthEvent.class, parentColumns = "ID", childColumns = "healthEventID")})
 public class HealthInterventionForHealthEvent
 {
+
     @PrimaryKey(autoGenerate = true)
     public int ID;
     public int healthInterventionID;
@@ -15,5 +16,12 @@ public class HealthInterventionForHealthEvent
     public String vaccinationName;
     public int nBabies; public int nYoung; public int nOld;
     public String comments;
+    public int serverID=-1;
+    public String syncStatus;
+
+    public HealthInterventionForHealthEvent()
+    {
+        syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+    }
 
 }

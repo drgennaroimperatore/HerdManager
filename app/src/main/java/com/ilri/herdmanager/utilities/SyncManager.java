@@ -12,6 +12,7 @@ import com.ilri.herdmanager.database.entities.DiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.DynamicEvent;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HealthEvent;
+import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
@@ -25,6 +26,7 @@ import com.ilri.herdmanager.ui.notifications.NotificationsFragment;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -50,8 +52,8 @@ class SyncManager {
     {
         URL url = null;
         try {
-          //  url = new URL("http://10.0.2.2:61330/Home/"+functionName); // debug string
-           url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
+            url = new URL("http://10.0.2.2:61330/Home/"+functionName); // debug string
+         //  url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
         } catch (Exception e)
         {
 
@@ -239,6 +241,23 @@ class SyncManager {
 
         return sendPost("InsertBodyConditionForHealthEvent", bcheParams);
 
+    }
+
+    public String insertHealthInterventionForHealthEvent(HealthInterventionForHealthEvent hihe, int healthEventID)
+    {
+        Map<String, Object> healthInterventionParameters = new LinkedHashMap<>();
+        if(!hihe.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
+            healthInterventionParameters.put("ID",hihe.serverID);
+
+        healthInterventionParameters.put("numberOfAffectedBabies",hihe.nBabies);
+        healthInterventionParameters.put("numberOfAffectedYoung",hihe.nYoung);
+        healthInterventionParameters.put("numberOfAffectedAdult",hihe.nOld);
+        healthInterventionParameters.put("comments",hihe.comments);
+        healthInterventionParameters.put("vaccinationName",hihe.vaccinationName);
+        healthInterventionParameters.put("healthInterventionID",hihe.healthInterventionID);
+        healthInterventionParameters.put("healthEventID",healthEventID);
+
+        return sendPost("InsertHealthInterventionForHealthEvent", healthInterventionParameters);
     }
 
     public String insertProductivityEvent(ProductivityEvent productivityEvent, int newHerdVisitID)
