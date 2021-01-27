@@ -253,7 +253,7 @@ class SyncManager {
         healthInterventionParameters.put("numberOfAffectedYoung",hihe.nYoung);
         healthInterventionParameters.put("numberOfAffectedAdult",hihe.nOld);
         healthInterventionParameters.put("comments",hihe.comments);
-        healthInterventionParameters.put("vaccinationName",hihe.vaccinationName);
+        healthInterventionParameters.put("vaccination",hihe.vaccinationName);
         healthInterventionParameters.put("healthInterventionID",hihe.healthInterventionID);
         healthInterventionParameters.put("healthEventID",healthEventID);
 
