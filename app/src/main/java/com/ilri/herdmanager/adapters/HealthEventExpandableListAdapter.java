@@ -44,6 +44,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    String mSpecies ="";
     TableLayout mBodyConditionTableLayout= null;
     int mHerdID=-155;
+    private boolean mEditableInReadOnly;
 
     @Override
     public int getGroupCount() {
@@ -87,8 +88,6 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         notifyDataSetChanged();
         isReadOnly = true;
         mHerdID=herdID;
-
-
 
     }
 
@@ -327,13 +326,15 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
        notifyDataSetChanged();
     }
 
-    public void editSign(int pos, int b, int y, int o)
+    public SignsForHealthEvent editSign(int pos, int b, int y, int o)
     {
         SignsForHealthEvent she = mSignsList.get(pos);
         she.numberOfAffectedBabies =b;
         she.numberOfAffectedYoung=y;
         she.numberOfAffectedOld=o;
         notifyDataSetChanged();
+
+        return she;
     }
 
     public void deleteDisease (int pos)
@@ -427,5 +428,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public List<HealthInterventionForHealthEvent> getHealthInterventionsForHealthEvent()
     {
         return mHealthIntervention;
+    }
+
+    public void setEditableInReadOnly(boolean editable) {
+        mEditableInReadOnly = editable;
     }
 }

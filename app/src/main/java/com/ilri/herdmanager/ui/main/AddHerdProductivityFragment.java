@@ -34,6 +34,7 @@ public class AddHerdProductivityFragment extends Fragment {
     private AddHerdProductivityViewModel mViewModel;
     private ExpandableListView mExpandableListView;
     private ProductivityEventExpandableListAdapter mAdapter;
+    private boolean mEditableInReadOnly;
 
     public static AddHerdProductivityFragment newInstance() {
         return new AddHerdProductivityFragment();
@@ -138,5 +139,9 @@ public class AddHerdProductivityFragment extends Fragment {
         pce.birthsForProductivityEvent = mAdapter.getBirths();
         pce.milkProductionForProductivityEvent = mAdapter.getMilkProduction();
         return pce;
+    }
+
+    public void setEditableInReadOnly(boolean editable) {
+        mEditableInReadOnly = editable;
     }
 }

@@ -28,6 +28,15 @@
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:tabTextAppearance="@style/AppTabTextAppearance"/>
+
+        <Switch
+            android:id="@+id/add_herd_visit_edit_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Edit Visit"
+            android:layout_gravity="right"
+            android:visibility="gone"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

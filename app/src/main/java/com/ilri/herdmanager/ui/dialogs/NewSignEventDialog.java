@@ -24,6 +24,7 @@ import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.Signs;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.customui.SignAutoCompleteTextView;
 import com.ilri.herdmanager.ui.main.AddHeardHealthEventFragment;
 
@@ -31,6 +32,7 @@ import java.util.List;
 
 
 public class NewSignEventDialog extends DialogFragment {
+
 
     Context mContext;
     List<String> mSigns = null;
@@ -41,15 +43,27 @@ public class NewSignEventDialog extends DialogFragment {
    Integer nAffectedBabies, nAffectedYoung, nAffectedOld;
     Integer mPositionToEdit;
     boolean isEditing = false;
+    boolean mEditingInReadOnly;
+    int mHerdVisitID =-155;
 
 
-    public NewSignEventDialog(Context context, List<String> signs, AddHeardHealthEventFragment f)
+    public NewSignEventDialog(Context context, List<String> signs,
+                              AddHeardHealthEventFragment f,
+                              boolean editableInReadOnly,
+                              int herdVisitID)
     {
         mContext=context;
         mSigns = signs;
         addbdao = ADDB.getInstance(context).getADDBDAO();
         mFragment = f;
+        mEditingInReadOnly = editableInReadOnly;
+        mHerdVisitID = herdVisitID;
+
     }
+
+
+
+
 
     public NewSignEventDialog(Context context, List<String> signs,
                               int pos,
@@ -84,6 +98,7 @@ public class NewSignEventDialog extends DialogFragment {
         final CoordinatorLayout cl = view.findViewById(R.id.dialog_sign_parent);
 
        final SignAutoCompleteTextView signAutoComplete = view.findViewById(R.id.dialog_health_signs_autcomptv);
+
 
 
        // final Spinner signSpinner = view.findViewById(R.id.health_event_sign_spinner);
@@ -176,7 +191,9 @@ public class NewSignEventDialog extends DialogFragment {
                         she.numberOfAffectedOld = nAffectedOld;
 
                         if (isEditing) {
-                            mFragment.editSign(mPositionToEdit, nAffectedBabies, nAffectedYoung, nAffectedOld);
+                           SignsForHealthEvent editedSign = mFragment.editSign(mPositionToEdit, nAffectedBabies, nAffectedYoung, nAffectedOld);
+                            if(mEditingInReadOnly)
+                                HerdVisitManager.getInstance().editSignForHealthEvent(mContext,editedSign);
                             dismiss();
                         } else {
 
@@ -186,6 +203,8 @@ public class NewSignEventDialog extends DialogFragment {
                                 mySnackbar.show();
                             } else {
                                 mFragment.expandList(1);
+                                if(mEditingInReadOnly)
+                                    HerdVisitManager.getInstance().addSignToExistingVisit(mContext,she,mHerdVisitID);
                                 dismiss();
                             }
                         }

@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.ilri.herdmanager.R;
@@ -68,8 +70,21 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab);
+        Switch editModeSwitch = findViewById(R.id.add_herd_visit_edit_switch);
+
+        editModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                sectionsPagerAdapter.setEditableinReadOnly(isChecked);
+            }
+        });
+
         if(isReadonly)
         {
+            editModeSwitch.setVisibility(View.VISIBLE);
+            editModeSwitch.setTextOff("Editing is Locked");
+            editModeSwitch.setTextOn("Edting is Enabled");
             TextView titleTV = findViewById(R.id.add_herd_visit_title);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String selectedDate = sdf.format(herdVisitDate);

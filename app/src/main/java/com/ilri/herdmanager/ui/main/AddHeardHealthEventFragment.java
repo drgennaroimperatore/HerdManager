@@ -51,6 +51,7 @@ public class AddHeardHealthEventFragment extends Fragment {
     private Button mShowAddSignButton, mShowAddDiseaseButton, mShowEditBodyConditionButton, mShowAddInterventionButton;
     private int mHerdID = -155;
     private HealthEventExpandableListAdapter mAdapter;
+    private boolean mEditableInReadOnly = false;
 
     public static AddHeardHealthEventFragment newInstance() {
         return new AddHeardHealthEventFragment();
@@ -163,7 +164,6 @@ public class AddHeardHealthEventFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-
                 if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
                     int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                     int childPosition = ExpandableListView.getPackedPositionChild(id);
@@ -219,6 +219,8 @@ public class AddHeardHealthEventFragment extends Fragment {
             }
         });
 
+        final int hvID = herdVisitID;
+
         mShowAddSignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -231,8 +233,8 @@ public class AddHeardHealthEventFragment extends Fragment {
 
                 for(AdditionalSigns s: signs)
                     sNames.add(s.Name);
+                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,f,mEditableInReadOnly, hvID);
 
-                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,f);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -323,9 +325,9 @@ public class AddHeardHealthEventFragment extends Fragment {
         mAdapter.deleteSign(pos);
     }
 
-    public void editSign(int pos, int b, int y, int o)
+    public SignsForHealthEvent editSign(int pos, int b, int y, int o)
     {
-        mAdapter.editSign(pos, b,y,o);
+       return mAdapter.editSign(pos, b,y,o);
 
     }
 
@@ -355,4 +357,78 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention) { return mAdapter.addHealthIntervention (healthIntervention);}
     public void deleteHealthIntervention (HealthInterventionForHealthEvent healthIntervention) {mAdapter.deleteHealthIntervention(healthIntervention);}
+
+    public void setEditableInReadOnly(boolean editable) {
+        mEditableInReadOnly = editable;
+       final AddHeardHealthEventFragment f = this;
+
+        if (!mEditableInReadOnly)
+            mHealthEventExpandableListView.setOnLongClickListener(null);
+        else
+            mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                /*    if(groupPosition==1)//disease
+                    {
+                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                        List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
+                        List<String> diseaseNames = new ArrayList<>();
+                        DiseasesForHealthEvent dhe = mAdapter.getDiseaseForHealthEvent(childPosition);
+
+                        for(Diseases d: diseases)
+                            diseaseNames.add(d.Name);
+
+                        DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(), diseaseNames, childPosition,
+                                dhe.numberOfAffectedBabies,dhe.numberOfAffectedYoung,dhe.numberOfAffectedOld,f );
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+                        dialogFragment.show(ft, "dialog");
+
+                    }*/
+                    if(groupPosition==0)//signs
+                    {
+                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                        List<AdditionalSigns> signs =ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
+                        // List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                        List<String> sNames = new ArrayList<>();
+                        SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
+
+                        for(AdditionalSigns s: signs)
+                            sNames.add(s.Name);
+
+                        DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
+                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f);
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+
+                        dialogFragment.show(ft, "dialog");
+                    }
+
+                    return true;
+                }
+
+                return false;
+            }
+        });
+
+
+        mAdapter.setEditableInReadOnly (editable);
+        if(editable)
+            mShowAddSignButton.setVisibility(View.VISIBLE);
+        else
+            mShowAddSignButton.setVisibility(View.GONE);
+    }
 }

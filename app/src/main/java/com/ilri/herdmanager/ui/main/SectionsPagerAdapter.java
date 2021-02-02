@@ -90,4 +90,11 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         return mProductivityFragment.getProductivityEventForHelthVisit();
     }
+
+    public void setEditableinReadOnly(boolean editable)
+    {
+        mHealthFragment.setEditableInReadOnly( editable);
+        mDynamicFragment.setEditableInReadOnly(editable);
+        mProductivityFragment.setEditableInReadOnly(editable);
+    }
 }

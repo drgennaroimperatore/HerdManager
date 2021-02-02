@@ -1,5 +1,6 @@
 package com.ilri.herdmanager.managers;
 
+import android.content.ContentValues;
 import android.content.Context;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
@@ -90,14 +91,17 @@ public class HerdVisitManager {
 
     }
 
-    private void editHealthEventForVisit(Context context, int healthEventID)
-    {
 
+    public void editSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().UpdateSignForHealthEvent(signsForHealthEvent);
     }
 
-    private void editSignForHealthEvent(Context context, int signForHealthEventID)
+    public void addSignToExistingVisit(Context context, SignsForHealthEvent newSign, int herdVisitID)
     {
-
+       HealthEvent healthEvent = HerdDatabase.getInstance(context).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
+       newSign.healthEventID = healthEvent.ID;
+       HerdDatabase.getInstance(context).getHerdDao().InsertSignForHealthEvent(newSign);
     }
 
 

@@ -38,7 +38,7 @@ public class AddHerdDynamicFragment extends Fragment {
     private Button mAddEventButton, mAddDeathButton;
     private ExpandableListView mExpandableListView;
      DynamicEventExpandableListAdapter mAdapter = null;
-
+    private boolean mEditableInReadOnly;
 
 
     public static AddHerdDynamicFragment newInstance() {
@@ -210,5 +210,7 @@ public class AddHerdDynamicFragment extends Fragment {
     }
 
 
-
+    public void setEditableInReadOnly(boolean editable) {
+        mEditableInReadOnly = editable;
+    }
 }
