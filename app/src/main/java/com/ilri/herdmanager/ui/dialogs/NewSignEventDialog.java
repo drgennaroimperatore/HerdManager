@@ -70,7 +70,8 @@ public class NewSignEventDialog extends DialogFragment {
                               int affectedBabies,
                               int affectedYoung,
                               int affectedOld,
-                              AddHeardHealthEventFragment fragment)
+                              AddHeardHealthEventFragment fragment,
+                              boolean isEditingInReadOnly)
     {
         mContext=context;
         mSigns = signs;
@@ -81,6 +82,7 @@ public class NewSignEventDialog extends DialogFragment {
         nAffectedOld = affectedOld;
         isEditing = true;
         mPositionToEdit = pos;
+        mEditingInReadOnly = isEditingInReadOnly;
     }
 
     @Nullable

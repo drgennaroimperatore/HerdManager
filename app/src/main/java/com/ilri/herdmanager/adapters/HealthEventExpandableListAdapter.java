@@ -337,6 +337,21 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         return she;
     }
 
+    public HealthInterventionForHealthEvent
+    editHealthInterventionForHealthEvent(int pos, int b, int y, int o)
+    {
+        HealthInterventionForHealthEvent hihe = mHealthIntervention.get(pos);
+        hihe.nBabies =b; hihe.nYoung = y; hihe.nOld =o;
+        notifyDataSetChanged();
+        return hihe;
+    }
+
+    public void deleteHealthInterventionForHealthEvent(int pos)
+    {
+        mHealthIntervention.remove(pos);
+        notifyDataSetChanged();
+    }
+
     public void deleteDisease (int pos)
     {
         mDiseaseList.remove(pos);

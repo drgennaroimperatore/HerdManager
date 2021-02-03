@@ -201,7 +201,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                             sNames.add(s.Name);
 
                         DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
-                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f);
+                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f, mEditableInReadOnly);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                         if (prev != null) {
@@ -212,11 +212,26 @@ public class AddHeardHealthEventFragment extends Fragment {
                         dialogFragment.show(ft, "dialog");
                     }
 
+                    if(groupPosition==1 ) // health interventions
+                    {
+                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                        HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
+                        HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID,f, healthIntervention, childPosition);
+
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+
+                        healthInterventionDialog.show(ft, "dialog");
+                    }
+                }
+
                     return true;
                 }
 
-                return false;
-            }
         });
 
         final int hvID = herdVisitID;
@@ -331,7 +346,15 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     }
 
+    public HealthInterventionForHealthEvent editHealthInterventionForHealthEvent(int pos, int b, int y, int o)
+    {
+        return mAdapter.editHealthInterventionForHealthEvent(pos,b,y,o);
+    }
 
+    public void deleteHealthInterventionForHealthEvent(int pos)
+    {
+        mAdapter.deleteHealthInterventionForHealthEvent(pos);
+    }
 
     public void expandList(int g)
     {
@@ -406,7 +429,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                             sNames.add(s.Name);
 
                         DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
-                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f);
+                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f, mEditableInReadOnly);
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                         if (prev != null) {

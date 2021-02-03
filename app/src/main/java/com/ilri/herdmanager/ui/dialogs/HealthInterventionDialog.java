@@ -40,6 +40,10 @@ public class HealthInterventionDialog extends DialogFragment
     ADDBDAO mADDBDAO;
     HerdDao mHerdDAO;
     AddHeardHealthEventFragment mFragment;
+    boolean mIsEdting = false;
+    boolean mIsEditingInReadOnly = false;
+    int mPositionToEdit =0;
+    HealthInterventionForHealthEvent mHealthInterventionToBeEdited = null;
 
 
     public HealthInterventionDialog(Context context, int herdID, AddHeardHealthEventFragment fragment)
@@ -66,6 +70,33 @@ public class HealthInterventionDialog extends DialogFragment
                 mSpecies="GOAT";
                 break;
         }
+    }
+
+    public HealthInterventionDialog(Context context, int herdID, AddHeardHealthEventFragment fragment, HealthInterventionForHealthEvent healthIntervention, int pos) {
+        mContext = context;
+        mFragment = fragment;
+
+        HerdDao herdDao = HerdDatabase.getInstance(context).getHerdDao();
+        ADDBDAO addbdao = ADDB.getInstance(context).getADDBDAO();
+        mADDBDAO = addbdao; mHerdDAO = herdDao;
+
+        Herd herd = herdDao.getHerdByID(herdID).get(0);
+        switch(addbdao.getAnimalNameFromID(herd.speciesID).get(0))
+        {
+            case " CATTLE":
+                mSpecies= "CATTLE";
+                break;
+            case " CAMEL":
+                mSpecies="CAMEL";
+                break;
+            case " SHEEP":
+                mSpecies="SHEEP";
+            case " GOAT":
+                mSpecies="GOAT";
+                break;
+        }
+        mIsEdting = true;
+        mHealthInterventionToBeEdited = healthIntervention;
     }
 
     @Override
@@ -128,9 +159,17 @@ public class HealthInterventionDialog extends DialogFragment
        final TextView nAffectedYoungTV = view.findViewById(R.id.dialog_health_intervention_nYoungffected_editText);
       final  TextView nAffectedOldTV = view.findViewById(R.id.dialog_health_intervention_nOldAffected_editText);
 
+      if(mIsEdting && mHealthInterventionToBeEdited!=null)
+      {
+          nAffectedBabiesTV.setText(String.valueOf(mHealthInterventionToBeEdited.nBabies));
+          nAffectedYoungTV.setText(String.valueOf(mHealthInterventionToBeEdited.nYoung));
+          nAffectedOldTV.setText(String.valueOf(mHealthInterventionToBeEdited.nOld));
+      }
 
 
         Button submitButton = view.findViewById(R.id.dialog_health_intervention_submit_button);
+        if(mIsEdting)
+            submitButton.setText("Edit Health Intervention");
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +214,10 @@ public class HealthInterventionDialog extends DialogFragment
                     healthInterventionForHealthEvent.comments = commentsET.getText().toString();
                 }
 
-                mFragment.addHealthIntervention(healthInterventionForHealthEvent);
+               if(!mIsEdting)
+                    mFragment.addHealthIntervention(healthInterventionForHealthEvent);
+               else
+                   mFragment.editHealthInterventionForHealthEvent(mPositionToEdit,nAffectedBabies,nAffectedYoung,nAffectedOld);
                 dismiss();
             }
         });
