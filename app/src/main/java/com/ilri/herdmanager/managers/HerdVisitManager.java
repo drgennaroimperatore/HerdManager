@@ -97,11 +97,34 @@ public class HerdVisitManager {
         HerdDatabase.getInstance(context).getHerdDao().UpdateSignForHealthEvent(signsForHealthEvent);
     }
 
+    public void deleteSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().DeleteSignsForHealthEvent(signsForHealthEvent);
+    }
+
     public void addSignToExistingVisit(Context context, SignsForHealthEvent newSign, int herdVisitID)
     {
        HealthEvent healthEvent = HerdDatabase.getInstance(context).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
        newSign.healthEventID = healthEvent.ID;
        HerdDatabase.getInstance(context).getHerdDao().InsertSignForHealthEvent(newSign);
+    }
+
+    public void addHealthInterventionToExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent, int herdVisitID)
+    {
+        HealthEvent healthEvent = HerdDatabase.getInstance(context).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
+        healthInterventionForHealthEvent.healthEventID = healthEvent.ID;
+        HerdDatabase.getInstance(context).getHerdDao().InsertHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
+
+    }
+
+    public void editHealthInterventionForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().UpdateHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
+    }
+
+    public void deleteHealthInterventionForHealthEventForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().DeleteHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
     }
 
 

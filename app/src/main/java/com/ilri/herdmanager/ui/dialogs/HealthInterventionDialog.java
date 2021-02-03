@@ -28,6 +28,7 @@ import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.VaccinesForSpecies;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.main.AddHeardHealthEventFragment;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class HealthInterventionDialog extends DialogFragment
     boolean mIsEdting = false;
     boolean mIsEditingInReadOnly = false;
     int mPositionToEdit =0;
+    int mHerdID = -155;
     HealthInterventionForHealthEvent mHealthInterventionToBeEdited = null;
 
 
@@ -50,6 +52,7 @@ public class HealthInterventionDialog extends DialogFragment
     {
       mContext = context;
       mFragment = fragment;
+      mHerdID = herdID;
 
       HerdDao herdDao = HerdDatabase.getInstance(context).getHerdDao();
         ADDBDAO addbdao = ADDB.getInstance(context).getADDBDAO();
@@ -118,6 +121,8 @@ public class HealthInterventionDialog extends DialogFragment
 
        List<String> mHealthInterventionNames = mHerdDAO.getHealthInterventionNames();
        final Spinner healthInterventionSpinner = view.findViewById(R.id.health_intervention_dialog_intervention_spinner);
+       if(mIsEdting)
+           healthInterventionSpinner.setVisibility(View.GONE);
 
         ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
         healthInterventionSpinner.setAdapter(healthInterventionSpinnerAdapter);
@@ -161,9 +166,22 @@ public class HealthInterventionDialog extends DialogFragment
 
       if(mIsEdting && mHealthInterventionToBeEdited!=null)
       {
+
           nAffectedBabiesTV.setText(String.valueOf(mHealthInterventionToBeEdited.nBabies));
           nAffectedYoungTV.setText(String.valueOf(mHealthInterventionToBeEdited.nYoung));
           nAffectedOldTV.setText(String.valueOf(mHealthInterventionToBeEdited.nOld));
+
+          Button deleteIntervention = view.findViewById(R.id.dialog_health_intervention_delete_button);
+          deleteIntervention.setVisibility(View.VISIBLE);
+
+          deleteIntervention.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  mFragment.deleteHealthIntervention(mPositionToEdit);
+                  //PLEASE NOTE THE FRAGMENT CHECKS IF WE ARE IN EDIT MODE AND SAVES THE CHANGES IN THE DB
+                  dismiss();
+              }
+          });
       }
 
 
@@ -214,10 +232,15 @@ public class HealthInterventionDialog extends DialogFragment
                     healthInterventionForHealthEvent.comments = commentsET.getText().toString();
                 }
 
-               if(!mIsEdting)
-                    mFragment.addHealthIntervention(healthInterventionForHealthEvent);
-               else
-                   mFragment.editHealthInterventionForHealthEvent(mPositionToEdit,nAffectedBabies,nAffectedYoung,nAffectedOld);
+               if(!mIsEdting) {
+                   mFragment.addHealthIntervention(healthInterventionForHealthEvent);
+                   if(mIsEditingInReadOnly)
+                       HerdVisitManager.getInstance().addHealthInterventionToExistingVisit(getContext(),healthInterventionForHealthEvent;
+               }
+
+               else {
+                   mFragment.editHealthInterventionForHealthEvent(mPositionToEdit, nAffectedBabies, nAffectedYoung, nAffectedOld);
+               }
                 dismiss();
             }
         });

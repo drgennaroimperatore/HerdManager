@@ -35,6 +35,7 @@ import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.Signs;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.managers.HerdManager;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.dialogs.BodyConditionDialog;
 import com.ilri.herdmanager.ui.dialogs.HealthInterventionDialog;
 import com.ilri.herdmanager.ui.dialogs.NewDiseaseEventDialog;
@@ -212,7 +213,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                         dialogFragment.show(ft, "dialog");
                     }
 
-                    if(groupPosition==1 ) // health interventions
+                    if(groupPosition==1) // health interventions
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                         HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
@@ -353,7 +354,11 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     public void deleteHealthInterventionForHealthEvent(int pos)
     {
+        if(mEditableInReadOnly)
+          HerdVisitManager.getInstance().deleteHealthInterventionForHealthEventForExistingVisit(getContext(),mAdapter.getHealthInterventionForHealthEvent(pos));
         mAdapter.deleteHealthInterventionForHealthEvent(pos);
+
+
     }
 
     public void expandList(int g)
@@ -379,7 +384,7 @@ public class AddHeardHealthEventFragment extends Fragment {
     }
 
     public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention) { return mAdapter.addHealthIntervention (healthIntervention);}
-    public void deleteHealthIntervention (HealthInterventionForHealthEvent healthIntervention) {mAdapter.deleteHealthIntervention(healthIntervention);}
+    public void deleteHealthIntervention (int pos) {mAdapter.deleteHealthIntervention( pos);}
 
     public void setEditableInReadOnly(boolean editable) {
         mEditableInReadOnly = editable;
@@ -449,8 +454,10 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
         mAdapter.setEditableInReadOnly (editable);
-        if(editable)
+        if(editable) {
             mShowAddSignButton.setVisibility(View.VISIBLE);
+            mShowAddInterventionButton.setVisibility(View.VISIBLE);
+        }
         else
             mShowAddSignButton.setVisibility(View.GONE);
     }

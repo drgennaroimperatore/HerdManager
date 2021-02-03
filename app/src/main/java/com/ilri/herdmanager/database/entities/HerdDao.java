@@ -150,6 +150,9 @@ public interface HerdDao {
    long InsertHealthInterventionForHealthEvent(HealthInterventionForHealthEvent healthInterventionForHealthEvent);
 
    @Delete
+   void DeleteHealthInterventionForHealthEvent(HealthInterventionForHealthEvent healthInterventionForHealthEvent);
+
+   @Delete
     void DeleteSignsForHealthEvent(SignsForHealthEvent signsForHealthEvent);
 
     @Insert

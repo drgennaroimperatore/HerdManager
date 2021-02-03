@@ -434,9 +434,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         return true; // this boolean value is needed for checks
     }
 
-    public void deleteHealthIntervention(HealthInterventionForHealthEvent healthIntervention)
+    public void deleteHealthIntervention(int pos)
     {
-        mHealthIntervention.remove(healthIntervention);
+        mHealthIntervention.remove(pos);
         notifyDataSetChanged();
     }
 
