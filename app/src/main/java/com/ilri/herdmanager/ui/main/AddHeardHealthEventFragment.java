@@ -121,6 +121,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
       final  AddHeardHealthEventFragment f = this;
+        final int hvID = herdVisitID;
 
       /*  mShowAddDiseaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,10 +146,11 @@ public class AddHeardHealthEventFragment extends Fragment {
             }
         });*/
 
+
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(),mHerdID, f);
+                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(),mHerdID, f,hvID,mEditableInReadOnly);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -217,7 +219,7 @@ public class AddHeardHealthEventFragment extends Fragment {
                     {
                         Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                         HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
-                        HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID,f, healthIntervention, childPosition);
+                        HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID,f,hvID,mEditableInReadOnly);
 
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -235,7 +237,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
         });
 
-        final int hvID = herdVisitID;
+
 
         mShowAddSignButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -443,6 +445,22 @@ public class AddHeardHealthEventFragment extends Fragment {
                         ft.addToBackStack(null);
 
                         dialogFragment.show(ft, "dialog");
+                    }
+
+                    if(groupPosition==1) // health intervention
+                    {
+                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                        HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
+                        HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID,f,healthIntervention,childPosition,mEditableInReadOnly);
+
+                        FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                        if (prev != null) {
+                            ft.remove(prev);
+                        }
+                        ft.addToBackStack(null);
+
+                        healthInterventionDialog.show(ft, "dialog");
                     }
 
                     return true;

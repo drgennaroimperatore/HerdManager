@@ -44,15 +44,15 @@ public class HealthInterventionDialog extends DialogFragment
     boolean mIsEdting = false;
     boolean mIsEditingInReadOnly = false;
     int mPositionToEdit =0;
-    int mHerdID = -155;
+    int mHerdVisitID = -155;
     HealthInterventionForHealthEvent mHealthInterventionToBeEdited = null;
 
 
-    public HealthInterventionDialog(Context context, int herdID, AddHeardHealthEventFragment fragment)
+    public HealthInterventionDialog(Context context, int herdID, AddHeardHealthEventFragment fragment, int herdVisitID, boolean editingInReadOnly)
     {
       mContext = context;
       mFragment = fragment;
-      mHerdID = herdID;
+
 
       HerdDao herdDao = HerdDatabase.getInstance(context).getHerdDao();
         ADDBDAO addbdao = ADDB.getInstance(context).getADDBDAO();
@@ -73,9 +73,18 @@ public class HealthInterventionDialog extends DialogFragment
                 mSpecies="GOAT";
                 break;
         }
+
+        mHerdVisitID = herdVisitID;
+        mIsEditingInReadOnly = editingInReadOnly;
+
+
     }
 
-    public HealthInterventionDialog(Context context, int herdID, AddHeardHealthEventFragment fragment, HealthInterventionForHealthEvent healthIntervention, int pos) {
+
+
+    public HealthInterventionDialog(Context context, int herdID,
+                                    AddHeardHealthEventFragment fragment, HealthInterventionForHealthEvent healthIntervention,
+                                    int pos, boolean editingInReadOnly) {
         mContext = context;
         mFragment = fragment;
 
@@ -99,7 +108,10 @@ public class HealthInterventionDialog extends DialogFragment
                 break;
         }
         mIsEdting = true;
-        mHealthInterventionToBeEdited = healthIntervention;
+        mIsEditingInReadOnly = editingInReadOnly;
+       // mHerdVisitID = herdVisitID;
+       mPositionToEdit =pos;
+                mHealthInterventionToBeEdited = healthIntervention;
     }
 
     @Override
@@ -122,7 +134,7 @@ public class HealthInterventionDialog extends DialogFragment
        List<String> mHealthInterventionNames = mHerdDAO.getHealthInterventionNames();
        final Spinner healthInterventionSpinner = view.findViewById(R.id.health_intervention_dialog_intervention_spinner);
        if(mIsEdting)
-           healthInterventionSpinner.setVisibility(View.GONE);
+           healthInterventionSpinner.setVisibility(View.VISIBLE);
 
         ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
         healthInterventionSpinner.setAdapter(healthInterventionSpinnerAdapter);
@@ -186,7 +198,7 @@ public class HealthInterventionDialog extends DialogFragment
 
 
         Button submitButton = view.findViewById(R.id.dialog_health_intervention_submit_button);
-        if(mIsEdting)
+        if(mIsEdting || mIsEditingInReadOnly)
             submitButton.setText("Edit Health Intervention");
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,11 +247,12 @@ public class HealthInterventionDialog extends DialogFragment
                if(!mIsEdting) {
                    mFragment.addHealthIntervention(healthInterventionForHealthEvent);
                    if(mIsEditingInReadOnly)
-                       HerdVisitManager.getInstance().addHealthInterventionToExistingVisit(getContext(),healthInterventionForHealthEvent;
+                       HerdVisitManager.getInstance().addHealthInterventionToExistingVisit(getContext(),healthInterventionForHealthEvent,mHerdVisitID);
                }
-
                else {
-                   mFragment.editHealthInterventionForHealthEvent(mPositionToEdit, nAffectedBabies, nAffectedYoung, nAffectedOld);
+                 HealthInterventionForHealthEvent editee=  mFragment.editHealthInterventionForHealthEvent(mPositionToEdit, nAffectedBabies, nAffectedYoung, nAffectedOld);
+                   if(mIsEditingInReadOnly)
+                       HerdVisitManager.getInstance().editHealthInterventionForExistingVisit(getContext(),editee);
                }
                 dismiss();
             }
