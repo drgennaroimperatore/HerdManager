@@ -189,8 +189,10 @@ public class HealthInterventionDialog extends DialogFragment
           deleteIntervention.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  mFragment.deleteHealthIntervention(mPositionToEdit);
-                  //PLEASE NOTE THE FRAGMENT CHECKS IF WE ARE IN EDIT MODE AND SAVES THE CHANGES IN THE DB
+                 HealthInterventionForHealthEvent h= mFragment.deleteHealthIntervention(mPositionToEdit);
+                 if(mIsEditingInReadOnly)
+                     HerdVisitManager.getInstance().deleteHealthInterventionForHealthEventForExistingVisit(getContext(),h);
+
                   dismiss();
               }
           });
@@ -198,8 +200,12 @@ public class HealthInterventionDialog extends DialogFragment
 
 
         Button submitButton = view.findViewById(R.id.dialog_health_intervention_submit_button);
-        if(mIsEdting || mIsEditingInReadOnly)
+        if(mIsEdting) {
             submitButton.setText("Edit Health Intervention");
+            if(mIsEditingInReadOnly)
+            healthInterventionSpinner.setVisibility(View.GONE);
+            vaccinationSpinners.setVisibility(View.GONE);
+        }
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -386,7 +386,7 @@ public class AddHeardHealthEventFragment extends Fragment {
     }
 
     public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention) { return mAdapter.addHealthIntervention (healthIntervention);}
-    public void deleteHealthIntervention (int pos) {mAdapter.deleteHealthIntervention( pos);}
+    public HealthInterventionForHealthEvent deleteHealthIntervention (int pos) {return mAdapter.deleteHealthIntervention( pos);}
 
     public void setEditableInReadOnly(boolean editable) {
         mEditableInReadOnly = editable;
