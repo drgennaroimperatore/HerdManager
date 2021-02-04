@@ -269,9 +269,9 @@ public class AddHeardHealthEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f);
+                DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f,hvID,mEditableInReadOnly);
                 if(mAdapter.getBodyConditionForHealthEvent().size()>0)
-                    dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f);
+                    dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f,hvID,mEditableInReadOnly);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -354,14 +354,6 @@ public class AddHeardHealthEventFragment extends Fragment {
         return mAdapter.editHealthInterventionForHealthEvent(pos,b,y,o);
     }
 
-    public void deleteHealthInterventionForHealthEvent(int pos)
-    {
-        if(mEditableInReadOnly)
-          HerdVisitManager.getInstance().deleteHealthInterventionForHealthEventForExistingVisit(getContext(),mAdapter.getHealthInterventionForHealthEvent(pos));
-        mAdapter.deleteHealthInterventionForHealthEvent(pos);
-
-
-    }
 
     public void expandList(int g)
     {
@@ -472,11 +464,16 @@ public class AddHeardHealthEventFragment extends Fragment {
 
 
         mAdapter.setEditableInReadOnly (editable);
-        if(editable) {
+        if(editable)
+        {
             mShowAddSignButton.setVisibility(View.VISIBLE);
             mShowAddInterventionButton.setVisibility(View.VISIBLE);
+            mShowEditBodyConditionButton.setVisibility(View.VISIBLE);
         }
-        else
+        else {
             mShowAddSignButton.setVisibility(View.GONE);
+            mShowAddInterventionButton.setVisibility(View.GONE);
+            mShowEditBodyConditionButton.setVisibility(View.GONE);
+        }
     }
 }

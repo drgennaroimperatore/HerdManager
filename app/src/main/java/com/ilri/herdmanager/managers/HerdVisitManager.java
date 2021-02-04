@@ -117,6 +117,18 @@ public class HerdVisitManager {
 
     }
 
+    public void addBodyConditionsToHealthEvent(Context context, List<BodyConditionForHealthEvent> bodyConditionForHealthEvents, int herdVisitID)
+    {
+        HealthEvent healthEvent = HerdDatabase.getInstance(context).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
+        for(BodyConditionForHealthEvent bc: bodyConditionForHealthEvents)
+        {
+            bc.healthEventID = healthEvent.ID;
+            HerdDatabase.getInstance(context).getHerdDao().InsertBodyConditionForHealthEvent(bc);
+        }
+
+
+    }
+
     public void editHealthInterventionForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
     {
         HerdDatabase.getInstance(context).getHerdDao().UpdateHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
@@ -126,6 +138,13 @@ public class HerdVisitManager {
     {
         HerdDatabase.getInstance(context).getHerdDao().DeleteHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
     }
+
+    public void editBodyConditionForHealthEventForExistingVisit(Context context, BodyConditionForHealthEvent bche)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().UpdateBodyConditionForHealthEvent(bche);
+    }
+
+
 
 
 

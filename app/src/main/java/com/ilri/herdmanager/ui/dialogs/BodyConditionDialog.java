@@ -22,9 +22,11 @@ import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.BodyCondition;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
+import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.customui.BodyConditionDialogRowContainer;
 import com.ilri.herdmanager.ui.main.AddHeardHealthEventFragment;
 
@@ -38,6 +40,8 @@ public class BodyConditionDialog extends DialogFragment {
     private ADDBDAO addbdao;
     private HerdDao herdDao;
     private int herdID;
+    private int mHerdVisitID =-155;
+    private boolean mIsEditingInReadOnly = false;
     private List<String []> mRowValues = new ArrayList<>();
     AddHeardHealthEventFragment fragment;
 
@@ -46,12 +50,17 @@ public class BodyConditionDialog extends DialogFragment {
     private TableLayout mTableLayout;
 
 
-    public BodyConditionDialog(@NonNull Context context, int herdID, AddHeardHealthEventFragment adapter)
+    public BodyConditionDialog(@NonNull Context context,
+                               int herdID,
+                               AddHeardHealthEventFragment adapter,
+                               int herdVisitID, boolean isEditingInReadOnly)
     {
 
         mContext = context;
         this.herdID = herdID;
        fragment = adapter;
+       mHerdVisitID = herdVisitID;
+       mIsEditingInReadOnly = isEditingInReadOnly;
 
     }
 
@@ -112,7 +121,28 @@ public class BodyConditionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
 
-            fragment.editBodyConditionList((ArrayList<BodyConditionForHealthEvent>) getValuesFromDialog());
+                ArrayList<BodyConditionForHealthEvent> newBodyConditions = (ArrayList<BodyConditionForHealthEvent>) getValuesFromDialog();
+                if(mIsEditingInReadOnly) {
+                    HealthEvent hevent = herdDao.getHealthEventForVisit(mHerdVisitID).get(0);
+                    List<BodyConditionForHealthEvent> oldBodyConditions = herdDao.getBodyConditionForHealthEvent(hevent.ID);
+                    if(oldBodyConditions.size()==0) // if body conditions have not been added before we need to add them
+                    {
+                      HerdVisitManager.getInstance().addBodyConditionsToHealthEvent(getContext(),newBodyConditions, mHerdVisitID);
+                    }
+                    else
+                        {
+                        for (int i = 0; i < oldBodyConditions.size(); i++) {
+                            BodyConditionForHealthEvent old = oldBodyConditions.get(i);
+                            BodyConditionForHealthEvent newBc = newBodyConditions.get(i);
+                            newBc.ID = old.ID; // reset the ID which gets lost during dialog display...
+                            newBc.healthEventID = old.healthEventID; // do the same for the health event id
+                            if (!old.equals(newBc)) // update the database if a change in the body condition list is detected
+                                HerdVisitManager.getInstance().editBodyConditionForHealthEventForExistingVisit(getContext(), newBc);
+
+                        }
+                    }
+                }
+            fragment.editBodyConditionList(newBodyConditions);
                 dismiss();
             }
         });
@@ -156,8 +186,6 @@ public class BodyConditionDialog extends DialogFragment {
 
     }
 
-
-
     public List<BodyConditionForHealthEvent> getValuesFromDialog()
     {
         List<BodyConditionForHealthEvent> vals = new ArrayList<>();
@@ -169,6 +197,5 @@ public class BodyConditionDialog extends DialogFragment {
         }
        return vals;
     }
-
 
 }
