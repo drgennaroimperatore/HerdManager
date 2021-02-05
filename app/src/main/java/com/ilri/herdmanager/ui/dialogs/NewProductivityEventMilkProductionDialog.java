@@ -16,21 +16,25 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.adapters.ProductivityEventExpandableListAdapter;
+import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 
 public class NewProductivityEventMilkProductionDialog extends DialogFragment {
 
     Context mContext;
     ProductivityEventExpandableListAdapter mAdapter;
+    boolean mIsEditingInReadOnly = false;
+    int mHerdVisitID =-155;
 
 
-   public NewProductivityEventMilkProductionDialog(Context context, ProductivityEventExpandableListAdapter adapter)
+   public NewProductivityEventMilkProductionDialog(Context context, ProductivityEventExpandableListAdapter adapter,
+                                                   int herdVisitID, boolean isEditingInReadOnly)
     {
         mContext = context;
         mAdapter = adapter;
-
-
-
+        mHerdVisitID = herdVisitID;
+        mIsEditingInReadOnly = isEditingInReadOnly;
     }
 
 
@@ -84,6 +88,9 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
                    mpe.litresOfMilkPerDay= litresPerDay;
                    mpe.numberOfLactatingAnimals= lactatingAnimals;
                    mAdapter.setMilkProduction(mpe);
+
+                   if(mIsEditingInReadOnly)
+                       HerdVisitManager.getInstance().editMilkProductionForExistingProductivityEvent(getContext(),mpe, mHerdVisitID);
 
                    dismiss();
 

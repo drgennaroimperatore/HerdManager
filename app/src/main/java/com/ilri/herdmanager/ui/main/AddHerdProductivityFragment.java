@@ -35,6 +35,8 @@ public class AddHerdProductivityFragment extends Fragment {
     private ExpandableListView mExpandableListView;
     private ProductivityEventExpandableListAdapter mAdapter;
     private boolean mEditableInReadOnly;
+    Button mEditMilkProdutionButton;
+    Button mEditBirthsButton;
 
     public static AddHerdProductivityFragment newInstance() {
         return new AddHerdProductivityFragment();
@@ -60,20 +62,21 @@ public class AddHerdProductivityFragment extends Fragment {
         }
 
 
+        final int hvID = herdVisitID;
         mExpandableListView = view.findViewById(R.id.productivity_event_expandable_list_view);
         mAdapter = new ProductivityEventExpandableListAdapter(getContext());
         mExpandableListView.setAdapter(mAdapter);
         mExpandableListView.expandGroup(0);
         mExpandableListView.expandGroup(1);
 
-        Button editMilkProdutionButton = view.findViewById(R.id.button_add_herd_productivity_milk_production);
-        Button editBirthsButton = view.findViewById(R.id.button_add_herd_productivity_births);
+       mEditMilkProdutionButton = view.findViewById(R.id.button_add_herd_productivity_milk_production);
+       mEditBirthsButton = view.findViewById(R.id.button_add_herd_productivity_births);
 
-        editMilkProdutionButton.setOnClickListener(new View.OnClickListener() {
+        mEditMilkProdutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                DialogFragment dialogFragment = new NewProductivityEventMilkProductionDialog(getContext(), mAdapter);
+                DialogFragment dialogFragment = new NewProductivityEventMilkProductionDialog(getContext(), mAdapter,hvID, mEditableInReadOnly);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -85,14 +88,14 @@ public class AddHerdProductivityFragment extends Fragment {
             }
         });
 
-        editBirthsButton.setOnClickListener(new View.OnClickListener() {
+        mEditBirthsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 BirthsForProductivityEvent bpe = mAdapter.getBirths();
                 int nBirths = bpe.nOfBirths;
                 int nGestating = bpe.nOfGestatingAnimals;
-                DialogFragment dialogFragment = new NewProductivityEventBirthsDialog(getContext(), mAdapter,nBirths,nGestating);
+                DialogFragment dialogFragment = new NewProductivityEventBirthsDialog(getContext(), mAdapter,nBirths,nGestating,hvID, mEditableInReadOnly);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -109,8 +112,8 @@ public class AddHerdProductivityFragment extends Fragment {
         {
 
 
-            editBirthsButton.setVisibility(View.INVISIBLE);
-            editMilkProdutionButton.setVisibility(View.INVISIBLE);
+            mEditBirthsButton.setVisibility(View.INVISIBLE);
+            mEditMilkProdutionButton.setVisibility(View.INVISIBLE);
 
             ProductivityEvent pv = HerdDatabase.getInstance(getContext()).getHerdDao().getProductivityEventForVisit(herdVisitID).get(0);
             BirthsForProductivityEvent bpe = HerdDatabase.getInstance(getContext()).getHerdDao().getBirthsForProductivityEvent(pv.ID).get(0);
@@ -143,5 +146,17 @@ public class AddHerdProductivityFragment extends Fragment {
 
     public void setEditableInReadOnly(boolean editable) {
         mEditableInReadOnly = editable;
+
+        if(mEditableInReadOnly)
+        {
+           mEditBirthsButton.setVisibility(View.VISIBLE);
+           mEditMilkProdutionButton.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mEditBirthsButton.setVisibility(View.GONE);
+            mEditMilkProdutionButton.setVisibility(View.GONE);
+        }
+
     }
 }

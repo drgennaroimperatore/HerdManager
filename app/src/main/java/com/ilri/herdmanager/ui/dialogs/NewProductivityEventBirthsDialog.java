@@ -18,6 +18,7 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.adapters.ProductivityEventExpandableListAdapter;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 
 public class NewProductivityEventBirthsDialog extends DialogFragment {
 
@@ -25,13 +26,20 @@ public class NewProductivityEventBirthsDialog extends DialogFragment {
     ProductivityEventExpandableListAdapter mAdapter;
     int mnBirths =0;
     int mnGestating =0;
+    boolean mIsEditingInReadOnly=false;
+    int mHerdVisitID=-155;
 
-    public NewProductivityEventBirthsDialog(Context context, ProductivityEventExpandableListAdapter adapter, int births, int gestating) {
+    public NewProductivityEventBirthsDialog(Context context,
+                                            ProductivityEventExpandableListAdapter adapter,
+                                            int births, int gestating, int herdVisitID, boolean isEditingInReadOnly)
+    {
         super();
         mContext= context;
         mAdapter= adapter;
        mnBirths = births;
        mnGestating = gestating;
+       mHerdVisitID = herdVisitID;
+       mIsEditingInReadOnly = isEditingInReadOnly;
     }
 
     @Nullable
@@ -81,6 +89,10 @@ public class NewProductivityEventBirthsDialog extends DialogFragment {
                     bpe.nOfBirths = births;
                     bpe.nOfGestatingAnimals = gestatingAnimals;
                     mAdapter.setBirths(bpe);
+
+                    if(mIsEditingInReadOnly)
+                        HerdVisitManager.getInstance().editBirthsForExistingProductivityEvent(getContext(), bpe,mHerdVisitID);
+
                     dismiss();
                 }
 

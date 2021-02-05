@@ -126,7 +126,6 @@ public class HerdVisitManager {
             HerdDatabase.getInstance(context).getHerdDao().InsertBodyConditionForHealthEvent(bc);
         }
 
-
     }
 
     public void editHealthInterventionForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
@@ -146,8 +145,6 @@ public class HerdVisitManager {
 
 
 
-
-
     private long createProductivityEventForVisit (Context context, int herdVisitID, MilkProductionForProductivityEvent milkProductionForProductivityEvent, BirthsForProductivityEvent birthsForProductivityEvent)
     {
         ProductivityEvent productivityEvent = new ProductivityEvent();
@@ -156,17 +153,60 @@ public class HerdVisitManager {
         long productivityEventID = HerdDatabase.getInstance(context).getHerdDao().InsertProductivityEvent(productivityEvent);
 
         milkProductionForProductivityEvent.productivityEventID = (int)productivityEventID;
-        HerdDatabase.getInstance(context).getHerdDao().InsertMilkProductionForProductivityEvent(milkProductionForProductivityEvent);
+
+        if(HerdDatabase.getInstance(context).getHerdDao().getMilkProductionForProductivityEvent((int)productivityEventID).size()==0)
+            //we need this line to ensure no more than one is created....
+            HerdDatabase.getInstance(context).getHerdDao().InsertMilkProductionForProductivityEvent(milkProductionForProductivityEvent);
+
         birthsForProductivityEvent.productivityEventID = (int) productivityEventID;
-        HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(birthsForProductivityEvent);
+        if(HerdDatabase.getInstance(context).getHerdDao().getBirthsForProductivityEvent((int)productivityEventID).size()==0)
+            HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(birthsForProductivityEvent);
 
         return productivityEventID;
     }
 
-    private void editProductivityEventForVisit()
+    private void editProductivityEventForExistingHealthEvent()
     {
 
     }
+
+
+    public void editMilkProductionForExistingProductivityEvent(Context context, MilkProductionForProductivityEvent mpe, int herdVisitID)
+    {
+        ProductivityEvent productivityEvent = HerdDatabase.getInstance(context).getHerdDao().getProductivityEventForVisit(herdVisitID).get(0);
+        if(HerdDatabase.getInstance(context).getHerdDao().getMilkProductionForProductivityEvent(productivityEvent.ID).size()==0)
+        {
+            mpe.productivityEventID = productivityEvent.ID;
+            mpe.ID = (int)HerdDatabase.getInstance(context).getHerdDao().InsertMilkProductionForProductivityEvent(mpe);
+        }
+        else {
+          MilkProductionForProductivityEvent oldMpe=  HerdDatabase.getInstance(context).getHerdDao().getMilkProductionForProductivityEvent(productivityEvent.ID).get(0);
+          mpe.ID = oldMpe.ID;
+          mpe.productivityEventID = oldMpe.productivityEventID;
+          HerdDatabase.getInstance(context).getHerdDao().UpdateMilkForProductivityEvent(mpe);
+
+        }
+
+    }
+
+    public void editBirthsForExistingProductivityEvent(Context context, BirthsForProductivityEvent bpe, int herdVisitID)
+    {
+        ProductivityEvent productivityEvent = HerdDatabase.getInstance(context).getHerdDao().getProductivityEventForVisit(herdVisitID).get(0);
+        if(HerdDatabase.getInstance(context).getHerdDao().getBirthsForProductivityEvent(herdVisitID).size()==0)
+        {
+            bpe.ID = (int)HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(bpe);
+            bpe.productivityEventID = (int)productivityEvent.ID;
+        }
+
+        else {
+           BirthsForProductivityEvent oldBpe = HerdDatabase.getInstance(context).getHerdDao().getBirthsForProductivityEvent((int)productivityEvent.ID).get(0);
+           bpe.ID = oldBpe.ID;
+           bpe.productivityEventID =oldBpe.productivityEventID;
+           HerdDatabase.getInstance(context).getHerdDao().UpdateBirthsForProductivityEvent(bpe);
+        }
+    }
+
+
 
     public long createDynamicEventForVisit(Context context, int herdVisitID, AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deathsForDynamicEvent)
     {
