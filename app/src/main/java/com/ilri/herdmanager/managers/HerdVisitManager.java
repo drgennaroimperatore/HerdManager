@@ -234,6 +234,11 @@ public class HerdVisitManager {
 
     }
 
+    public void editAnimalMovementsForExistingDynamicEvent(Context context, AnimalMovementsForDynamicEvent amde)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().UpdateAnimalMovementsForDynamicEvent(amde);
+    }
+
     public void addVisitToHerd(Context context,
                                int herdID,
                                Date whenitoccured,

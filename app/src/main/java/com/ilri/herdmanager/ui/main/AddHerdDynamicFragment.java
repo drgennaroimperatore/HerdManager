@@ -77,7 +77,7 @@ public class AddHerdDynamicFragment extends Fragment {
         mAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new NewDynamicEventAnimalMovementDialog(getContext(), mAdapter);
+                DialogFragment dialogFragment = new NewDynamicEventAnimalMovementDialog(getContext(), mAdapter, mEditableInReadOnly);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -210,7 +210,18 @@ public class AddHerdDynamicFragment extends Fragment {
     }
 
 
-    public void setEditableInReadOnly(boolean editable) {
+    public void setEditableInReadOnly(boolean editable)
+    {
         mEditableInReadOnly = editable;
+
+        if(mEditableInReadOnly)
+        {
+         mAddEventButton.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            mAddDeathButton.setVisibility(View.GONE);
+
+        }
     }
 }

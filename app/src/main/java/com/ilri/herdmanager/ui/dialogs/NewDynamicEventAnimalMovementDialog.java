@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.adapters.DynamicEventExpandableListAdapter;
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 
 public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
 
@@ -24,11 +25,14 @@ public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
     EditText mAnimalsLostBabiesET, mAnimalsLostYoungET, mAnimalsLostOldET;
     DynamicEventExpandableListAdapter mAdapter;
     AnimalMovementsForDynamicEvent animalMovementEvent = new AnimalMovementsForDynamicEvent();
+    boolean mIsEditingInReadOnly = false;
 
-    public NewDynamicEventAnimalMovementDialog(Context context, DynamicEventExpandableListAdapter adapter) {
+    public NewDynamicEventAnimalMovementDialog(Context context,
+                                               DynamicEventExpandableListAdapter adapter,
+                                               boolean isEditingInReadOnly) {
 
         mAdapter = adapter;
-
+        mIsEditingInReadOnly = isEditingInReadOnly;
     }
 
     @Nullable
@@ -52,7 +56,7 @@ public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
         mAnimalsLostYoungET = view.findViewById(R.id.editText_add_dynamic_event_young_animals_lost);
         mAnimalsLostOldET = view.findViewById(R.id.editText_add_dynamic_event_old_animals_lost);
 
-        AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent = mAdapter.getAnimalMovements();
+        final AnimalMovementsForDynamicEvent animalMovementsForDynamicEvent = mAdapter.getAnimalMovements();
         int soldBabies = animalMovementsForDynamicEvent.soldBabies;
         int soldYoung = animalMovementsForDynamicEvent.soldYoung;
         int soldOld = animalMovementsForDynamicEvent.soldOld;
@@ -113,8 +117,6 @@ public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
                     mAnimalsLostOldET.setText("0");
 
 
-
-
                 animalMovementEvent.boughtBabies = Integer.valueOf( mAnmialsBoughtBabiesET.getText().toString());
                 animalMovementEvent.boughtYoung = Integer.valueOf( mAnimalsBoughtYoungET.getText().toString());
                 animalMovementEvent.boughtOld = Integer.valueOf( mAnimalsBoughtOldET.getText().toString());
@@ -129,6 +131,13 @@ public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
 
 
                 mAdapter.editAnimalMovements(animalMovementEvent);
+
+                if(mIsEditingInReadOnly) {
+                    animalMovementEvent.ID = animalMovementsForDynamicEvent.ID;
+                    animalMovementEvent.dynamicEventID = animalMovementsForDynamicEvent.dynamicEventID;
+                    HerdVisitManager.getInstance().editAnimalMovementsForExistingDynamicEvent
+                            (getContext(), animalMovementEvent);
+                }
 
                 dismiss();
 
