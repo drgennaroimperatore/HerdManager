@@ -13,6 +13,7 @@ import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HealthEvent;
 import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
+import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
@@ -20,6 +21,7 @@ import com.ilri.herdmanager.database.entities.ProductivityEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
 
+import java.net.ConnectException;
 import java.util.Date;
 import java.util.List;
 
@@ -94,6 +96,8 @@ public class HerdVisitManager {
 
     public void editSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
     {
+      //  HealthEvent associatedHealthEvent =   HerdDatabase.getInstance(context).getHerdDao().gethea
+        signsForHealthEvent.syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
         HerdDatabase.getInstance(context).getHerdDao().UpdateSignForHealthEvent(signsForHealthEvent);
     }
 
@@ -291,4 +295,62 @@ public class HerdVisitManager {
     {
         return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdID(herdID);
     }
+
+    private void updateSyncStatusOfHealthEvent(Context context, int herdVisitID)
+    {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
+        Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
+
+        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerd(herd);
+        }
+        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerdVisit(herdVisit);
+        }
+
+        HealthEvent healthEvent = dao.getHealthEventForVisit(herdVisitID).get(0);
+        if(healthEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            healthEvent.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHealthEvent(healthEvent);
+        }
+    }
+
+    private void updateSyncStatusOfProductivityElement(Context context,  int herdVisitID)
+    {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
+        Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
+
+        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerd(herd);
+        }
+        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerdVisit(herdVisit);
+        }
+
+    }
+
+    private void updateSyncStatusOfDynamicEvent(Context context, int herdVisitID)
+    {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
+        Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
+
+        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerd(herd);
+        }
+        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+            herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerdVisit(herdVisit);
+        }
+
+    }
+
+
 }
