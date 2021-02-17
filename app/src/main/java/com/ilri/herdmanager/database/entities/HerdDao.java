@@ -47,6 +47,15 @@ public interface HerdDao {
     @Query("SELECT * FROM HealthEvent WHERE HealthEvent.herdVisitID =:herdVisitID")
     List<HealthEvent> getHealthEventForVisit(int herdVisitID);
 
+    @Query("SELECT * FROM HealthEvent WHERE ID=:healthEventID LIMIT 1")
+    HealthEvent getHealthEventByID(int healthEventID);
+
+    @Query("SELECT * FROM DynamicEvent WHERE ID=:dynamicEventID LIMIT 1")
+    DynamicEvent getDynamicEventByID(int dynamicEventID);
+
+    @Query("SELECT * FROM ProductivityEvent WHERE ID=:productivityEventID")
+    ProductivityEvent getProductivityEventByID(int productivityEventID);
+
     @Query("SELECT * FROM DiseasesForHealthEvent WHERE DiseasesForHealthEvent.healthEventID= :healthEventID")
     List<DiseasesForHealthEvent> getDiseasesForHealthEvent(int healthEventID);
 
@@ -229,6 +238,7 @@ public interface HerdDao {
 
     @Update
     int UpdateDeathsForDynamicEvent (DeathsForDynamicEvent dde);
+
 
 
 }

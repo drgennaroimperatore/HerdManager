@@ -111,6 +111,7 @@ public class HerdVisitManager {
        HealthEvent healthEvent = HerdDatabase.getInstance(context).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
        newSign.healthEventID = healthEvent.ID;
        HerdDatabase.getInstance(context).getHerdDao().InsertSignForHealthEvent(newSign);
+       updateSyncStatusOfHealthEvent(context,healthEvent.ID);
     }
 
     public void addHealthInterventionToExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent, int herdVisitID)
@@ -118,6 +119,7 @@ public class HerdVisitManager {
         HealthEvent healthEvent = HerdDatabase.getInstance(context).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
         healthInterventionForHealthEvent.healthEventID = healthEvent.ID;
         HerdDatabase.getInstance(context).getHerdDao().InsertHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
+        updateSyncStatusOfHealthEvent(context,healthInterventionForHealthEvent.healthEventID);
 
     }
 
@@ -135,16 +137,19 @@ public class HerdVisitManager {
     public void editHealthInterventionForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
     {
         HerdDatabase.getInstance(context).getHerdDao().UpdateHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
+        updateSyncStatusOfHealthEvent(context, healthInterventionForHealthEvent.healthEventID);
     }
 
     public void deleteHealthInterventionForHealthEventForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
     {
         HerdDatabase.getInstance(context).getHerdDao().DeleteHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
+        updateSyncStatusOfHealthEvent(context,healthInterventionForHealthEvent.healthEventID);
     }
 
     public void editBodyConditionForHealthEventForExistingVisit(Context context, BodyConditionForHealthEvent bche)
     {
         HerdDatabase.getInstance(context).getHerdDao().UpdateBodyConditionForHealthEvent(bche);
+        updateSyncStatusOfHealthEvent(context,bche.healthEventID);
     }
 
 
@@ -188,8 +193,8 @@ public class HerdVisitManager {
           mpe.ID = oldMpe.ID;
           mpe.productivityEventID = oldMpe.productivityEventID;
           HerdDatabase.getInstance(context).getHerdDao().UpdateMilkForProductivityEvent(mpe);
-
         }
+        updateSyncStatusOfProductivityElement(context, productivityEvent.ID);
 
     }
 
@@ -208,6 +213,7 @@ public class HerdVisitManager {
            bpe.productivityEventID =oldBpe.productivityEventID;
            HerdDatabase.getInstance(context).getHerdDao().UpdateBirthsForProductivityEvent(bpe);
         }
+        updateSyncStatusOfProductivityElement(context,productivityEvent.ID);
     }
 
 
@@ -296,59 +302,88 @@ public class HerdVisitManager {
         return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdID(herdID);
     }
 
-    private void updateSyncStatusOfHealthEvent(Context context, int herdVisitID)
+    private void updateSyncStatusOfHealthEvent(Context context, int healthEventID)
     {
         HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
-        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
-        Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
-
-        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
-            herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
-            dao.UpdateHerd(herd);
-        }
-        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
-            herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
-            dao.UpdateHerdVisit(herdVisit);
-        }
-
-        HealthEvent healthEvent = dao.getHealthEventForVisit(herdVisitID).get(0);
-        if(healthEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+        HealthEvent healthEvent = dao.getHealthEventByID(healthEventID);
+        if(healthEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             healthEvent.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             dao.UpdateHealthEvent(healthEvent);
         }
-    }
-
-    private void updateSyncStatusOfProductivityElement(Context context,  int herdVisitID)
-    {
-        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
-        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
+        HerdVisit herdVisit = dao.getHerdVisitByID(healthEvent.herdVisitID).get(0);
         Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
+        Farmer affectedFarmer = dao.getFarmerByID(herd.farmerID).get(0);
 
-        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+
+        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             dao.UpdateHerd(herd);
         }
-        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
+            herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerdVisit(herdVisit);
+        }
+
+
+    }
+
+    private void updateSyncStatusOfProductivityElement(Context context,  int productivityEventID)
+    {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        ProductivityEvent productivityEvent = dao.getProductivityEventByID(productivityEventID);
+        if(productivityEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+        {
+            productivityEvent.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateProductivityEvent(productivityEvent);
+        }
+
+        HerdVisit herdVisit = dao.getHerdVisitByID(productivityEvent.HerdVisitID).get(0);
+        Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
+
+
+        Farmer affectedFarmer = dao.getFarmerByID(herd.farmerID).get(0);
+
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+
+        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
+            herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateHerd(herd);
+        }
+        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             dao.UpdateHerdVisit(herdVisit);
         }
 
     }
 
-    private void updateSyncStatusOfDynamicEvent(Context context, int herdVisitID)
+    private void updateSyncStatusOfDynamicEvent(Context context, int dynamicEventID)
     {
         HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
-        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
+        DynamicEvent dynamicEvent = dao.getDynamicEventByID(dynamicEventID);
+        if(dynamicEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+        {
+            dynamicEvent.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateDynamicEvent(dynamicEvent);
+        }
+        HerdVisit herdVisit = dao.getHerdVisitByID(dynamicEvent.herdVisitID).get(0);
         Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
+        Farmer affectedFarmer = dao.getFarmerByID(herd.farmerID).get(0);
 
-        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+
+        if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             dao.UpdateHerd(herd);
         }
-        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED)) {
+        if(herdVisit.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herdVisit.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             dao.UpdateHerdVisit(herdVisit);
         }
+
 
     }
 
