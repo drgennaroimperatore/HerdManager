@@ -97,8 +97,10 @@ public class HerdVisitManager {
     public void editSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
     {
       //  HealthEvent associatedHealthEvent =   HerdDatabase.getInstance(context).getHerdDao().gethea
-        signsForHealthEvent.syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+        if(signsForHealthEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+            signsForHealthEvent.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
         HerdDatabase.getInstance(context).getHerdDao().UpdateSignForHealthEvent(signsForHealthEvent);
+        updateSyncStatusOfHealthEvent(context,signsForHealthEvent.healthEventID);
     }
 
     public void deleteSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
@@ -136,6 +138,9 @@ public class HerdVisitManager {
 
     public void editHealthInterventionForExistingVisit(Context context, HealthInterventionForHealthEvent healthInterventionForHealthEvent)
     {
+        if(healthInterventionForHealthEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+          healthInterventionForHealthEvent.syncStatus =SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+
         HerdDatabase.getInstance(context).getHerdDao().UpdateHealthInterventionForHealthEvent(healthInterventionForHealthEvent);
         updateSyncStatusOfHealthEvent(context, healthInterventionForHealthEvent.healthEventID);
     }
@@ -314,8 +319,10 @@ public class HerdVisitManager {
         Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
         Farmer affectedFarmer = dao.getFarmerByID(herd.farmerID).get(0);
 
-        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateFarmer(affectedFarmer);
+        }
 
         if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
@@ -345,8 +352,11 @@ public class HerdVisitManager {
 
         Farmer affectedFarmer = dao.getFarmerByID(herd.farmerID).get(0);
 
-        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateFarmer(affectedFarmer);
+        }
 
         if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
@@ -372,8 +382,10 @@ public class HerdVisitManager {
         Herd herd = dao.getHerdByID(herdVisit.HerdID).get(0);
         Farmer affectedFarmer = dao.getFarmerByID(herd.farmerID).get(0);
 
-        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+        if(affectedFarmer.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             affectedFarmer.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            dao.UpdateFarmer(affectedFarmer);
+        }
 
         if(herd.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString())) {
             herd.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();

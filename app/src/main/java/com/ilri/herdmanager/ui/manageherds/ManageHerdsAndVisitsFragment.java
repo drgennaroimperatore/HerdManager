@@ -23,6 +23,7 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
 
     private ManageHerdsAndVisitsViewModel manageHerdsAndVisitsViewModel;
     private ExpandableListView mManageHerdsAndVisitsExpandableListView;
+    private HerdsAndVisitsListExpandableListAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mManageHerdsAndVisitsExpandableListView = view.findViewById(R.id.herds_and_visits_expandableListView);
-        final HerdsAndVisitsListExpandableListAdapter adapter = new HerdsAndVisitsListExpandableListAdapter(getContext(), getFragmentManager());
+        adapter = new HerdsAndVisitsListExpandableListAdapter(getContext(), getFragmentManager());
         mManageHerdsAndVisitsExpandableListView.setAdapter(adapter);
         Button searchFarmerButton =  view.findViewById(R.id.fragment_manage_herds_visits_search_farner_button);
         final Button resetSearchButton = view.findViewById(R.id.fragment_manage_herds_visits_reset_search_farmer_button);
@@ -75,5 +76,11 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
                 resetSearchButton.setVisibility(View.INVISIBLE);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+      adapter.notifyDataSetChanged();
     }
 }
