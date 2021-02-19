@@ -197,6 +197,8 @@ public class HerdVisitManager {
           MilkProductionForProductivityEvent oldMpe=  HerdDatabase.getInstance(context).getHerdDao().getMilkProductionForProductivityEvent(productivityEvent.ID).get(0);
           mpe.ID = oldMpe.ID;
           mpe.productivityEventID = oldMpe.productivityEventID;
+          if(mpe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+              mpe.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
           HerdDatabase.getInstance(context).getHerdDao().UpdateMilkForProductivityEvent(mpe);
         }
         updateSyncStatusOfProductivityElement(context, productivityEvent.ID);
@@ -215,8 +217,12 @@ public class HerdVisitManager {
         else {
            BirthsForProductivityEvent oldBpe = HerdDatabase.getInstance(context).getHerdDao().getBirthsForProductivityEvent((int)productivityEvent.ID).get(0);
            bpe.ID = oldBpe.ID;
+           bpe.syncStatus = oldBpe.syncStatus;
            bpe.productivityEventID =oldBpe.productivityEventID;
-           HerdDatabase.getInstance(context).getHerdDao().UpdateBirthsForProductivityEvent(bpe);
+
+           if(bpe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+               bpe.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            HerdDatabase.getInstance(context).getHerdDao().UpdateBirthsForProductivityEvent(bpe);
         }
         updateSyncStatusOfProductivityElement(context,productivityEvent.ID);
     }
