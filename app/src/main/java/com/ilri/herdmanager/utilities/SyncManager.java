@@ -235,7 +235,7 @@ class SyncManager {
             bcheParams.put("ID",bche.serverID);
         bcheParams.put("bodyConditionID",bche.bodyConditionID);
         bcheParams.put("healthEventID",healthEventID);
-        bcheParams.put("numberOfAffectedBabies",bche.nAffectedAdult);
+        bcheParams.put("numberOfAffectedAdult",bche.nAffectedAdult);
         bcheParams.put("numberOfAffectedYoung",bche.nAffectedYoung);
         bcheParams.put("numberOfAffectedBabies",bche.nAffectedBabies);
 

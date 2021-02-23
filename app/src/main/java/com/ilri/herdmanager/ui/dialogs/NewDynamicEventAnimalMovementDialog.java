@@ -134,7 +134,9 @@ public class NewDynamicEventAnimalMovementDialog extends DialogFragment {
 
                 if(mIsEditingInReadOnly) {
                     animalMovementEvent.ID = animalMovementsForDynamicEvent.ID;
+                    animalMovementEvent.serverID = animalMovementsForDynamicEvent.serverID;
                     animalMovementEvent.dynamicEventID = animalMovementsForDynamicEvent.dynamicEventID;
+                    animalMovementEvent.syncStatus = animalMovementsForDynamicEvent.syncStatus;
                     HerdVisitManager.getInstance().editAnimalMovementsForExistingDynamicEvent
                             (getContext(), animalMovementEvent);
                 }

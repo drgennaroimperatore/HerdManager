@@ -212,6 +212,7 @@ public class HerdVisitManager {
         {
             bpe.ID = (int)HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(bpe);
             bpe.productivityEventID = (int)productivityEvent.ID;
+            bpe.syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
         }
 
         else {
@@ -258,6 +259,13 @@ public class HerdVisitManager {
     public void editAnimalMovementsForExistingDynamicEvent(Context context, AnimalMovementsForDynamicEvent amde)
     {
         HerdDatabase.getInstance(context).getHerdDao().UpdateAnimalMovementsForDynamicEvent(amde);
+        if(amde.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+        {
+            amde.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            HerdDatabase.getInstance(context).getHerdDao().UpdateAnimalMovementsForDynamicEvent(amde);
+        }
+        updateSyncStatusOfDynamicEvent(context,amde.dynamicEventID);
+
     }
 
     public void addVisitToHerd(Context context,
