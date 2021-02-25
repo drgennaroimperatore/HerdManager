@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -40,10 +41,11 @@ public class NewCaseActivity extends AppCompatActivity {
 
     Button mUseNewFarmer, mUseExistingFarmer;
     RadioGroup mSpeciesRadioGroup;
-    TextView  mHerdSizeDateTextView, mAssignedFarmerStatusTextView;
+    //TextView  mHerdSizeDateTextView, mAssignedFarmerStatusTextView;
     EditText mHerdInsertionDateEditText;
     boolean mIsFarmerAssigned = false;
     Farmer mAssignedFarmer;
+    ImageView mAssignedFarmerStatusImgView;
 
 
     @Override
@@ -56,7 +58,7 @@ public class NewCaseActivity extends AppCompatActivity {
         final NewCaseActivity a = this;
 
         HerdDao hd = HerdDatabase.getInstance(this).getHerdDao();
-       List<Herd> test = hd.getAllHerds();
+     //  List<Herd> test = hd.getAllHerds();
        List<Farmer> testF = hd.getAllFarmers();
 
         mUseNewFarmer = findViewById(R.id.add_new_farmer_button);
@@ -92,7 +94,8 @@ public class NewCaseActivity extends AppCompatActivity {
         });*/
 
        // mHerdSizeDateTextView = findViewById(R.id.new_herd_activity_textview_date_of_insertion_heading);
-        mAssignedFarmerStatusTextView = findViewById(R.id.new_case_textview_farmer_assignment_status);
+      //  mAssignedFarmerStatusTextView = findViewById(R.id.new_case_textview_farmer_assignment_status);
+        mAssignedFarmerStatusImgView = findViewById(R.id.new_case_textview_farmer_assignment_status_img);
 
 
 
@@ -226,8 +229,9 @@ public class NewCaseActivity extends AppCompatActivity {
     {
         mAssignedFarmer = farmer;
         mIsFarmerAssigned = true;
-        mAssignedFarmerStatusTextView.setTextColor(getResources().getColor(R.color.green));
-        mAssignedFarmerStatusTextView.setText("Farmer Assigned");
+       // mAssignedFarmerStatusTextView.setTextColor(getResources().getColor(R.color.green));
+        mAssignedFarmerStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
+       // mAssignedFarmerStatusTextView.setText("Farmer Assigned");
 
 
     }

@@ -27,28 +27,26 @@
             android:text="Add Disease"
             android:textColor="@color/black" />-->
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
         <Button
             android:id="@+id/health_event_show_sign_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           android:layout_marginRight="10dp"
-            android:background="@color/colorPrimary"
-            android:text="Add Sign"
-            android:textColor="@color/black" />
-
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="0.3"
+            style="@style/AppTheme.Button"
+            android:text="Add Sign" />
         <Button
             android:id="@+id/health_event_show_body_condition_dialog"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="@dimen/appbar_padding"
-            android:layout_marginBottom="24dp"
-            android:background="@color/colorPrimary"
+            android:layout_weight="0.7"
             android:text="Edit Body Condition"
-            android:textColor="@color/black" />
-
-
+            style="@style/AppTheme.Button" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +60,6 @@
             android:background="@color/colorPrimary"
             android:text="Add health Intervention"
             android:textColor="@color/black"/>
-
     </LinearLayout>
 
 
