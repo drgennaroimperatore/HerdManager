@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
@@ -28,37 +28,37 @@
             android:textColor="@color/black" />-->
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
         <Button
             android:id="@+id/health_event_show_sign_dialog"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             style="@style/AppTheme.Button"
             android:text="Add Sign" />
         <Button
             android:id="@+id/health_event_show_body_condition_dialog"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:layout_weight="0.5"
             android:text="Edit Body Condition"
             style="@style/AppTheme.Button" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
         <Button
             android:id="@+id/health_event_show_health_intervention_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
             android:text="Add health Intervention"
+            style="@style/AppTheme.Button"
             android:textColor="@color/black"/>
     </LinearLayout>
 
