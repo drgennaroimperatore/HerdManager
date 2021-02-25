@@ -41,6 +41,19 @@
             android:text="Goat" />
     </RadioGroup>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/BlackHeadingTextMedium"
+            android:text="Date and and Herd Size">
+
+        </TextView>
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,20 +161,25 @@
 
         </LinearLayout>
 
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/BlackHeadingTextMedium"
+            android:text="Farmer Information">
+        </TextView>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView6"
-        style="@style/WhiteHeadingTextMedium"
-        android:layout_width="245dp"
-        android:layout_height="45dp"
-        android:text="Farmer Information" />
-
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
 
     <Button
         android:id="@+id/add_new_farmer_button"
@@ -169,10 +187,8 @@
         android:layout_height="wrap_content"
        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:background="@color/colorPrimary"
+        style="@style/AppTheme.Button"
         android:text="Add Farmer"
-        android:textColor="@color/black"
-        android:layout_below="@id/textView6"
         />
 
         <Button
@@ -180,12 +196,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_below="@id/textView6"
             android:layout_alignTop="@id/add_new_farmer_button"
             android:layout_toRightOf="@id/add_new_farmer_button"
-            android:background="@color/colorPrimary"
+            style="@style/AppTheme.Button"
             android:text="Use Saved Farmer"
-            android:textColor="@color/black" />
+            />
 
     </LinearLayout>
 
@@ -199,7 +214,6 @@
         android:textColor="@android:color/holo_red_dark"
         android:textSize="18dp"
         android:textStyle="bold" />
-
 
 
 </LinearLayout>
