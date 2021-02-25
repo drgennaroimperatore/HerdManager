@@ -132,7 +132,10 @@ public class HerdsAndVisitsListExpandableListAdapter extends BaseExpandableListA
         int speciesID = herd.speciesID;
         String herdSpeciesInfo = ADDB.getInstance(mContext).getADDBDAO().getAnimalNameFromID(speciesID).get(0);
         TextView herdInfoHeaderTV = view.findViewById(R.id.manage_herd_visits_list_secondary_row_herd_info_textview);
-        herdInfoHeaderTV.setText("Herd of "+ herdSpeciesInfo);
+       herdSpeciesInfo= herdSpeciesInfo.trim();
+        herdSpeciesInfo = herdSpeciesInfo.charAt(0) + (herdSpeciesInfo.substring(1).toLowerCase());
+        herdInfoHeaderTV.setText(herdSpeciesInfo);
+
 
         ImageView syncStatusImgView= view.findViewById(R.id.manage_herd_visits_list_secondary_row_herd_info_syncStatus_imgView);
         String syncStatus = herd.syncStatus;

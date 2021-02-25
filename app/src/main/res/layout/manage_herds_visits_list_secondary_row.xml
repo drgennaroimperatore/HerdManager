@@ -10,48 +10,54 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp">
 
-        <TextView
-            android:id="@+id/manage_herd_visits_list_secondary_row_herd_info_textview"
-            style="@style/WhiteHeadingTextMedium"
-            android:layout_width="180sp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="231dp"
-            android:layout_marginRight="5dp"
-            android:text="TextView"
-            android:textSize="19sp" />
 
         <ImageView
             android:id="@+id/manage_herd_visits_list_secondary_row_herd_info_syncStatus_imgView"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginEnd="50dp"
-            android:layout_toStartOf="@+id/herd_vist_list_secondary_row_add_visit_button"
-            android:layout_toRightOf="@id/manage_herd_visits_list_secondary_row_herd_info_textview"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_alignParentStart="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:layout_marginStart="71dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toStartOf="@+id/manage_herd_visits_list_secondary_row_herd_info_textview"
             android:src="@drawable/drawable_sync_status_not_synced">
 
         </ImageView>
 
+        <TextView
+            android:id="@+id/manage_herd_visits_list_secondary_row_herd_info_textview"
+            style="@style/WhiteHeadingTextMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="93dp"
+            android:layout_marginEnd="240dp"
+            android:layout_marginRight="5dp"
+            android:text="TextView"
+            android:textSize="19sp" />
 
         <Button
             android:id="@+id/herd_vist_list_secondary_row_add_visit_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            style="@style/AppTheme.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="8dp"
             android:layout_toLeftOf="@id/herd_vist_list_secondary_row_consult_visits_button"
-            android:background="@color/colorPrimary"
-            android:text="Add Visit"
-            android:textColor="@color/black"></Button>
+            android:text="Add Visit"></Button>
 
         <Button
             android:id="@+id/herd_vist_list_secondary_row_consult_visits_button"
+            style="@style/AppTheme.Button"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"
-            android:background="@color/colorPrimary"
             android:text="Past Visits"
             android:textColor="@color/black">
 

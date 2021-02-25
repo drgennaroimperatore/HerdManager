@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
+        style="@style/WhiteHeadingTextMedium"
         android:id="@+id/text_notifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Options"/>
 
-    <Button
-        android:id="@+id/button_sync_data"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="Sync"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_notifications"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/black"/>
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageButton
+        android:id="@+id/button_sync_data"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:text="Sync"
+         android:background="@drawable/ic_sync"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/sync_button_status_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sync Data"></TextView>
+    </LinearLayout>
+</LinearLayout>

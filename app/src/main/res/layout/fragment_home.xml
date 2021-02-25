@@ -1,68 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/colorPrimary">
 
-    <TextView
-        android:id="@+id/text_home"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal">
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@mipmap/ic_launcher">
+        </ImageView>
+        <TextView
+            android:id="@+id/text_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        style="@style/BlackHeadingText"/>
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/BlackHeadingText"/>
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="50dp"
-        android:layout_centerHorizontal="true"
-        android:text="Add a New Herd"
-         />
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
-    <TextView
-        android:id="@+id/textView2"
+        <ImageButton
+            android:id="@+id/add_case_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="25dp"
+            android:layout_below="@id/textView"
+            android:layout_alignTop="@id/textView"
+            android:layout_alignLeft="@id/textView"
 
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="wrap_content"
+            app:srcCompat="@mipmap/ic_add_case" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:text="Add a New Herd" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_case_Button"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:layout_margin="10dp">
+        <ImageButton
+            android:id="@+id/how_to_use_button"
+            android:layout_width="65dp"
+            android:layout_height="69dp"
+            android:background="@color/colorPrimary"
 
-        android:text="How to Use (Tutorial)"
-         />
+            app:srcCompat="@drawable/ic_tutorial"
+            android:layout_below="@id/textView2"
+            android:layout_centerHorizontal="true"/>
 
-    <ImageButton
-        android:id="@+id/add_case_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="@color/colorPrimary"
-        android:layout_marginTop="25dp"
-        android:layout_below="@id/textView"
-        android:layout_alignTop="@id/textView"
-        android:layout_alignLeft="@id/textView"
+        <TextView
+            android:id="@+id/textView2"
 
-        app:srcCompat="@mipmap/ic_add_case" />
+            style="@style/BlackHeadingTextSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_case_Button"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
 
-    <ImageButton
-        android:id="@+id/how_to_use_button"
-        android:layout_width="65dp"
-        android:layout_height="69dp"
-        android:background="@color/colorPrimary"
-
-        app:srcCompat="@drawable/ic_tutorial"
-        android:layout_below="@id/textView2"
-        android:layout_centerHorizontal="true"/>
+            android:text="How to Use (Tutorial)"
+            />
+    </LinearLayout>
 
 
-</RelativeLayout>
+
+</LinearLayout>

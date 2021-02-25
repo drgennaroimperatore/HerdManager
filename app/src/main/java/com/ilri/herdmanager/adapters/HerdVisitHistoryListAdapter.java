@@ -52,7 +52,7 @@ public class HerdVisitHistoryListAdapter extends ArrayAdapter<HerdVisit> {
         TextView herdVisiInfoTV = row.findViewById(R.id.herdvisit_history_list_row_textview_date);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String selectedDate = sdf.format(hv.HerdVisitDate);
-        herdVisiInfoTV.setText("Herd visit of the "+ selectedDate);
+        herdVisiInfoTV.setText(selectedDate + " Visit");
 
         ImageView syncStatusImgView = row.findViewById(R.id.herdvisit_history_list_row_view_visit_syncStatus_imgView);
         String syncStatusString = hv.syncStatus;

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,18 +54,17 @@ public class NotificationsFragment extends Fragment {
 
 
 
-        final Button syncButton = view.findViewById(R.id.button_sync_data);
+        final ImageButton syncButton = view.findViewById(R.id.button_sync_data);
+        final TextView syncStatusTV = view.findViewById(R.id.sync_button_status_textView);
         final NotificationsFragment nf = this;
 
         syncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                SyncTask st = new SyncTask(nf,getContext(),syncButton);
+                SyncTask st = new SyncTask(nf,getContext(),syncButton,syncStatusTV);
                 String[] P= {};
                 st.execute(P);
-
-
 
             }
 

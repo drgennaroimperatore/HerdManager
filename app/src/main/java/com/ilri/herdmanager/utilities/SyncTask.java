@@ -7,6 +7,8 @@ import android.os.Looper;
 import android.util.JsonReader;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
@@ -47,14 +49,15 @@ public class SyncTask extends AsyncTask {
     Context m_context;
     SyncManager manager = null;
     HerdDao herdDao;
-    Button mButton;
-    String mOriginalButtonText ="";
+    TextView mStatusTV;
+    ImageButton mButton;
     NotificationsFragment m_NotificationsFragment;
 
-    public SyncTask(NotificationsFragment nf, Context context, Button button) {
+    public SyncTask(NotificationsFragment nf, Context context, ImageButton button, TextView status) {
         super();
         m_context = context;
         herdDao =  HerdDatabase.getInstance(m_context).getHerdDao();
+        mStatusTV = status;
         mButton = button;
         m_NotificationsFragment =nf;
         manager = SyncManager.getInstance(m_NotificationsFragment);
@@ -68,7 +71,7 @@ public class SyncTask extends AsyncTask {
 
         super.onPostExecute(o);
         mButton.setEnabled(true);
-        mButton.setText(mOriginalButtonText);
+      mStatusTV.setText("Sync Complete");
     }
 
 
@@ -77,8 +80,8 @@ public class SyncTask extends AsyncTask {
         super.onPreExecute();
 
         mButton.setEnabled(false);
-        mOriginalButtonText = mButton.getText().toString();
-        mButton.setText("Sync in Progress...");
+       // mOriginalButtonText = mButton.getText().toString();
+        mStatusTV.setText("Sync in Progress...");
 
     }
 

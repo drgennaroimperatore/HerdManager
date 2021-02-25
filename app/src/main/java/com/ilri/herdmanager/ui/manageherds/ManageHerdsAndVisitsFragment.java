@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -45,7 +46,7 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        final LinearLayout resetSearchLinearLayout = view.findViewById(R.id.manage_herds_and_visits_reset_farmer_linearLayou);
         mManageHerdsAndVisitsExpandableListView = view.findViewById(R.id.herds_and_visits_expandableListView);
         adapter = new HerdsAndVisitsListExpandableListAdapter(getContext(), getFragmentManager());
         mManageHerdsAndVisitsExpandableListView.setAdapter(adapter);
@@ -55,6 +56,7 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 resetSearchButton.setVisibility(View.VISIBLE);
+                resetSearchLinearLayout.setVisibility(View.VISIBLE);
                 SearchFarmerDialog dialogFragment = new SearchFarmerDialog(getContext(),adapter);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -68,11 +70,13 @@ public class ManageHerdsAndVisitsFragment extends Fragment {
         });
 
 
+        resetSearchLinearLayout.setVisibility(View.INVISIBLE);
         resetSearchButton.setVisibility(View.INVISIBLE);
         resetSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 adapter.resetFarmerList();
+                resetSearchLinearLayout.setVisibility(View.INVISIBLE);
                 resetSearchButton.setVisibility(View.INVISIBLE);
             }
         });

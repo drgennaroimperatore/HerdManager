@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/herdvisit_history_list_row_textview_date"
         style="@style/WhiteHeadingTextSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="TextView"
@@ -20,33 +20,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="10dp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.3">
-
-
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/herdvisit_history_list_row_view_visit_syncStatus_imgView"
         android:layout_width="12dp"
         android:layout_height="12dp"
+
         android:src="@drawable/drawable_sync_status_not_synced"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center">
 
     </ImageView>
 
     <Button
         android:id="@+id/herdvisit_history_list_row_button_view_visit_details"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-
-
-        android:background="@color/colorPrimary"
+        android:layout_margin="10dp"
+       style="@style/AppTheme.Button"
         android:text="Details"
+        android:layout_weight="0.2"
         android:textColor="@color/black" />
 
 
