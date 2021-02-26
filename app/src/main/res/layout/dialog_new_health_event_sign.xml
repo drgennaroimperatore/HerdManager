@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_sign_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -11,11 +11,11 @@
         android:id="@+id/constraintLayout6"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/style_event_first_row">
+        android:background="@color/black">
 
         <EditText
             android:id="@+id/editText_sign_health_event_baby"
-            style="@style/NumberEditTextStyleDark"
+            style="@style/NumberEditTextStyle"
             android:layout_width="60dp"
             android:layout_height="37dp"
             android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
 
         <EditText
             android:id="@+id/editText_sign_health_event_old"
-            style="@style/NumberEditTextStyleDark"
+            style="@style/NumberEditTextStyle"
             android:layout_width="60dp"
             android:layout_height="37dp"
             android:layout_marginStart="32dp"
@@ -59,7 +59,7 @@
 
         <EditText
             android:id="@+id/editText_sign_health_event_young"
-            style="@style/NumberEditTextStyleDark"
+            style="@style/NumberEditTextStyle"
             android:layout_width="60dp"
             android:layout_height="37dp"
             android:layout_marginStart="28dp"
@@ -73,11 +73,10 @@
 
         <Button
             android:id="@+id/button_sign_health_add_sign"
-            android:layout_width="40dp"
-            android:layout_height="39dp"
-            android:background="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          style="@style/AppTheme.Button"
             android:text="Add Sign"
-            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.915"
@@ -87,7 +86,7 @@
 
         <TextView
             android:id="@+id/textViews15"
-            style="@style/BlackHeadingTextSmall"
+            style="@style/WhiteHeadingTextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -100,7 +99,7 @@
 
         <TextView
             android:id="@+id/textViews17"
-            style="@style/BlackHeadingTextSmall"
+            style="@style/WhiteHeadingTextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -129,9 +128,10 @@
 
         <TextView
             android:id="@+id/dialog_new_health_event_sign_dialog_title_textview"
-            style="@style/BlackHeadingTextSmall"
-            android:layout_width="wrap_content"
+            style="@style/BlackHeadingTextMedium"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:text="Insert New Sign"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,7 @@
 
         <TextView
             android:id="@+id/textViews16"
-            style="@style/BlackHeadingTextSmall"
+            style="@style/WhiteHeadingTextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Young"
