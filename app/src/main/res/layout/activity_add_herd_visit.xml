@@ -19,8 +19,8 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="New Herd Event"
-            android:textColor="@color/black"
-            android:textSize="15dp"/>
+            style="@style/BlackHeadingTextMedium"
+          />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"

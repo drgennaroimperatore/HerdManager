@@ -9,29 +9,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
 
         <Button
             android:id="@+id/button_add_herd_productivity_milk_production"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="55dp"
-            android:layout_marginBottom="74dp"
-            android:background="@color/colorPrimary"
+            style="@style/AppTheme.Button"
             android:text="Edit Milk Production"
             android:textColor="@color/black" />
 
         <Button
             android:id="@+id/button_add_herd_productivity_births"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="74dp"
-            android:layout_marginLeft="10dp"
-            android:background="@color/colorPrimary"
+            style="@style/AppTheme.Button"
             android:text="Edit Births"
             android:textColor="@color/black"
              />
