@@ -75,7 +75,7 @@ public class BodyConditionDialogRowContainer {
         TextView levelTV = new TextView(m_context);
         levelTV.setLayoutParams(TVparams);
         levelTV.setText("Level "+ level);
-        levelTV.setTextColor(Color.BLACK);
+        levelTV.setTextColor(Color.WHITE);
 
         levelTV.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -97,24 +97,27 @@ public class BodyConditionDialogRowContainer {
 
         row.addView(levelTV);
 
-        m_nAffectedBabiesET = new EditText(m_context);
+        ContextThemeWrapper ctr = new ContextThemeWrapper(m_context,R.style.NumberEditTextStyle);
+
+        m_nAffectedBabiesET =  new EditText(ctr);
         m_nAffectedBabiesET.setLayoutParams(etParams);
         //m_nAffectedBabiesET.setWidth(5);
-        m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
+      //  m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
         m_nAffectedBabiesET.setText("0");
         m_nAffectedBabiesET.setInputType(InputType.TYPE_CLASS_NUMBER);
         row.addView(m_nAffectedBabiesET);
 
-        m_nAffectedYoungET = new EditText(m_context);
+
+        m_nAffectedYoungET =  new EditText(ctr);
         m_nAffectedYoungET.setLayoutParams(etParams);
-        m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
+      //  m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
         m_nAffectedYoungET.setInputType(InputType.TYPE_CLASS_NUMBER);
         m_nAffectedYoungET.setText("0");
         row.addView(m_nAffectedYoungET);
 
-        m_nAffectedOldET = new EditText(m_context);
+        m_nAffectedOldET =  new EditText(ctr);
         m_nAffectedOldET.setLayoutParams(etParams);
-        m_nAffectedOldET.setBackgroundColor(Color.BLACK);
+      //  m_nAffectedOldET.setBackgroundColor(Color.BLACK);
         m_nAffectedOldET.setText("0");
         m_nAffectedOldET.setInputType(InputType.TYPE_CLASS_NUMBER);
         row.addView(m_nAffectedOldET);
@@ -134,8 +137,8 @@ public class BodyConditionDialogRowContainer {
 
         TextView levelTV = new TextView(m_context);
         levelTV.setLayoutParams(TVparams);
-        levelTV.setText("Level "+ level);
-        levelTV.setTextColor(Color.BLACK);
+        levelTV.setText("Level " + level);
+        levelTV.setTextColor(Color.WHITE);
 
         levelTV.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -157,25 +160,26 @@ public class BodyConditionDialogRowContainer {
 
 
         row.addView(levelTV);
+        ContextThemeWrapper ctr = new ContextThemeWrapper(m_context,R.style.NumberEditTextStyle);
 
-        m_nAffectedBabiesET = new EditText(m_context);
+        m_nAffectedBabiesET = new EditText(ctr);
         m_nAffectedBabiesET.setLayoutParams(etParams);
         m_nAffectedBabiesET.setWidth(30);
-        m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
+       // m_nAffectedBabiesET.setBackgroundColor(Color.BLACK);
         m_nAffectedBabiesET.setText(String.valueOf(nAffBabies));
         m_nAffectedBabiesET.setInputType(InputType.TYPE_CLASS_NUMBER);
         row.addView(m_nAffectedBabiesET);
 
-        m_nAffectedYoungET = new EditText(m_context);
+        m_nAffectedYoungET =  new EditText(ctr);
         m_nAffectedYoungET.setLayoutParams(etParams);
-        m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
+       // m_nAffectedYoungET.setBackgroundColor(Color.BLACK);
         m_nAffectedYoungET.setInputType(InputType.TYPE_CLASS_NUMBER);
         m_nAffectedYoungET.setText(String.valueOf(nAffYoung));
         row.addView(m_nAffectedYoungET);
 
-        m_nAffectedOldET = new EditText(m_context);
+        m_nAffectedOldET =  new EditText(ctr);
         m_nAffectedOldET.setLayoutParams(etParams);
-        m_nAffectedOldET.setBackgroundColor(Color.BLACK);
+      //  m_nAffectedOldET.setBackgroundColor(Color.BLACK);
         m_nAffectedOldET.setText(String.valueOf(nAffOld));
         m_nAffectedOldET.setInputType(InputType.TYPE_CLASS_NUMBER);
         row.addView(m_nAffectedOldET);
