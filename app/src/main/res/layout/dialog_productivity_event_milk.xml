@@ -3,95 +3,80 @@
     android:id="@+id/dialog_prod_milk_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView3mp"
+        style="@style/BlackHeadingTextMedium"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Milk Production" />
+    
     <LinearLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/style_event_first_row"
+        android:layout_margin="10dp"
+        android:background="@color/black"
         app:layout_anchor="@+id/constraintLayout4"
-        android:orientation="vertical">
+        android:layout_gravity="fill"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView3mp"
-            style="@style/BlackHeadingTextMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Milk Production"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="10dp"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="20dp">
 
-            <TextView
-                android:id="@+id/textViews16mp"
-                style="@style/BlackHeadingTextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Lactating Animals"
-                />
+
             <EditText
                 android:id="@+id/editText_milk_production_productivity_lactating_animals"
-                style="@style/NumberEditTextStyleDark"
-                android:layout_width="60dp"
-                android:layout_height="37dp"
+                style="@style/NumberEditTextStyle"
                 android:ems="10"
-                android:inputType="number"
-                />
+                android:inputType="number" />
+            <TextView
+                android:id="@+id/textViews16mp"
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lactating Animals" />
         </LinearLayout>
 
 
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="20dp">
-
-            <TextView
-                android:id="@+id/textViews15mp"
-                style="@style/BlackHeadingTextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Litres/day"
-                />
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/editText_milk_production_productivity_litres_day"
-                style="@style/NumberEditTextStyleDark"
-                android:layout_width="60dp"
-                android:layout_height="37dp"
+                style="@style/NumberEditTextStyle"
                 android:ems="10"
                 android:inputType="number|numberDecimal" />
+            <TextView
+                android:id="@+id/textViews15mp"
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Litres/day" />
 
         </LinearLayout>
 
-
-
-
-
-
-        <Button
-            android:id="@+id/button_milk_productivity_edit_milk_production"
-            android:layout_width="100dp"
-            android:layout_height="39dp"
-            android:background="@android:color/black"
-            android:text="Edit Milk Production"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            />
-
     </LinearLayout>
+    <Button
+        android:id="@+id/button_milk_productivity_edit_milk_production"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Button"
+        android:text="Edit Milk Production" />
+</LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

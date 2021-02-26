@@ -6,21 +6,20 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <LinearLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/style_event_first_row"
+        android:background="@color/black"
         app:layout_anchor="@+id/constraintLayout3"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/textView3la"
             style="@style/BlackHeadingTextMedium"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit Births"
+            android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,67 +28,69 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:orientation="vertical"
             android:layout_marginLeft="20dp">
 
+
+            <EditText
+                android:id="@+id/editText_births_productivity_event_gestating_animals"
+                style="@style/NumberEditTextStyle"
+                android:ems="10"
+                android:inputType="number" />
             <TextView
                 android:id="@+id/textViews16la"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/WhiteHeadingTextSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pregnant Animals" />
-            <EditText
-                android:id="@+id/editText_births_productivity_event_gestating_animals"
-                style="@style/NumberEditTextStyleDark"
-                android:layout_width="60dp"
-                android:layout_height="37dp"
-                android:ems="10"
-                android:inputType="number"
-                />
         </LinearLayout>
 
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginLeft="20dp">
 
-        <TextView
-            android:id="@+id/textViews15la"
-            style="@style/BlackHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:text="Births"
-            />
+
 
         <EditText
             android:id="@+id/editText_births_production_productivity_births"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
+            style="@style/NumberEditTextStyle"
             android:ems="10"
-            android:inputType="number"
-            />
+            android:inputType="number" />
+            <TextView
+                android:id="@+id/textViews15la"
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="Births" />
 
         </LinearLayout>
-
-
-
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_births_productivity_edit_births"
-            android:layout_width="100dp"
-            android:layout_height="39dp"
-            android:background="@android:color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+          style="@style/AppTheme.Button"
             android:text="Edit Births"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            />
+            android:layout_margin="10dp" />
 
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

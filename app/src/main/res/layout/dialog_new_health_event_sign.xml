@@ -1,49 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_sign_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/constraintLayout6"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@color/black">
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editText_sign_health_event_baby"
-            style="@style/NumberEditTextStyle"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="140dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/dialog_new_health_event_sign_dialog_title_textview"
+            style="@style/BlackHeadingTextMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Insert New Sign" />
 
-        <EditText
-            android:id="@+id/editText_sign_health_event_old"
-            style="@style/NumberEditTextStyle"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="140dp"
-            android:layout_marginEnd="12dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_young"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.ilri.herdmanager.ui.customui.SignAutoCompleteTextView
+            android:id="@+id/dialog_health_signs_autcomptv"
+            android:layout_margin="10dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:hint="Select Sign" />
 
-      <!--  <Spinner
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/editText_sign_health_event_baby"
+                    style="@style/NumberEditTextStyle"
+                    android:ems="10"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/textViews15"
+                    style="@style/WhiteHeadingTextSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PWnd" />
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText_sign_health_event_young"
+                style="@style/NumberEditTextStyle"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+            <TextView
+                android:id="@+id/textViews16"
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Young"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.3">
+            <EditText
+                android:id="@+id/editText_sign_health_event_old"
+                style="@style/NumberEditTextStyle"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/textViews17"
+                style="@style/WhiteHeadingTextSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Adult" />
+
+
+        </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/button_sign_health_add_sign"
+                style="@style/AppTheme.Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="Add Sign" />
+            <Button
+                android:id="@+id/button_sign_health_delete_sign"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:background="@color/red"
+                android:text="delete sign"
+                android:textColor="@color/white"
+                android:visibility="gone">
+
+            </Button>
+
+        </LinearLayout>
+
+
+
+        <!--  <Spinner
             android:id="@+id/health_event_sign_spinner"
             android:layout_width="264dp"
             android:layout_height="25dp"
@@ -57,126 +139,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialog_new_health_event_disease_dialog_title_textview" />-->
 
-        <EditText
-            android:id="@+id/editText_sign_health_event_young"
-            style="@style/NumberEditTextStyle"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="140dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/editText_sign_health_event_baby"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button_sign_health_add_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-          style="@style/AppTheme.Button"
-            android:text="Add Sign"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503" />
 
-        <TextView
-            android:id="@+id/textViews15"
-            style="@style/WhiteHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="176dp"
-            android:text="PWnd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViews17"
-            style="@style/WhiteHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="176dp"
-            android:text="Adult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/editText_sign_health_event_old"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button_sign_health_delete_sign"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="88dp"
-            android:background="@color/red"
-            android:text="del"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.67"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone">
 
-        </Button>
 
-        <TextView
-            android:id="@+id/dialog_new_health_event_sign_dialog_title_textview"
-            style="@style/BlackHeadingTextMedium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Insert New Sign"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"  />
-
-        <TextView
-            android:id="@+id/textViews16"
-            style="@style/WhiteHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Young"
-            app:layout_anchor="@+id/constraintLayout6"
-            app:layout_anchorGravity="bottom|center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editText_sign_health_event_young"
-            app:layout_constraintStart_toStartOf="@+id/editText_sign_health_event_young" />
-
-        <com.ilri.herdmanager.ui.customui.SignAutoCompleteTextView
-            android:id="@+id/dialog_health_signs_autcomptv"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="132dp"
-            android:background="@color/black"
-            android:hint="Select Sign"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/dialog_new_health_event_sign_save_changes_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
+            android:background="@color/green"
+            android:text="SAVE CHANGES"
+            android:textColor="@color/white"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/editText_sign_health_event_baby"
             app:layout_constraintEnd_toStartOf="@+id/button_sign_health_add_sign"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/dialog_health_signs_autcomptv"
-            android:background="@color/green"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            android:text="SAVE CHANGES">
-
+            app:layout_constraintTop_toTopOf="@+id/dialog_health_signs_autcomptv">
         </Button>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
