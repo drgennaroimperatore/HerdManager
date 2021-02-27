@@ -182,7 +182,6 @@ public class NewSignEventDialog extends DialogFragment {
                         Toast.makeText(mContext,"Please Fill a Field", Toast.LENGTH_LONG).show();
 
                     } else {
-
                         she.signID = signID;
                         she.numberOfAffectedBabies = nAffectedBabies;
                         she.numberOfAffectedYoung = nAffectedYoung;
@@ -194,11 +193,10 @@ public class NewSignEventDialog extends DialogFragment {
                                 HerdVisitManager.getInstance().editSignForHealthEvent(mContext,editedSign);
                             dismiss();
                         } else {
-
                             if (mFragment.addSignToList(she)) {
                                 Toast.makeText(mContext,"Please Fill a Field", Toast.LENGTH_LONG).show();
                             } else {
-                                mFragment.expandList(1);
+                           //     mFragment.expandList(1);
                                 if(mEditingInReadOnly)
                                     HerdVisitManager.getInstance().addSignToExistingVisit(mContext,she,mHerdVisitID);
                                 dismiss();

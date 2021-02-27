@@ -118,6 +118,7 @@ public class AddHeardHealthEventFragment extends Fragment {
         mAdapter = adapter;
         mHealthEventExpandableListView.expandGroup(0);
         mHealthEventExpandableListView.expandGroup(1);
+        mHealthEventExpandableListView.expandGroup(2);
 
 
       final  AddHeardHealthEventFragment f = this;

@@ -48,7 +48,7 @@
                     android:id="@+id/textViews15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PWnd" />
+                    android:text="P.Wnd" />
             </LinearLayout>
 
         <LinearLayout

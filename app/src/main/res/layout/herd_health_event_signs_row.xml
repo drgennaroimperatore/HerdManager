@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/health_event_sign_row_signName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sign Name"
+        style="@style/RowHeaderTextStyle"
         android:textColor="@color/white"/>
 
 
@@ -44,18 +44,21 @@
                 android:id="@+id/placeholder_hesr_young"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Pre-Weaned" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_by_sign_young_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Young" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_old_text_view_s"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Adult" />
 
         </TableRow>
@@ -67,20 +70,21 @@
                 android:id="@+id/health_event_sign_row_number_of_affected_babies_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                style="@style/RowContentTextStyle"
                 android:text="00" />
 
             <TextView
                 android:id="@+id/health_event_sign_row_number_of_affected_young_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                style="@style/RowContentTextStyle"
                 android:text="00" />
 
             <TextView
                 android:id="@+id/health_event_sign_row_number_of_affected_old_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
 
                 android:text="00" />
 

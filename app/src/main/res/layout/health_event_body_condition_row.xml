@@ -9,28 +9,33 @@
         android:stretchColumns="*">
 
         <TableRow android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            style="@style/RowSubHeaderTextStyle">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text= "Level">
             </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "Babies">
+                android:text= "Babies"
+                style="@style/RowSubHeaderTextStyle">
             </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text= "Young">
             </TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text= "Adult">
+                android:text= "Adult"
+                style="@style/RowSubHeaderTextStyle">
             </TextView>
         </TableRow>
 
