@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,8 +98,6 @@ public class NewSignEventDialog extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final CoordinatorLayout cl = view.findViewById(R.id.dialog_sign_parent);
-
        final SignAutoCompleteTextView signAutoComplete = view.findViewById(R.id.dialog_health_signs_autcomptv);
 
 
@@ -161,9 +160,7 @@ public class NewSignEventDialog extends DialogFragment {
                 }
                 if (addbdao.getSignIDFromName(signName).size() == 0)
                 {
-                    Snackbar mySnackbar = Snackbar.make(cl, "Invalid Sign!", Snackbar.LENGTH_LONG);
-                    mySnackbar.getView().setBackgroundColor(R.color.black);
-                    mySnackbar.show();
+                    Toast.makeText(mContext,"Invalid Sign!", Toast.LENGTH_LONG).show();
 
                 } else {
                     int signID = addbdao.getSignIDFromName(signName).get(0);
@@ -182,9 +179,8 @@ public class NewSignEventDialog extends DialogFragment {
 
 
                     if (nAffectedBabies == 0 && nAffectedYoung == 0 && nAffectedOld == 0) {
-                        Snackbar mySnackbar = Snackbar.make(cl, "No Animal Was Affected", Snackbar.LENGTH_LONG);
-                        mySnackbar.getView().setBackgroundColor(R.color.black);
-                        mySnackbar.show();
+                        Toast.makeText(mContext,"Please Fill a Field", Toast.LENGTH_LONG).show();
+
                     } else {
 
                         she.signID = signID;
@@ -200,9 +196,7 @@ public class NewSignEventDialog extends DialogFragment {
                         } else {
 
                             if (mFragment.addSignToList(she)) {
-                                Snackbar mySnackbar = Snackbar.make(cl, "This sign was already inserted", Snackbar.LENGTH_LONG);
-                                mySnackbar.getView().setBackgroundColor(R.color.black);
-                                mySnackbar.show();
+                                Toast.makeText(mContext,"Please Fill a Field", Toast.LENGTH_LONG).show();
                             } else {
                                 mFragment.expandList(1);
                                 if(mEditingInReadOnly)

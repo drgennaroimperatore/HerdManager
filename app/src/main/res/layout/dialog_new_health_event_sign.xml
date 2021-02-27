@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialog_sign_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="@color/black"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout
-        android:id="@+id/constraintLayout6"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:orientation="vertical">
 
         <TextView
             android:id="@+id/dialog_new_health_event_sign_dialog_title_textview"
@@ -27,7 +20,7 @@
         <com.ilri.herdmanager.ui.customui.SignAutoCompleteTextView
             android:id="@+id/dialog_health_signs_autcomptv"
             android:layout_margin="10dp"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
             android:hint="Select Sign" />
@@ -36,11 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_margin="15dp"
                 android:layout_weight="0.3"
                 android:orientation="vertical">
                 <EditText
@@ -51,7 +46,6 @@
 
                 <TextView
                     android:id="@+id/textViews15"
-                    style="@style/WhiteHeadingTextSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PWnd" />
@@ -60,7 +54,9 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:layout_weight="0.3"
+            android:layout_margin="15dp"
             android:orientation="vertical">
 
             <EditText
@@ -70,17 +66,17 @@
                 android:inputType="numberDecimal" />
             <TextView
                 android:id="@+id/textViews16"
-                style="@style/WhiteHeadingTextSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Young"
-                 />
+                android:text="Young" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
+            android:layout_margin="15dp"
             android:layout_weight="0.3">
             <EditText
                 android:id="@+id/editText_sign_health_event_old"
@@ -90,7 +86,6 @@
 
             <TextView
                 android:id="@+id/textViews17"
-                style="@style/WhiteHeadingTextSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adult" />
@@ -117,7 +112,7 @@
                 android:background="@color/red"
                 android:text="delete sign"
                 android:textColor="@color/white"
-                android:visibility="gone">
+                android:visibility="invisible">
 
             </Button>
 
@@ -139,13 +134,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialog_new_health_event_disease_dialog_title_textview" />-->
 
-
-
-
-
-
-
-
         <Button
             android:id="@+id/dialog_new_health_event_sign_save_changes_edit"
             android:layout_width="wrap_content"
@@ -163,4 +151,3 @@
 
     </LinearLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

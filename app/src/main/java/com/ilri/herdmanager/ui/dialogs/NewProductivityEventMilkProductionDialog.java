@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,7 +64,7 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
         if (litres>0)
             litresPerDayET.setText(String.valueOf(litres));
 
-            final CoordinatorLayout cl = view.findViewById(R.id.dialog_prod_milk_parent);
+
 
         Button editMilkButton = view.findViewById(R.id.button_milk_productivity_edit_milk_production);
         editMilkButton.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +76,7 @@ public class NewProductivityEventMilkProductionDialog extends DialogFragment {
 
                if(lactatingAnimalsStr.isEmpty() || litresPerDayStr.isEmpty())
                {
-                   Snackbar mySnackbar = Snackbar.make(cl, "Provide Value or 0 for all fields", Snackbar.LENGTH_LONG);
-                   mySnackbar.getView().setBackgroundColor(R.color.black);
-                   mySnackbar.show();
+                   Toast.makeText(mContext,"Please Fill all Fields", Toast.LENGTH_LONG).show();
                }
                else
                {

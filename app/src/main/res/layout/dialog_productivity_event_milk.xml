@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     android:id="@+id/dialog_prod_milk_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,7 @@
     android:background="@color/black"
     xmlns:android="http://schemas.android.com/apk/res/android">
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <TextView
@@ -20,12 +20,11 @@
     
     <LinearLayout
         android:id="@+id/constraintLayout4"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/black"
-        app:layout_anchor="@+id/constraintLayout4"
-        android:layout_gravity="fill"
+           android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
 
 
@@ -76,7 +75,8 @@
         android:id="@+id/button_milk_productivity_edit_milk_production"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         style="@style/AppTheme.Button"
         android:text="Edit Milk Production" />
 </LinearLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
