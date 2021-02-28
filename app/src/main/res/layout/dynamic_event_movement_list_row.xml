@@ -24,17 +24,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pre-Weaned"></TextView>
+                style="@style/RowSubHeaderTextStyle"
+                android:text="P.Wnd"></TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Young">
             </TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Adult"></TextView>
         </TableRow>
 
@@ -45,6 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/RowHeaderTextStyle"
             android:text="Animals Bought">
         </TextView>
 
@@ -52,6 +56,7 @@
             android:id="@+id/animal_movement_row_textView_animals_bought_babies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/RowContentTextStyle"
             android:text="0">
         </TextView>
 
@@ -59,6 +64,7 @@
             android:id="@+id/animal_movement_row_textView_animals_bought_young"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/RowContentTextStyle"
             android:text="0">
         </TextView>
 
@@ -66,6 +72,7 @@
             android:id="@+id/animal_movement_row_textView_animals_bought_old"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/RowContentTextStyle"
             android:text="0">
         </TextView>
         </TableRow>
@@ -76,13 +83,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Animals Sold">
+                android:text="Animals Sold"
+                style="@style/RowHeaderTextStyle">
             </TextView>
 
             <TextView
                 android:id="@+id/animal_movement_row_textView_animals_sold_babies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
                 android:text="0">
             </TextView>
 
@@ -90,6 +99,7 @@
                 android:id="@+id/animal_movement_row_textView_animals_sold_young"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
                 android:text="0">
             </TextView>
 
@@ -97,6 +107,7 @@
                 android:id="@+id/animal_movement_row_textView_animals_sold_old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
                 android:text="0">
             </TextView>
         </TableRow>
@@ -107,6 +118,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowHeaderTextStyle"
                 android:text="Animals Lost">
             </TextView>
 
@@ -114,6 +126,7 @@
                 android:id="@+id/animal_movement_row_textView_animals_lost_babies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
                 android:text="0">
             </TextView>
 
@@ -121,6 +134,7 @@
                 android:id="@+id/animal_movement_row_textView_animals_lost_young"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
                 android:text="0">
             </TextView>
 
@@ -128,6 +142,7 @@
                 android:id="@+id/animal_movement_row_textView_animals_lost_old"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/RowContentTextStyle"
                 android:text="0">
             </TextView>
         </TableRow>
