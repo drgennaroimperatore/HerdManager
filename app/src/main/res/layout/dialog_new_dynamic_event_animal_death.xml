@@ -1,144 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/dialog_death_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/black"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/dialog_new_dynamic_event_animal_death_title_textView"
+        style="@style/BlackHeadingTextMedium"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Death" />
+
+    <Spinner
+        android:id="@+id/dynamic_event_death_spinner"
+        android:background="@color/black"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="wrap_content" />
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="wrap_content"
+    android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.3"
         android:layout_height="wrap_content"
-        android:background="@drawable/style_event_first_row">
-
-
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
         <EditText
             android:id="@+id/editText_death_dynamic_event_baby"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="140dp"
+            style="@style/NumberEditTextStyle"
             android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/editText_death_dynamic_event_old"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="140dp"
-            android:layout_marginEnd="12dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/editText_death_dynamic_event_young"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Spinner
-            android:id="@+id/dynamic_event_death_spinner"
-            android:layout_width="264dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="18dp"
-            android:background="@color/black"
-            android:dropDownWidth="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_new_dynamic_event_animal_death_title_textView" />
-
-        <Button
-            android:id="@+id/button_death_dynamic_delete_death"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="100dp"
-            android:background="@color/red"
-            android:text="del"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.627"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Button>
-
-        <EditText
-            android:id="@+id/editText_death_dynamic_event_young"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="140dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/editText_death_dynamic_event_baby"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_death_dynamic_add_death"
-            android:layout_width="55dp"
-            android:layout_height="39dp"
-            android:background="@android:color/black"
-            android:text="Add Death"
-            android:textColor="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503" />
-
-        <TextView
-            android:id="@+id/dialog_new_dynamic_event_animal_death_title_textView"
-            style="@style/BlackHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Insert New Death"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:inputType="numberDecimal" />
         <TextView
             android:id="@+id/textViews15death"
-            style="@style/BlackHeadingTextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="176dp"
-            android:text="PWnd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="PWnd" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/editText_death_dynamic_event_young"
+            style="@style/NumberEditTextStyle"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+        <TextView
+            android:id="@+id/textViews16death"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Young" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <EditText
+            android:id="@+id/editText_death_dynamic_event_old"
+            style="@style/NumberEditTextStyle"
+            android:ems="10"
+            android:inputType="numberDecimal" />
         <TextView
             android:id="@+id/textViews17death"
-            style="@style/BlackHeadingTextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:text="Adult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_death_dynamic_event_old" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Adult" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViews16death"
-        style="@style/BlackHeadingTextSmall"
-        android:layout_width="wrap_content"
+
+</LinearLayout>
+
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal">
+    <Button
+        android:id="@+id/button_death_dynamic_add_death"
+        style="@style/AppTheme.Button"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="160dp"
-        android:text="Young"
-        app:layout_anchor="@+id/constraintLayout2"
-        app:layout_anchorGravity="bottom|center" />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        android:layout_width="wrap_content"
+        android:text="Add Death" />
+    <Button
+        android:id="@+id/button_death_dynamic_delete_death"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:text="del"
+        android:textColor="@color/white"
+        android:visibility="gone">
+    </Button>
+</LinearLayout>
+
+
+</LinearLayout>

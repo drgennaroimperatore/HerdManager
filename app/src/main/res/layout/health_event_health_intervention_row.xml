@@ -14,7 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
-        android:text="Intervention Name">
+        android:text="Intervention Name"
+        style="@style/RowHeaderTextStyle">
     </TextView>
 
         <TextView
@@ -22,6 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            style="@style/RowSubHeaderTextStyle"
             android:text="">
         </TextView>
     </LinearLayout>
@@ -42,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            style="@style/RowSubHeaderTextStyle"
             android:text="P.Wnd">
         </TextView>
 
@@ -49,14 +52,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:text="Young">
+            android:text="Young"
+            style="@style/RowSubHeaderTextStyle">
         </TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:text="Adult ">
+            android:text="Adult"
+            style="@style/RowSubHeaderTextStyle">
         </TextView>
     </LinearLayout>
 
@@ -69,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
+            style="@style/RowContentTextStyle"
             android:text="0">
         </TextView>
 
@@ -77,7 +83,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:text="0">
+            android:text="0"
+            style="@style/RowContentTextStyle">
         </TextView>
 
         <TextView
@@ -85,7 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:text="0">
+            android:text="0"
+            style="@style/RowContentTextStyle">
         </TextView>
     </LinearLayout>
 

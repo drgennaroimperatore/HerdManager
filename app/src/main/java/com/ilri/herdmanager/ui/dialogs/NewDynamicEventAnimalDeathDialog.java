@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -107,7 +108,7 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
             });
         }
 
-        final CoordinatorLayout cl = view.findViewById(R.id.dialog_death_parent);
+
 
         addDeathButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,9 +130,7 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
 
                 if(nAffectedBabies ==0 && nAffectedYoung ==0 && nAffectedOld ==0)
                 {
-                    Snackbar mySnackbar = Snackbar.make(cl, "No Animal Was Affected", Snackbar.LENGTH_LONG);
-                    mySnackbar.getView().setBackgroundColor(R.color.black);
-                    mySnackbar.show();
+                    Toast.makeText(mContext,"Please Fill a Field", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
@@ -150,9 +149,7 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                     else {
 
                         if (mFragment.addDeath(dde)) {
-                            Snackbar mySnackbar = Snackbar.make(cl, "Cause of death was already inserted", Snackbar.LENGTH_LONG);
-                            mySnackbar.getView().setBackgroundColor(R.color.black);
-                            mySnackbar.show();
+                            Toast.makeText(mContext,"Cause of death was already inserted", Toast.LENGTH_LONG).show();
                         } else {
                             dismiss();
                         }
