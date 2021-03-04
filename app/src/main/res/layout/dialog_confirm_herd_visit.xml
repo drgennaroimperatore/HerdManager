@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
+    android:background="@color/black">
+
 
     <TextView
         android:id="@+id/textViewConfirmationtext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Do you want to insert this herd visit?"
-        android:textAlignment="center"
+        android:text="Visit Confirmation"
         android:textColor="@color/black"
+        android:background="@color/colorPrimary"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -20,8 +25,8 @@
         android:id="@+id/textViewConfirmationtext2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Select a date"
-        android:textAlignment="center"
+        android:text="Date Selection"
+        android:background="@color/colorPrimary"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold" />
@@ -32,13 +37,20 @@
         android:layout_height="301dp"
         android:layout_marginBottom="10dp"
         android:background="@color/black" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Herd Updates"
+        android:textColor="@color/black"
+        android:background="@color/colorPrimary"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextSmall"
+        style="@style/RowHeaderTextStyle"
         android:text="Herd Size Before Visit"></TextView>
 
 
@@ -51,18 +63,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Pre-Weaned"></TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Young"></TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Adult"></TextView>
 
         </TableRow>
@@ -72,20 +84,20 @@
                 android:id="@+id/dialog_herd_changes_current_babies_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowContentTextStyle"
                 android:text="0"></TextView>
 
             <TextView
                 android:id="@+id/dialog_herd_changes_current_young_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowContentTextStyle"
                 android:text="0"></TextView>
             <TextView
                 android:id="@+id/dialog_herd_changes_current_old_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowContentTextStyle"
                 android:text="0"></TextView>
 
         </TableRow>
@@ -96,7 +108,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextSmall"
+        style="@style/RowHeaderTextStyle"
         android:text="Herd Size After Visit"></TextView>
 
     <TableLayout
@@ -107,18 +119,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Pre-Weaned"></TextView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Young"></TextView>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowSubHeaderTextStyle"
                 android:text="Adult"></TextView>
 
         </TableRow>
@@ -128,20 +140,20 @@
                 android:id="@+id/dialog_herd_changes_new_babies_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowContentTextStyle"
                 android:text="0"></TextView>
 
             <TextView
                 android:id="@+id/dialog_herd_changes_new_young_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowContentTextStyle"
                 android:text="0"></TextView>
             <TextView
                 android:id="@+id/dialog_herd_changes_new_old_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/BlackHeadingTextSmall"
+                style="@style/RowContentTextStyle"
                 android:text="0"></TextView>
 
         </TableRow>
@@ -159,8 +171,7 @@
         android:id="@+id/button_dialog_insert_visit_confirmation_confirm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:textColor="@color/colorPrimary"
+        style="@style/AppTheme.Button"
         android:text="Insert Visit"
         android:layout_marginRight="10dp"/>
 
@@ -168,8 +179,7 @@
         android:id="@+id/button_dialog_insert_visit_confirmation_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:textColor="@color/colorPrimary"
+        style="@style/AppTheme.Button"
         android:text="Cancel" />
 </LinearLayout>
 
@@ -177,3 +187,4 @@
 
 
 </LinearLayout>
+    </ScrollView>

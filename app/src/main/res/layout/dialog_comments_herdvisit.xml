@@ -2,15 +2,23 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/black"
     android:orientation="vertical"
     android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        style="@style/BlackHeadingTextMedium"
+        android:text="Add Comments"
+        android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextMedium"
+        style="@style/WhiteHeadingTextMedium"
         android:layout_gravity="center_horizontal"
         android:text="Do you have comments about the visit?"
         android:layout_marginBottom="15dp"/>
@@ -19,7 +27,7 @@
         android:id="@+id/secondary_header_dialog_comment_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextMedium"
+        style="@style/WhiteHeadingTextMedium"
         android:layout_gravity="center_horizontal"
         android:text="(if not leave empty)"
         android:layout_marginBottom="15dp"/>
@@ -28,7 +36,7 @@
         android:id="@+id/dialog_comments_herdvisit_editBox"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/black"
+        android:background="@drawable/edit_box_selector"
         android:ems="10"
         android:gravity="center"
         android:inputType="textMultiLine"
@@ -39,15 +47,14 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:text="0/500"
-        style="@style/BlackHeadingTextSmall"
+        style="@style/WhiteHeadingTextSmall"
         android:layout_gravity="right"/>
 
 
     <Button
         android:id="@+id/dialog_comments_submit_button"
         android:layout_marginTop="25dp"
-        android:background="@color/black"
-        android:textColor="@color/colorPrimary"
+        style="@style/AppTheme.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Insert comment" />

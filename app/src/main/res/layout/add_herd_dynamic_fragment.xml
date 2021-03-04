@@ -19,8 +19,7 @@
             android:layout_height="wrap_content"
            style="@style/AppTheme.Button"
             android:layout_weight="0.5"
-            android:text="Edit Animal Movements"
-            />
+            android:text="Edit Movements" />
 
         <Button
             android:id="@+id/button_add_herd_death"
@@ -28,7 +27,7 @@
             android:layout_weight="0.5"
             android:layout_height="wrap_content"
             style="@style/AppTheme.Button"
-            android:text="Add Animal Death"
+            android:text="Add Death"
             />
 
     </LinearLayout>

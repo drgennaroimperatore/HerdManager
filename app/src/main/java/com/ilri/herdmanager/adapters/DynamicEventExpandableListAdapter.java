@@ -32,8 +32,15 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
         mHeaders.add("Animal Movements");
        // mAnimalMovements.add(new DynamicEvent());
-        mHeaders.add("Deaths");
+        mHeaders.add("Deaths"+ " ("+mDeathsForDynamicEvent.size()+")");
         isReadOnly= false;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+
+        mHeaders.set(1,"Deaths"+ " ("+mDeathsForDynamicEvent.size()+")");
     }
 
     public void setReadOnlyData(AnimalMovementsForDynamicEvent movements, List<DeathsForDynamicEvent> deaths)

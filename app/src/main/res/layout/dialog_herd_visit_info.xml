@@ -3,13 +3,14 @@
     android:orientation="vertical"
     android:layout_width="300dp"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@color/black">
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Information on visit"
+        android:text="Visit Information"
+        android:background="@color/colorPrimary"
         style="@style/BlackHeadingTextMedium"
         android:layout_marginBottom="20dp"/>
     <TextView
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Visit of the 00/00/0000"
-        style="@style/BlackHeadingTextMedium"/>
+        style="@style/WhiteHeadingTextMedium"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,19 +34,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PWnd"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/RowSubHeaderTextStyle"
                 android:layout_weight="0.33"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adult"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/RowSubHeaderTextStyle"
                 android:layout_weight="0.33"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Old"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/RowSubHeaderTextStyle"
                 android:layout_weight="0.33"/>
 
         </LinearLayout>
@@ -55,24 +56,27 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/dialog_herd_visit_info_baby_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:text="0"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/RowContentTextStyle"
                 android:layout_weight="0.3"/>
             <TextView
                 android:id="@+id/dialog_herd_visit_info_young_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="0"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/RowContentTextStyle"
                 android:layout_weight="0.3"/>
             <TextView
                 android:id="@+id/dialog_herd_visit_info_old_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="0"
-                style="@style/BlackHeadingTextMedium"
+                style="@style/RowContentTextStyle"
                 android:layout_weight="0.25"/>
 
         </LinearLayout>
@@ -88,7 +92,8 @@
         android:id="@+id/dialog_herd_visit_info_comments_TV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/BlackHeadingTextMedium"
+        style="@style/RowContentTextStyle"
+        android:background="@drawable/edit_box_selector"
         android:text="Comments"
         android:layout_marginBottom="20dp">
     </TextView>
@@ -98,7 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@color/black"
-        android:textColor="@color/colorPrimary"></Button>
+       style="@style/AppTheme.Button"
+        ></Button>
 
 </LinearLayout>

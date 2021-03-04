@@ -70,10 +70,17 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
         mGroupHeaders = new ArrayList<>();
         //mGroupHeaders.add("Diseases");
-        mGroupHeaders.add("Signs");
-        mGroupHeaders.add("Health Interventions");
+        mGroupHeaders.add("Signs" + " ("+ mSignsList.size()+")");
+        mGroupHeaders.add("Health Interventions" + " ("+ mHealthIntervention.size()+")");
         mGroupHeaders.add("Body Condition");
 
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        mGroupHeaders.set(0, "Signs" + " ("+ mSignsList.size()+")");
+        mGroupHeaders.set(1,"Health Interventions" + " ("+ mHealthIntervention.size()+")");
     }
 
     public void setReadOnlyData(int herdID,
