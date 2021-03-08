@@ -268,6 +268,28 @@ public class HerdVisitManager {
 
     }
 
+    public void addDeathToExistingDynamicEvent(Context context,
+                                               DeathsForDynamicEvent dde,
+                                               int herdVisitID)
+    {
+        DynamicEvent dynamicEvent =
+                HerdDatabase.getInstance(context).getHerdDao().getDynamicEventForVisit(herdVisitID).get(0);
+        dde.dynamicEventID = dynamicEvent.ID;
+        HerdDatabase.getInstance(context).getHerdDao().InsertDeathForDynamicEvent(dde);
+        updateSyncStatusOfDynamicEvent(context,dde.dynamicEventID);
+    }
+
+    public void editDeathForExistingDynamicEvent(Context context, DeathsForDynamicEvent dde)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().UpdateDeathsForDynamicEvent(dde);
+        if(dde.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
+        {
+            dde.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+            HerdDatabase.getInstance(context).getHerdDao().UpdateDeathsForDynamicEvent(dde);
+        }
+        updateSyncStatusOfDynamicEvent(context,dde.dynamicEventID);
+    }
+
     public void addVisitToHerd(Context context,
                                int herdID,
                                Date whenitoccured,

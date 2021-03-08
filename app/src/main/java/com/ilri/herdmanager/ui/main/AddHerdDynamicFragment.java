@@ -39,6 +39,7 @@ public class AddHerdDynamicFragment extends Fragment {
     private ExpandableListView mExpandableListView;
      DynamicEventExpandableListAdapter mAdapter = null;
     private boolean mEditableInReadOnly;
+    private int mHerdVisitID = -155;
 
 
     public static AddHerdDynamicFragment newInstance() {
@@ -62,8 +63,11 @@ public class AddHerdDynamicFragment extends Fragment {
             herdVisitID = args.getInt("herdVisitID", -145);
             boolean isRO = args.getBoolean("isReadOnly", false);
             isReadOnly = ((isRO) && (herdVisitID!=-145));
+            mHerdVisitID = herdVisitID;
+
         }
 
+        final int hvID = herdVisitID;
         mAddEventButton = view.findViewById(R.id.button_add_herd_dynamic);
         mAddDeathButton = view.findViewById(R.id.button_add_herd_death);
 
@@ -102,7 +106,7 @@ public class AddHerdDynamicFragment extends Fragment {
                 causesOfDeath.add("Accident");
                 causesOfDeath.add("Unknown");
 
-                DialogFragment dialogFragment = new NewDynamicEventAnimalDeathDialog(getContext(), causesOfDeath, fragment);
+                DialogFragment dialogFragment = new NewDynamicEventAnimalDeathDialog(getContext(), causesOfDeath, fragment, mEditableInReadOnly, hvID);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -127,7 +131,6 @@ public class AddHerdDynamicFragment extends Fragment {
             mAdapter.setReadOnlyData(movements,deaths);
         }
         else
-
         {
             mExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
@@ -146,7 +149,7 @@ public class AddHerdDynamicFragment extends Fragment {
                             causesOfDeath.add("Unknown");
 
                             DialogFragment dialogFragment = new NewDynamicEventAnimalDeathDialog(getContext(), causesOfDeath, childPosition,
-                                    dde.deadBabies,dde.deadYoung,dde.deadOld, fragment);
+                                  dde, fragment, mEditableInReadOnly, hvID);
                             FragmentTransaction ft = getFragmentManager().beginTransaction();
                             Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                             if (prev != null) {
@@ -217,9 +220,50 @@ public class AddHerdDynamicFragment extends Fragment {
         if(mEditableInReadOnly)
         {
          mAddEventButton.setVisibility(View.VISIBLE);
+         mAddDeathButton.setVisibility(View.VISIBLE);
+
+         final AddHerdDynamicFragment fragment = this;
+
+            mExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                        int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                        if (groupPosition == 1) // deaths
+                        {
+                            DeathsForDynamicEvent dde = mAdapter.getDeathForDynamicEvent(childPosition);
+                            List<String> causesOfDeath = new ArrayList<>();
+                            causesOfDeath.add("Age");
+                            causesOfDeath.add("Disease");
+                            causesOfDeath.add("Accident");
+                            causesOfDeath.add("Unknown");
+
+                            DialogFragment dialogFragment = new NewDynamicEventAnimalDeathDialog(getContext(), causesOfDeath, childPosition,
+                                   dde, fragment, mEditableInReadOnly, mHerdVisitID);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
+
+                            dialogFragment.show(ft, "dialog");
+                        }
+
+
+                        return true;
+                    }
+
+                    return false;
+                }
+            });
+
         }
         else
         {
+            mAddEventButton.setVisibility(View.GONE);
             mAddDeathButton.setVisibility(View.GONE);
 
         }

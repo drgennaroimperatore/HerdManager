@@ -20,6 +20,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.DeathsForDynamicEvent;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.main.AddHerdDynamicFragment;
 
 import java.util.List;
@@ -32,8 +33,13 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
    private Integer nDeadBabies, nDeadYoung, nDeadOld;
    private Integer mPositionToEdit;
    private boolean isEditing = false;
+   private boolean mIsEditingInReadOnly = false;
+   private int mHerdVisitID = -155;
+   private DeathsForDynamicEvent mDdeToEdit;
 
-    public NewDynamicEventAnimalDeathDialog(Context context, List<String> causesOfDeath,  AddHerdDynamicFragment f)
+    public NewDynamicEventAnimalDeathDialog(Context context, List<String> causesOfDeath,
+                                            AddHerdDynamicFragment f,
+                                            boolean isEditingInReadOnly, int herdVisitID)
     {
         mContext = context;
         mCausesOfDeath = causesOfDeath;
@@ -41,18 +47,26 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
         nDeadBabies= null;
         nDeadYoung= null;
         nDeadOld = null;
+        mIsEditingInReadOnly = isEditingInReadOnly;
+        mHerdVisitID = herdVisitID;
     }
 
-    public NewDynamicEventAnimalDeathDialog(Context context,List<String> causesOfDeath, int pos, int deadBabies, int deadYoung, int deadOld, AddHerdDynamicFragment f )
+    public NewDynamicEventAnimalDeathDialog(Context context,List<String> causesOfDeath,
+                                            int pos, DeathsForDynamicEvent dde,
+                                            AddHerdDynamicFragment f, boolean isEditingInReadOnly,
+                                            int herdVisitID )
     {
         mContext = context;
         mCausesOfDeath = causesOfDeath;
         mFragment = f;
-        nDeadBabies = deadBabies;
-        nDeadYoung = deadYoung;
-        nDeadOld = deadOld;
+        nDeadBabies = dde.deadBabies;
+        nDeadYoung = dde.deadYoung;
+        nDeadOld = dde.deadOld;
         mPositionToEdit= pos;
         isEditing=true;
+        mIsEditingInReadOnly = isEditingInReadOnly;
+        mHerdVisitID = herdVisitID;
+        mDdeToEdit = dde;
     }
 
 
@@ -109,7 +123,6 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
         }
 
 
-
         addDeathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,8 +155,14 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                     dde.deadOld = nAffectedOld;
 
                     if(isEditing) {
-
                         mFragment.editDeath(mPositionToEdit,nAffectedBabies,nAffectedYoung,nAffectedOld);
+                        if(mIsEditingInReadOnly) {
+                            dde.ID = mDdeToEdit.ID;
+                            dde.dynamicEventID = mDdeToEdit.dynamicEventID;
+                            dde.serverID = mDdeToEdit.serverID;
+                            dde.syncStatus = mDdeToEdit.syncStatus;
+                            HerdVisitManager.getInstance().editDeathForExistingDynamicEvent(getContext(), dde);
+                        }
                         dismiss();
                     }
                     else {
@@ -151,6 +170,8 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                         if (mFragment.addDeath(dde)) {
                             Toast.makeText(mContext,"Cause of death was already inserted", Toast.LENGTH_LONG).show();
                         } else {
+                            if(mIsEditingInReadOnly)
+                                HerdVisitManager.getInstance().addDeathToExistingDynamicEvent(getContext(),dde,mHerdVisitID);
                             dismiss();
                         }
                     }
