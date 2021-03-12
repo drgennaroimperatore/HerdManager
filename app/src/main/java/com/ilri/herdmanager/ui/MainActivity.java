@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.kmz.KMZParser;
+import com.ilri.herdmanager.kmz.LocationsLoader;
 import com.ilri.herdmanager.ui.dialogs.UsernameSelectionDialog;
 import com.ilri.herdmanager.utilities.Info;
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            new KMZParser().execute(getAssets().open("eth.kml"));
+            new LocationsLoader().execute(getAssets().open("locations.xml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

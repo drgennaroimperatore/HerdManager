@@ -2,28 +2,22 @@ package com.ilri.herdmanager.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.Farmer;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.kmz.GeoData;
+import com.ilri.herdmanager.kmz.LocationData;
 import com.ilri.herdmanager.ui.NewCaseActivity;
 
 import java.util.ArrayList;
@@ -33,7 +27,7 @@ public class NewFarmerDialog extends Dialog {
 
 
     private EditText mEditTextFarmerFirstName, mEditTextFarmerSecondName;
-    private Spinner mChosenRegionSpinner, mChosenDistrictSpinner, mChosenWoredaSpinner;
+    private Spinner mChosenRegionSpinner, mChosenZoneSpinner, mChosenWoredaSpinner;
     private Button mAddNewFarmerButton;
     private NewCaseActivity mNewCaseActivity;
 
@@ -52,10 +46,10 @@ public class NewFarmerDialog extends Dialog {
         mEditTextFarmerSecondName = findViewById(R.id.editText_new_farmer_secondName);
 
         mChosenRegionSpinner = findViewById(R.id.spinnerFarmerRegion);
-        mChosenDistrictSpinner = findViewById(R.id.spinnerFarmerDistrict);
+        mChosenZoneSpinner = findViewById(R.id.spinnerFarmerDistrict);
         mChosenWoredaSpinner = findViewById(R.id.spinnerFarmerKebele);
 
-        final LinkedList<String> regionsOfEthi = GeoData.getInstance().getRegions();
+        final ArrayList<String> regionsOfEthi = LocationData.getInstance().getRegions();
         final LinkedList<String> abbrRegions= new LinkedList<>();
 
        abbrRegions.addAll(regionsOfEthi); // we want to make sure this is a copy and not a reference
@@ -68,8 +62,6 @@ public class NewFarmerDialog extends Dialog {
                 abbrRegions.remove(r);
                 abbrRegions.add(index, "SNNP");
             }
-
-
         }
 
 
@@ -77,10 +69,10 @@ public class NewFarmerDialog extends Dialog {
         final ArrayAdapter<String> regionSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item,abbrRegions );
         mChosenRegionSpinner.setAdapter(regionSpinnerAdapter);
 
-       // final ArrayList<String> districsFirstRegion = GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(0));
+       // final ArrayList<String> districsFirstRegion = LocationData.getInstance().getDistricsForRegion(regionsOfEthi.get(0));
 
-        final ArrayAdapter<String> districtsSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item);
-        mChosenDistrictSpinner.setAdapter(districtsSpinnerAdapter);
+        final ArrayAdapter<String> zonesSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item);
+        mChosenZoneSpinner.setAdapter(zonesSpinnerAdapter);
 
         final ArrayAdapter<String> woredaSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item);
         mChosenWoredaSpinner.setAdapter(woredaSpinnerAdapter);
@@ -89,22 +81,22 @@ public class NewFarmerDialog extends Dialog {
         mChosenRegionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                districtsSpinnerAdapter.clear();
+                zonesSpinnerAdapter.clear();
 
                 try {
 
-                    ArrayList<String> districtsForRegion = GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(position));
+                    ArrayList<String> districtsForRegion = LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position));
 
 
-                    districtsSpinnerAdapter.addAll(districtsForRegion);
-                    districtsSpinnerAdapter.notifyDataSetChanged();
+                    zonesSpinnerAdapter.addAll(districtsForRegion);
+                    zonesSpinnerAdapter.notifyDataSetChanged();
                     woredaSpinnerAdapter.clear();
 
-                    ArrayList<String> woredasForDistrict = GeoData.getInstance().getWoredasForDistrics
-                            ((String) GeoData.getInstance().getDistricsForRegion(regionsOfEthi.get(position)).get(0));
+                    ArrayList<String> woredasForZones = LocationData.getInstance().getWoredasForZone(
+                            (String) LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position)).get(0));
 
 
-                    woredaSpinnerAdapter.addAll(woredasForDistrict);
+                    woredaSpinnerAdapter.addAll(woredasForZones);
                 }
                 catch (Exception e)
                 {
@@ -125,11 +117,11 @@ public class NewFarmerDialog extends Dialog {
         });
 
 
-        mChosenDistrictSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mChosenZoneSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 woredaSpinnerAdapter.clear();
-                woredaSpinnerAdapter.addAll(GeoData.getInstance().getWoredasForDistrics((String) mChosenDistrictSpinner.getSelectedItem()));
+                woredaSpinnerAdapter.addAll(LocationData.getInstance().getWoredasForZone((String) mChosenZoneSpinner.getSelectedItem()));
                 woredaSpinnerAdapter.notifyDataSetChanged();
             }
 
@@ -160,7 +152,7 @@ public class NewFarmerDialog extends Dialog {
                 farmer.firstName = mEditTextFarmerFirstName.getText().toString();
                 farmer.secondName = mEditTextFarmerSecondName.getText().toString();
                 farmer.region = mChosenRegionSpinner.getSelectedItem().toString();
-                farmer.district = mChosenDistrictSpinner.getSelectedItem().toString();
+                farmer.district = mChosenZoneSpinner.getSelectedItem().toString();
                 farmer.kebele = mChosenWoredaSpinner.getSelectedItem().toString();
 
                 farmer.ID = (int) HerdDatabase.getInstance(mNewCaseActivity).getHerdDao().InsertFarmer(farmer);
