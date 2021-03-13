@@ -90,7 +90,7 @@
         android:id="@+id/new_farmer_spinner_district_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="District"
+        android:text="Zone"
         style="@style/BlackHeadingText"/>
 
 
@@ -104,22 +104,38 @@
         />
 
     <TextView
-        android:id="@+id/new_farmer_spinner_kebele_heading"
+        android:id="@+id/new_farmer_spinner_woreda_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kebele"
+        android:text="Woreda"
         style="@style/BlackHeadingText"/>
 
 
 
     <Spinner
-        android:id="@+id/spinnerFarmerKebele"
+        android:id="@+id/spinnerFarmerWoreda"
         android:layout_width="219dp"
         android:layout_height="23dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
          />
 
+        <TextView
+            android:id="@+id/new_farmer_spinner_kebele_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kebele"
+            style="@style/BlackHeadingText"/>
+
+
+
+        <Spinner
+            android:id="@+id/spinnerFarmerKebele"
+            android:layout_width="219dp"
+            android:layout_height="23dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            />
     <Button
         android:id="@+id/button_add_new_farmer"
         android:layout_width="wrap_content"

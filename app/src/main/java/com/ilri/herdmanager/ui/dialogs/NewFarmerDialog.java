@@ -20,6 +20,7 @@ import com.ilri.herdmanager.kmz.GeoData;
 import com.ilri.herdmanager.kmz.LocationData;
 import com.ilri.herdmanager.ui.NewCaseActivity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -27,7 +28,12 @@ public class NewFarmerDialog extends Dialog {
 
 
     private EditText mEditTextFarmerFirstName, mEditTextFarmerSecondName;
-    private Spinner mChosenRegionSpinner, mChosenZoneSpinner, mChosenWoredaSpinner;
+    private Spinner
+            mChosenRegionSpinner,
+            mChosenZoneSpinner,
+            mChosenWoredaSpinner,
+            mChosenKebeleSpinner;
+
     private Button mAddNewFarmerButton;
     private NewCaseActivity mNewCaseActivity;
 
@@ -47,7 +53,8 @@ public class NewFarmerDialog extends Dialog {
 
         mChosenRegionSpinner = findViewById(R.id.spinnerFarmerRegion);
         mChosenZoneSpinner = findViewById(R.id.spinnerFarmerDistrict);
-        mChosenWoredaSpinner = findViewById(R.id.spinnerFarmerKebele);
+        mChosenWoredaSpinner = findViewById(R.id.spinnerFarmerWoreda);
+        mChosenKebeleSpinner = findViewById(R.id.spinnerFarmerKebele);
 
         final ArrayList<String> regionsOfEthi = LocationData.getInstance().getRegions();
         final LinkedList<String> abbrRegions= new LinkedList<>();
@@ -77,6 +84,9 @@ public class NewFarmerDialog extends Dialog {
         final ArrayAdapter<String> woredaSpinnerAdapter = new ArrayAdapter(getContext(),R.layout.chosen_region_spinner_item);
         mChosenWoredaSpinner.setAdapter(woredaSpinnerAdapter);
 
+        final ArrayAdapter<String> kebeleSpinnerAdapter = new ArrayAdapter<>(getContext(), R.layout.chosen_region_spinner_item);
+        mChosenKebeleSpinner.setAdapter(kebeleSpinnerAdapter);
+
 
         mChosenRegionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -84,19 +94,20 @@ public class NewFarmerDialog extends Dialog {
                 zonesSpinnerAdapter.clear();
 
                 try {
-
                     ArrayList<String> districtsForRegion = LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position));
-
 
                     zonesSpinnerAdapter.addAll(districtsForRegion);
                     zonesSpinnerAdapter.notifyDataSetChanged();
                     woredaSpinnerAdapter.clear();
+                    kebeleSpinnerAdapter.clear();
 
                     ArrayList<String> woredasForZones = LocationData.getInstance().getWoredasForZone(
                             (String) LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position)).get(0));
 
 
+                    ArrayList<String> kebelesForWoredas = LocationData.getInstance().getKebelesForWoreda(LocationData.getInstance().getWoredasForZone( LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position)).get(0)).get(0));
                     woredaSpinnerAdapter.addAll(woredasForZones);
+                    kebeleSpinnerAdapter.addAll(kebelesForWoredas);
                 }
                 catch (Exception e)
                 {
@@ -123,6 +134,12 @@ public class NewFarmerDialog extends Dialog {
                 woredaSpinnerAdapter.clear();
                 woredaSpinnerAdapter.addAll(LocationData.getInstance().getWoredasForZone((String) mChosenZoneSpinner.getSelectedItem()));
                 woredaSpinnerAdapter.notifyDataSetChanged();
+
+                kebeleSpinnerAdapter.clear();
+                ArrayList<String> kebelesForWoreda =LocationData.getInstance().getKebelesForWoreda(LocationData.getInstance().getWoredasForZone((String) mChosenZoneSpinner.getSelectedItem()).get(0));
+                kebeleSpinnerAdapter.addAll(kebelesForWoreda);
+                kebeleSpinnerAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -131,6 +148,20 @@ public class NewFarmerDialog extends Dialog {
             }
         });
 
+        mChosenWoredaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                kebeleSpinnerAdapter.clear();
+                ArrayList kebelesForSelectedWoreda = LocationData.getInstance().getKebelesForWoreda((String)mChosenWoredaSpinner.getSelectedItem());
+                kebeleSpinnerAdapter.addAll(kebelesForSelectedWoreda);
+                kebeleSpinnerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         mAddNewFarmerButton = findViewById(R.id.button_add_new_farmer);
         mAddNewFarmerButton.setOnClickListener(new View.OnClickListener() {
             @Override
