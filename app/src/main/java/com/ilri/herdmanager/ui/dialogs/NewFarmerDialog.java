@@ -92,10 +92,8 @@ public class NewFarmerDialog extends Dialog {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 zonesSpinnerAdapter.clear();
-
                 try {
                     ArrayList<String> districtsForRegion = LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position));
-
                     zonesSpinnerAdapter.addAll(districtsForRegion);
                     zonesSpinnerAdapter.notifyDataSetChanged();
                     woredaSpinnerAdapter.clear();
@@ -111,7 +109,6 @@ public class NewFarmerDialog extends Dialog {
                 }
                 catch (Exception e)
                 {
-
                     int i =regionSpinnerAdapter.getCount();
                     e.getMessage();
                    // regionSpinnerAdapter.addAll(regionsOfEthi.get(0));
@@ -139,7 +136,6 @@ public class NewFarmerDialog extends Dialog {
                 ArrayList<String> kebelesForWoreda =LocationData.getInstance().getKebelesForWoreda(LocationData.getInstance().getWoredasForZone((String) mChosenZoneSpinner.getSelectedItem()).get(0));
                 kebeleSpinnerAdapter.addAll(kebelesForWoreda);
                 kebeleSpinnerAdapter.notifyDataSetChanged();
-
             }
 
             @Override

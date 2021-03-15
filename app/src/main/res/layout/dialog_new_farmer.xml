@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/new_farmer_dialog_parent"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:id="@+id/new_farmer_dialog_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/black">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
     android:orientation="vertical"
     android:layout_centerInParent="true">
 
@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="15dp"
         android:layout_marginBottom="8dp">
 
     <TextView
@@ -26,43 +25,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add a New Farmer"
-        style="@style/BlackHeadingTextLarge"/>
+        style="@style/BlackHeadingTextLarge"
+        android:background="@color/colorPrimary"/>
 
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Farmer Credentials"
-        style="@style/BlackHeadingTextMedium"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView24"
+                style="@style/BlackHeadingTextMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@color/colorPrimary"
+                android:text="Farmer Credentials" />
 
 
+            <EditText
+                android:id="@+id/editText_new_farmer_firstName"
+                style="@style/NumberEditTextStyle"
+                android:layout_width="151dp"
+                android:layout_height="37dp"
 
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editText_new_farmer_firstName"
-        style="@style/NumberEditTextStyleDark"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
+            <EditText
+                android:id="@+id/editText_new_farmer_secondName"
+                style="@style/NumberEditTextStyle"
+                android:layout_width="151dp"
+                android:layout_height="37dp"
+                android:layout_marginBottom="20dp"
+                android:ems="10"
+                android:hint="Second Name"
+                android:inputType="textPersonName" />
+        </LinearLayout>
 
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="5dp"
-        />
-
-    <EditText
-        android:id="@+id/editText_new_farmer_secondName"
-        style="@style/NumberEditTextStyleDark"
-        android:layout_width="151dp"
-        android:layout_height="37dp"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="20dp" />
-
-    <TextView
+        <TextView
         android:id="@+id/new_farmer_spinner_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,7 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Region"
-        style="@style/BlackHeadingText"/>
+        android:background="@color/colorPrimary"
+        style="@style/BlackHeadingTextMedium"/>
 
 
     <Spinner
@@ -83,7 +89,8 @@
         android:layout_width="219dp"
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_box_selector"
          />
 
     <TextView
@@ -91,7 +98,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Zone"
-        style="@style/BlackHeadingText"/>
+        style="@style/BlackHeadingTextMedium"
+        android:background="@color/colorPrimary"/>
 
 
 
@@ -100,7 +108,8 @@
         android:layout_width="219dp"
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_box_selector"
         />
 
     <TextView
@@ -108,7 +117,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Woreda"
-        style="@style/BlackHeadingText"/>
+        style="@style/BlackHeadingTextMedium"
+        android:background="@color/colorPrimary"/>
 
 
 
@@ -117,7 +127,8 @@
         android:layout_width="219dp"
         android:layout_height="23dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_box_selector"
          />
 
         <TextView
@@ -125,7 +136,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Kebele"
-            style="@style/BlackHeadingText"/>
+            style="@style/BlackHeadingTextMedium"
+            android:background="@color/colorPrimary"/>
 
 
 
@@ -134,16 +146,15 @@
             android:layout_width="219dp"
             android:layout_height="23dp"
             android:layout_marginTop="8dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/edit_box_selector"
             />
     <Button
         android:id="@+id/button_add_new_farmer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:background="@color/black"
         android:text="Add Farmer"
-        android:textColor="@color/colorPrimary"
+        style="@style/AppTheme.Button"
         android:textAlignment="center"
         android:layout_gravity="center"
          />
