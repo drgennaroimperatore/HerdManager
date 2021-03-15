@@ -179,8 +179,9 @@ public class NewFarmerDialog extends Dialog {
                 farmer.firstName = mEditTextFarmerFirstName.getText().toString();
                 farmer.secondName = mEditTextFarmerSecondName.getText().toString();
                 farmer.region = mChosenRegionSpinner.getSelectedItem().toString();
-                farmer.district = mChosenZoneSpinner.getSelectedItem().toString();
-                farmer.kebele = mChosenWoredaSpinner.getSelectedItem().toString();
+                farmer.zone = mChosenZoneSpinner.getSelectedItem().toString();
+                farmer.woreda = mChosenWoredaSpinner.getSelectedItem().toString();
+                farmer.kebele = mChosenKebeleSpinner.getSelectedItem().toString();
 
                 farmer.ID = (int) HerdDatabase.getInstance(mNewCaseActivity).getHerdDao().InsertFarmer(farmer);
 

@@ -8,7 +8,7 @@ public class Farmer
 {
     @PrimaryKey(autoGenerate = true)
     public int ID;
-    public String firstName, secondName, region, district, kebele;
+    public String firstName, secondName, region, zone, woreda, kebele;
     public String syncStatus;
     public int serverID=-1;
 

@@ -10,7 +10,9 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.Farmer;
 
 public class FarmerRadioButton extends BaseRadioButton {
-   private TextView mTitleTextView, mRegionTextView, mDistrictTextView, mKebeleTextView;
+   private TextView mTitleTextView,
+           mRegionTextView,
+           mZoneTextView, mWoredaTextView, mKebeleTextView;
    private Farmer mFarmerAssociatedWithButton;
 
 
@@ -35,7 +37,8 @@ public class FarmerRadioButton extends BaseRadioButton {
        bindViews();
        mTitleTextView.setText(farmer.firstName+ " " + farmer.secondName);
        mRegionTextView.setText(farmer.region);
-       mDistrictTextView.setText(farmer.district);
+       mZoneTextView.setText(farmer.zone);
+       mWoredaTextView.setText(farmer.woreda);
        mKebeleTextView.setText(farmer.kebele);
 
 
@@ -61,7 +64,8 @@ public class FarmerRadioButton extends BaseRadioButton {
     protected void bindViews() {
      mTitleTextView = findViewById(R.id.radio_button_farmerName);
      mRegionTextView = findViewById(R.id.radio_button_farmerRegion);
-     mDistrictTextView = findViewById(R.id.radio_button_farmerDistrict);
+     mZoneTextView = findViewById(R.id.radio_button_farmerZone);
+     mWoredaTextView = findViewById(R.id.radio_button_farmerWoreda);
      mKebeleTextView = findViewById(R.id.radio_button_farmerKebele);
 
     }

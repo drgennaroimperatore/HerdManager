@@ -156,7 +156,8 @@ class SyncManager {
         farmerParams.put("firstName",f.firstName);
         farmerParams.put("secondName", f.secondName);
         farmerParams.put("region",f.region);
-        farmerParams.put("district",f.district);
+        farmerParams.put("zone",f.zone);
+        farmerParams.put("woreda",f.woreda);
         farmerParams.put("kebele",f.kebele);
         farmerParams.put("UserID",UUID);
 
