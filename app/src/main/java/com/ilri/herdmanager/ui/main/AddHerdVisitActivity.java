@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,20 +46,19 @@ public class AddHerdVisitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final int herdID = getIntent().getIntExtra("herdID", -155);
-        final boolean isRO = getIntent().getBooleanExtra("isReadOnly",false);
-        final Date herdVisitDate = (Date)getIntent().getSerializableExtra("herdVisitDate");
+        final boolean isRO = getIntent().getBooleanExtra("isReadOnly", false);
+        final Date herdVisitDate = (Date) getIntent().getSerializableExtra("herdVisitDate");
         final int herdVisitID = getIntent().getIntExtra("herdVisitID", -145);
         FragmentManager fm = getSupportFragmentManager();
         Bundle readOnlyArguments = null;
 
-        final boolean isReadonly = ((isRO) &&  (herdVisitDate!=null) && (herdVisitID!=-155));
+        final boolean isReadonly = ((isRO) && (herdVisitDate != null) && (herdVisitID != -155));
 
-        if(isReadonly)
-        {
+        if (isReadonly) {
             readOnlyArguments = new Bundle();
-            readOnlyArguments.putInt("herdID",herdID);
-            readOnlyArguments.putBoolean("isReadOnly",true);
-            readOnlyArguments.putInt("herdVisitID",herdVisitID);
+            readOnlyArguments.putInt("herdID", herdID);
+            readOnlyArguments.putBoolean("isReadOnly", true);
+            readOnlyArguments.putInt("herdVisitID", herdVisitID);
 
         }
 
@@ -80,15 +80,14 @@ public class AddHerdVisitActivity extends AppCompatActivity {
             }
         });
 
-        if(isReadonly)
-        {
+        if (isReadonly) {
             editModeSwitch.setVisibility(View.VISIBLE);
             editModeSwitch.setTextOff("Editing is Locked");
             editModeSwitch.setTextOn("Edting is Enabled");
             TextView titleTV = findViewById(R.id.add_herd_visit_title);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String selectedDate = sdf.format(herdVisitDate);
-            titleTV.setText("Herd Visit of the "+ selectedDate);
+            titleTV.setText("Herd Visit of the " + selectedDate);
             //fab.setVisibility(View.GONE); // hide the button if we are in read only mode
         }
 
@@ -101,13 +100,11 @@ public class AddHerdVisitActivity extends AppCompatActivity {
               /*  Snackbar.make(view, "Adding visit", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
 
-                if (isReadonly)
-                {
+                if (isReadonly) {
                     HerdVisit visit = HerdDatabase.getInstance(a).getHerdDao().getHerdVisitByID(herdVisitID).get(0);
-                    HerdVisitInfoDialog infoDialog = new HerdVisitInfoDialog(a,visit );
+                    HerdVisitInfoDialog infoDialog = new HerdVisitInfoDialog(a, visit);
                     infoDialog.show();
-                }
-                else {
+                } else {
                     final HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
                     final ProductivityEventContainer pce = sectionsPagerAdapter.getProductivityEventForVisit();
                     final DynamicEventContainer dce = sectionsPagerAdapter.getDynamicEventForVisit();
@@ -135,5 +132,16 @@ public class AddHerdVisitActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+    }
+
+    public void goToDiagnoseSignleAnimalActivity() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

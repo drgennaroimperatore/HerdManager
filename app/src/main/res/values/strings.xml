@@ -39,7 +39,6 @@
         The red/blue/green circles are also shown beside each visit for the herd</string>
 
 
-
     <string name="action_settings">Settings</string>
     <string name="title_activity_add_herd_visit">AddHerdVisitActivity</string>
     <string name="tab_text_1">Herd\nHealth</string>

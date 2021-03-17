@@ -12,10 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.main.DiagnoseSingleAnimalResultsActivity"></activity>
+        <activity android:name=".ui.main.DiagnoseSingleAnimalActivity" />
         <activity
             android:name=".ui.main.AddHerdVisitActivity"
             android:label="@string/title_activity_add_herd_visit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.NewCaseActivity"
             android:label="@string/title_activity_new_case"

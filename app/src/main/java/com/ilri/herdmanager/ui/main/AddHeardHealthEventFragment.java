@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,7 @@ public class AddHeardHealthEventFragment extends Fragment {
 
     private AddHeardHealthViewModel mViewModel;
     private ExpandableListView mHealthEventExpandableListView;
-    private Button mShowAddSignButton, mShowAddDiseaseButton, mShowEditBodyConditionButton, mShowAddInterventionButton;
+    private Button mShowAddSignButton, mShowDiagnoseAnimalButton, mShowEditBodyConditionButton, mShowAddInterventionButton;
     private int mHerdID = -155;
     private HealthEventExpandableListAdapter mAdapter;
     private boolean mEditableInReadOnly = false;
@@ -109,6 +110,8 @@ public class AddHeardHealthEventFragment extends Fragment {
 
         mShowAddInterventionButton = view.findViewById(R.id.health_event_show_health_intervention_dialog);
 
+        mShowDiagnoseAnimalButton = view.findViewById(R.id.health_event_show_diagnose_single_animal_dialog);
+
         mHealthEventExpandableListView = view.findViewById(R.id.health_event_exapandableListView);
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
         //healthEvents.add( new HealthEvent());
@@ -123,29 +126,6 @@ public class AddHeardHealthEventFragment extends Fragment {
 
       final  AddHeardHealthEventFragment f = this;
         final int hvID = herdVisitID;
-
-      /*  mShowAddDiseaseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
-                List<String> diseaseNames = new ArrayList<>();
-
-                for(Diseases d: diseases)
-                    diseaseNames.add(d.Name);
-
-                DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(),diseaseNames,f );
-                FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
-                ft.addToBackStack(null);
-                dialogFragment.show(ft, "dialog");
-
-            }
-        });*/
 
 
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
@@ -283,6 +263,14 @@ public class AddHeardHealthEventFragment extends Fragment {
 
                 dialogFragment.show(ft, "dialog");
 
+            }
+        });
+
+        mShowDiagnoseAnimalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), DiagnoseSingleAnimalActivity.class);
+                startActivity(intent);
             }
         });
 
