@@ -1,8 +1,15 @@
 package com.ilri.herdmanager.ui.main;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +44,17 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
     Button diagnoseButton;
     int mCurrentAnimalID;
     ADDB mADDB;
+    ActivityResultLauncher<Intent> mResultsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis"))
+                    {
+                        String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
+                        finish();
+                    }
+            }
+    });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,35 +78,8 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         populateSignsContainer(signsContainer, mSignsForAnimal);
 
 
-        ////////////////REFERENCE CODE FOR CREATING SYMPTOMS LIST
-     /*   <!--<net.crosp.customradiobtton.PresetRadioGroup
-        android:id="@+id/preset_time_radio_group_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="false"
-        android:layout_margin="3dp"
-        android:layout_marginBottom="13dp"
-        android:layout_below="@id/textView_symptom_heading"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:presetRadioCheckedId="@+id/preset_time_value_button_6">
-
-
-        <net.crosp.customradiobtton.PresetValueButton
-        android:id="@+id/preset_time_value_button_3"
-        style="@style/PresetLayoutButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:presetButtonUnitText="Present"
-        app:presetButtonValueText="Fever" />*/
-
-        ////////////// END OF REFERENCE CODE
-
-
                 List<Signs> signs =dao.getAllSignsForAnimal(mCurrentAnimalID);
                 populateSignsContainer(signsContainer, signs);
-
 
         String t = dao.getAnimalNameFromID(91).get(0);
 
@@ -96,17 +87,11 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         diagnoseButton =(Button)findViewById(R.id.diagnose_button);
         diagnoseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 getSelectedSigns();
-
                 GoToResults(diagnoseAnimal(dao,getSelectedSigns(),mCurrentAnimalID,dao.getAllDiseases()));
-
 
             }
         });
-
-
-
 
     }
 
@@ -319,7 +304,11 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         myIntent.putExtra("species", mADDB.getADDBDAO().getAnimalNameFromID(mCurrentAnimalID).get(0));
         myIntent.putExtra("signs",getSelectedSignsStrings());
         myIntent.putExtra("diagnoses",d );
+        mResultsLauncher.launch(myIntent);
 
-        startActivity(myIntent);
+
     }
+
+
+
 }

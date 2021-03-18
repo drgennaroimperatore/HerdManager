@@ -1,6 +1,7 @@
 package com.ilri.herdmanager.ui.main;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -40,6 +45,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddHerdVisitActivity extends AppCompatActivity {
+
+    ActivityResultLauncher<Intent> mResultsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis")) {
+                        String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
+
+                    }
+                }
+            });
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -136,12 +152,4 @@ public class AddHerdVisitActivity extends AppCompatActivity {
 
     }
 
-    public void goToDiagnoseSignleAnimalActivity() {
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 }
