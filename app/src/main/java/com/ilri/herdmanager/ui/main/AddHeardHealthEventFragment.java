@@ -1,10 +1,16 @@
 package com.ilri.herdmanager.ui.main;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -24,6 +30,7 @@ import android.widget.TextView;
 import com.ilri.herdmanager.adapters.HealthEventExpandableListAdapter;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.database.entities.ADDB;
+import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.AdditionalSigns;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Diseases;
@@ -46,7 +53,7 @@ import com.ilri.herdmanager.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddHeardHealthEventFragment extends Fragment {
+public class AddHeardHealthEventFragment extends Fragment implements LifecycleObserver {
 
     private AddHeardHealthViewModel mViewModel;
     private ExpandableListView mHealthEventExpandableListView;
@@ -54,6 +61,19 @@ public class AddHeardHealthEventFragment extends Fragment {
     private int mHerdID = -155;
     private HealthEventExpandableListAdapter mAdapter;
     private boolean mEditableInReadOnly = false;
+
+    ActivityResultLauncher<Intent> mDiagnoserLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis")) {
+                        String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
+                        mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag));
+
+
+                    }
+                }
+            });
 
     public static AddHeardHealthEventFragment newInstance() {
         return new AddHeardHealthEventFragment();
@@ -270,7 +290,7 @@ public class AddHeardHealthEventFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), DiagnoseSingleAnimalActivity.class);
-                startActivity(intent);
+                mDiagnoserLauncher.launch(intent);
             }
         });
 
@@ -464,5 +484,15 @@ public class AddHeardHealthEventFragment extends Fragment {
             mShowAddInterventionButton.setVisibility(View.GONE);
             mShowEditBodyConditionButton.setVisibility(View.GONE);
         }
+    }
+
+    private DiseasesForHealthEvent generateDiseaseForHealthEventFromDiseaseName(String diseaseName)
+    {
+        diseaseName = diseaseName.split(" ")[0].toUpperCase();
+        ADDBDAO addbdao = ADDB.getInstance(getContext()).getADDBDAO();
+        DiseasesForHealthEvent dhe = new DiseasesForHealthEvent();
+        int diseaseID = addbdao.getDiseaseIDFromName(diseaseName).get(0);
+        dhe.diseaseID = diseaseID;
+        return dhe;
     }
 }

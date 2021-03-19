@@ -69,10 +69,10 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
        // mDiseaseList.add(0,new HealthEvent());
 
         mGroupHeaders = new ArrayList<>();
-        //mGroupHeaders.add("Diseases");
         mGroupHeaders.add("Signs" + " ("+ mSignsList.size()+")");
         mGroupHeaders.add("Health Interventions" + " ("+ mHealthIntervention.size()+")");
         mGroupHeaders.add("Body Condition");
+        mGroupHeaders.add("Single Animal Diagnoses"+ " ("+ mDiseaseList.size()+")");
 
     }
 
@@ -81,6 +81,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         super.notifyDataSetChanged();
         mGroupHeaders.set(0, "Signs" + " ("+ mSignsList.size()+")");
         mGroupHeaders.set(1,"Health Interventions" + " ("+ mHealthIntervention.size()+")");
+        mGroupHeaders.set(3,"Single Animal Diagnoses"+ " ("+ mDiseaseList.size()+")");
     }
 
     public void setReadOnlyData(int herdID,
@@ -104,8 +105,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         int childSize =0;
 
 
-       /* if(groupPosition==1)
-            childSize = mDiseaseList.size();*/
+       if(groupPosition==3)
+            childSize = mDiseaseList.size();
         if(groupPosition==0)
             childSize = mSignsList.size();
         if(groupPosition==2)
@@ -171,30 +172,32 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if(groupPosition==2)
-               // convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
                 convertView = inflater.inflate(R.layout.health_event_body_condition_row,null);
             if(groupPosition==0)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
             if(groupPosition==1)
                 convertView = inflater.inflate(R.layout.health_event_health_intervention_row, null);
+            if(groupPosition==3)
+                 convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
 
-        //}
+
+                //}
 
         TextView name = null;
         TextView numberOfAffectedBabies = null;
         TextView numberOfAffecedYoung = null;
         TextView numberOfAffectedOld = null;
 
-       /* if(groupPosition==1) // disease
+        if(groupPosition==3) // disease
         {
             DiseasesForHealthEvent dhe = mDiseaseList.get(childPosition);
 
             name = convertView.findViewById(R.id.health_event_disease_row_diseaseName);
             name.setText(addbdao.getDiseaseNameFromId(dhe.diseaseID).get(0));
 
-          /*  if (isReadOnly)
+           if (isReadOnly)
             {
-                ImageView syncStatusImgView = convertView.findViewById(R.id.health_event_disease_row_syncStatus_imgView);
+              /*  ImageView syncStatusImgView = convertView.findViewById(R.id.health_event_disease_row_syncStatus_imgView);
                 syncStatusImgView.setVisibility(View.VISIBLE);
 
                 if(dhe.syncStatus.equals(SyncStatus.NOT_SYNCHRONISED.toString()))
@@ -202,16 +205,16 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                 if(dhe.syncStatus.equals(SyncStatus.PARTIALLY_SYNCHRONISED.toString()))
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_partially_synced);
                 if(dhe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
-                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);
-            }*/
-        /*    numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
+                    syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);*/
+            }
+           numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
             numberOfAffecedYoung = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_young_text_view);
             numberOfAffectedOld = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_old_text_view);
 
             numberOfAffectedBabies.setText(String.valueOf(dhe.numberOfAffectedBabies));
             numberOfAffecedYoung.setText(String.valueOf(dhe.numberOfAffectedYoung));
             numberOfAffectedOld.setText(String.valueOf(dhe.numberOfAffectedOld));
-        }*/
+        }
 
         if(groupPosition==0) // signs
         {
@@ -309,7 +312,6 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     }
     public boolean addNewDisease(DiseasesForHealthEvent dhe)
     {
-
 
         for(DiseasesForHealthEvent d:mDiseaseList)
             if(dhe.equals(d))

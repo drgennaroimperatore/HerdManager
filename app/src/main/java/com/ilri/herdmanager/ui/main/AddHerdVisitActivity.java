@@ -46,16 +46,6 @@ import java.util.Date;
 
 public class AddHerdVisitActivity extends AppCompatActivity {
 
-    ActivityResultLauncher<Intent> mResultsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis")) {
-                        String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
-
-                    }
-                }
-            });
 
     @SuppressLint("RestrictedApi")
     @Override

@@ -51,6 +51,9 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis"))
                     {
                         String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
+                        Intent  chosenDiagnosisIntent = new Intent();
+                        chosenDiagnosisIntent.putExtra("chosenDiagnosis",chosenDiag);
+                        setResult(RESULT_OK,chosenDiagnosisIntent);
                         finish();
                     }
             }

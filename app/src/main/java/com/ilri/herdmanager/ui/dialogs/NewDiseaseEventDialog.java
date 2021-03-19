@@ -141,7 +141,6 @@ public class NewDiseaseEventDialog extends DialogFragment {
             public void onClick(View v) {
 
                 DiseasesForHealthEvent dhe = new DiseasesForHealthEvent();
-
                 String diseaseName = diseaseSpinner.getSelectedItem().toString();
                 int diseaseID = addbdao.getDiseaseIDFromName(diseaseName).get(0);
 
@@ -193,8 +192,6 @@ public class NewDiseaseEventDialog extends DialogFragment {
       //  String[] dummyDiseases = {"Disease 1", "Disease 2", "Disease 3"};
         ArrayAdapter<String> signSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mDiseases);
         diseaseSpinner.setAdapter(signSpinnerAdapter);
-
-
 
 
 
