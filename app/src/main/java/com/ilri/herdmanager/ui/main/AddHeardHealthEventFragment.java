@@ -290,6 +290,8 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), DiagnoseSingleAnimalActivity.class);
+               Herd herd= HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+               intent.putExtra("speciesID", herd.speciesID);
                 mDiagnoserLauncher.launch(intent);
             }
         });
@@ -488,7 +490,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
 
     private DiseasesForHealthEvent generateDiseaseForHealthEventFromDiseaseName(String diseaseName)
     {
-        diseaseName = diseaseName.split(" ")[0].toUpperCase();
+        diseaseName = diseaseName.split(":")[0].toUpperCase().trim();
         ADDBDAO addbdao = ADDB.getInstance(getContext()).getADDBDAO();
         DiseasesForHealthEvent dhe = new DiseasesForHealthEvent();
         int diseaseID = addbdao.getDiseaseIDFromName(diseaseName).get(0);

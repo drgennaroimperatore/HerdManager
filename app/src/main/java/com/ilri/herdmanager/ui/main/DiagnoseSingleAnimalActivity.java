@@ -64,6 +64,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diagnose_single_animal);
         mADDB= ADDB.getInstance(this);
       final  ADDBDAO dao = mADDB.getADDBDAO();
+        mCurrentAnimalID = getIntent().getIntExtra("speciesID",-155);
 
 
         //Add signs
@@ -75,17 +76,11 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
 
         LinearLayout signsContainer = (LinearLayout)findViewById(R.id.signs_container);
 
-
-        mCurrentAnimalID =91;
         mSignsForAnimal =dao.getAllSignsForAnimal(mCurrentAnimalID);
         populateSignsContainer(signsContainer, mSignsForAnimal);
 
-
                 List<Signs> signs =dao.getAllSignsForAnimal(mCurrentAnimalID);
                 populateSignsContainer(signsContainer, signs);
-
-        String t = dao.getAnimalNameFromID(91).get(0);
-
 
         diagnoseButton =(Button)findViewById(R.id.diagnose_button);
         diagnoseButton.setOnClickListener(new View.OnClickListener() {
@@ -129,10 +124,8 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
 
                 if(signPresence.equals("Present"))
                 {
-
                     try
                     {
-
                         String stringl =  dao.getLikelihoodValue(animalID, signID, d.Id).get(0).Value;
                         Float floatl =Float.parseFloat( dao.getLikelihoodValue(animalID, signID, d.Id).get(0).Value);
                         likelihoodValue = Float.parseFloat( dao.getLikelihoodValue(animalID, signID, d.Id).get(0).Value)/100.0f;
@@ -161,9 +154,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
                 }
                 chainProbability*=likelihoodValue;
 
-
             }
-
 
             float prior = Float.parseFloat(dao.getPriorForDisease(animalID, d.Id).get(0).Probability);
             float posterior = chainProbability * prior;
@@ -195,7 +186,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
             Float norm = (Float)e.getValue()/sum;
             norm*=100.0f;
             BigDecimal bd = new BigDecimal(Float.toString(norm));
-            bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+            bd = bd.setScale(0, BigDecimal.ROUND_HALF_UP);
             norm= bd.floatValue();
 
             normalised.put((String)e.getKey(), norm );

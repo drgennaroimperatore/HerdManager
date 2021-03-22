@@ -61,7 +61,7 @@ public class DiagnoseSingleAnimalResultsActivity extends AppCompatActivity {
 
             RadioButton presentRadioButton = new RadioButton(this);
 
-            presentRadioButton.setText(formatDiagnosis(diag.getKey()) + " " + diag.getValue()+"%");
+            presentRadioButton.setText(formatDiagnosis(diag.getKey()) + ":" + diag.getValue()+"%");
             group.addView(presentRadioButton);
 
         }
