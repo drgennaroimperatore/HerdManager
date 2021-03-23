@@ -26,11 +26,13 @@ public class DiagnoseSingleAnimalResultsActivity extends AppCompatActivity {
     private HashMap<String, Float> mDiagnoses = new HashMap<>();
     private Button mChooseDiagnosisButton;
     private String mChosenDiagnosis;
+    private String mChosenAnimalAge;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_single_animal_results);
         try {
+            mChosenAnimalAge = getIntent().getStringExtra("animalAge");
             mDiagnoses = sortDiagnoses((HashMap<String, Float>) getIntent().getSerializableExtra("diagnoses"));
             LinearLayout diagnosesContainter = findViewById(R.id.activity_diagnose_results_results_container);
             populateDiagnosesContainer(diagnosesContainter);
@@ -132,6 +134,7 @@ public class DiagnoseSingleAnimalResultsActivity extends AppCompatActivity {
     {
         Intent  chosenDiagnosisIntent = new Intent();
         chosenDiagnosisIntent.putExtra("chosenDiagnosis",mChosenDiagnosis);
+        chosenDiagnosisIntent.putExtra("animalAge", mChosenAnimalAge);
         setResult(RESULT_OK,chosenDiagnosisIntent);
         finish();
     }

@@ -40,7 +40,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
 
     List<RadioGroup> mSignRadioGroups = new ArrayList<RadioGroup>();
     List<Signs> mSignsForAnimal = new ArrayList<>();
-    // AnimalAgeSeekBar mAnimalAgeSeekBar;
+    RadioGroup mAnimalAgeRadioGroup;
     Button diagnoseButton;
     int mCurrentAnimalID;
     ADDB mADDB;
@@ -51,8 +51,10 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis"))
                     {
                         String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
+                        String animalAge = result.getData().getStringExtra("animalAge");
                         Intent  chosenDiagnosisIntent = new Intent();
                         chosenDiagnosisIntent.putExtra("chosenDiagnosis",chosenDiag);
+                        chosenDiagnosisIntent.putExtra("animalAge",animalAge);
                         setResult(RESULT_OK,chosenDiagnosisIntent);
                         finish();
                     }
@@ -65,14 +67,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         mADDB= ADDB.getInstance(this);
       final  ADDBDAO dao = mADDB.getADDBDAO();
         mCurrentAnimalID = getIntent().getIntExtra("speciesID",-155);
-
-
-        //Add signs
-        LayoutInflater inflater = LayoutInflater.from(this);
-
-
-        int signCounter=0;
-
+        mAnimalAgeRadioGroup = findViewById(R.id.activity_diagnose_single_animal_age_selection_radio_group);
 
         LinearLayout signsContainer = (LinearLayout)findViewById(R.id.signs_container);
 
@@ -93,24 +88,12 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
 
     }
 
-    public List<String> getNamesFromSigns(List<Signs> signs)
-    {
-        List<String> names = new ArrayList<>();
-        for(Signs sign: signs)
-        {
-            names.add(sign.Name);
-        }
-        return names;
-    }
-
     public HashMap<String, Float> diagnoseAnimal(ADDBDAO dao, HashMap<Signs, String> selectedSigns, int animalID, List<Diseases> diseases)
     {
         HashMap<String, Float> diagnosis = new HashMap<>();
-
         for(Diseases d:diseases)
 
         {
-
             if (!checkIfDiseasesAffectsAnimal(dao, animalID, d.Id))
                 continue;
 
@@ -145,7 +128,6 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
                         String stringl =  dao.getLikelihoodValue(animalID, signID, d.Id).get(0).Value;
                         Float floatl =Float.parseFloat( dao.getLikelihoodValue(animalID, signID, d.Id).get(0).Value);
                         likelihoodValue = 1.0f - Float.parseFloat( dao.getLikelihoodValue(animalID, signID, d.Id).get(0).Value)/100.0f;
-
 
                     } catch (IndexOutOfBoundsException iob)
                     {
@@ -298,11 +280,18 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         myIntent.putExtra("species", mADDB.getADDBDAO().getAnimalNameFromID(mCurrentAnimalID).get(0));
         myIntent.putExtra("signs",getSelectedSignsStrings());
         myIntent.putExtra("diagnoses",d );
+        myIntent.putExtra("animalAge", getSelectedAge());
         mResultsLauncher.launch(myIntent);
 
 
     }
 
-
+    private String getSelectedAge()
+    {
+        int id = mAnimalAgeRadioGroup.getCheckedRadioButtonId();
+        RadioButton ageButton =findViewById(id);
+        String ageStr = ageButton.getText().toString();
+        return ageStr;
+    }
 
 }

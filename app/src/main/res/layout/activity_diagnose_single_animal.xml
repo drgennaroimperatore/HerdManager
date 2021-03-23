@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_weight="1"
         style="@style/WhiteHeadingTextMedium"
         android:text="Diagnose An Animal">
     </TextView>
@@ -23,41 +23,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_heading"
-        android:layout_weight="1"
         style="@style/WhiteHeadingTextMedium"
         android:text="Type of Animal">
     </TextView>
 
     <RadioGroup
+        android:id="@+id/activity_diagnose_single_animal_age_selection_radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="50dp"
+        android:checkedButton="@id/age_radio_group_radioButton_pwnd"
         android:orientation="vertical">
 
         <RadioButton
+            android:id="@+id/age_radio_group_radioButton_pwnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="P.wnd">
-
+            android:text="P.Wnd">
         </RadioButton>
 
         <RadioButton
+            android:id="@+id/age_radio_group_radioButton_young"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Young"></RadioButton>
 
         <RadioButton
+            android:id="@+id/age_radio_group_radioButton_adult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Adult">
 
         </RadioButton>
-
     </RadioGroup>
 
     <ScrollView
         android:id="@+id/signs_scroller"
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
         android:layout_above="@+id/diagnose_button"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@color/colorPrimary"
@@ -73,14 +78,10 @@
 
     <Button
         android:id="@+id/diagnose_button"
-        android:layout_width="137dp"
-        android:layout_height="36dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-
-        android:textColor="@color/black"
-        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        style="@style/AppTheme.Button"
         android:text="Diagnose Animal"></Button>
 
-
-   </RelativeLayout>
+   </LinearLayout>

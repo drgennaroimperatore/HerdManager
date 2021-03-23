@@ -68,7 +68,16 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData().hasExtra("chosenDiagnosis")) {
                         String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
-                        mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag));
+                        String animalAge = result.getData().getStringExtra("animalAge");
+                        int babies=0; int young =0; int adult=0;
+
+                        if(animalAge.equals("P.Wnd"))
+                            babies=1;
+                        else if (animalAge.equals("Young"))
+                            young=1;
+                        else if(animalAge.equals("Adult"))
+                            adult=1;
+                        mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young,adult));
 
 
                     }
@@ -488,13 +497,19 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         }
     }
 
-    private DiseasesForHealthEvent generateDiseaseForHealthEventFromDiseaseName(String diseaseName)
+    private DiseasesForHealthEvent generateDiseaseForHealthEventFromDiseaseName(String diseaseName,
+                                                                                int babies,
+                                                                                int young,
+                                                                                int adult)
     {
         diseaseName = diseaseName.split(":")[0].toUpperCase().trim();
         ADDBDAO addbdao = ADDB.getInstance(getContext()).getADDBDAO();
         DiseasesForHealthEvent dhe = new DiseasesForHealthEvent();
         int diseaseID = addbdao.getDiseaseIDFromName(diseaseName).get(0);
         dhe.diseaseID = diseaseID;
+        dhe.numberOfAffectedBabies = babies;
+        dhe.numberOfAffectedYoung = young;
+        dhe.numberOfAffectedOld = adult;
         return dhe;
     }
 }
