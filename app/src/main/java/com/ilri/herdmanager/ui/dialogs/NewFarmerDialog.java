@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -59,6 +60,7 @@ public class NewFarmerDialog extends Dialog {
         final ArrayList<String> regionsOfEthi = LocationData.getInstance().getRegions();
         final LinkedList<String> abbrRegions= new LinkedList<>();
 
+        regionsOfEthi.add(0,"Please Select a Region");
        abbrRegions.addAll(regionsOfEthi); // we want to make sure this is a copy and not a reference
 
         for(String r: regionsOfEthi)
@@ -70,6 +72,7 @@ public class NewFarmerDialog extends Dialog {
                 abbrRegions.add(index, "SNNP");
             }
         }
+
 
 
 
@@ -94,6 +97,12 @@ public class NewFarmerDialog extends Dialog {
                 zonesSpinnerAdapter.clear();
                 try {
                     ArrayList<String> districtsForRegion = LocationData.getInstance().getZonesForRegion(regionsOfEthi.get(position));
+                    LinearLayout locationSubSpinners = findViewById(R.id.dialog_new_farmer_location_toggler_LL);
+                    if(districtsForRegion == null)
+                        locationSubSpinners.setVisibility(View.GONE);
+                    else
+                        locationSubSpinners.setVisibility(View.VISIBLE);
+
                     zonesSpinnerAdapter.addAll(districtsForRegion);
                     zonesSpinnerAdapter.notifyDataSetChanged();
                     woredaSpinnerAdapter.clear();
@@ -179,9 +188,23 @@ public class NewFarmerDialog extends Dialog {
                 farmer.firstName = mEditTextFarmerFirstName.getText().toString();
                 farmer.secondName = mEditTextFarmerSecondName.getText().toString();
                 farmer.region = mChosenRegionSpinner.getSelectedItem().toString();
-                farmer.zone = mChosenZoneSpinner.getSelectedItem().toString();
-                farmer.woreda = mChosenWoredaSpinner.getSelectedItem().toString();
-                farmer.kebele = mChosenKebeleSpinner.getSelectedItem().toString();
+
+                LinearLayout toggler = findViewById(R.id.dialog_new_farmer_location_toggler_LL);
+
+                if(mChosenRegionSpinner.getSelectedItemId()==0)
+                    return;
+                if(toggler.getVisibility()==View.GONE) // we are dealing with a special zone
+                {
+                    farmer.woreda = farmer.region;
+                    farmer.kebele= farmer.region;
+                    farmer.zone = farmer.region;
+                }
+                else {
+
+                    farmer.zone = mChosenZoneSpinner.getSelectedItem().toString();
+                    farmer.woreda = mChosenWoredaSpinner.getSelectedItem().toString();
+                    farmer.kebele = mChosenKebeleSpinner.getSelectedItem().toString();
+                }
 
                 farmer.ID = (int) HerdDatabase.getInstance(mNewCaseActivity).getHerdDao().InsertFarmer(farmer);
 

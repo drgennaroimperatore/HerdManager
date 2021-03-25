@@ -11719,7 +11719,7 @@
       </Woreda>
     </Zone>
   </Region>
-  <Region_no_children ID="5" parent_ID="-99" name="SOMALE KILLIL" />
+  <Region ID="5" parent_ID="-99" name="SOMALE KILLIL" />
   <Region ID="6" parent_ID="-99" name="Benishangul Gumuz">
     <Zone ID="602" parent_ID="6" name="Metekel">
       <Woreda ID="60201" parent_ID="602" name="Dangur">
@@ -16615,7 +16615,7 @@
       </Woreda>
     </Zone>
   </Region>
-  <Region_no_children ID="14" parent_ID="-99" name="Addis Abeba" />
+  <Region ID="14" parent_ID="-99" name="Addis Abeba" />
   <Region ID="15" parent_ID="-99" name="Dredewa">
     <Zone ID="1501" parent_ID="15" name="Dredewa">
       <Woreda ID="150102" parent_ID="1501" name="Gorgora">

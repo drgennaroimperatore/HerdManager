@@ -63,6 +63,11 @@ public class LocationsLoader extends AsyncTask<InputStream, Integer, LocationDat
                 NodeList zones = regionContainer.Children;
                 ArrayList <String> zonesForRegion = new ArrayList<>();
                 mRegions.add(regionContainer.Name);
+                if(zones==null)
+                    continue;
+                else
+                if(zones.getLength()==0)
+                    continue;
                 for (int z=0; z<zones.getLength(); z++)
                 {
                     Node zoneNode = zones.item(z);

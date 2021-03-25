@@ -29,6 +29,7 @@
         android:background="@color/colorPrimary"/>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -92,7 +93,12 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/edit_box_selector"
          />
-
+<LinearLayout
+    android:id="@+id/dialog_new_farmer_location_toggler_LL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="gone">
     <TextView
         android:id="@+id/new_farmer_spinner_district_heading"
         android:layout_width="match_parent"
@@ -148,6 +154,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/edit_box_selector"
             />
+</LinearLayout>
     <Button
         android:id="@+id/button_add_new_farmer"
         android:layout_width="wrap_content"
