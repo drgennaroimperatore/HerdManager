@@ -29,6 +29,7 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         DynamicEvent.class,
         SignsForHealthEvent.class,
         DiseasesForHealthEvent.class,
+        SignsForDiseasesForHealthEvent.class,
         AnimalMovementsForDynamicEvent.class,
         DeathsForDynamicEvent.class,
         MilkProductionForProductivityEvent.class,
@@ -38,7 +39,7 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         HealthIntervention.class,
         HealthInterventionForHealthEvent.class,
         Vaccines.class,
-        VaccinesForSpecies.class}, version= 31)
+        VaccinesForSpecies.class}, version= 32)
 
 
 @TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dialog_disease_signs_list_row_sign_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RowContentTextStyle"
+        android:text="Sign Name">
+    </TextView>
+    <TextView
+        android:id="@+id/dialog_disease_signs_list_row_sign_presence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/RowSubHeaderTextStyle"
+        android:text="Sign Presence">
+    </TextView>
+</LinearLayout>

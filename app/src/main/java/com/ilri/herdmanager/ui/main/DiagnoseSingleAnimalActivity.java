@@ -25,6 +25,7 @@ import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.Diseases;
 import com.ilri.herdmanager.database.entities.Signs;
+import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
     RadioGroup mAnimalAgeRadioGroup;
     Button diagnoseButton;
     int mCurrentAnimalID;
+    ArrayList<SignsForDiseasesForHealthEvent> mSignsForDiseaseForHealthEvent = new ArrayList<>();
     ADDB mADDB;
     ActivityResultLauncher<Intent> mResultsLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -52,9 +54,12 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
                     {
                         String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
                         String animalAge = result.getData().getStringExtra("animalAge");
+                      ArrayList<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents = (ArrayList<SignsForDiseasesForHealthEvent>)
+                               result.getData().getSerializableExtra("signs");
                         Intent  chosenDiagnosisIntent = new Intent();
                         chosenDiagnosisIntent.putExtra("chosenDiagnosis",chosenDiag);
                         chosenDiagnosisIntent.putExtra("animalAge",animalAge);
+                        chosenDiagnosisIntent.putExtra("signs", signsForDiseasesForHealthEvents);
                         setResult(RESULT_OK,chosenDiagnosisIntent);
                         finish();
                     }
@@ -74,18 +79,13 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         mSignsForAnimal =dao.getAllSignsForAnimal(mCurrentAnimalID);
         populateSignsContainer(signsContainer, mSignsForAnimal);
 
-                List<Signs> signs =dao.getAllSignsForAnimal(mCurrentAnimalID);
-                populateSignsContainer(signsContainer, signs);
 
         diagnoseButton =(Button)findViewById(R.id.diagnose_button);
         diagnoseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getSelectedSigns();
                 GoToResults(diagnoseAnimal(dao,getSelectedSigns(),mCurrentAnimalID,dao.getAllDiseases()));
-
             }
         });
-
     }
 
     public HashMap<String, Float> diagnoseAnimal(ADDBDAO dao, HashMap<Signs, String> selectedSigns, int animalID, List<Diseases> diseases)
@@ -209,9 +209,15 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         {
             RadioButton selectedRadioButton = findViewById( group.getCheckedRadioButtonId());
 
-            selectedSigns.put(mSignsForAnimal.get(index), (String)selectedRadioButton.getText());
-            index++;
+            Signs sign = mSignsForAnimal.get(index);
+            String presence =(String)selectedRadioButton.getText();
+            selectedSigns.put(sign, presence);
+            SignsForDiseasesForHealthEvent signsForDiseasesForHealthEvent = new SignsForDiseasesForHealthEvent();
+            signsForDiseasesForHealthEvent.signID = sign.Id;
+            signsForDiseasesForHealthEvent.presence = presence;
+            mSignsForDiseaseForHealthEvent.add(signsForDiseasesForHealthEvent);
 
+            index++;
 
         }
         return selectedSigns;
@@ -238,8 +244,6 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         int signCounter=0;
 
         mSignRadioGroups = new ArrayList<>();
-
-
         signsContainer.removeAllViews();
         for(Signs sign :signs)
         {
@@ -263,11 +267,8 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
             notObservedRadioButton.setChecked(true);
 
             signsContainer.addView(label);
-
             signsContainer.addView(group);
-
             mSignRadioGroups.add(group);
-
             signCounter++;
         }
 
@@ -278,11 +279,10 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
     {
         Intent myIntent = new Intent(this, DiagnoseSingleAnimalResultsActivity.class);
         myIntent.putExtra("species", mADDB.getADDBDAO().getAnimalNameFromID(mCurrentAnimalID).get(0));
-        myIntent.putExtra("signs",getSelectedSignsStrings());
+        myIntent.putExtra("signs",mSignsForDiseaseForHealthEvent);
         myIntent.putExtra("diagnoses",d );
         myIntent.putExtra("animalAge", getSelectedAge());
         mResultsLauncher.launch(myIntent);
-
 
     }
 

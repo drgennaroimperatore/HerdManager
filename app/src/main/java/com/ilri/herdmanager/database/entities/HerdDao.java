@@ -22,7 +22,6 @@ public interface HerdDao {
         public String Name;
     }
 
-
     @Query("SELECT * FROM Herd")
     List<Herd> getAllHerds();
 
@@ -61,6 +60,9 @@ public interface HerdDao {
 
     @Query("SELECT * FROM SignsForHealthEvent WHERE SignsForHealthEvent.healthEventID =:healthEventID")
     List<SignsForHealthEvent> getSignsForHealthEvent(int healthEventID);
+
+    @Query("SELECT * FROM SignsForDiseasesForHealthEvent WHERE diseaseForHealthEventID=:dheID")
+    List<SignsForDiseasesForHealthEvent> getSignsForDiseaseForHealthEvent(int dheID);
 
     @Query("SELECT * FROM BodyCondition")
     List<BodyCondition> testBodyConditionTable();

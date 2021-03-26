@@ -1,146 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_disease_parent"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout5"
+    <TextView
+        android:id="@+id/dialog_new_health_event_disease_dialog_title_textview"
+        style="@style/BlackHeadingTextMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/black">
+        android:background="@color/colorPrimary"
+        android:text="Insert New Disease">
 
-        <EditText
-            android:id="@+id/editText_disease_health_event_baby"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="140dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    </TextView>
 
-        <EditText
-            android:id="@+id/editText_disease_health_event_old"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="140dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginRight="12dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/editText_disease_health_event_young"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ListView
+        android:id="@+id/dialog_disease_list_of_signs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/health_event_disease_spinner"
-            android:layout_width="264dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="18dp"
-            android:background="@color/black"
-            android:dropDownWidth="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_new_health_event_disease_dialog_title_textview" />
+    </ListView>
 
-        <EditText
-            android:id="@+id/editText_disease_health_event_young"
-            style="@style/NumberEditTextStyleDark"
-            android:layout_width="60dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="140dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/editText_disease_health_event_baby"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button_disease_health_add_disease"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Dis"
-            style="@style/AppTheme.Button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.503" />
 
-        <Button
-            android:id="@+id/button_disease_health_delete_disease"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="88dp"
-            android:background="@color/red"
-            android:text="del"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.688"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"></Button>
+    <Button
+        android:id="@+id/button_disease_health_add_disease"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Dis"
+        style="@style/AppTheme.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.503" />
 
-        <TextView
-            android:id="@+id/dialog_new_health_event_disease_dialog_title_textview"
-            style="@style/BlackHeadingTextMedium"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Insert New Disease"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/button_disease_health_delete_disease"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="88dp"
+        android:background="@color/red"
+        android:text="del"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"></Button>
 
-        <TextView
-            android:id="@+id/textView15"
-            style="@style/WhiteHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="176dp"
-            android:text="PWnd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView17"
-            style="@style/WhiteHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="176dp"
-            android:text="Adult"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.693"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView16"
-            style="@style/WhiteHeadingTextSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Young"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/editText_disease_health_event_young"
-            app:layout_constraintStart_toStartOf="@+id/editText_disease_health_event_young" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>

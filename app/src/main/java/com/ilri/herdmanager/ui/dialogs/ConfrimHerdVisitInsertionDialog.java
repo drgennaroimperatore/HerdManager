@@ -51,7 +51,9 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
     private String mComments;
 
     public ConfrimHerdVisitInsertionDialog(Context context, AddHerdVisitActivity a, int herdID,
-                                           HealthEventContainer hce, ProductivityEventContainer pce, DynamicEventContainer dce, String comments ) {
+                                           HealthEventContainer hce,
+                                           ProductivityEventContainer pce,
+                                           DynamicEventContainer dce, String comments ) {
         super(context);
         mA = a;
         mHce = hce;
@@ -59,8 +61,6 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
         mDce = dce;
         mHerdID = herdID;
         mComments = comments;
-
-
 
     }
 
@@ -126,7 +126,7 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                           mContext,
                           mHerdID, mVisitDate,
                           nBabies, nYoung, nOld,
-                          mHce.mDhes, mHce.mShes, mHce.mBChes, mHce.mHIhes,
+                          mHce.mDhes, mHce.mShes, mHce.mSFDFGE, mHce.mBChes, mHce.mHIhes,
                           mPce.milkProductionForProductivityEvent, mPce.birthsForProductivityEvent,
                           mDce.mMovements, mDce.mDeaths, mComments);
                   dismiss();

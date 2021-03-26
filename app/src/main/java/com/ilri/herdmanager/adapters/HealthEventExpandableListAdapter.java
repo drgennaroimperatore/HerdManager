@@ -22,6 +22,7 @@ import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
 import com.ilri.herdmanager.ui.customui.BodyConditionRowContainer;
@@ -29,6 +30,7 @@ import com.ilri.herdmanager.ui.customui.BodyConditionRowContainer;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter {
@@ -37,6 +39,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
    ArrayList<DiseasesForHealthEvent> mDiseaseList = new ArrayList<>();
    ArrayList<BodyConditionForHealthEvent> mBodyCondtion = new ArrayList<>();
    ArrayList<HealthInterventionForHealthEvent> mHealthIntervention = new ArrayList<>();
+  ArrayList <ArrayList<SignsForDiseasesForHealthEvent>> mSignsForSingleDiagnoses = new ArrayList<>();
    ArrayList<String> mGroupHeaders;
    ADDBDAO addbdao = null;
    HerdDao herdDao = null;
@@ -58,7 +61,6 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         herdDao= HerdDatabase.getInstance(context).getHerdDao();
 
         List<BodyCondition> bodyConditionList = herdDao.testBodyConditionTable();
-
         //Identify the herd name and pass to the initialiser
         isReadOnly= false;
         mHerdID=herdID;
@@ -103,7 +105,6 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public int getChildrenCount(int groupPosition) {
 
         int childSize =0;
-
 
        if(groupPosition==3)
             childSize = mDiseaseList.size();
@@ -310,7 +311,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
         return false;
     }
-    public boolean addNewDisease(DiseasesForHealthEvent dhe)
+    public boolean addNewDisease(DiseasesForHealthEvent dhe, ArrayList<SignsForDiseasesForHealthEvent> sfdhe)
     {
 
         for(DiseasesForHealthEvent d:mDiseaseList)
@@ -320,6 +321,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             }
 
         mDiseaseList.add(dhe);
+            setSignsForSingleAnimalDiagnosis(sfdhe);
         notifyDataSetChanged();
 
         return false;
@@ -373,6 +375,11 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     {
         mSignsList.remove(pos);
         notifyDataSetChanged();
+    }
+
+    private void setSignsForSingleAnimalDiagnosis(ArrayList<SignsForDiseasesForHealthEvent> sfdfhe)
+    {
+        mSignsForSingleDiagnoses.add(sfdfhe);
     }
 
     private void initialiseBodyConditionList()
@@ -430,6 +437,10 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public ArrayList<DiseasesForHealthEvent> getDiseasesForHealthEvent() {return mDiseaseList;}
     public ArrayList<SignsForHealthEvent> getSignsForHealthEvent() {return mSignsList;}
     public ArrayList<BodyConditionForHealthEvent>getBodyConditionForHealthEvent() {return mBodyCondtion;}
+
+    public ArrayList<SignsForDiseasesForHealthEvent> getSignsForSingleDiagnoses(int pos) {
+        return mSignsForSingleDiagnoses.get(pos);
+    }
 
     public DiseasesForHealthEvent getDiseaseForHealthEvent(int pos) {return mDiseaseList.get(pos);}
     public SignsForHealthEvent getSignsForHealthEvent(int pos) {return mSignsList.get(pos);}

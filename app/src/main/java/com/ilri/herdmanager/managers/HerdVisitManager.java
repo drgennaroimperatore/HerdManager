@@ -18,11 +18,15 @@ import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.MilkProductionForProductivityEvent;
 import com.ilri.herdmanager.database.entities.ProductivityEvent;
+import com.ilri.herdmanager.database.entities.Signs;
+import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import java.net.ConnectException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class HerdVisitManager {
@@ -293,9 +297,10 @@ public class HerdVisitManager {
     public void addVisitToHerd(Context context,
                                int herdID,
                                Date whenitoccured,
-                               int nBabies,int nYoung, int nOld,
+                               int nBabies, int nYoung, int nOld,
                                List<DiseasesForHealthEvent> diseasesForHealthEvent,
                                List<SignsForHealthEvent> signsForHealthEvents,
+                               ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> signsForDiseasesForHealthEventHashMap,
                                List<BodyConditionForHealthEvent> bodyConditionForHealthEvents,
                                List<HealthInterventionForHealthEvent> healthInterventionForHealthEvents,
                                MilkProductionForProductivityEvent milkProductionForProductivityEvent,

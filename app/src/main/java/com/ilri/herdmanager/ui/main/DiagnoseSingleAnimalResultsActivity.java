@@ -11,8 +11,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.ilri.herdmanager.R;
+import com.ilri.herdmanager.database.entities.Signs;
+import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -27,12 +30,14 @@ public class DiagnoseSingleAnimalResultsActivity extends AppCompatActivity {
     private Button mChooseDiagnosisButton;
     private String mChosenDiagnosis;
     private String mChosenAnimalAge;
+    private ArrayList<SignsForDiseasesForHealthEvent> mSigns;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diagnose_single_animal_results);
         try {
             mChosenAnimalAge = getIntent().getStringExtra("animalAge");
+            mSigns = (ArrayList<SignsForDiseasesForHealthEvent>) getIntent().getSerializableExtra("signs");
             mDiagnoses = sortDiagnoses((HashMap<String, Float>) getIntent().getSerializableExtra("diagnoses"));
             LinearLayout diagnosesContainter = findViewById(R.id.activity_diagnose_results_results_container);
             populateDiagnosesContainer(diagnosesContainter);
@@ -135,9 +140,12 @@ public class DiagnoseSingleAnimalResultsActivity extends AppCompatActivity {
         Intent  chosenDiagnosisIntent = new Intent();
         chosenDiagnosisIntent.putExtra("chosenDiagnosis",mChosenDiagnosis);
         chosenDiagnosisIntent.putExtra("animalAge", mChosenAnimalAge);
+        chosenDiagnosisIntent.putExtra("signs",mSigns);
+
         setResult(RESULT_OK,chosenDiagnosisIntent);
         finish();
     }
+
 
 
 }
