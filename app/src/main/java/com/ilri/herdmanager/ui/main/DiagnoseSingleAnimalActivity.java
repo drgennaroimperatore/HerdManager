@@ -24,6 +24,7 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.database.entities.ADDB;
 import com.ilri.herdmanager.database.entities.ADDBDAO;
 import com.ilri.herdmanager.database.entities.Diseases;
+import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.Signs;
 import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 
@@ -239,39 +240,80 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         return selectedSigns;
     }
 
-    public void populateSignsContainer(LinearLayout signsContainer, List<Signs> signs)
-    {
-        int signCounter=0;
+    public void populateSignsContainer(LinearLayout signsContainer, List<Signs> signs) {
+        int signCounter = 0;
 
         mSignRadioGroups = new ArrayList<>();
         signsContainer.removeAllViews();
-        for(Signs sign :signs)
-        {
-            TextView label = new TextView(this);
-            label.setText(sign.Name);
-            RadioGroup group = new RadioGroup(this);
-            group.setOrientation(RadioGroup.HORIZONTAL);
 
-            RadioButton presentRadioButton = new RadioButton(this);
-            presentRadioButton.setText("Present");
-            group.addView(presentRadioButton);
+        if (!getIntent().hasExtra("readOnly_signs")) {
 
-            RadioButton notPresentRadioButton = new RadioButton(this);
-            group.addView(notPresentRadioButton);
-            notPresentRadioButton.setText("Not Present");
+            for (Signs sign : signs) {
+                TextView label = new TextView(this);
+                label.setText(sign.Name);
+                RadioGroup group = new RadioGroup(this);
+                group.setOrientation(RadioGroup.HORIZONTAL);
 
-            RadioButton notObservedRadioButton = new RadioButton(this);
-            group.addView(notObservedRadioButton);
-            notObservedRadioButton.setText("Not Observed");
+                RadioButton presentRadioButton = new RadioButton(this);
+                presentRadioButton.setText("Present");
+                group.addView(presentRadioButton);
 
-            notObservedRadioButton.setChecked(true);
+                RadioButton notPresentRadioButton = new RadioButton(this);
+                group.addView(notPresentRadioButton);
+                notPresentRadioButton.setText("Not Present");
 
-            signsContainer.addView(label);
-            signsContainer.addView(group);
-            mSignRadioGroups.add(group);
-            signCounter++;
+                RadioButton notObservedRadioButton = new RadioButton(this);
+                group.addView(notObservedRadioButton);
+                notObservedRadioButton.setText("Not Observed");
+
+                notObservedRadioButton.setChecked(true);
+
+                signsContainer.addView(label);
+                signsContainer.addView(group);
+                mSignRadioGroups.add(group);
+                signCounter++;
+            }
         }
+        else // we are pre loading the signs
+        {
+            ArrayList<SignsForDiseasesForHealthEvent> preSigns = (ArrayList<SignsForDiseasesForHealthEvent>) getIntent().getSerializableExtra("readOnly_signs");
 
+            for(SignsForDiseasesForHealthEvent sfde: preSigns)
+            {
+                String signName = ADDB.getInstance(this).getADDBDAO().getSignNameFromID(sfde.signID).get(0);
+                TextView label = new TextView(this);
+                label.setText(signName);
+                RadioGroup group = new RadioGroup(this);
+                group.setOrientation(RadioGroup.HORIZONTAL);
+
+                RadioButton presentRadioButton = new RadioButton(this);
+                presentRadioButton.setText("Present");
+                group.addView(presentRadioButton);
+
+                RadioButton notPresentRadioButton = new RadioButton(this);
+                group.addView(notPresentRadioButton);
+                notPresentRadioButton.setText("Not Present");
+
+                RadioButton notObservedRadioButton = new RadioButton(this);
+                group.addView(notObservedRadioButton);
+                notObservedRadioButton.setText("Not Observed");
+
+                String presence = sfde.presence;
+
+                if(presence.equals("Present"))
+                    presentRadioButton.setChecked(true);
+                    else if (presence.equals("Not Present"))
+                        notPresentRadioButton.setChecked(true);
+                        else if(presence.equals("Not Observed"))
+                            notObservedRadioButton.setChecked(true);
+
+                signsContainer.addView(label);
+                signsContainer.addView(group);
+                mSignRadioGroups.add(group);
+                signCounter++;
+
+            }
+        }
         mSignsForAnimal = signs;
     }
 

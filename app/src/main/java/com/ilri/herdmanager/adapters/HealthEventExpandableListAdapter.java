@@ -90,7 +90,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                                 ArrayList<DiseasesForHealthEvent> dhe,
                                 ArrayList<SignsForHealthEvent> she,
                                 ArrayList<BodyConditionForHealthEvent> bche,
-                                ArrayList<HealthInterventionForHealthEvent> hihe) {
+                                ArrayList<HealthInterventionForHealthEvent> hihe,
+                                ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> sfdhe) {
         mDiseaseList = dhe;
         mSignsList = she;
         mBodyCondtion = bche;
@@ -98,6 +99,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         notifyDataSetChanged();
         isReadOnly = true;
         mHerdID=herdID;
+        mSignsForSingleDiagnoses = sfdhe;
 
     }
 
@@ -440,6 +442,10 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     public ArrayList<SignsForDiseasesForHealthEvent> getSignsForSingleDiagnoses(int pos) {
         return mSignsForSingleDiagnoses.get(pos);
+    }
+
+    public ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> getAllSignsForSingleDiagnoses() {
+        return mSignsForSingleDiagnoses;
     }
 
     public DiseasesForHealthEvent getDiseaseForHealthEvent(int pos) {return mDiseaseList.get(pos);}

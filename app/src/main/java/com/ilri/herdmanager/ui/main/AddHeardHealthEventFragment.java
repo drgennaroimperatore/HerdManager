@@ -63,15 +63,17 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                         String chosenDiag = result.getData().getStringExtra("chosenDiagnosis");
                         String animalAge = result.getData().getStringExtra("animalAge");
                         ArrayList<SignsForDiseasesForHealthEvent> signsForDisease = (ArrayList<SignsForDiseasesForHealthEvent>) result.getData().getSerializableExtra("signs");
-                        int babies=0; int young =0; int adult=0;
+                        int babies = 0;
+                        int young = 0;
+                        int adult = 0;
 
-                        if(animalAge.equals("P.Wnd"))
-                            babies=1;
+                        if (animalAge.equals("P.Wnd"))
+                            babies = 1;
                         else if (animalAge.equals("Young"))
-                            young=1;
-                        else if(animalAge.equals("Adult"))
-                            adult=1;
-                        mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young,adult), signsForDisease);
+                            young = 1;
+                        else if (animalAge.equals("Adult"))
+                            adult = 1;
+                        mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young, adult), signsForDisease);
 
 
                     }
@@ -82,11 +84,11 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         return new AddHeardHealthEventFragment();
     }
 
-    public AddHeardHealthEventFragment() {}
+    public AddHeardHealthEventFragment() {
+    }
 
-    public AddHeardHealthEventFragment(int herdID)
-    {
-        mHerdID= herdID;
+    public AddHeardHealthEventFragment(int herdID) {
+        mHerdID = herdID;
     }
 
 
@@ -112,20 +114,14 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
 
         //FragmentManager fragmentManager = getFragmentManager();
         Bundle args = getArguments();
-        boolean isReadOnly= false;
+        boolean isReadOnly = false;
         int herdVisitID = -145;
-        if(args!=null) {
+        if (args != null) {
             mHerdID = args.getInt("herdID");
             herdVisitID = args.getInt("herdVisitID", -145);
             boolean isRO = args.getBoolean("isReadOnly", false);
-            isReadOnly = ((isRO) && (herdVisitID!=-145));
+            isReadOnly = ((isRO) && (herdVisitID != -145));
         }
-
-
-//        mShowAddDiseaseButton = view.findViewById(R.id.health_event_show_disease_dialog);
-        //REMOVE THIS LINE IF WE WANT DISEASES BACK
-
-//        mShowAddDiseaseButton.setVisibility(View.INVISIBLE);
 
         mShowAddSignButton = view.findViewById(R.id.health_event_show_sign_dialog);
 
@@ -137,7 +133,6 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
 
         mHealthEventExpandableListView = view.findViewById(R.id.health_event_exapandableListView);
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
-        //healthEvents.add( new HealthEvent());
 
         HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), healthEvents, mHerdID);
         mHealthEventExpandableListView.setAdapter(adapter);
@@ -147,14 +142,13 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         mHealthEventExpandableListView.expandGroup(2);
 
 
-      final  AddHeardHealthEventFragment f = this;
+        final AddHeardHealthEventFragment f = this;
         final int hvID = herdVisitID;
-
 
         mShowAddInterventionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(),mHerdID, f,hvID,mEditableInReadOnly);
+                DialogFragment dialogFragment = new HealthInterventionDialog(getContext(), mHerdID, f, hvID, mEditableInReadOnly);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
                 if (prev != null) {
@@ -166,90 +160,83 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
             }
         });
 
-        if(!isReadOnly)
-        mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if (!isReadOnly)
+            mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                        int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                   if(groupPosition==3)//disease
-                    {
+                        if (groupPosition == 3)//disease
+                        {
+                            List<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents = mAdapter.getSignsForSingleDiagnoses(childPosition);
+                            DialogFragment dialogFragment = new DiseaseForSingleAnimalDialog(getContext(), signsForDiseasesForHealthEvents, f);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
+                            dialogFragment.show(ft, "dialog");
 
-                       List<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents = mAdapter.getSignsForSingleDiagnoses(childPosition);
-
-                        DialogFragment dialogFragment = new DiseaseForSingleAnimalDialog(getContext(),signsForDiseasesForHealthEvents,f );
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
                         }
-                        ft.addToBackStack(null);
-                        dialogFragment.show(ft, "dialog");
+                        if (groupPosition == 0)//signs
+                        {
+                            Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                            List<AdditionalSigns> signs = ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
+                            // List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                            List<String> sNames = new ArrayList<>();
+                            SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
 
-                    }
-                    if(groupPosition==0)//signs
-                    {
-                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                        List<AdditionalSigns> signs =ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
-                       // List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
-                        List<String> sNames = new ArrayList<>();
-                        SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
+                            for (AdditionalSigns s : signs)
+                                sNames.add(s.Name);
 
-                        for(AdditionalSigns s: signs)
-                            sNames.add(s.Name);
+                            DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames, childPosition,
+                                    she.numberOfAffectedBabies, she.numberOfAffectedYoung, she.numberOfAffectedOld, f, mEditableInReadOnly);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
 
-                        DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
-                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f, mEditableInReadOnly);
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
+                            dialogFragment.show(ft, "dialog");
                         }
-                        ft.addToBackStack(null);
 
-                        dialogFragment.show(ft, "dialog");
-                    }
+                        if (groupPosition == 1) // health interventions
+                        {
+                            Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                            HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
+                            HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID, f, hvID, mEditableInReadOnly);
 
-                    if(groupPosition==1) // health interventions
-                    {
-                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                        HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
-                        HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID,f,hvID,mEditableInReadOnly);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
 
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
+                            healthInterventionDialog.show(ft, "dialog");
                         }
-                        ft.addToBackStack(null);
-
-                        healthInterventionDialog.show(ft, "dialog");
                     }
-                }
 
                     return true;
                 }
 
-        });
-
+            });
 
 
         mShowAddSignButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
                 List<AdditionalSigns> signs = ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
-                //List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
                 List<String> sNames = new ArrayList<>();
 
-                for(AdditionalSigns s: signs)
+                for (AdditionalSigns s : signs)
                     sNames.add(s.Name);
-                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,f,mEditableInReadOnly, hvID);
+                DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames, f, mEditableInReadOnly, hvID);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -267,9 +254,9 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
             @Override
             public void onClick(View v) {
 
-                DialogFragment dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f,hvID,mEditableInReadOnly);
-                if(mAdapter.getBodyConditionForHealthEvent().size()>0)
-                    dialogFragment = new BodyConditionDialog(getContext(),mHerdID,f,hvID,mEditableInReadOnly);
+                DialogFragment dialogFragment = new BodyConditionDialog(getContext(), mHerdID, f, hvID, mEditableInReadOnly);
+                if (mAdapter.getBodyConditionForHealthEvent().size() > 0)
+                    dialogFragment = new BodyConditionDialog(getContext(), mHerdID, f, hvID, mEditableInReadOnly);
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
@@ -286,212 +273,231 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         mShowDiagnoseAnimalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DiagnoseSingleAnimalActivity.class);
-               Herd herd= HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-               intent.putExtra("speciesID", herd.speciesID);
-                mDiagnoserLauncher.launch(intent);
+               launchDiagnosisActivity(null);
             }
         });
 
         //Read only stuff
 
-        if(isReadOnly)
-        {
-//            mShowAddDiseaseButton.setVisibility(View.GONE);
+        if (isReadOnly) {
             mShowAddSignButton.setVisibility(View.GONE);
             mShowEditBodyConditionButton.setVisibility(View.GONE);
             mShowAddInterventionButton.setVisibility(View.GONE);
+            mShowDiagnoseAnimalButton.setVisibility(View.GONE);
 
-            HealthEvent hv= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
+            HealthEvent hv = HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
             List<SignsForHealthEvent> she = HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForHealthEvent(hv.ID);
             List<DiseasesForHealthEvent> dhe = HerdDatabase.getInstance(getContext()).getHerdDao().getDiseasesForHealthEvent(hv.ID);
-            List<BodyConditionForHealthEvent> bche= HerdDatabase.getInstance(getContext()).getHerdDao().getBodyConditionForHealthEvent(hv.ID);
+            ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> sfdhe = new ArrayList<>();
+
+            for (DiseasesForHealthEvent d : dhe) {
+                ArrayList<SignsForDiseasesForHealthEvent> signs =
+                        (ArrayList<SignsForDiseasesForHealthEvent>) HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForDiseaseForHealthEvent(d.ID);
+                sfdhe.add(signs);
+            }
+
+            List<BodyConditionForHealthEvent> bche = HerdDatabase.getInstance(getContext()).getHerdDao().getBodyConditionForHealthEvent(hv.ID);
             List<HealthInterventionForHealthEvent> hihe = HerdDatabase.getInstance(getContext()).getHerdDao().getHealthInterventionsForHealthEvent(hv.ID);
 
-            mAdapter.setReadOnlyData(mHerdID,(ArrayList<DiseasesForHealthEvent>) dhe,(ArrayList<SignsForHealthEvent>) she, (ArrayList<BodyConditionForHealthEvent>) bche, (ArrayList<HealthInterventionForHealthEvent>)hihe);
+            mAdapter.setReadOnlyData(mHerdID, (ArrayList<DiseasesForHealthEvent>) dhe, (ArrayList<SignsForHealthEvent>) she, (ArrayList<BodyConditionForHealthEvent>) bche, (ArrayList<HealthInterventionForHealthEvent>) hihe, sfdhe);
+
+            mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                        int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                        if (groupPosition == 3)//disease
+                        {
+                            if (!mEditableInReadOnly) {
+                                List<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents = mAdapter.getSignsForSingleDiagnoses(childPosition);
+                                DialogFragment dialogFragment = new DiseaseForSingleAnimalDialog(getContext(), signsForDiseasesForHealthEvents, f);
+                                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                                if (prev != null) {
+                                    ft.remove(prev);
+                                }
+                                ft.addToBackStack(null);
+                                dialogFragment.show(ft, "dialog");
+
+                            }
+                            else
+                            {
+                                launchDiagnosisActivity(mAdapter.getSignsForSingleDiagnoses(position));
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
         }
-
-
     }
+
+    private void launchDiagnosisActivity(ArrayList<SignsForDiseasesForHealthEvent> sfdfhe) {
+        Intent intent = new Intent(getActivity(), DiagnoseSingleAnimalActivity.class);
+        Herd herd = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+        intent.putExtra("speciesID", herd.speciesID);
+        if(sfdfhe!=null)
+            intent.putExtra("readOnly_signs",sfdfhe);
+        mDiagnoserLauncher.launch(intent);
+    }
+
 
     public boolean addDiseaseToList(DiseasesForHealthEvent dhe,
-                                    ArrayList<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents)
-    {
-       return mAdapter.addNewDisease(dhe, signsForDiseasesForHealthEvents);
+                                    ArrayList<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents) {
+        return mAdapter.addNewDisease(dhe, signsForDiseasesForHealthEvents);
     }
 
-    public boolean addSignToList(SignsForHealthEvent she)
-    {
+    public boolean addSignToList(SignsForHealthEvent she) {
         return mAdapter.addNewSign(she);
     }
 
-    public void editDisease(int pos, int b, int y, int o)
-    {
-        mAdapter.editDisease(pos,b,y,o);
+    public void editDisease(int pos, int b, int y, int o) {
+        mAdapter.editDisease(pos, b, y, o);
     }
 
 
-    public String getDiseaseName(int pos)
-    {
-       return ADDB.getInstance(getContext()).getADDBDAO().getDiseaseNameFromId(mAdapter.getDiseaseForHealthEvent(pos).diseaseID).get(0);
+    public String getDiseaseName(int pos) {
+        return ADDB.getInstance(getContext()).getADDBDAO().getDiseaseNameFromId(mAdapter.getDiseaseForHealthEvent(pos).diseaseID).get(0);
 
     }
 
-    public String getSignName(int pos)
-    {
+    public String getSignName(int pos) {
         return ADDB.getInstance(getContext()).getADDBDAO().getSignNameFromID(mAdapter.getSignsForHealthEvent(pos).signID).get(0);
     }
 
-    public void deleteDisease(int pos)
-    {
+    public void deleteDisease(int pos) {
         mAdapter.deleteDisease(pos);
     }
 
-    public void deleteSign(int pos)
-    {
+    public void deleteSign(int pos) {
         mAdapter.deleteSign(pos);
     }
 
-    public SignsForHealthEvent editSign(int pos, int b, int y, int o)
-    {
-       return mAdapter.editSign(pos, b,y,o);
+    public SignsForHealthEvent editSign(int pos, int b, int y, int o) {
+        return mAdapter.editSign(pos, b, y, o);
 
     }
 
-    public HealthInterventionForHealthEvent editHealthInterventionForHealthEvent(int pos, int b, int y, int o)
-    {
-        return mAdapter.editHealthInterventionForHealthEvent(pos,b,y,o);
+    public HealthInterventionForHealthEvent editHealthInterventionForHealthEvent(int pos, int b, int y, int o) {
+        return mAdapter.editHealthInterventionForHealthEvent(pos, b, y, o);
     }
 
 
-    public void expandList(int g)
-    {
+    public void expandList(int g) {
         mHealthEventExpandableListView.expandGroup(g);
     }
 
 
-
-    public HealthEventContainer getHealthEventContainer()
-    {
-       HealthEventContainer hce = new HealthEventContainer();
-       hce.mDhes= mAdapter.getDiseasesForHealthEvent();
-       hce.mShes = mAdapter.getSignsForHealthEvent();
-       hce.mBChes = mAdapter.getBodyConditionForHealthEvent();
-       hce.mHIhes = mAdapter.getHealthInterventionsForHealthEvent();
-      // hce.mSFDFGE = mAdapter.getSignsForSingleDiagnoses();
-       return hce;
+    public HealthEventContainer getHealthEventContainer() {
+        HealthEventContainer hce = new HealthEventContainer();
+        hce.mDhes = mAdapter.getDiseasesForHealthEvent();
+        hce.mShes = mAdapter.getSignsForHealthEvent();
+        hce.mBChes = mAdapter.getBodyConditionForHealthEvent();
+        hce.mHIhes = mAdapter.getHealthInterventionsForHealthEvent();
+        hce.mSFDFGE = mAdapter.getAllSignsForSingleDiagnoses();
+        return hce;
     }
 
-    public void editBodyConditionList(ArrayList<BodyConditionForHealthEvent> valuesFromDialog)
-    {
+    public void editBodyConditionList(ArrayList<BodyConditionForHealthEvent> valuesFromDialog) {
         mAdapter.editBodyConditionList(valuesFromDialog);
     }
 
-    public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention) { return mAdapter.addHealthIntervention (healthIntervention);}
-    public HealthInterventionForHealthEvent deleteHealthIntervention (int pos) {return mAdapter.deleteHealthIntervention( pos);}
+    public boolean addHealthIntervention(HealthInterventionForHealthEvent healthIntervention) {
+        return mAdapter.addHealthIntervention(healthIntervention);
+    }
+
+    public HealthInterventionForHealthEvent deleteHealthIntervention(int pos) {
+        return mAdapter.deleteHealthIntervention(pos);
+    }
 
     public void setEditableInReadOnly(boolean editable) {
         mEditableInReadOnly = editable;
-       final AddHeardHealthEventFragment f = this;
+        final AddHeardHealthEventFragment f = this;
 
         if (!mEditableInReadOnly)
             mHealthEventExpandableListView.setOnLongClickListener(null);
         else
             mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-                    int groupPosition = ExpandableListView.getPackedPositionGroup(id);
-                    int childPosition = ExpandableListView.getPackedPositionChild(id);
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                        int childPosition = ExpandableListView.getPackedPositionChild(id);
 
-                /*    if(groupPosition==1)//disease
-                    {
-                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                        List<Diseases> diseases = ADDB.getInstance(getContext()).getADDBDAO().getAllDiseasesForAninal(h.speciesID);
-                        List<String> diseaseNames = new ArrayList<>();
-                        DiseasesForHealthEvent dhe = mAdapter.getDiseaseForHealthEvent(childPosition);
+                        if (groupPosition == 0)//signs
+                        {
+                            Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                            List<AdditionalSigns> signs = ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
+                            // List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
+                            List<String> sNames = new ArrayList<>();
+                            SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
 
-                        for(Diseases d: diseases)
-                            diseaseNames.add(d.Name);
+                            for (AdditionalSigns s : signs)
+                                sNames.add(s.Name);
 
-                        DialogFragment dialogFragment = new NewDiseaseEventDialog(getContext(), diseaseNames, childPosition,
-                                dhe.numberOfAffectedBabies,dhe.numberOfAffectedYoung,dhe.numberOfAffectedOld,f );
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
+                            DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames, childPosition,
+                                    she.numberOfAffectedBabies, she.numberOfAffectedYoung, she.numberOfAffectedOld, f, mEditableInReadOnly);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
+
+                            dialogFragment.show(ft, "dialog");
                         }
-                        ft.addToBackStack(null);
-                        dialogFragment.show(ft, "dialog");
 
-                    }*/
-                    if(groupPosition==0)//signs
-                    {
-                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                        List<AdditionalSigns> signs =ADDB.getInstance(getContext()).getADDBDAO().getAdditionalSigns();
-                        // List<Signs> signs=  ADDB.getInstance(getContext()).getADDBDAO().getAllSignsForAnimal(h.speciesID);
-                        List<String> sNames = new ArrayList<>();
-                        SignsForHealthEvent she = mAdapter.getSignsForHealthEvent(childPosition);
+                        if (groupPosition == 1) // health intervention
+                        {
+                            Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
+                            HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
+                            HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID, f, healthIntervention, childPosition, mEditableInReadOnly);
 
-                        for(AdditionalSigns s: signs)
-                            sNames.add(s.Name);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
 
-                        DialogFragment dialogFragment = new NewSignEventDialog(getContext(), sNames,childPosition,
-                                she.numberOfAffectedBabies,she.numberOfAffectedYoung,she.numberOfAffectedOld,f, mEditableInReadOnly);
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
+                            healthInterventionDialog.show(ft, "dialog");
                         }
-                        ft.addToBackStack(null);
 
-                        dialogFragment.show(ft, "dialog");
+                        if (groupPosition==3)
+                        {
+                            launchDiagnosisActivity(mAdapter.getSignsForSingleDiagnoses(childPosition));
+                        }
+
+                        return true;
                     }
 
-                    if(groupPosition==1) // health intervention
-                    {
-                        Herd h = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
-                        HealthInterventionForHealthEvent healthIntervention = mAdapter.getHealthInterventionForHealthEvent(childPosition);
-                        HealthInterventionDialog healthInterventionDialog = new HealthInterventionDialog(getContext(), h.ID,f,healthIntervention,childPosition,mEditableInReadOnly);
-
-                        FragmentTransaction ft = getFragmentManager().beginTransaction();
-                        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                        if (prev != null) {
-                            ft.remove(prev);
-                        }
-                        ft.addToBackStack(null);
-
-                        healthInterventionDialog.show(ft, "dialog");
-                    }
-
-                    return true;
+                    return false;
                 }
-
-                return false;
-            }
-        });
+            });
 
 
-        mAdapter.setEditableInReadOnly (editable);
-        if(editable)
-        {
+        mAdapter.setEditableInReadOnly(editable);
+        if (editable) {
             mShowAddSignButton.setVisibility(View.VISIBLE);
             mShowAddInterventionButton.setVisibility(View.VISIBLE);
             mShowEditBodyConditionButton.setVisibility(View.VISIBLE);
-        }
-        else {
+            mShowDiagnoseAnimalButton.setVisibility(View.VISIBLE);
+        } else {
             mShowAddSignButton.setVisibility(View.GONE);
             mShowAddInterventionButton.setVisibility(View.GONE);
             mShowEditBodyConditionButton.setVisibility(View.GONE);
+            mShowDiagnoseAnimalButton.setVisibility(View.GONE);
         }
     }
 
     private DiseasesForHealthEvent generateDiseaseForHealthEventFromDiseaseName(String diseaseName,
                                                                                 int babies,
                                                                                 int young,
-                                                                                int adult)
-    {
+                                                                                int adult) {
         diseaseName = diseaseName.split(":")[0].toUpperCase().trim();
         ADDBDAO addbdao = ADDB.getInstance(getContext()).getADDBDAO();
         DiseasesForHealthEvent dhe = new DiseasesForHealthEvent();

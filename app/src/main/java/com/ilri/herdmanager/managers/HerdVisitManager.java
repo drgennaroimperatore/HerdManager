@@ -60,7 +60,8 @@ public class HerdVisitManager {
                                            List<DiseasesForHealthEvent> diseasesForHealthEvent,
                                            List<SignsForHealthEvent> signsForHealthEvents,
                                            List<BodyConditionForHealthEvent> bodyConditionForHealthEvents,
-                                           List<HealthInterventionForHealthEvent> healthInterventionForHealthEvents)
+                                           List<HealthInterventionForHealthEvent> healthInterventionForHealthEvents,
+                                           ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> signsForDiseasesForHealthEventHashMap)
     {
 
         HealthEvent healthEvent = new HealthEvent();
@@ -68,10 +69,18 @@ public class HerdVisitManager {
 
        long healthEventID = HerdDatabase.getInstance(context).getHerdDao().InsertHealthEvent(healthEvent);
 
+       int dheIndex =0;
        for(DiseasesForHealthEvent dhe: diseasesForHealthEvent )
        {
             dhe.healthEventID = (int)healthEventID;
-           HerdDatabase.getInstance(context).getHerdDao().InsertDiseaseForHealthEvent(dhe);
+            long dheID=  HerdDatabase.getInstance(context).getHerdDao().InsertDiseaseForHealthEvent(dhe);
+           ArrayList<SignsForDiseasesForHealthEvent> signsForDhe= signsForDiseasesForHealthEventHashMap.get(dheIndex);
+           for(SignsForDiseasesForHealthEvent s: signsForDhe)
+           {
+               s.diseaseForHealthEventID = (int)dheID;
+           }
+           HerdDatabase.getInstance(context).getHerdDao().InsertSignsForDiseaseForHealthEvent(signsForDhe);
+           dheIndex++;
        }
        for(SignsForHealthEvent she: signsForHealthEvents)
        {
@@ -321,7 +330,7 @@ public class HerdVisitManager {
        long herdVisitID = HerdDatabase.getInstance(context).getHerdDao().InsertHerdVisit(herdVisit);
 
         //create a HealthEvent for this visit
-        createHealthEventForVisit(context, (int)herdVisitID, diseasesForHealthEvent,signsForHealthEvents, bodyConditionForHealthEvents, healthInterventionForHealthEvents);
+        createHealthEventForVisit(context, (int)herdVisitID, diseasesForHealthEvent,signsForHealthEvents, bodyConditionForHealthEvents, healthInterventionForHealthEvents, signsForDiseasesForHealthEventHashMap);
 
         //create Productivity event for this visit
         createProductivityEventForVisit(context, (int) herdVisitID, milkProductionForProductivityEvent,birthsForProductivityEvent);

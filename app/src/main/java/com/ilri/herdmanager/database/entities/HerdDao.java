@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -63,6 +64,9 @@ public interface HerdDao {
 
     @Query("SELECT * FROM SignsForDiseasesForHealthEvent WHERE diseaseForHealthEventID=:dheID")
     List<SignsForDiseasesForHealthEvent> getSignsForDiseaseForHealthEvent(int dheID);
+
+    @Insert
+    void InsertSignsForDiseaseForHealthEvent(ArrayList<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents);
 
     @Query("SELECT * FROM BodyCondition")
     List<BodyCondition> testBodyConditionTable();
