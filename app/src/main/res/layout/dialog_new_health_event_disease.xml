@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="Insert New Disease">
+        android:text="Signs For Diagnosis">
 
     </TextView>
 
@@ -22,37 +22,8 @@
         android:id="@+id/dialog_disease_list_of_signs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </ListView>
 
-
-
-    <Button
-        android:id="@+id/button_disease_health_add_disease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Dis"
-        style="@style/AppTheme.Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.915"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
-
-    <Button
-        android:id="@+id/button_disease_health_delete_disease"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="88dp"
-        android:background="@color/red"
-        android:text="del"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.688"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"></Button>
 
 
 

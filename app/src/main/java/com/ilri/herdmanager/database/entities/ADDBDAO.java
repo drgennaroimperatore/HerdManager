@@ -86,7 +86,6 @@ public interface ADDBDAO {
     @Query("SELECT SignCores.Id FROM SignCores")
     public List<Integer> TestSignCoresTable();
 
-
     @RawQuery
     public int PopulateAnimals(SupportSQLiteQuery query);
 

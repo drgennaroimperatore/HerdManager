@@ -1,95 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/health_event_disease_row_diseaseName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Disease Name"
-        android:textColor="@color/white" />
-
-    <TableLayout
-        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        style="@style/RowHeaderTextStyle"
+        android:layout_weight="0.8"/>
+    <TextView
+        android:id="@+id/health_event_disease_row_age"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:stretchColumns="*">
-
-       <!-- <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/white" />
-            <ImageView
-                android:id="@+id/health_event_disease_row_syncStatus_imgView"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:src="@drawable/drawable_sync_status_not_synced"
-                android:layout_weight="0.5"
-                android:visibility="gone">
-
-            </ImageView>
-
-        </TableRow>-->
-
-
-        <TableRow>
-
-
-            <TextView
-                android:id="@+id/placeholder_hedr_young"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pre-Weaned" />
-
-        <TextView
-            android:id="@+id/heading_number_of_affected_by_disease_young_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Young" />
-
-
-            <TextView
-                android:id="@+id/heading_number_of_affected_old_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Adult" />
-
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/health_event_disease_row_number_of_affected_babies_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"
-                />
-
-            <TextView
-                android:id="@+id/health_event_disease_row_number_of_affected_young_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="00" />
-
-            <TextView
-                android:id="@+id/health_event_disease_row_number_of_affected_old_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="00"
-               />
-
-
-
-        </TableRow>
-
-    </TableLayout>
+        android:text="Pre-Weaned"
+        android:layout_weight="0.2"></TextView>
 
 </LinearLayout>

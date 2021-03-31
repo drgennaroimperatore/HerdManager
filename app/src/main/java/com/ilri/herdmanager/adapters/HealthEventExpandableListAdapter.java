@@ -191,9 +191,17 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         TextView numberOfAffecedYoung = null;
         TextView numberOfAffectedOld = null;
 
+
         if(groupPosition==3) // disease
         {
             DiseasesForHealthEvent dhe = mDiseaseList.get(childPosition);
+            TextView affectedAnimalAge = convertView.findViewById(R.id.health_event_disease_row_age);
+            if(dhe.numberOfAffectedBabies>0)
+                affectedAnimalAge.setText("P.Wnd");
+            if(dhe.numberOfAffectedYoung>0)
+                affectedAnimalAge.setText("Young");
+            if(dhe.numberOfAffectedOld>0)
+                affectedAnimalAge.setText("Adult");
 
             name = convertView.findViewById(R.id.health_event_disease_row_diseaseName);
             name.setText(addbdao.getDiseaseNameFromId(dhe.diseaseID).get(0));
@@ -210,13 +218,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                 if(dhe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
                     syncStatusImgView.setImageResource(R.drawable.drawable_sync_status_synced);*/
             }
-           numberOfAffectedBabies = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_babies_text_view);
-            numberOfAffecedYoung = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_young_text_view);
-            numberOfAffectedOld = convertView.findViewById(R.id.health_event_disease_row_number_of_affected_old_text_view);
 
-            numberOfAffectedBabies.setText(String.valueOf(dhe.numberOfAffectedBabies));
-            numberOfAffecedYoung.setText(String.valueOf(dhe.numberOfAffectedYoung));
-            numberOfAffectedOld.setText(String.valueOf(dhe.numberOfAffectedOld));
         }
 
         if(groupPosition==0) // signs

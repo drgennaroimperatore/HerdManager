@@ -130,15 +130,15 @@ public abstract class HerdDatabase extends RoomDatabase
         if(mInstance == null)
         {
             mInstance = Room.databaseBuilder(context,
-                    HerdDatabase.class, "herddb").allowMainThreadQueries().fallbackToDestructiveMigration().addCallback(mDBCallBack).build();
+                    HerdDatabase.class, "herddb")
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .addCallback(mDBCallBack)
+                    .build();
         }
 
         return mInstance;
     }
-
-
-
-
 
 
     private static List<BodyCondition> populateBodyConditionTable()

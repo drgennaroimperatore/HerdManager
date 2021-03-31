@@ -32,6 +32,7 @@ public class DiseaseForSingleAnimalSignsDialogAdapter extends ArrayAdapter<Signs
 
 
 
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -42,7 +43,6 @@ public class DiseaseForSingleAnimalSignsDialogAdapter extends ArrayAdapter<Signs
         mSignNameTV.setText(signName);
         mSignPresenceTV = convertView.findViewById(R.id.dialog_disease_signs_list_row_sign_presence);
         mSignPresenceTV.setText(getItem(position).presence);
-
         return convertView;
     }
 }

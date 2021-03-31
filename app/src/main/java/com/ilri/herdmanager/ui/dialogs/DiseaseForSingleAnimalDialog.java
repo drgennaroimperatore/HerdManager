@@ -49,7 +49,13 @@ public class DiseaseForSingleAnimalDialog extends DialogFragment {
     {
         mContext = context;
         mFragment = fragment;
-        mSignsForDiseaseForHealthEvent = signsForDiseasesForHealthEvents;
+        mSignsForDiseaseForHealthEvent = new ArrayList<>();
+        for(SignsForDiseasesForHealthEvent sfdhe:signsForDiseasesForHealthEvents )
+            if(sfdhe.presence.equals("Not Observed"))
+                continue;
+            else
+                mSignsForDiseaseForHealthEvent.add(sfdhe);
+
         addbdao = ADDB.getInstance(context).getADDBDAO();
        /* nAffectedBabies = null;
         nAffectedYoung= null;
@@ -57,24 +63,6 @@ public class DiseaseForSingleAnimalDialog extends DialogFragment {
         mPositionToEdit = null;
 
     }
-
-   /* public DiseaseForSingleAnimalDialog(Context context, List<String> diseases,
-                                        int pos,
-                                        int affectedBabies,
-                                        int affectedYoung,
-                                        int affectedOld,
-                                        AddHeardHealthEventFragment fragment)
-    {
-        mContext = context;
-        mDiseases = diseases;
-        mFragment = fragment;
-        addbdao = ADDB.getInstance(context).getADDBDAO();
-        nAffectedBabies = affectedBabies;
-        nAffectedYoung= affectedYoung;
-        nAffectedOld = affectedOld;
-        isEditing = true;
-        mPositionToEdit = pos;
-    }*/
 
 
 
@@ -105,46 +93,8 @@ public class DiseaseForSingleAnimalDialog extends DialogFragment {
                 (ArrayList<SignsForDiseasesForHealthEvent>) mSignsForDiseaseForHealthEvent);
         signsListView.setAdapter(adapter);
 
-      if(isEditing) {
 
 
-
-      }
-
-
-
-        mButtonAddDiseaseToHealthEvent = view.findViewById(R.id.button_disease_health_add_disease);
-
-        if(isEditing)
-        {
-            mButtonAddDiseaseToHealthEvent.setText("Edit Dis");
-
-            Button deleteDiseaseButton = view.findViewById(R.id.button_disease_health_delete_disease);
-            deleteDiseaseButton.setVisibility(View.VISIBLE);
-
-            deleteDiseaseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mFragment.deleteDisease(mPositionToEdit);
-                    dismiss();
-                }
-            });
-
-        }
-
-        mButtonAddDiseaseToHealthEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                    if (isEditing) {
-
-                       dismiss();
-
-                    }
-                    else { }
-
-            }
-        });
 
       //  String[] dummyDiseases = {"Disease 1", "Disease 2", "Disease 3"};
 
