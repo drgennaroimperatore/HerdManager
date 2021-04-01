@@ -73,7 +73,17 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                             young = 1;
                         else if (animalAge.equals("Adult"))
                             adult = 1;
-                        mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young, adult), signsForDisease);
+                        if(result.getData().hasExtra("idToDelete")) {
+                            int disID = result.getData().getIntExtra("idToDelete",-155);
+                             DiseasesForHealthEvent diseaseToDelete =   HerdDatabase.getInstance(getContext()).getHerdDao().getDiseaseForHealthEventByID(disID);
+                            int deletedHealthEventID = diseaseToDelete.healthEventID;
+                            mAdapter.deleteExistingDisease(disID);
+                             DiseasesForHealthEvent diseaseToAdd = generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young, adult);
+                             diseaseToAdd.healthEventID = deletedHealthEventID;
+                            mAdapter.addNewDiseaseToExisting(diseaseToAdd, signsForDisease);
+                        }
+                        else
+                            mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young, adult), signsForDisease);
 
 
                     }
@@ -339,8 +349,9 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         Intent intent = new Intent(getActivity(), DiagnoseSingleAnimalActivity.class);
         Herd herd = HerdDatabase.getInstance(getContext()).getHerdDao().getHerdByID(mHerdID).get(0);
         intent.putExtra("speciesID", herd.speciesID);
-        if(sfdfhe!=null)
-            intent.putExtra("readOnly_signs",sfdfhe);
+        if(sfdfhe!=null) {
+            intent.putExtra("readOnly_signs", sfdfhe);
+        }
         mDiagnoserLauncher.launch(intent);
     }
 
@@ -371,6 +382,9 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
     public void deleteDisease(int pos) {
         mAdapter.deleteDisease(pos);
     }
+
+
+
 
     public void deleteSign(int pos) {
         mAdapter.deleteSign(pos);

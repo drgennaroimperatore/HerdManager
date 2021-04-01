@@ -4,7 +4,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Farmer.class, parentColumns = "ID", childColumns = "farmerID")})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Farmer.class, parentColumns = "ID", childColumns = "farmerID")})
 public class Herd {
 
     @PrimaryKey(autoGenerate = true)

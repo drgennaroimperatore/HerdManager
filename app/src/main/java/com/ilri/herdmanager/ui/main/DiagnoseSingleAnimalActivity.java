@@ -61,6 +61,10 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
                         chosenDiagnosisIntent.putExtra("chosenDiagnosis",chosenDiag);
                         chosenDiagnosisIntent.putExtra("animalAge",animalAge);
                         chosenDiagnosisIntent.putExtra("signs", signsForDiseasesForHealthEvents);
+                        if(result.getData().hasExtra("idToDelete")) {
+                            int idToDelete = result.getData().getIntExtra("idToDelete",-155);
+                            chosenDiagnosisIntent.putExtra("idToDelete", idToDelete);
+                        }
                         setResult(RESULT_OK,chosenDiagnosisIntent);
                         finish();
                     }
@@ -324,6 +328,11 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
         myIntent.putExtra("signs",mSignsForDiseaseForHealthEvent);
         myIntent.putExtra("diagnoses",d );
         myIntent.putExtra("animalAge", getSelectedAge());
+        if(getIntent().hasExtra("readOnly_signs"))
+        {
+            int idToDelete = ((ArrayList<SignsForDiseasesForHealthEvent>) getIntent().getSerializableExtra("readOnly_signs")).get(0).diseaseForHealthEventID;
+            myIntent.putExtra("idToDelete",idToDelete );
+        }
         mResultsLauncher.launch(myIntent);
 
     }

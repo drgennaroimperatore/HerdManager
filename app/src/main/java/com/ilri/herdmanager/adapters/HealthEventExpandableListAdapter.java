@@ -25,6 +25,7 @@ import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.customui.BodyConditionRowContainer;
 
 import org.w3c.dom.Text;
@@ -477,5 +478,49 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     public void setEditableInReadOnly(boolean editable) {
         mEditableInReadOnly = editable;
+    }
+
+    public void deleteExistingDisease(int diseaseID) {
+        DiseasesForHealthEvent dhe = mDiseaseList.get(getPositionOfDiseaseByID(diseaseID));
+        HerdVisitManager.getInstance().deleteExistingDiagnosisForSingleAnimal(mContext,dhe);
+        mDiseaseList.remove(dhe);
+
+    }
+
+    private int getPositionOfDiseaseByID(int diseaseID)
+    {
+        int index =0;
+       for (DiseasesForHealthEvent dhe: mDiseaseList)
+       {
+           if (dhe.ID == diseaseID) {
+               return  index;
+           }
+           index++;
+
+       }
+       return index;
+    }
+
+    public boolean addNewDiseaseToExisting(DiseasesForHealthEvent dhe, ArrayList<SignsForDiseasesForHealthEvent> sfdhe)
+    {
+        for(DiseasesForHealthEvent d:mDiseaseList)
+            if(dhe.equals(d))
+            {
+                return true;
+            }
+
+        mDiseaseList.add(dhe);
+        setSignsForSingleAnimalDiagnosis(sfdhe);
+        notifyDataSetChanged();
+
+       HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
+    int disID =(int)  dao.InsertDiseaseForHealthEvent(dhe);
+       for(SignsForDiseasesForHealthEvent sfe: sfdhe) {
+         sfe.diseaseForHealthEventID = disID;
+       }
+        dao.InsertSignsForDiseaseForHealthEvent(sfdhe);
+
+        return false;
+
     }
 }

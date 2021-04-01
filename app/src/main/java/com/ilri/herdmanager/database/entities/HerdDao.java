@@ -56,6 +56,9 @@ public interface HerdDao {
     @Query("SELECT * FROM ProductivityEvent WHERE ID=:productivityEventID")
     ProductivityEvent getProductivityEventByID(int productivityEventID);
 
+    @Query("SELECT * FROM DiseasesForHealthEvent WHERE ID =:id LIMIT 1")
+    DiseasesForHealthEvent getDiseaseForHealthEventByID(int id);
+
     @Query("SELECT * FROM DiseasesForHealthEvent WHERE DiseasesForHealthEvent.healthEventID= :healthEventID")
     List<DiseasesForHealthEvent> getDiseasesForHealthEvent(int healthEventID);
 

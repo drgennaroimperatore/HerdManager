@@ -106,6 +106,11 @@ public class HerdVisitManager {
 
     }
 
+    public void editExstingDiseaseForExistingAnimal(Context context, DiseasesForHealthEvent dhe)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().UpdateDiseaseForHealthEvent(dhe);
+    }
+
 
     public void editSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
     {
@@ -119,6 +124,11 @@ public class HerdVisitManager {
     public void deleteSignForHealthEvent(Context context, SignsForHealthEvent signsForHealthEvent)
     {
         HerdDatabase.getInstance(context).getHerdDao().DeleteSignsForHealthEvent(signsForHealthEvent);
+    }
+
+    public void deleteExistingDiagnosisForSingleAnimal(Context context, DiseasesForHealthEvent dhe)
+    {
+        HerdDatabase.getInstance(context).getHerdDao().DeleteDiseaseForHealthEvent(dhe);
     }
 
     public void addSignToExistingVisit(Context context, SignsForHealthEvent newSign, int herdVisitID)

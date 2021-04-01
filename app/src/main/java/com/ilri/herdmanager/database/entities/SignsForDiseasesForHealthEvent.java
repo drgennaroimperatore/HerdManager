@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(foreignKeys = {@ForeignKey(entity = DiseasesForHealthEvent.class,
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = DiseasesForHealthEvent.class,
         parentColumns = "ID", childColumns = "diseaseForHealthEventID")})
 public class SignsForDiseasesForHealthEvent implements Serializable {
     @PrimaryKey(autoGenerate = true)

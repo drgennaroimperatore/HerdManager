@@ -39,7 +39,7 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         HealthIntervention.class,
         HealthInterventionForHealthEvent.class,
         Vaccines.class,
-        VaccinesForSpecies.class}, version= 32)
+        VaccinesForSpecies.class}, version= 33)
 
 
 @TypeConverters({DateConverter.class, BodyConditionSectionConverter.class})

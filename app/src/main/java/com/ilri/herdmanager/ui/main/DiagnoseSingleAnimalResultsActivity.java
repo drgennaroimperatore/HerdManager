@@ -141,6 +141,11 @@ public class DiagnoseSingleAnimalResultsActivity extends AppCompatActivity {
         chosenDiagnosisIntent.putExtra("chosenDiagnosis",mChosenDiagnosis);
         chosenDiagnosisIntent.putExtra("animalAge", mChosenAnimalAge);
         chosenDiagnosisIntent.putExtra("signs",mSigns);
+        if (getIntent().hasExtra("idToDelete")) {
+            int idToDel = getIntent().getIntExtra("idToDelete",-155);
+            chosenDiagnosisIntent.putExtra("idToDelete",idToDel);
+        }
+
 
         setResult(RESULT_OK,chosenDiagnosisIntent);
         finish();

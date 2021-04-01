@@ -5,7 +5,9 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = {@ForeignKey(entity = HealthEvent.class, parentColumns = "ID", childColumns = "healthEventID")})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = HealthEvent.class, parentColumns = "ID", childColumns = "healthEventID")})
 public class DiseasesForHealthEvent {
 
     @PrimaryKey (autoGenerate = true)

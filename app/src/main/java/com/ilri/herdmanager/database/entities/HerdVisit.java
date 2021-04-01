@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Herd.class, parentColumns = "ID", childColumns = "HerdID")})
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(foreignKeys = {@ForeignKey(onDelete = CASCADE, entity = Herd.class, parentColumns = "ID", childColumns = "HerdID")})
 public class HerdVisit {
 
     @PrimaryKey(autoGenerate = true)

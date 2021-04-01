@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 @Entity(foreignKeys = @ForeignKey
-        (entity = HerdVisit.class,
+        (onDelete = CASCADE, entity = HerdVisit.class,
                 parentColumns = "ID",
                 childColumns = "HerdVisitID"))
 public class ProductivityEvent {
