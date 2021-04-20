@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,16 +96,20 @@ public class LocationsLoader extends AsyncTask<InputStream, Integer, LocationDat
                             NodeContainer kebeleContainter = generateNodeContainer(kebeleNode);
                             kebelesForWoreda.add(kebeleContainter.Name);
                         }
+                        Collections.sort(kebelesForWoreda);
                         mKebelesForWoredas.put(woredaContainer.Name,kebelesForWoreda);
                     }
+                    Collections.sort(woredasForZone);
                     mWordeasForZones.put(zoneContainer.Name,woredasForZone);
                 }
+                Collections.sort(zonesForRegion);
                 mZonesForRegions.put(regionContainer.Name,zonesForRegion);
             }
 
             LocationData.getInstance().setKebelesForWoredas(mKebelesForWoredas);
             LocationData.getInstance().setWordeasForZones(mWordeasForZones);
             LocationData.getInstance().setZonesForRegions(mZonesForRegions);
+            Collections.sort(mRegions);
             LocationData.getInstance().setRegions(mRegions);
 
         }

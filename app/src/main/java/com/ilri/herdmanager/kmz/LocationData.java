@@ -1,6 +1,7 @@
 package com.ilri.herdmanager.kmz;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class LocationData
@@ -26,6 +27,7 @@ public class LocationData
 
     public void setZonesForRegions(HashMap<String, ArrayList<String>> mZonesForRegions) {
         this.mZonesForRegions = mZonesForRegions;
+
     }
 
     public void setWordeasForZones(HashMap<String, ArrayList<String>> mWordeasForZones) {

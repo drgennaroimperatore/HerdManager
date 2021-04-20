@@ -23,6 +23,7 @@ import com.ilri.herdmanager.ui.NewCaseActivity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class NewFarmerDialog extends Dialog {
@@ -72,6 +73,7 @@ public class NewFarmerDialog extends Dialog {
                 abbrRegions.add(index, "SNNP");
             }
         }
+
 
 
 
