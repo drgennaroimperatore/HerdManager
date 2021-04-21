@@ -22,6 +22,7 @@ import com.ilri.herdmanager.database.entities.HealthInterventionForHealthEvent;
 import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
+import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
 import com.ilri.herdmanager.database.entities.SyncStatus;
@@ -55,7 +56,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         return mGroupHeaders.size();
     }
 
-    public HealthEventExpandableListAdapter(Context context, ArrayList<HealthEvent> healthEvents, int herdID)
+    public HealthEventExpandableListAdapter(Context context, boolean mEditableInReadOnly, int herdID)
     {
         mContext = context;
         addbdao = ADDB.getInstance(context).getADDBDAO();
@@ -65,6 +66,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         //Identify the herd name and pass to the initialiser
         isReadOnly= false;
         mHerdID=herdID;
+        this.mEditableInReadOnly = mEditableInReadOnly;
 
 
        // mSignsList.add(0,new HealthEvent());
@@ -319,15 +321,17 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
     public boolean addNewDisease(DiseasesForHealthEvent dhe, ArrayList<SignsForDiseasesForHealthEvent> sfdhe)
     {
 
-        for(DiseasesForHealthEvent d:mDiseaseList)
+      /*  for(DiseasesForHealthEvent d:mDiseaseList) // uncomment this if you want to allow duplicate diagnoses again
             if(dhe.equals(d))
             {
                 return true;
-            }
+            }*/
 
         mDiseaseList.add(dhe);
             setSignsForSingleAnimalDiagnosis(sfdhe);
         notifyDataSetChanged();
+
+
 
         return false;
 
@@ -503,12 +507,12 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     public boolean addNewDiseaseToExisting(DiseasesForHealthEvent dhe, ArrayList<SignsForDiseasesForHealthEvent> sfdhe)
     {
-        for(DiseasesForHealthEvent d:mDiseaseList)
+        /*for(DiseasesForHealthEvent d:mDiseaseList)
             if(dhe.equals(d))
             {
                 return true;
             }
-
+*/
         mDiseaseList.add(dhe);
         setSignsForSingleAnimalDiagnosis(sfdhe);
         notifyDataSetChanged();

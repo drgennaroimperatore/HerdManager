@@ -54,6 +54,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
     private int mHerdID = -155;
     private HealthEventExpandableListAdapter mAdapter;
     private boolean mEditableInReadOnly = false;
+    private int herdVisitID = -145;
 
     ActivityResultLauncher<Intent> mDiagnoserLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -82,8 +83,18 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                              diseaseToAdd.healthEventID = deletedHealthEventID;
                             mAdapter.addNewDiseaseToExisting(diseaseToAdd, signsForDisease);
                         }
-                        else
-                            mAdapter.addNewDisease(generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young, adult), signsForDisease);
+                        else {
+                            DiseasesForHealthEvent dhe = generateDiseaseForHealthEventFromDiseaseName(chosenDiag, babies, young, adult);
+                            mAdapter.addNewDisease(dhe, signsForDisease);
+                            if(mEditableInReadOnly)
+                            {
+                               int healthEventID= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0).ID;
+                                dhe.healthEventID =healthEventID;
+                                HerdDatabase.getInstance(getContext()).getHerdDao().InsertDiseaseForHealthEvent(dhe);
+
+                            }
+                        }
+
 
 
                     }
@@ -125,7 +136,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         //FragmentManager fragmentManager = getFragmentManager();
         Bundle args = getArguments();
         boolean isReadOnly = false;
-        int herdVisitID = -145;
+
         if (args != null) {
             mHerdID = args.getInt("herdID");
             herdVisitID = args.getInt("herdVisitID", -145);
@@ -144,7 +155,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         mHealthEventExpandableListView = view.findViewById(R.id.health_event_exapandableListView);
         ArrayList<HealthEvent> healthEvents = new ArrayList<>();
 
-        HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), healthEvents, mHerdID);
+        HealthEventExpandableListAdapter adapter = new HealthEventExpandableListAdapter(getContext(), mEditableInReadOnly, mHerdID);
         mHealthEventExpandableListView.setAdapter(adapter);
         mAdapter = adapter;
         mHealthEventExpandableListView.expandGroup(0);
@@ -432,7 +443,32 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
         final AddHeardHealthEventFragment f = this;
 
         if (!mEditableInReadOnly)
-            mHealthEventExpandableListView.setOnLongClickListener(null);
+            mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+                        int groupPosition = ExpandableListView.getPackedPositionGroup(id);
+                        int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+                        if (groupPosition == 3)//disease
+                        {
+                            List<SignsForDiseasesForHealthEvent> signsForDiseasesForHealthEvents = mAdapter.getSignsForSingleDiagnoses(childPosition);
+                            DialogFragment dialogFragment = new DiseaseForSingleAnimalDialog(getContext(), signsForDiseasesForHealthEvents, f);
+                            FragmentTransaction ft = getFragmentManager().beginTransaction();
+                            Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                            if (prev != null) {
+                                ft.remove(prev);
+                            }
+                            ft.addToBackStack(null);
+                            dialogFragment.show(ft, "dialog");
+
+                        }
+                    }
+                    return true;
+                }
+            });
+
         else
             mHealthEventExpandableListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
