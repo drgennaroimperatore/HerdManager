@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HerdManager</string>
+    <string name="app_name">Herd Manager</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Herds/Visits</string>
     <string name="title_notifications">Options</string>
@@ -15,22 +15,25 @@
     <string name="tutorial_text_visit_management">
         To add a visit to a herd tap on herd/visits on the bottom bar.\n
         The page will show a list of all farmers, tap on the farmer\'s name to see herds belonging to the farmer.\n
-        Click on add visit to add a new visit for the herd. \n\n
+        Click on add visit to add a new visit for the herd.\n\n
         At the top of the visit page you will see a tab with three sections : Herd Health, Herd Productivity and Herd Dynamics.\n\n
-        Herd Health\n
-        You can add disease and health sign information in health events.\n
-        To add a disease/sign tap on the add disease or add sign button.\n
-        To edit a disease/sign long tap on each disease or sign.\n\n
-        Herd Productivity\n
-        You can add information about pregnant animals and births, and information of milk production in productivity events.\n
-        To edit production information tap on the relevant edit button.\n\n
-        Herd Dynamics\n
-        Herd Dynamics contain information about animals bought,sold or lost.\n
-        You can edit animal movement by clicking on the edit button.\n
-        To add animal deaths tap on the add death button. \n
-        To edit an animal death long tap on a specific animal death. \n
-
     </string>
+
+    <string name="tutorial_visit_herd_health">
+        Herd Health\nYou can add disease and health sign information in health events.\nTo add a disease/sign tap on the add disease or add sign button.\nTo edit a disease/sign long tap on each disease or sign.\n\n
+    </string>
+
+    <string name="tutorial_visit_herd_productivity">
+         Herd Productivity\nYou can add information about pregnant animals and births, and information of milk production in productivity events.\nTo edit production information tap on the relevant edit button.\n\n
+    </string>
+
+    <string name="tutorial_visit_herd_dynamics">
+        Herd Dynamics\nHerd Dynamics contain information about animals bought,sold or lost.\n
+        You can edit animal movement by clicking on the edit button.\n
+        To add animal deaths tap on the add death button.\n
+        To edit an animal death long tap on a specific animal death.\n
+    </string>
+
     <string name="tutorial_text_sync_management">
         To sync your herd information with the server go to the options view.\n
         In the options view tap the sync button.\n

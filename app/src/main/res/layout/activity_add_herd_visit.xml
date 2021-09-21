@@ -53,5 +53,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:scaleType="fitCenter"
         app:maxImageSize="75dp"
-        android:src="@drawable/ic_add_case_foreground" />
+        android:backgroundTint="@color/black"
+        android:src="@drawable/ic_add_case" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

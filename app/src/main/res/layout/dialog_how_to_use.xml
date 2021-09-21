@@ -6,66 +6,105 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     android:layout_margin="10dp">
 
     <TextView
         android:id="@+id/textView777"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Version 1.6"
+        style="@style/WhiteHeadingTextLarge"
+        android:text="Version 2.0"
+
         android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="How to use"
+        android:background="@color/colorPrimary"
+        style="@style/BlackHeadingTextMedium"
         android:layout_gravity="center"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Farmer Management"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        style="@style/BlackHeadingTextMedium"
+        android:background="@color/colorPrimary"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tutorial_text_farmer_management"
-        android:textAlignment="textStart"/>
-
+        android:textAlignment="center"
+       android:typeface="monospace"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adding herds"
+        android:text="Adding Herds"
+        android:background="@color/colorPrimary"
+        style="@style/BlackHeadingTextMedium"
         android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tutorial_text_herd_management"
-        android:textAlignment="textStart"/>
+        android:textAlignment="center"
+        android:typeface="monospace"/>
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Visits"
+        android:background="@color/colorPrimary"
+        style="@style/BlackHeadingTextMedium"
         android:layout_gravity="center"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tutorial_text_visit_management"
-        android:textAlignment="textStart"/>
+        android:textAlignment="center"
+        android:typeface="monospace"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/tutorial_visit_herd_health"
+        android:textAlignment="center"
+        android:typeface="monospace"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tutorial_visit_herd_productivity"
+        android:textAlignment="center"
+        android:typeface="monospace"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tutorial_visit_herd_dynamics"
+        android:textAlignment="center"
+        android:typeface="monospace"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Sync Data with Server"
+        style="@style/BlackHeadingTextMedium"
+        android:background="@color/colorPrimary"
         android:layout_gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tutorial_text_sync_management"
-        android:textAlignment="textStart"/>
+        android:textAlignment="center"
+        android:typeface="monospace"/>
 
     <Button
         android:id="@+id/how_to_use_dialog_close_button"

@@ -45,7 +45,7 @@
             android:id="@+id/health_event_show_health_intervention_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add health Intervention"
+            android:text="Add Health Intervention"
             style="@style/AppTheme.Button"
             android:textColor="@color/black"/>
 
@@ -54,7 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="Diagnose an Animal"
+            android:text="Diagnose Animal"
             style="@style/AppTheme.Button" />
 
     </LinearLayout>

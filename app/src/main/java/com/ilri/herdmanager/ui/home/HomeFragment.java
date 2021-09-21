@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText("Welcome To the Herd Manager");
+                textView.setText("Welcome To The Herd Manager");
             }
         });
         return root;
