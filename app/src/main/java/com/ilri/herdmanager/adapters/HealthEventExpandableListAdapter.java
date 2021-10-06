@@ -480,6 +480,10 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         return mHealthIntervention;
     }
 
+    public void setSignsForSingleDiagnoses(ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> mSignsForSingleDiagnoses) {
+        this.mSignsForSingleDiagnoses = mSignsForSingleDiagnoses;
+    }
+
     public void setEditableInReadOnly(boolean editable) {
         mEditableInReadOnly = editable;
     }

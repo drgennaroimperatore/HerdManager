@@ -106,9 +106,21 @@ public class HerdVisitManager {
 
     }
 
-    public void editExstingDiseaseForExistingAnimal(Context context, DiseasesForHealthEvent dhe)
+    public void addDiseaseToExistingVisit(Context context,
+                                          DiseasesForHealthEvent dhe,
+                                          ArrayList<SignsForDiseasesForHealthEvent> signsForDisease, int healthEventID)
     {
-        HerdDatabase.getInstance(context).getHerdDao().UpdateDiseaseForHealthEvent(dhe);
+      int dheID =(int)  HerdDatabase.getInstance(context).getHerdDao().InsertDiseaseForHealthEvent(dhe);
+
+
+        for(SignsForDiseasesForHealthEvent sdhe:signsForDisease)
+        {
+            sdhe.diseaseForHealthEventID =dheID;
+        }
+
+        HerdDatabase.getInstance(context).getHerdDao().InsertSignsForDiseaseForHealthEvent(signsForDisease);
+
+        updateSyncStatusOfHealthEvent(context,healthEventID);
     }
 
 
@@ -117,6 +129,9 @@ public class HerdVisitManager {
       //  HealthEvent associatedHealthEvent =   HerdDatabase.getInstance(context).getHerdDao().gethea
         if(signsForHealthEvent.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
             signsForHealthEvent.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
+
+
+
         HerdDatabase.getInstance(context).getHerdDao().UpdateSignForHealthEvent(signsForHealthEvent);
         updateSyncStatusOfHealthEvent(context,signsForHealthEvent.healthEventID);
     }
@@ -367,7 +382,7 @@ public class HerdVisitManager {
         return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdID(herdID);
     }
 
-    private void updateSyncStatusOfHealthEvent(Context context, int healthEventID)
+    public void updateSyncStatusOfHealthEvent(Context context, int healthEventID)
     {
         HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
         HealthEvent healthEvent = dao.getHealthEventByID(healthEventID);

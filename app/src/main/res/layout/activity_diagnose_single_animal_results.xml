@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.main.DiagnoseSingleAnimalResultsActivity">
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +23,14 @@
         android:background="@color/colorPrimary"
         android:text="Select a Diagnosis">
     </TextView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +40,7 @@
 
     </LinearLayout>
 
+
     <Button
         android:id="@+id/activity_diagnose_results_choose_diagnosis_button"
         android:layout_width="wrap_content"
@@ -38,6 +48,9 @@
         android:text="Confirm Diagnosis"
         style="@style/AppTheme.Button">
     </Button>
+</LinearLayout>
+    </ScrollView>
+
 
 
 </LinearLayout>

@@ -37,6 +37,7 @@ import com.ilri.herdmanager.database.entities.Herd;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.SignsForDiseasesForHealthEvent;
 import com.ilri.herdmanager.database.entities.SignsForHealthEvent;
+import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.dialogs.BodyConditionDialog;
 import com.ilri.herdmanager.ui.dialogs.DiseaseForSingleAnimalDialog;
 import com.ilri.herdmanager.ui.dialogs.HealthInterventionDialog;
@@ -90,7 +91,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                             {
                                int healthEventID= HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0).ID;
                                 dhe.healthEventID =healthEventID;
-                                HerdDatabase.getInstance(getContext()).getHerdDao().InsertDiseaseForHealthEvent(dhe);
+                                HerdVisitManager.getInstance().addDiseaseToExistingVisit(getContext(),dhe,signsForDisease,healthEventID);
 
                             }
                         }
@@ -309,13 +310,15 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
             HealthEvent hv = HerdDatabase.getInstance(getContext()).getHerdDao().getHealthEventForVisit(herdVisitID).get(0);
             List<SignsForHealthEvent> she = HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForHealthEvent(hv.ID);
             List<DiseasesForHealthEvent> dhe = HerdDatabase.getInstance(getContext()).getHerdDao().getDiseasesForHealthEvent(hv.ID);
-            ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> sfdhe = new ArrayList<>();
+           ArrayList<ArrayList<SignsForDiseasesForHealthEvent>> sfdhe = new ArrayList<>();
 
             for (DiseasesForHealthEvent d : dhe) {
                 ArrayList<SignsForDiseasesForHealthEvent> signs =
                         (ArrayList<SignsForDiseasesForHealthEvent>) HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForDiseaseForHealthEvent(d.ID);
                 sfdhe.add(signs);
             }
+            mAdapter.setSignsForSingleDiagnoses(sfdhe);
+
 
             List<BodyConditionForHealthEvent> bche = HerdDatabase.getInstance(getContext()).getHerdDao().getBodyConditionForHealthEvent(hv.ID);
             List<HealthInterventionForHealthEvent> hihe = HerdDatabase.getInstance(getContext()).getHerdDao().getHealthInterventionsForHealthEvent(hv.ID);
@@ -329,6 +332,8 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                     if (ExpandableListView.getPackedPositionType(id) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
                         int groupPosition = ExpandableListView.getPackedPositionGroup(id);
                         int childPosition = ExpandableListView.getPackedPositionChild(id);
+
+
 
                         if (groupPosition == 3)//disease
                         {
