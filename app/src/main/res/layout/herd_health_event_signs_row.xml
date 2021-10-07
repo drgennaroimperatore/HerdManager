@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/RowSubHeaderTextStyle"
-                android:text="Pre-Weaned" />
+                android:text="P.Wnd" />
 
             <TextView
                 android:id="@+id/heading_number_of_affected_by_sign_young_text_view"

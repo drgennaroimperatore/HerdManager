@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PWnd"
+                android:text="P.Wnd"
                 style="@style/RowSubHeaderTextStyle"
                 android:layout_weight="0.33"/>
             <TextView
