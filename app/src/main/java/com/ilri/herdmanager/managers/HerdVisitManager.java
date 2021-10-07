@@ -3,6 +3,8 @@ package com.ilri.herdmanager.managers;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.ilri.herdmanager.classes.DynamicEventContainer;
+import com.ilri.herdmanager.classes.ProductivityEventContainer;
 import com.ilri.herdmanager.database.entities.AnimalMovementsForDynamicEvent;
 import com.ilri.herdmanager.database.entities.BirthsForProductivityEvent;
 import com.ilri.herdmanager.database.entities.BodyConditionForHealthEvent;
@@ -25,6 +27,7 @@ import com.ilri.herdmanager.database.entities.SyncStatus;
 
 import java.net.ConnectException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -35,12 +38,6 @@ public class HerdVisitManager {
    public static HerdVisitManager getInstance() {
         return ourInstance;
     }
-
-    private HealthEvent mAssociatedHealthEvent;
-    private DynamicEvent mAssociatedDynamicEvent;
-    private ProductivityEvent mAssociatedProductivityEvent;
-
-
 
     private HerdVisitManager() {
     }
@@ -54,6 +51,130 @@ public class HerdVisitManager {
     {
         return HerdDatabase.getInstance(context).getHerdDao().getAllHerdVisitsByHerdID(herdID).size();
 
+    }
+
+    public int[] calculateHerdChanges(Context context,
+                                      int mHerdID,
+                                      DynamicEventContainer mDce,
+                                      ProductivityEventContainer mPce)
+    {
+        int[] herdChanges= new int[3];
+
+        int nBabies=0; int nYoung=0; int nOld=0;
+
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        List<HerdVisit> visitList=  dao.getAllHerdVisitsByHerdID(mHerdID);
+        Herd herd = dao.getHerdByID(mHerdID).get(0);
+        if(visitList.size()>0) {
+
+            HerdVisit currentVisit = visitList.get(0);
+
+            nBabies = currentVisit.babiesAtVisit;
+            nYoung = currentVisit.youngAtVisit;
+            nOld = currentVisit.oldAtVisit;
+        }
+        else
+        {
+            nBabies = herd.nBabies;
+            nYoung = herd.nYoung;
+            nOld = herd.nOld;
+        }
+
+        for(DeathsForDynamicEvent d:mDce.mDeaths)
+        {
+            nBabies = nBabies-d.deadBabies;
+            nYoung = nYoung -d.deadYoung;
+            nOld = nOld -d.deadOld;
+        }
+
+        AnimalMovementsForDynamicEvent ame = mDce.mMovements;
+
+        nBabies = nBabies-ame.soldBabies;
+        nBabies = nBabies-ame.lostBabies;
+        nBabies = nBabies+ame.boughtBabies;
+
+        nYoung = nYoung-ame.soldYoung;
+        nYoung = nYoung-ame.lostYoung;
+        nYoung = nYoung+ame.boughtYoung;
+
+        nOld = nOld -ame.soldOld;
+        nOld = nOld - ame.lostOld;
+        nOld = nOld + ame.boughtOld;
+
+        BirthsForProductivityEvent bpe = mPce.birthsForProductivityEvent;
+        nBabies+= bpe.nOfBirths;
+
+        if(nBabies<0)
+            nBabies=0;
+        if(nYoung<0)
+            nYoung=0;
+        if(nOld<0)
+            nOld=0;
+
+        herdChanges[0] =nBabies;
+        herdChanges[1] =nYoung;
+        herdChanges[2] =nOld;
+
+        return herdChanges;
+
+    }
+
+    public int[] getCurrentHerdSize(Context mContext, int mHerdID)
+    {
+        int[] herdSize= new int[3];
+
+
+        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
+        Herd herd = dao.getHerdByID(mHerdID).get(0);
+        List<HerdVisit> herdVisits = dao.getAllHerdVisitsByHerdID(mHerdID);
+
+        if(herdVisits.size()>0)
+        {
+            HerdVisit hv = herdVisits.get(0);
+            herdSize[0] = hv.babiesAtVisit;
+            herdSize[1] = hv.youngAtVisit;
+            herdSize[2] = hv.oldAtVisit;
+        }
+        else
+        {
+            herdSize[0] = herd.nBabies;
+            herdSize[1] = herd.nYoung;
+            herdSize[2] = herd.nOld;
+        }
+
+        return herdSize;
+    }
+
+    public boolean isVisitDateValid(Context mContext, int mHerdID, Date mVisitDate)
+    {
+        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
+        List<HerdVisit> visits = dao.getAllHerdVisitsByHerdID(mHerdID);
+
+        if(visits.size()==0)
+            return true;
+        HerdVisit lastVisitInserted= visits.get(0);
+
+        Date lastVisitDate = lastVisitInserted.HerdVisitDate;
+
+        Calendar lastVisitcalendar = Calendar.getInstance();
+        lastVisitcalendar.setTime( lastVisitDate );
+        lastVisitcalendar.set(Calendar.HOUR_OF_DAY, 0);
+        lastVisitcalendar.set(Calendar.MINUTE, 0);
+        lastVisitcalendar.set(Calendar.SECOND, 0);
+        lastVisitcalendar.set(Calendar.MILLISECOND, 0);
+
+        lastVisitDate= lastVisitcalendar.getTime();
+        lastVisitcalendar.setTime(mVisitDate);
+        lastVisitcalendar.set(Calendar.HOUR_OF_DAY, 0);
+        lastVisitcalendar.set(Calendar.MINUTE, 0);
+        lastVisitcalendar.set(Calendar.SECOND, 0);
+        lastVisitcalendar.set(Calendar.MILLISECOND, 0);
+        mVisitDate = lastVisitcalendar.getTime();
+
+        if(mVisitDate.equals(lastVisitDate))
+            return false;
+
+        return (lastVisitDate.before(mVisitDate));
     }
 
     private long createHealthEventForVisit(Context context, int herdVisitID,
@@ -245,12 +366,17 @@ public class HerdVisitManager {
 
     public void editBirthsForExistingProductivityEvent(Context context, BirthsForProductivityEvent bpe, int herdVisitID)
     {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
         ProductivityEvent productivityEvent = HerdDatabase.getInstance(context).getHerdDao().getProductivityEventForVisit(herdVisitID).get(0);
+
         if(HerdDatabase.getInstance(context).getHerdDao().getBirthsForProductivityEvent(herdVisitID).size()==0)
         {
             bpe.ID = (int)HerdDatabase.getInstance(context).getHerdDao().InsertBirthsForProductivityEvent(bpe);
             bpe.productivityEventID = (int)productivityEvent.ID;
             bpe.syncStatus = SyncStatus.NOT_SYNCHRONISED.toString();
+            herdVisit.babiesAtVisit+= bpe.nOfBirths;
+            dao.UpdateHerdVisit(herdVisit);
         }
 
         else {
@@ -258,11 +384,16 @@ public class HerdVisitManager {
            bpe.ID = oldBpe.ID;
            bpe.syncStatus = oldBpe.syncStatus;
            bpe.productivityEventID =oldBpe.productivityEventID;
+            BirthsForProductivityEvent lastBpe = dao.getBirthsFromProductivityEventByID(bpe.ID);
+            //update the statistics....
+            herdVisit.babiesAtVisit+= bpe.nOfBirths - lastBpe.nOfBirths;
+            dao.UpdateHerdVisit(herdVisit);
 
            if(bpe.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
                bpe.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             HerdDatabase.getInstance(context).getHerdDao().UpdateBirthsForProductivityEvent(bpe);
         }
+
         updateSyncStatusOfProductivityElement(context,productivityEvent.ID);
     }
 
@@ -286,22 +417,56 @@ public class HerdVisitManager {
 
         }
 
+
         return dynamicEventID;
     }
 
-    private void editDynamicEventForVisit()
-    {
-
-    }
 
     public void editAnimalMovementsForExistingDynamicEvent(Context context, AnimalMovementsForDynamicEvent amde)
     {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        AnimalMovementsForDynamicEvent oldAmde = dao.getAnimalMovementForDynamicEventByID(amde.ID);
+
+
+
         HerdDatabase.getInstance(context).getHerdDao().UpdateAnimalMovementsForDynamicEvent(amde);
         if(amde.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
         {
             amde.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             HerdDatabase.getInstance(context).getHerdDao().UpdateAnimalMovementsForDynamicEvent(amde);
         }
+
+
+
+        //update the statistics....
+        DynamicEvent dynamicEvent = dao.getDynamicEventByID(amde.dynamicEventID);
+        HerdVisit herdVisit = dao.getHerdVisitByID(dynamicEvent.herdVisitID).get(0);
+
+        herdVisit.babiesAtVisit+=amde.boughtBabies - oldAmde.boughtBabies;
+        herdVisit.babiesAtVisit-=amde.lostBabies  - oldAmde.lostBabies;
+        herdVisit.babiesAtVisit-=amde.soldBabies - oldAmde.soldBabies;
+
+        if(herdVisit.babiesAtVisit<0)
+            herdVisit.babiesAtVisit=0;
+
+        herdVisit.youngAtVisit+=amde.boughtYoung -oldAmde.boughtYoung;
+        herdVisit.youngAtVisit-=amde.lostYoung - oldAmde.lostYoung;
+        herdVisit.youngAtVisit-=amde.soldYoung - oldAmde.soldYoung;
+
+        if(herdVisit.youngAtVisit<0)
+            herdVisit.youngAtVisit=0;
+
+        herdVisit.oldAtVisit+=amde.boughtOld - oldAmde.boughtOld;
+        herdVisit.oldAtVisit-=amde.lostOld - oldAmde.lostYoung;
+        herdVisit.oldAtVisit-=amde.soldOld -oldAmde.soldOld;
+
+        if(herdVisit.oldAtVisit<0)
+            herdVisit.oldAtVisit=0;
+
+        dao.UpdateHerdVisit(herdVisit);
+
+
+
         updateSyncStatusOfDynamicEvent(context,amde.dynamicEventID);
 
     }
@@ -310,21 +475,70 @@ public class HerdVisitManager {
                                                DeathsForDynamicEvent dde,
                                                int herdVisitID)
     {
+
         DynamicEvent dynamicEvent =
                 HerdDatabase.getInstance(context).getHerdDao().getDynamicEventForVisit(herdVisitID).get(0);
         dde.dynamicEventID = dynamicEvent.ID;
         HerdDatabase.getInstance(context).getHerdDao().InsertDeathForDynamicEvent(dde);
         updateSyncStatusOfDynamicEvent(context,dde.dynamicEventID);
+
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+        HerdVisit herdVisit = dao.getHerdVisitByID(herdVisitID).get(0);
+
+        herdVisit.babiesAtVisit-= dde.deadBabies;
+        if(herdVisit.babiesAtVisit<0)
+            herdVisit.babiesAtVisit=0;
+
+        herdVisit.youngAtVisit-= dde.deadYoung;
+        if(herdVisit.youngAtVisit<0)
+            herdVisit.youngAtVisit=0;
+
+        herdVisit.oldAtVisit-= dde.deadOld;
+
+        if(herdVisit.oldAtVisit<0)
+            herdVisit.oldAtVisit=0;
+
+        dao.UpdateHerdVisit(herdVisit);
+
     }
 
     public void editDeathForExistingDynamicEvent(Context context, DeathsForDynamicEvent dde)
     {
+        HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
+
+        DynamicEvent dynamicEvent = dao.getDynamicEventByID(dde.dynamicEventID);
+        HerdVisit herdVisit = dao.getHerdVisitByID(dynamicEvent.herdVisitID).get(0);
+
+        DeathsForDynamicEvent oldDde= dao.getDeathsForDynamicEventByID(dde.ID);
+
+
+
+        herdVisit.babiesAtVisit-= dde.deadBabies - oldDde.deadBabies;
+        if(herdVisit.babiesAtVisit<0)
+            herdVisit.babiesAtVisit=0;
+
+        herdVisit.youngAtVisit-= dde.deadYoung - oldDde.deadYoung;
+        if(herdVisit.youngAtVisit<0)
+            herdVisit.youngAtVisit=0;
+
+        herdVisit.oldAtVisit-= dde.deadOld - oldDde.deadOld;
+
+        if(herdVisit.oldAtVisit<0)
+            herdVisit.oldAtVisit=0;
+
+        dao.UpdateHerdVisit(herdVisit);
+
+
         HerdDatabase.getInstance(context).getHerdDao().UpdateDeathsForDynamicEvent(dde);
         if(dde.syncStatus.equals(SyncStatus.SYNCHRNOISED.toString()))
         {
             dde.syncStatus = SyncStatus.PARTIALLY_SYNCHRONISED.toString();
             HerdDatabase.getInstance(context).getHerdDao().UpdateDeathsForDynamicEvent(dde);
         }
+
+
+
+
         updateSyncStatusOfDynamicEvent(context,dde.dynamicEventID);
     }
 

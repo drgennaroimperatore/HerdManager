@@ -125,8 +125,14 @@ public interface HerdDao {
     @Query("SELECT * FROM BirthsForProductivityEvent WHERE BirthsForProductivityEvent.productivityEventID=:productivityEventID")
     List<BirthsForProductivityEvent> getBirthsForProductivityEvent(int productivityEventID);
 
+    @Query("SELECT * FROM BirthsForProductivityEvent WHERE ID=:id LIMIT 1")
+    BirthsForProductivityEvent getBirthsFromProductivityEventByID(int id);
+
     @Query("SELECT * FROM DynamicEvent WHERE DynamicEvent.herdVisitID =:herdVisitID")
     List<DynamicEvent> getDynamicEventForVisit(int herdVisitID);
+
+    @Query("SELECT * FROM AnimalMovementsForDynamicEvent WHERE ID=:id LIMIT 1")
+    AnimalMovementsForDynamicEvent getAnimalMovementForDynamicEventByID(int id);
 
     @Query("SELECT * FROM AnimalMovementsForDynamicEvent WHERE AnimalMovementsForDynamicEvent.dynamicEventID =:dynamicEventID")
     List<AnimalMovementsForDynamicEvent> getAnimalMovementsForDynamicEvent(int dynamicEventID);
@@ -134,10 +140,13 @@ public interface HerdDao {
     @Query("SELECT * FROM DeathsForDynamicEvent WHERE DeathsForDynamicEvent.dynamicEventID =:dynamicEventID")
     List<DeathsForDynamicEvent> getDeathsForDynamicEvent(int dynamicEventID);
 
+    @Query("SELECT * FROM DeathsForDynamicEvent WHERE ID=:id")
+    DeathsForDynamicEvent getDeathsForDynamicEventByID(int id);
+
     @Query("SELECT * FROM Farmer WHERE Farmer.firstName Like '%' || :name || '%' OR Farmer.secondName Like '%' || :name || '%' ")
     List<Farmer> getFarmerbyName(String name);
 
-    @Query("SELECT ID FROM `HerdVisit` WHERE HerdVisitDate = (SELECT MAX(HerdVisitDate) FROM HerdVisit) and HerdID= :herdID")
+    @Query("SELECT ID FROM `HerdVisit` WHERE HerdVisitDate = (SELECT MAX(HerdVisitDate) FROM HerdVisit WHERE HerdID=:herdID) and HerdID=:herdID")
     long getIDOflatestVisitForHerd(int herdID);
 
     @Insert

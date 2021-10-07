@@ -511,12 +511,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     public boolean addNewDiseaseToExisting(DiseasesForHealthEvent dhe, ArrayList<SignsForDiseasesForHealthEvent> sfdhe)
     {
-        /*for(DiseasesForHealthEvent d:mDiseaseList)
-            if(dhe.equals(d))
-            {
-                return true;
-            }
-*/
+
         mDiseaseList.add(dhe);
         setSignsForSingleAnimalDiagnosis(sfdhe);
         notifyDataSetChanged();

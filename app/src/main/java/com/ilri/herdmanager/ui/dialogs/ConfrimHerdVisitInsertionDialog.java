@@ -81,8 +81,8 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
                 mVisitDate =  new Date(c.getTimeInMillis());
             }
         });
-       final int[] changes = calculateHerdChanges();
-       final int[] currentSize = getCurrentHerdSize();
+       final int[] changes = HerdVisitManager.getInstance().calculateHerdChanges(mContext,mHerdID,mDce,mPce);
+       final int[] currentSize = HerdVisitManager.getInstance().getCurrentHerdSize(mContext,mHerdID);
 
         currentBabiesTV = findViewById(R.id.dialog_herd_changes_current_babies_textView);
         currentYoungTV = findViewById(R.id.dialog_herd_changes_current_young_textView);
@@ -120,7 +120,7 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
               int nYoung = changes[1];
               int nOld = changes[2];
 
-              if(isVisitDateValid()) {
+              if(HerdVisitManager.getInstance().isVisitDateValid(mContext,mHerdID,mVisitDate)) {
 
                   HerdVisitManager.getInstance().addVisitToHerd(
                           mContext,
@@ -146,124 +146,5 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
 
     }
 
-    public int[] calculateHerdChanges()
-    {
-        int[] herdChanges= new int[3];
 
-        int nBabies=0; int nYoung=0; int nOld=0;
-
-        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
-      List<HerdVisit> visitList=  dao.getAllHerdVisitsByHerdID(mHerdID);
-        Herd herd = dao.getHerdByID(mHerdID).get(0);
-      if(visitList.size()>0) {
-
-          HerdVisit currentVisit = visitList.get(0);
-
-          nBabies = currentVisit.babiesAtVisit;
-          nYoung = currentVisit.youngAtVisit;
-          nOld = currentVisit.oldAtVisit;
-      }
-      else
-      {
-          nBabies = herd.nBabies;
-          nYoung = herd.nYoung;
-          nOld = herd.nOld;
-      }
-
-        for(DeathsForDynamicEvent d:mDce.mDeaths)
-        {
-            nBabies = nBabies-d.deadBabies;
-            nYoung = nYoung -d.deadYoung;
-            nOld = nOld -d.deadOld;
-        }
-
-      AnimalMovementsForDynamicEvent ame = mDce.mMovements;
-
-        nBabies = nBabies-ame.soldBabies;
-        nBabies = nBabies-ame.lostBabies;
-        nBabies = nBabies+ame.boughtBabies;
-
-        nYoung = nYoung-ame.soldYoung;
-        nYoung = nYoung-ame.lostYoung;
-        nYoung = nYoung+ame.boughtYoung;
-
-        nOld = nOld -ame.soldOld;
-        nOld = nOld - ame.lostOld;
-        nOld = nOld + ame.boughtOld;
-
-        BirthsForProductivityEvent bpe = mPce.birthsForProductivityEvent;
-        nBabies+= bpe.nOfBirths;
-
-        if(nBabies<0)
-            nBabies=0;
-        if(nYoung<0)
-            nYoung=0;
-        if(nOld<0)
-            nOld=0;
-
-        herdChanges[0] =nBabies;
-        herdChanges[1] =nYoung;
-        herdChanges[2] =nOld;
-
-        return herdChanges;
-
-    }
-
-    public int[] getCurrentHerdSize()
-    {
-        int[] herdSize= new int[3];
-
-
-        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
-        Herd herd = dao.getHerdByID(mHerdID).get(0);
-        List<HerdVisit> herdVisits = dao.getAllHerdVisitsByHerdID(mHerdID);
-
-        if(herdVisits.size()>0)
-        {
-            HerdVisit hv = herdVisits.get(0);
-            herdSize[0] = hv.babiesAtVisit;
-            herdSize[1] = hv.youngAtVisit;
-            herdSize[2] = hv.oldAtVisit;
-        }
-        else
-        {
-            herdSize[0] = herd.nBabies;
-            herdSize[1] = herd.nYoung;
-            herdSize[2] = herd.nOld;
-        }
-
-        return herdSize;
-    }
-
-    public boolean isVisitDateValid()
-    {
-        HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
-       List<HerdVisit> visits = dao.getAllHerdVisitsByHerdID(mHerdID);
-
-       if(visits.size()==0)
-           return true;
-       HerdVisit lastVisitInserted= visits.get(0);
-
-        Date lastVisitDate = lastVisitInserted.HerdVisitDate;
-
-        Calendar lastVisitcalendar = Calendar.getInstance();
-        lastVisitcalendar.setTime( lastVisitDate );
-        lastVisitcalendar.set(Calendar.HOUR_OF_DAY, 0);
-        lastVisitcalendar.set(Calendar.MINUTE, 0);
-        lastVisitcalendar.set(Calendar.SECOND, 0);
-        lastVisitcalendar.set(Calendar.MILLISECOND, 0);
-
-       lastVisitDate= lastVisitcalendar.getTime();
-       lastVisitcalendar.setTime(mVisitDate);
-       lastVisitcalendar.set(Calendar.HOUR_OF_DAY, 0);
-       lastVisitcalendar.set(Calendar.MINUTE, 0);
-       lastVisitcalendar.set(Calendar.SECOND, 0);
-       lastVisitcalendar.set(Calendar.MILLISECOND, 0);
-       mVisitDate = lastVisitcalendar.getTime();
-
-       if(mVisitDate.equals(lastVisitDate))
-           return false;
-
-       return (lastVisitDate.before(mVisitDate));
-    }
 }
