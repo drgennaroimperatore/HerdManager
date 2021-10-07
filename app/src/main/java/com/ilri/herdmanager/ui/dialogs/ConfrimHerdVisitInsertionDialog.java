@@ -214,7 +214,6 @@ public class ConfrimHerdVisitInsertionDialog extends Dialog {
         int[] herdSize= new int[3];
 
 
-
         HerdDao dao = HerdDatabase.getInstance(mContext).getHerdDao();
         Herd herd = dao.getHerdByID(mHerdID).get(0);
         List<HerdVisit> herdVisits = dao.getAllHerdVisitsByHerdID(mHerdID);

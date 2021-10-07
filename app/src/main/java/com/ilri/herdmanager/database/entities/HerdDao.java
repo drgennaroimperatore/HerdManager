@@ -137,6 +137,9 @@ public interface HerdDao {
     @Query("SELECT * FROM Farmer WHERE Farmer.firstName Like '%' || :name || '%' OR Farmer.secondName Like '%' || :name || '%' ")
     List<Farmer> getFarmerbyName(String name);
 
+    @Query("SELECT ID FROM `HerdVisit` WHERE HerdVisitDate = (SELECT MAX(HerdVisitDate) FROM HerdVisit) and HerdID= :herdID")
+    long getIDOflatestVisitForHerd(int herdID);
+
     @Insert
     long InsertHerdVisit(HerdVisit visit);
 

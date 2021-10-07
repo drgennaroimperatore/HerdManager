@@ -2,6 +2,7 @@ package com.ilri.herdmanager.ui.main;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,18 +32,22 @@ import com.ilri.herdmanager.R;
 import com.ilri.herdmanager.classes.DynamicEventContainer;
 import com.ilri.herdmanager.classes.HealthEventContainer;
 import com.ilri.herdmanager.classes.ProductivityEventContainer;
+import com.ilri.herdmanager.database.entities.HerdDao;
 import com.ilri.herdmanager.database.entities.HerdDatabase;
 import com.ilri.herdmanager.database.entities.HerdVisit;
 import com.ilri.herdmanager.managers.HerdVisitManager;
 import com.ilri.herdmanager.ui.MainActivity;
 import com.ilri.herdmanager.ui.dialogs.ConfrimHerdVisitInsertionDialog;
 import com.ilri.herdmanager.ui.dialogs.ErrorDialog;
+import com.ilri.herdmanager.ui.dialogs.ErrorDialogFragment;
 import com.ilri.herdmanager.ui.dialogs.HerdVisitCommentsDialog;
 import com.ilri.herdmanager.ui.dialogs.HerdVisitInfoDialog;
 import com.ilri.herdmanager.ui.main.SectionsPagerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static com.ilri.herdmanager.database.entities.HerdDatabase.getInstance;
 
 public class AddHerdVisitActivity extends AppCompatActivity {
 
@@ -55,7 +60,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         final boolean isRO = getIntent().getBooleanExtra("isReadOnly", false);
         final Date herdVisitDate = (Date) getIntent().getSerializableExtra("herdVisitDate");
         final int herdVisitID = getIntent().getIntExtra("herdVisitID", -145);
-        FragmentManager fm = getSupportFragmentManager();
+        final FragmentManager fm = getSupportFragmentManager();
         Bundle readOnlyArguments = null;
 
         final boolean isReadonly = ((isRO) && (herdVisitDate != null) && (herdVisitID != -155));
@@ -76,13 +81,24 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = findViewById(R.id.fab);
-        Switch editModeSwitch = findViewById(R.id.add_herd_visit_edit_switch);
+        final Switch editModeSwitch = findViewById(R.id.add_herd_visit_edit_switch);
+
+        final Context ctx= this;
 
         editModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+              HerdDao dao= HerdDatabase.getInstance(ctx).getHerdDao();
+              int latestVisitID = (int)dao.getIDOflatestVisitForHerd(herdID);
+              if(herdVisitID==latestVisitID)
                 sectionsPagerAdapter.setEditableinReadOnly(isChecked);
+              else {
+                  new ErrorDialogFragment(ctx, "You can only edit the latest visit for this herd!").show(fm,"dialog");
+                  if(isChecked)
+                      editModeSwitch.setChecked(false);
+
+              }
             }
         });
 
@@ -107,7 +123,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
                         .setAction("Action", null).show();*/
 
                 if (isReadonly) {
-                    HerdVisit visit = HerdDatabase.getInstance(a).getHerdDao().getHerdVisitByID(herdVisitID).get(0);
+                    HerdVisit visit = getInstance(a).getHerdDao().getHerdVisitByID(herdVisitID).get(0);
                     HerdVisitInfoDialog infoDialog = new HerdVisitInfoDialog(a, visit);
                     infoDialog.show();
                 } else {
