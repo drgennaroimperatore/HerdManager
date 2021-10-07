@@ -58,6 +58,14 @@ public class NewProductivityEventBirthsDialog extends DialogFragment {
         final EditText gestatingAnimalsET = view.findViewById(R.id.editText_births_productivity_event_gestating_animals);
         final EditText birthsET = view.findViewById(R.id.editText_births_production_productivity_births);
 
+        birthsET.setHint("0");
+        gestatingAnimalsET.setHint("0");
+
+        if(gestatingAnimalsET.getText().toString().isEmpty())
+            gestatingAnimalsET.setText("0");
+        if(birthsET.getText().toString().isEmpty())
+            birthsET.setText("0");
+
         if (mnGestating>0)
             gestatingAnimalsET.setText(String.valueOf(mnGestating));
         if(mnBirths>0)
@@ -72,6 +80,7 @@ public class NewProductivityEventBirthsDialog extends DialogFragment {
 
                 String gestatingAnimalsStr = gestatingAnimalsET.getText().toString();
                 String birthsStr = birthsET.getText().toString();
+
 
                 if(gestatingAnimalsStr.isEmpty() || birthsStr.isEmpty())
                 {
