@@ -52,17 +52,12 @@ class SyncManager {
     {
         URL url = null;
         try {
-            url = new URL("http://10.0.2.2:61330/Home/"+functionName); // debug string
-          // url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
+           // url = new URL("http://10.0.2.2:61330/Home/"+functionName); // debug string
+           url = new URL("http://herdmanager.d3f.world/Home/"+functionName);
         } catch (Exception e)
         {
 
         }
-        /*Map<String,Object> params = new LinkedHashMap<>();
-        params.put("farmerID", "1");
-        params.put("speciesID", "2");*/
-        // params.put("reply_to_thread", 10394);
-        //params.put("message", "Shark attacks in Botany Bay have gotten out of control. We need more defensive dolphins to protect the schools here, but Mayor Porpoise is too busy stuffing his snout with lobsters. He's so shellfish.");
 
         String response = new String();
         HttpURLConnection conn = null;

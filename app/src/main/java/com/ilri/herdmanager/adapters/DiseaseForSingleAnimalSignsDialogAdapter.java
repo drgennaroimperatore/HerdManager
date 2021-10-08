@@ -39,7 +39,7 @@ public class DiseaseForSingleAnimalSignsDialogAdapter extends ArrayAdapter<Signs
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(R.layout.dialog_disease_signs_list_row,null);
         mSignNameTV = convertView.findViewById(R.id.dialog_disease_signs_list_row_sign_name);
-        String signName = mADDBDao.getSignNameFromID(getItem(position).signID).get(0);
+        String signName = mADDBDao.getSignNameFromIDOLD(getItem(position).signID).get(0);
         mSignNameTV.setText(signName);
         mSignPresenceTV = convertView.findViewById(R.id.dialog_disease_signs_list_row_sign_presence);
         mSignPresenceTV.setText(getItem(position).presence);

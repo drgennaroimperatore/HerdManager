@@ -8,6 +8,7 @@ import androidx.room.RawQuery;
 import androidx.sqlite.db.SupportSQLiteQuery;
 
 import java.util.List;
+import java.util.Map;
 
 @Dao
 public interface ADDBDAO {
@@ -68,6 +69,9 @@ public interface ADDBDAO {
     @Query("SELECT AdditionalSigns.Name FROM AdditionalSigns WHERE AdditionalSigns.Id=:id")
     List<String> getSignNameFromID (int id);
 
+    @Query("SELECT Name FROM signs WHERE Id=:signID ")
+    List<String> getSignNameFromIDOLD(int signID);
+
     @Query("SELECT Animals.Id FROM Animals")
     public List<Integer> TestAnimalsTable();
 
@@ -92,4 +96,6 @@ public interface ADDBDAO {
 
     @Query("SELECT * From Likelihoods WHERE Likelihoods.AnimalId=:animalID AND Likelihoods.SignId = :signID AND Likelihoods.DiseaseId =:diseaseID")
     List<Likelihoods> getLikelihoodValue(int animalID, int signID, int diseaseID);
+
+
 }

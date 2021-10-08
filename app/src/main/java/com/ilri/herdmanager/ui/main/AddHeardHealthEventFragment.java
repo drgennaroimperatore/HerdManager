@@ -317,7 +317,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                         (ArrayList<SignsForDiseasesForHealthEvent>) HerdDatabase.getInstance(getContext()).getHerdDao().getSignsForDiseaseForHealthEvent(d.ID);
                 sfdhe.add(signs);
             }
-            mAdapter.setSignsForSingleDiagnoses(sfdhe);
+          //  mAdapter.setSignsForSingleDiagnoses(sfdhe);
 
 
             List<BodyConditionForHealthEvent> bche = HerdDatabase.getInstance(getContext()).getHerdDao().getBodyConditionForHealthEvent(hv.ID);

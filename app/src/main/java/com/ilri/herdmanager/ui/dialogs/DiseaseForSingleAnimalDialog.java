@@ -94,9 +94,5 @@ public class DiseaseForSingleAnimalDialog extends DialogFragment {
         signsListView.setAdapter(adapter);
 
 
-
-
-      //  String[] dummyDiseases = {"Disease 1", "Disease 2", "Disease 3"};
-
     }
 }

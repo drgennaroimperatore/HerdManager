@@ -284,7 +284,7 @@ public class DiagnoseSingleAnimalActivity extends AppCompatActivity {
 
             for(SignsForDiseasesForHealthEvent sfde: preSigns)
             {
-                String signName = ADDB.getInstance(this).getADDBDAO().getSignNameFromID(sfde.signID).get(0);
+                String signName = ADDB.getInstance(this).getADDBDAO().getSignNameFromIDOLD(sfde.signID).get(0);
                 TextView label = new TextView(this);
                 label.setText(signName);
                 RadioGroup group = new RadioGroup(this);
