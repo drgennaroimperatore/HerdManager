@@ -471,7 +471,7 @@ public class HerdVisitManager {
 
     }
 
-    public void addDeathToExistingDynamicEvent(Context context,
+    public int addDeathToExistingDynamicEvent(Context context,
                                                DeathsForDynamicEvent dde,
                                                int herdVisitID)
     {
@@ -479,7 +479,7 @@ public class HerdVisitManager {
         DynamicEvent dynamicEvent =
                 HerdDatabase.getInstance(context).getHerdDao().getDynamicEventForVisit(herdVisitID).get(0);
         dde.dynamicEventID = dynamicEvent.ID;
-        HerdDatabase.getInstance(context).getHerdDao().InsertDeathForDynamicEvent(dde);
+       int deathID= (int) HerdDatabase.getInstance(context).getHerdDao().InsertDeathForDynamicEvent(dde);
         updateSyncStatusOfDynamicEvent(context,dde.dynamicEventID);
 
         HerdDao dao = HerdDatabase.getInstance(context).getHerdDao();
@@ -499,6 +499,8 @@ public class HerdVisitManager {
             herdVisit.oldAtVisit=0;
 
         dao.UpdateHerdVisit(herdVisit);
+
+        return deathID;
 
     }
 

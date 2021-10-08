@@ -170,8 +170,10 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                         if (mFragment.addDeath(dde)) {
                             Toast.makeText(mContext,"Cause of death was already inserted", Toast.LENGTH_LONG).show();
                         } else {
-                            if(mIsEditingInReadOnly)
-                                HerdVisitManager.getInstance().addDeathToExistingDynamicEvent(getContext(),dde,mHerdVisitID);
+                            if(mIsEditingInReadOnly) {
+                                dde.ID = HerdVisitManager.getInstance().addDeathToExistingDynamicEvent(getContext(), dde, mHerdVisitID);
+
+                            }
                             dismiss();
                         }
                     }
