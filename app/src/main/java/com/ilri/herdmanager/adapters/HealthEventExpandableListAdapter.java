@@ -104,6 +104,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mHerdID=herdID;
         mSignsForSingleDiagnoses = sfdhe;
 
+        //add header rows
+        mHealthIntervention.set(0,new HealthInterventionForHealthEvent());
+
     }
 
     @Override
@@ -181,8 +184,12 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                 convertView = inflater.inflate(R.layout.health_event_body_condition_row,null);
             if(groupPosition==0)
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
-            if(groupPosition==1)
-                convertView = inflater.inflate(R.layout.health_event_health_intervention_row, null);
+            if(groupPosition==1) {
+                if(childPosition==0)
+                convertView = inflater.inflate(R.layout.health_event_health_intervention_row_first_row, null);
+                else
+                    convertView= inflater.inflate(R.layout.health_event_health_intervention_row, null);
+            }
             if(groupPosition==3)
                  convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
 
@@ -261,8 +268,9 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             initialiseBodyConditionList();
         }
 
-        if(groupPosition==1) // health intervention
+        if(groupPosition==1 && childPosition>0) // health intervention
         {
+
             HealthInterventionForHealthEvent healthInterventionForHealthEvent = mHealthIntervention.get(childPosition);
             TextView intervertionNameTV = convertView.findViewById(R.id.health_intervention_row_name_textView);
             String healthInterventionName =  herdDao.getHealthInterventionNameFromID(healthInterventionForHealthEvent.healthInterventionID);
@@ -290,8 +298,8 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
            /* TextView vaccinationNameTV =convertView.findViewById(R.id.health_intervention_row_vaccination_textView);
             vaccinationNameTV.setText(healthInterventionForHealthEvent.vaccinationName);*/
 
-            TextView commentsTV = convertView.findViewById(R.id.health_intervention_row_comment_textView);
-            commentsTV.setVisibility(View.GONE);
+            /*TextView commentsTV = convertView.findViewById(R.id.health_intervention_row_comment_textView);
+            commentsTV.setVisibility(View.GONE);*/
         }
         return convertView;
     }
