@@ -24,6 +24,13 @@
 
     </Spinner>
 
+    <LinearLayout
+        android:id="@+id/dialog_health_intervention_hideable_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
     <Spinner
         android:id="@+id/dialog_health_intervention_vaccination_spinner"
         android:layout_width="match_parent"
@@ -155,5 +162,6 @@
         style="@style/AppTheme.Button">
 
     </Button>
+    </LinearLayout>
 
 </LinearLayout>

@@ -133,11 +133,16 @@ public class HealthInterventionDialog extends DialogFragment
 
        List<String> mHealthInterventionNames = mHerdDAO.getHealthInterventionNames();
        final Spinner healthInterventionSpinner = view.findViewById(R.id.health_intervention_dialog_intervention_spinner);
-       if(mIsEdting)
+        final LinearLayout hideableSection = view.findViewById(R.id.dialog_health_intervention_hideable_section);
+
+       if(mIsEdting) {
            healthInterventionSpinner.setVisibility(View.VISIBLE);
+           hideableSection.setVisibility(View.VISIBLE);
+       }
 
         ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
         healthInterventionSpinner.setAdapter(healthInterventionSpinnerAdapter);
+        healthInterventionSpinnerAdapter.insert("Click here to Select an Intervention",0);
         final int healthInterventionCount = healthInterventionSpinnerAdapter.getCount();
 
         final Spinner vaccinationSpinners = view.findViewById(R.id.dialog_health_intervention_vaccination_spinner);
@@ -150,17 +155,26 @@ public class HealthInterventionDialog extends DialogFragment
 
        final LinearLayout comentsSection = view.findViewById(R.id.dialog_health_intervention_comments_section);
 
+
         healthInterventionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
                 comentsSection.setVisibility(View.GONE);
+
                 if(position==0)
+                    hideableSection.setVisibility(View.INVISIBLE);
+                else
+                    hideableSection.setVisibility(View.VISIBLE);
+
+                if(position== healthInterventionCount-1)
                 {
                     vaccinationSpinners.setVisibility(View.VISIBLE);
                 }
                 else
                 {
-                    if(position == healthInterventionCount-1)
+                    if(healthInterventionSpinner.getItemAtPosition(position).toString().startsWith("Other"))
                         comentsSection.setVisibility(View.VISIBLE);
                     vaccinationSpinners.setVisibility(View.GONE);
                 }

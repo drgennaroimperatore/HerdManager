@@ -95,7 +95,7 @@ public interface HerdDao {
     @Update
     void UpdateBodyConditionForHealthEvent(BodyConditionForHealthEvent bhce);
 
-    @Query("SELECT name FROM HealthIntervention")
+    @Query("SELECT name FROM HealthIntervention ORDER BY name ASC")
     List<String> getHealthInterventionNames();
 
     @Query("SELECT name FROM HealthIntervention WHERE HealthIntervention.ID=:id LIMIT 1 ")
@@ -104,7 +104,7 @@ public interface HerdDao {
     @Query("SELECT ID FROM HealthIntervention WHERE HealthIntervention.name =:name LIMIT 1")
     int getHealthInterventionIDFromName(String name);
 
-    @Query("SELECT * FROM HealthIntervention")
+    @Query("SELECT * FROM HealthIntervention ORDER BY name ASC")
     List<HealthIntervention> getAllHealthInterventions();
 
     @Query("SELECT * FROM VaccinesForSpecies")
