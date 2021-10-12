@@ -60,7 +60,6 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
     public int getChildrenCount(int groupPosition) {
 
         int childSize =0;
-
         if(groupPosition==0)
             return 1;
         if(groupPosition ==1)
@@ -100,11 +99,17 @@ public class DynamicEventExpandableListAdapter extends BaseExpandableListAdapter
 
         View view = convertView;
 
-        if(view== null)
-        {
+        if(!isExpanded)
             view = inflater.inflate(R.layout.herd_event_list_header,null);
-
+        else
+        {
+            if(groupPosition==1)
+                view= inflater.inflate(R.layout.herd_event_list_deaths_header,null);
+            else
+                view = inflater.inflate(R.layout.herd_event_list_header,null);
         }
+
+
         TextView headerTitle = view.findViewById(R.id.health_event_header_textView);
         headerTitle.setText(mHeaders.get(groupPosition));
 

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Sign Name"
         style="@style/RowHeaderTextStyle"
+        android:gravity="center"
         android:textColor="@color/white"/>
 
 

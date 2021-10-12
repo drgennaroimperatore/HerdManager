@@ -169,7 +169,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
                     view = inflater.inflate(R.layout.herd_event_list_header, null);
             }
 
-            
+
         TextView header = view.findViewById(R.id.health_event_header_textView);
         header.setText(mGroupHeaders.get(groupPosition));
 //
