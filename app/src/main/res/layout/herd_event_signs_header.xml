@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:layout_marginTop="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/health_event_header_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        style="@style/BlackExpandableListHeading"
+        android:layout_weight="0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/black"
+        android:layout_weight="0.5">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/placeholder_hesr_young"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
+                android:text="P.Wnd" />
+
+            <TextView
+                android:id="@+id/heading_number_of_affected_by_sign_young_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
+                android:text="Young" />
+
+            <TextView
+                android:id="@+id/heading_number_of_affected_old_text_view_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/RowSubHeaderTextStyle"
+                android:text="Adult" />
+
+        </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -104,8 +104,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         mHerdID=herdID;
         mSignsForSingleDiagnoses = sfdhe;
 
-        //add header rows
-        mHealthIntervention.set(0,new HealthInterventionForHealthEvent());
+
 
     }
 
@@ -128,7 +127,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public Object getGroup(int groupPosition)  {
-        groupPosition=1;
+       // groupPosition=1;
         return mGroupHeaders.get(groupPosition);
     }
 
@@ -159,13 +158,18 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
         View view = convertView;
 
 
-        if(view== null)
-        {
+
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.herd_event_list_header,null);
+            if(!isExpanded)
+                view = inflater.inflate(R.layout.herd_event_list_header,null);
+            else {
+                if (groupPosition == 0 || groupPosition == 1)
+                    view = inflater.inflate(R.layout.herd_event_signs_header, null);
+                else if (groupPosition == 2 || groupPosition == 3)
+                    view = inflater.inflate(R.layout.herd_event_list_header, null);
+            }
 
-        }
-
+            
         TextView header = view.findViewById(R.id.health_event_header_textView);
         header.setText(mGroupHeaders.get(groupPosition));
 //
@@ -180,15 +184,16 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
       //  {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            if(groupPosition==2)
+            if(groupPosition==2)// body condition
                 convertView = inflater.inflate(R.layout.health_event_body_condition_row,null);
-            if(groupPosition==0)
+            if(groupPosition==0) // signs
+            {
+
                 convertView = inflater.inflate(R.layout.herd_health_event_signs_row, null);
-            if(groupPosition==1) {
-                if(childPosition==0)
-                convertView = inflater.inflate(R.layout.health_event_health_intervention_row_first_row, null);
-                else
-                    convertView= inflater.inflate(R.layout.health_event_health_intervention_row, null);
+            }
+            if(groupPosition==1) // health intervention
+            {
+              convertView= inflater.inflate(R.layout.health_event_health_intervention_row, null);
             }
             if(groupPosition==3)
                  convertView = inflater.inflate(R.layout.herd_health_event_disease_row, null);
@@ -268,7 +273,7 @@ public class HealthEventExpandableListAdapter extends BaseExpandableListAdapter 
             initialiseBodyConditionList();
         }
 
-        if(groupPosition==1 && childPosition>0) // health intervention
+        if(groupPosition==1) // health intervention
         {
 
             HealthInterventionForHealthEvent healthInterventionForHealthEvent = mHealthIntervention.get(childPosition);
