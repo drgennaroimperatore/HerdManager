@@ -10,8 +10,7 @@
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +66,7 @@
         android:layout_height="408dp"
         android:scrollbars="horizontal"
         android:longClickable="true"
-        android:layout_marginTop="10dp" >
+         >
 
     </ExpandableListView>
 

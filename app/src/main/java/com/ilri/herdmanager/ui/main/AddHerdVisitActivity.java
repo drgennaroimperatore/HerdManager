@@ -80,7 +80,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
         viewPager.setOffscreenPageLimit(3);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
+     final   FloatingActionButton fab = findViewById(R.id.fab);
         final Switch editModeSwitch = findViewById(R.id.add_herd_visit_edit_switch);
 
         final Context ctx= this;
@@ -91,6 +91,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
 
               HerdDao dao= HerdDatabase.getInstance(ctx).getHerdDao();
               int latestVisitID = (int)dao.getIDOflatestVisitForHerd(herdID);
+
               if(herdVisitID==latestVisitID)
                 sectionsPagerAdapter.setEditableinReadOnly(isChecked);
               else {
@@ -111,6 +112,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
             String selectedDate = sdf.format(herdVisitDate);
             titleTV.setText("Herd Visit of the " + selectedDate);
             //fab.setVisibility(View.GONE); // hide the button if we are in read only mode
+            fab.setBackgroundResource(R.drawable.ic_info);
         }
 
         final AddHerdVisitActivity a = this;
@@ -125,6 +127,7 @@ public class AddHerdVisitActivity extends AppCompatActivity {
                 if (isReadonly) {
                     HerdVisit visit = getInstance(a).getHerdDao().getHerdVisitByID(herdVisitID).get(0);
                     HerdVisitInfoDialog infoDialog = new HerdVisitInfoDialog(a, visit);
+
                     infoDialog.show();
                 } else {
                     final HealthEventContainer hce = sectionsPagerAdapter.getHealthEventForVisit();
