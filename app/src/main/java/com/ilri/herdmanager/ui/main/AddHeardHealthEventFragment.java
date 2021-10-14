@@ -553,7 +553,7 @@ public class AddHeardHealthEventFragment extends Fragment implements LifecycleOb
                                                                                 int babies,
                                                                                 int young,
                                                                                 int adult) {
-        diseaseName = diseaseName.split(":")[0].toUpperCase().trim();
+        diseaseName = diseaseName.split(":")[0].trim();
         ADDBDAO addbdao = ADDB.getInstance(getContext()).getADDBDAO();
         DiseasesForHealthEvent dhe = new DiseasesForHealthEvent();
         int diseaseID = addbdao.getDiseaseIDFromName(diseaseName).get(0);

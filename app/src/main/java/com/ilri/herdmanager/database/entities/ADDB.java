@@ -79,7 +79,7 @@ import static android.database.sqlite.SQLiteDatabase.CONFLICT_IGNORE;
         private static ADDB buildDB(Context context)
         {
             return Room.databaseBuilder(context, ADDB.class, "ADDB").addCallback(mDBCallback)
-                    .createFromAsset("ADDB.db").addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
+                    .createFromAsset("ADDB2.db").addMigrations(MIGRATION_1_2).allowMainThreadQueries().build();
         }
 
         public static ADDB getInstance(Context context) {
