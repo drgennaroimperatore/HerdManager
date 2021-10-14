@@ -61,7 +61,9 @@ public class NewFarmerDialog extends Dialog {
         final ArrayList<String> regionsOfEthi = LocationData.getInstance().getRegions();
         final LinkedList<String> abbrRegions= new LinkedList<>();
 
-        regionsOfEthi.add(0,"Please Select a Region");
+        String pleaseSelect = "Please Select a Region";
+        if(!regionsOfEthi.contains(pleaseSelect))
+            regionsOfEthi.add(0,pleaseSelect);
        abbrRegions.addAll(regionsOfEthi); // we want to make sure this is a copy and not a reference
 
         for(String r: regionsOfEthi)

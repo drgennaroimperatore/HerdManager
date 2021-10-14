@@ -25,19 +25,19 @@ public class BodyConditionRowContainer
         m_LevelTv = new TextView(ctx);
         m_LevelTv.setLayoutParams(params);
         m_LevelTv.setGravity(Gravity.CENTER_HORIZONTAL);
-        m_LevelTv.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        m_LevelTv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
         m_nAffBabiesTV = new TextView(ctx);
         m_nAffBabiesTV.setLayoutParams(params);
         m_nAffBabiesTV.setGravity(Gravity.CENTER_HORIZONTAL);
-        m_nAffBabiesTV.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        m_nAffBabiesTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
         m_nAffYoungTV= new TextView(ctx);
         m_nAffYoungTV.setLayoutParams(params);
         m_nAffYoungTV.setGravity(Gravity.CENTER_HORIZONTAL);
-        m_nAffYoungTV.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        m_nAffYoungTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
         m_nAffOldTV = new TextView(ctx);
         m_nAffOldTV.setLayoutParams(params);
         m_nAffOldTV.setGravity(Gravity.CENTER_HORIZONTAL);
-        m_nAffOldTV.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        m_nAffOldTV.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
     }
     public TableRow generateTableRow(int level, int nBabies, int nYoung, int nOld)
     {

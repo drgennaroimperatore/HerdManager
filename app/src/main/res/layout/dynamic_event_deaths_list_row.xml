@@ -48,7 +48,7 @@
 
             <TextView
                 android:id="@+id/dynamic_event_death_row_number_of_affected_babies_text_view"
-                style="@style/RowContentTextStyle"
+                style="@style/RowSubHeaderTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -56,7 +56,7 @@
 
             <TextView
                 android:id="@+id/dynamic_event_death_row_number_of_affected_young_text_view"
-                style="@style/RowContentTextStyle"
+                style="@style/RowSubHeaderTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -64,7 +64,7 @@
 
             <TextView
                 android:id="@+id/dynamic_event_death_row_number_of_affected_old_text_view"
-                style="@style/RowContentTextStyle"
+                style="@style/RowSubHeaderTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"

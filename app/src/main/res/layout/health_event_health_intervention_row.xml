@@ -17,7 +17,7 @@
         android:layout_weight="1"
         android:text="Intervention Name"
         android:gravity="center"
-        style="@style/RowHeaderTextStyle">
+        style="@style/RowSubHeaderTextStyle">
     </TextView>
 
         <TextView
