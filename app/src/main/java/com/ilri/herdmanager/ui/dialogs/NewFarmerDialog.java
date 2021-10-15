@@ -2,6 +2,7 @@ package com.ilri.herdmanager.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public class NewFarmerDialog extends Dialog {
 
     public NewFarmerDialog(@NonNull Context context, NewCaseActivity a) {
 
-        super(context);
+        super(context, R.style.AppTheme);
         mNewCaseActivity = a;
     }
 
