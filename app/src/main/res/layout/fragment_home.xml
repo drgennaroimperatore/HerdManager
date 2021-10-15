@@ -5,76 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:background="@color/black">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
         android:orientation="vertical"
         android:layout_margin="10dp"
         android:gravity="center_horizontal">
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:visibility="visible">
         </ImageView>
-        <TextView
-            android:id="@+id/text_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:layout_marginTop="10dp"
-            style="@style/MainMenuText"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.05">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            style="@style/WhiteHeadingTextMedium"
+            android:textStyle="bold"
+            android:text="Welcome to the HEARD mobile app"></TextView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:orientation="vertical"
+        android:gravity="center">
     
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:gravity="left"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="12dp"
+        android:background="@drawable/drawable_main_menu_option">
 
         <ImageButton
             android:id="@+id/add_case_Button"
-            android:layout_width="65dp"
-            android:layout_height="69dp"
-
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/ic_add_case"
             android:backgroundTint="@color/black"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            />
 
         <TextView
             android:id="@+id/textView"
             style="@style/MainMenuText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add New Herd"
-            android:gravity="center"/>
+            android:text="Add\nHerd"
+            android:gravity="center"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:background="@drawable/drawable_main_menu_option"
-        android:layout_gravity="center_vertical">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_margin="10dp">
+        android:gravity="right"
+        android:layout_margin="10dp"
+        android:padding="12dp"
+        android:background="@drawable/drawable_main_menu_option">
         <ImageButton
             android:id="@+id/how_to_use_button"
-            android:layout_width="65dp"
-            android:layout_height="69dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:background="@drawable/ic_tutorial"
             android:backgroundTint="@color/black"
-            android:layout_below="@id/textView2"
+            android:layout_gravity="center"
             android:layout_centerHorizontal="true"/>
 
         <TextView
@@ -83,11 +100,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/add_case_Button"
-            android:layout_marginTop="15dp"
+
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:text="How to Use (Tutorial)" />
+            android:text="About\nHEARD" />
     </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+
+                style="@style/WhiteHeadingTextMedium"
+                android:textStyle="bold"
+                android:text="Version 2.1 (2021)"></TextView>
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
