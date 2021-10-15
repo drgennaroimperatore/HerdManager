@@ -37,20 +37,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/activity_diagnose_results_results_container">
-
     </LinearLayout>
 
-
+</LinearLayout>
+    </ScrollView>
     <Button
         android:id="@+id/activity_diagnose_results_choose_diagnosis_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm Diagnosis"
+        android:layout_gravity="center"
         style="@style/AppTheme.Button">
     </Button>
-</LinearLayout>
-    </ScrollView>
-
 
 
 </LinearLayout>

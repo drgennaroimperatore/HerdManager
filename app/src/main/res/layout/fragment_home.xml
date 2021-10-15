@@ -116,8 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-
-                style="@style/WhiteHeadingTextMedium"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:text="Version 2.1 (2021)"></TextView>
 
