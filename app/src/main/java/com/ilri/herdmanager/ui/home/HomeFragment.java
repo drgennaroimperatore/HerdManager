@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -23,7 +24,7 @@ import com.ilri.herdmanager.ui.dialogs.HowToUseDialog;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private ImageButton mAddCaseButton, mHowToUseButton;
+    private LinearLayout mAddCaseButton, mHowToUseButton;
     private MainActivity mMainActivityReference;
 
 
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mAddCaseButton = (ImageButton) view.findViewById(R.id.add_case_Button);
+        mAddCaseButton = (LinearLayout) view.findViewById(R.id.add_case_Button);
         mAddCaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
                 startActivity(goToNewCaseActivityIntent);
             }
         });
-        mHowToUseButton = (ImageButton) view.findViewById(R.id.how_to_use_button);
+        mHowToUseButton = (LinearLayout) view.findViewById(R.id.how_to_use_button);
         mHowToUseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
