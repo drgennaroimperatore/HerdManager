@@ -136,6 +136,10 @@ public class NewSignEventDialog extends DialogFragment {
             mButtonAddSignToHealthEvent.setText("Edit Sign");
             Button deleteSignButton = view.findViewById(R.id.button_sign_health_delete_sign);
             deleteSignButton.setVisibility(View.VISIBLE);
+///////////////////////TEMPORARY... DELETE IN LATER VERSIONS
+            if(mEditingInReadOnly)
+                deleteSignButton.setVisibility(View.GONE);
+            /////////////////////////////////////////////////////////////
 
             deleteSignButton.setOnClickListener(new View.OnClickListener() {
                 @Override

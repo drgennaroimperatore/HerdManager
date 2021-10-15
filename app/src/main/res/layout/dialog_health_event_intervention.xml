@@ -6,6 +6,7 @@
     android:background="@color/black">
 
     <TextView
+        android:id="@+id/dialog_health_intervention_header_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"

@@ -104,6 +104,9 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
 
         Button addDeathButton = view.findViewById(R.id.button_death_dynamic_add_death);
 
+
+
+
         if(isEditing) {
             causesOfDeathSpinner.setVisibility(View.INVISIBLE);
             addDeathButton.setText("Edit Death");
@@ -112,6 +115,7 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
             heading.setText("Edit "+ mFragment.getDeathCauseName(mPositionToEdit));
 
             Button deleteDeathButton = view.findViewById(R.id.button_death_dynamic_delete_death);
+
             deleteDeathButton.setVisibility(View.VISIBLE);
             deleteDeathButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -120,6 +124,9 @@ public class NewDynamicEventAnimalDeathDialog extends DialogFragment {
                     dismiss();
                 }
             });
+
+            if(mIsEditingInReadOnly)
+                deleteDeathButton.setVisibility(View.GONE);
         }
 
 

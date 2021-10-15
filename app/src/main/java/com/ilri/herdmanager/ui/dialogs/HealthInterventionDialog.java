@@ -138,6 +138,9 @@ public class HealthInterventionDialog extends DialogFragment
        if(mIsEdting) {
            healthInterventionSpinner.setVisibility(View.VISIBLE);
            hideableSection.setVisibility(View.VISIBLE);
+           ((TextView) view.findViewById(R.id.dialog_health_intervention_header_textView)).setText("Edit Intervention");
+
+
        }
 
         ArrayAdapter<String> healthInterventionSpinnerAdapter = new ArrayAdapter(mContext,R.layout.health_event_spinner_item, mHealthInterventionNames);
@@ -199,6 +202,10 @@ public class HealthInterventionDialog extends DialogFragment
 
           Button deleteIntervention = view.findViewById(R.id.dialog_health_intervention_delete_button);
           deleteIntervention.setVisibility(View.VISIBLE);
+
+          ///TEMPORARY CODE.... DELETE LATER WHEN DELETION COMPLETE ON SERVER!!!
+          if(mIsEditingInReadOnly)
+              deleteIntervention.setVisibility(View.GONE);
 
           deleteIntervention.setOnClickListener(new View.OnClickListener() {
               @Override
