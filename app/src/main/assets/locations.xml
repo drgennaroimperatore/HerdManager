@@ -2516,7 +2516,7 @@
         <Kebele ID="30420015" parent_ID="30420" name="Enchini" />
       </Woreda>
     </Zone>
-    <Zone ID="305" parent_ID="3" name="North Shewa">
+    <Zone ID="305" parent_ID="3" name="North Shewa(Amhara)">
       <Woreda ID="30501" parent_ID="305" name="Mida Oromo">
         <Kebele ID="3050101" parent_ID="30501" name="Rema" />
         <Kebele ID="3050102" parent_ID="30501" name="Meranga" />
@@ -7034,7 +7034,7 @@
         <Kebele ID="4052001" parent_ID="40520" name="Holeta Town" />
       </Woreda>
     </Zone>
-    <Zone ID="406" parent_ID="4" name="North Shewa">
+    <Zone ID="406" parent_ID="4" name="North Shewa(Oromiya)">
       <Woreda ID="40601" parent_ID="406" name="Were Jarso">
         <Kebele ID="4060102" parent_ID="40601" name="Goha Tsiyon Town" />
         <Kebele ID="4060103" parent_ID="40601" name="Tulu Milki Town" />

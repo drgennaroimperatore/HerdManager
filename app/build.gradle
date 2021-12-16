@@ -8,7 +8,7 @@ android {
         applicationId "com.ilri.herdmanager"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 11
+        versionCode 14
         versionName "2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
