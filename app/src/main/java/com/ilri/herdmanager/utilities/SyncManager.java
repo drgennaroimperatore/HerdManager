@@ -53,7 +53,7 @@ class SyncManager {
         URL url = null;
         try {
            // url = new URL("http://10.0.2.2:61330/Home/"+functionName); // debug string
-           url = new URL("172.27.1.102/herdmanager/"+functionName);
+           url = new URL("http://213.55.99.126/herdmanager/Home/"+functionName);
         } catch (Exception e)
         {
 
